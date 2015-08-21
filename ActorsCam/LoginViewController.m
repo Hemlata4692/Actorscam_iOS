@@ -11,7 +11,6 @@
 #import "UITextField+Validations.h"
 #import "BSKeyboardControls.h"
 #import "UIView+RoundedCorner.h"
-#import "SWRevealViewController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate,BSKeyboardControlsDelegate>
 {
@@ -46,8 +45,6 @@
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
-    
-    NSLog(@"Login viewcontroller");
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -55,7 +52,11 @@
     [super viewWillAppear:animated];
     
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
+    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+    statusBarView.backgroundColor = [UIColor colorWithRed:83.0/255.0 green:24.0/255.0 blue:152.0/255.0 alpha:1.0];
+    [self.view addSubview:statusBarView];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
 }
@@ -87,7 +88,7 @@
 //    [password resignFirstResponder];
 //    if([self performValidationsForLogin])
 //    {
-//        //        [myDelegate ShowIndicator];
+            //    [myDelegate ShowIndicator];
 //        //        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
 //    }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -98,6 +99,29 @@
     [myDelegate.window makeKeyAndVisible];
 
 }
+
+-(void)loginUser
+{
+    [[WebService sharedManager] userLogin:userName.text Password:password.text success:^(id responseObject) {
+       
+        //[myDelegate StopIndicator];
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        [self.navigationController pushViewController:view1 animated:YES];
+        
+    } failure:^(NSError *error) {
+        
+    }] ;
+    
+    
+    
+}
+
 
 #pragma mark - end
 

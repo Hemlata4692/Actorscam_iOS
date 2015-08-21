@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "MBProgressHUD.h"
+#import "SWRevealViewController.h"
+#import "LoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -15,8 +18,50 @@
 @implementation AppDelegate
 
 
+#pragma mark - Activity indicator
+- (void) ShowIndicator
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+    hud.dimBackground=YES;
+    hud.labelText=@"Loading...";
+}
+
+//Method for stop indicator
+- (void)StopIndicator
+{
+    [MBProgressHUD hideHUDForView:self.window animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - Appdelegate methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header1.png"] forBarMetrics:UIBarMetricsDefault];
+    //set navigation bar button color
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0], NSFontAttributeName, nil]];
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.navigationController = (UINavigationController *)[self.window rootViewController];
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"UserId"]!=nil)
+    {
+        
+        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [self.window setRootViewController:objReveal];
+        [self.window setBackgroundColor:[UIColor whiteColor]];
+        [self.window makeKeyAndVisible];
+    }
+    else
+    {
+        LoginViewController * objLogin = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [self.navigationController setViewControllers: [NSArray arrayWithObject: objLogin]
+                                             animated: YES];
+    }
+
     return YES;
 }
 

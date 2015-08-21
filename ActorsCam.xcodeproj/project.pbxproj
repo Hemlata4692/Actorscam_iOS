@@ -28,6 +28,8 @@
 		B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD841B82103B00C1C0AB /* RegisterViewController.m */; };
 		B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD881B82105300C1C0AB /* LoginViewController.m */; };
 		B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */; };
+		B7AD47461B8726B800D12F33 /* ManagerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AD47451B8726B800D12F33 /* ManagerListViewController.m */; };
+		B7EDA6EE1B870A7D00778749 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */; };
 		B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */; };
 		B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0121B82F09000C54376 /* UITextField+Padding.m */; };
 		B7F5B0181B82F1D700C54376 /* UITextField+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0171B82F1D700C54376 /* UITextField+Validations.m */; };
@@ -86,6 +88,10 @@
 		B789AD881B82105300C1C0AB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ActorsCam/LoginViewController.m; sourceTree = "<group>"; };
 		B789AD8B1B8212E700C1C0AB /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = ActorsCam/ChangePasswordViewController.h; sourceTree = "<group>"; };
 		B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = ActorsCam/ChangePasswordViewController.m; sourceTree = "<group>"; };
+		B7AD47441B8726B800D12F33 /* ManagerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManagerListViewController.h; path = ActorsCam/ManagerListViewController.h; sourceTree = "<group>"; };
+		B7AD47451B8726B800D12F33 /* ManagerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManagerListViewController.m; path = ActorsCam/ManagerListViewController.m; sourceTree = "<group>"; };
+		B7EDA6EC1B870A7D00778749 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B7F5B00C1B82EBE500C54376 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		B7F5B0111B82F09000C54376 /* UITextField+Padding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Padding.h"; sourceTree = "<group>"; };
@@ -164,13 +170,13 @@
 			name = EditProfileView;
 			sourceTree = "<group>";
 		};
-		B70034431B84ADC100263CAD /* AddManagersView */ = {
+		B70034431B84ADC100263CAD /* ManagersView */ = {
 			isa = PBXGroup;
 			children = (
-				B70034441B84ADDD00263CAD /* AddManagerViewController.h */,
-				B70034451B84ADDD00263CAD /* AddManagerViewController.m */,
+				B7AD47491B87286F00D12F33 /* ManagersListCell */,
+				B7AD47481B87286000D12F33 /* ManagersList */,
 			);
-			name = AddManagersView;
+			name = ManagersView;
 			sourceTree = "<group>";
 		};
 		B70034471B84AEB000263CAD /* SideBar */ = {
@@ -277,13 +283,14 @@
 		B789AD801B82100400C1C0AB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B7AD47471B8726BE00D12F33 /* AddManagersView */,
 				B70A59A41B85926A00E1D793 /* GlobalSideBarViewController */,
 				B70A59A51B85927700E1D793 /* GlobalBackViewController */,
 				B789AD861B82104200C1C0AB /* LoginView */,
 				B789AD811B82100D00C1C0AB /* RegisterView */,
 				B700343B1B84ABE800263CAD /* DashboardView */,
 				B789AD8A1B8212C700C1C0AB /* ChangePasswordView */,
-				B70034431B84ADC100263CAD /* AddManagersView */,
+				B70034431B84ADC100263CAD /* ManagersView */,
 				B700343F1B84AD5C00263CAD /* EditProfileView */,
 				B70034471B84AEB000263CAD /* SideBar */,
 				B70034481B84AEB900263CAD /* SWRevealViewController */,
@@ -328,9 +335,44 @@
 			name = ChangePasswordView;
 			sourceTree = "<group>";
 		};
+		B7AD47471B8726BE00D12F33 /* AddManagersView */ = {
+			isa = PBXGroup;
+			children = (
+				B70034441B84ADDD00263CAD /* AddManagerViewController.h */,
+				B70034451B84ADDD00263CAD /* AddManagerViewController.m */,
+			);
+			name = AddManagersView;
+			sourceTree = "<group>";
+		};
+		B7AD47481B87286000D12F33 /* ManagersList */ = {
+			isa = PBXGroup;
+			children = (
+				B7AD47441B8726B800D12F33 /* ManagerListViewController.h */,
+				B7AD47451B8726B800D12F33 /* ManagerListViewController.m */,
+			);
+			name = ManagersList;
+			sourceTree = "<group>";
+		};
+		B7AD47491B87286F00D12F33 /* ManagersListCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ManagersListCell;
+			sourceTree = "<group>";
+		};
+		B7EDA6EB1B870A4D00778749 /* ProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				B7EDA6EC1B870A7D00778749 /* MBProgressHUD.h */,
+				B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */,
+			);
+			name = ProgressBar;
+			sourceTree = "<group>";
+		};
 		B7F5B00F1B82EBEF00C54376 /* HelperClass */ = {
 			isa = PBXGroup;
 			children = (
+				B7EDA6EB1B870A4D00778749 /* ProgressBar */,
 				B7F5B0511B8310C400C54376 /* NullHandler */,
 				B7F5B0101B82EBF700C54376 /* KeyboardControls */,
 			);
@@ -546,6 +588,7 @@
 				B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */,
 				B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */,
 				B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */,
+				B7EDA6EE1B870A7D00778749 /* MBProgressHUD.m in Sources */,
 				B7F5B0181B82F1D700C54376 /* UITextField+Validations.m in Sources */,
 				B700343E1B84AC6B00263CAD /* DashboardViewController.m in Sources */,
 				B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */,
@@ -558,6 +601,7 @@
 				B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */,
 				B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */,
 				B70034301B8496A100263CAD /* UIView+RoundedCorner.m in Sources */,
+				B7AD47461B8726B800D12F33 /* ManagerListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
