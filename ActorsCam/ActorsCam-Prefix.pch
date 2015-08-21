@@ -8,6 +8,7 @@
 
 #ifndef ActorsCam_ActorsCam_Prefix_pch
 #define ActorsCam_ActorsCam_Prefix_pch
+#import <UIKit/UIKit.h>
 
 #import "UIImage+deviceSpecificMedia.h"
 #import "AppDelegate.h"

@@ -46,11 +46,13 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        // [myDelegate StopIndicator];
         failure(error);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
     }];
     
 }
+
+
 
 - (BOOL)isStatusOK:(id)responseObject {
     NSNumber *number = responseObject[@"IsSuccess"];

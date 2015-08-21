@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 
-
 //testing link
 #define BASE_URL                              @"http://52.74.144.192/sureappsvc/Sure.svc"
 
