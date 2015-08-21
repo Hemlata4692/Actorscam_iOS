@@ -46,6 +46,8 @@
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
+    
+    NSLog(@"Login viewcontroller");
 }
 
 -(void)viewWillAppear:(BOOL)animated
