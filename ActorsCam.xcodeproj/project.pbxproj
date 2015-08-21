@@ -1,0 +1,783 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		925A4CE89A60CD02781B27A7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5833CD0E39D9EEAA9DBA37 /* libPods.a */; };
+		B70034301B8496A100263CAD /* UIView+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = B700342F1B8496A100263CAD /* UIView+RoundedCorner.m */; };
+		B70034341B8498EA00263CAD /* WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = B70034331B8498EA00263CAD /* WebService.m */; };
+		B700343E1B84AC6B00263CAD /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700343D1B84AC6B00263CAD /* DashboardViewController.m */; };
+		B70034421B84ADBB00263CAD /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70034411B84ADBB00263CAD /* EditProfileViewController.m */; };
+		B70034461B84ADDD00263CAD /* AddManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70034451B84ADDD00263CAD /* AddManagerViewController.m */; };
+		B700344B1B84AED100263CAD /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700344A1B84AED100263CAD /* SWRevealViewController.m */; };
+		B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700344D1B84AED700263CAD /* SidebarViewController.m */; };
+		B70034521B84B2D000263CAD /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = B700344F1B84B2D000263CAD /* menu.png */; };
+		B70034531B84B2D000263CAD /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B70034501B84B2D000263CAD /* menu@2x.png */; };
+		B70034541B84B2D000263CAD /* menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B70034511B84B2D000263CAD /* menu@3x.png */; };
+		B70A59A81B8592B800E1D793 /* ActorsCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */; };
+		B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59AA1B8592D800E1D793 /* BackViewController.m */; };
+		B789AD5D1B820F3B00C1C0AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD5C1B820F3B00C1C0AB /* main.m */; };
+		B789AD601B820F3B00C1C0AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD5F1B820F3B00C1C0AB /* AppDelegate.m */; };
+		B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B789AD641B820F3B00C1C0AB /* Main.storyboard */; };
+		B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B789AD671B820F3B00C1C0AB /* Images.xcassets */; };
+		B789AD771B820F3B00C1C0AB /* ActorsCamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD761B820F3B00C1C0AB /* ActorsCamTests.m */; };
+		B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD841B82103B00C1C0AB /* RegisterViewController.m */; };
+		B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD881B82105300C1C0AB /* LoginViewController.m */; };
+		B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */; };
+		B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */; };
+		B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0121B82F09000C54376 /* UITextField+Padding.m */; };
+		B7F5B0181B82F1D700C54376 /* UITextField+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0171B82F1D700C54376 /* UITextField+Validations.m */; };
+		B7F5B0501B83109900C54376 /* UIImage+deviceSpecificMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B04F1B83109900C54376 /* UIImage+deviceSpecificMedia.m */; };
+		B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0531B8310D500C54376 /* NullValueChecker.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B789AD711B820F3B00C1C0AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B789AD4F1B820F3B00C1C0AB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B789AD561B820F3B00C1C0AB;
+			remoteInfo = ActorsCam;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		17A6042FB44BB0551E518D31 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B700342E1B8496A100263CAD /* UIView+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RoundedCorner.h"; sourceTree = "<group>"; };
+		B700342F1B8496A100263CAD /* UIView+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RoundedCorner.m"; sourceTree = "<group>"; };
+		B70034321B8498EA00263CAD /* WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebService.h; sourceTree = "<group>"; };
+		B70034331B8498EA00263CAD /* WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebService.m; sourceTree = "<group>"; };
+		B70034361B849AB400263CAD /* ActorsCam-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActorsCam-Prefix.pch"; sourceTree = "<group>"; };
+		B70034391B84A40800263CAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		B700343C1B84AC6B00263CAD /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DashboardViewController.h; path = ActorsCam/DashboardViewController.h; sourceTree = "<group>"; };
+		B700343D1B84AC6B00263CAD /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DashboardViewController.m; path = ActorsCam/DashboardViewController.m; sourceTree = "<group>"; };
+		B70034401B84ADBB00263CAD /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProfileViewController.h; path = ActorsCam/EditProfileViewController.h; sourceTree = "<group>"; };
+		B70034411B84ADBB00263CAD /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProfileViewController.m; path = ActorsCam/EditProfileViewController.m; sourceTree = "<group>"; };
+		B70034441B84ADDD00263CAD /* AddManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddManagerViewController.h; path = ActorsCam/AddManagerViewController.h; sourceTree = "<group>"; };
+		B70034451B84ADDD00263CAD /* AddManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddManagerViewController.m; path = ActorsCam/AddManagerViewController.m; sourceTree = "<group>"; };
+		B70034491B84AED100263CAD /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = ActorsCam/SWRevealViewController.h; sourceTree = "<group>"; };
+		B700344A1B84AED100263CAD /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = ActorsCam/SWRevealViewController.m; sourceTree = "<group>"; };
+		B700344C1B84AED700263CAD /* SidebarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarViewController.h; path = ActorsCam/SidebarViewController.h; sourceTree = "<group>"; };
+		B700344D1B84AED700263CAD /* SidebarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SidebarViewController.m; path = ActorsCam/SidebarViewController.m; sourceTree = "<group>"; };
+		B700344F1B84B2D000263CAD /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		B70034501B84B2D000263CAD /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
+		B70034511B84B2D000263CAD /* menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@3x.png"; sourceTree = "<group>"; };
+		B70A59A61B8592B800E1D793 /* ActorsCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActorsCamViewController.h; path = ActorsCam/ActorsCamViewController.h; sourceTree = "<group>"; };
+		B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActorsCamViewController.m; path = ActorsCam/ActorsCamViewController.m; sourceTree = "<group>"; };
+		B70A59A91B8592D800E1D793 /* BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackViewController.h; path = ActorsCam/BackViewController.h; sourceTree = "<group>"; };
+		B70A59AA1B8592D800E1D793 /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackViewController.m; path = ActorsCam/BackViewController.m; sourceTree = "<group>"; };
+		B789AD571B820F3B00C1C0AB /* ActorsCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActorsCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B789AD5B1B820F3B00C1C0AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B789AD5C1B820F3B00C1C0AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B789AD5E1B820F3B00C1C0AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B789AD5F1B820F3B00C1C0AB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B789AD651B820F3B00C1C0AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B789AD671B820F3B00C1C0AB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B789AD701B820F3B00C1C0AB /* ActorsCamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActorsCamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B789AD751B820F3B00C1C0AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B789AD761B820F3B00C1C0AB /* ActorsCamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActorsCamTests.m; sourceTree = "<group>"; };
+		B789AD831B82103B00C1C0AB /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = ActorsCam/RegisterViewController.h; sourceTree = "<group>"; };
+		B789AD841B82103B00C1C0AB /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = ActorsCam/RegisterViewController.m; sourceTree = "<group>"; };
+		B789AD871B82105300C1C0AB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ActorsCam/LoginViewController.h; sourceTree = "<group>"; };
+		B789AD881B82105300C1C0AB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ActorsCam/LoginViewController.m; sourceTree = "<group>"; };
+		B789AD8B1B8212E700C1C0AB /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = ActorsCam/ChangePasswordViewController.h; sourceTree = "<group>"; };
+		B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = ActorsCam/ChangePasswordViewController.m; sourceTree = "<group>"; };
+		B7F5B00C1B82EBE500C54376 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
+		B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
+		B7F5B0111B82F09000C54376 /* UITextField+Padding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Padding.h"; sourceTree = "<group>"; };
+		B7F5B0121B82F09000C54376 /* UITextField+Padding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Padding.m"; sourceTree = "<group>"; };
+		B7F5B0161B82F1D700C54376 /* UITextField+Validations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Validations.h"; sourceTree = "<group>"; };
+		B7F5B0171B82F1D700C54376 /* UITextField+Validations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Validations.m"; sourceTree = "<group>"; };
+		B7F5B04E1B83109900C54376 /* UIImage+deviceSpecificMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+deviceSpecificMedia.h"; sourceTree = "<group>"; };
+		B7F5B04F1B83109900C54376 /* UIImage+deviceSpecificMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+deviceSpecificMedia.m"; sourceTree = "<group>"; };
+		B7F5B0521B8310D500C54376 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
+		B7F5B0531B8310D500C54376 /* NullValueChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullValueChecker.m; sourceTree = "<group>"; };
+		BC5833CD0E39D9EEAA9DBA37 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B789AD541B820F3B00C1C0AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				925A4CE89A60CD02781B27A7 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B789AD6D1B820F3B00C1C0AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7E3994801AB065291C6B578E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B70034391B84A40800263CAD /* libz.dylib */,
+				BC5833CD0E39D9EEAA9DBA37 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		990A9EBD4ED535D1FDCEBE68 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */,
+				17A6042FB44BB0551E518D31 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B70034311B8496A700263CAD /* CornerRadiusCategory */ = {
+			isa = PBXGroup;
+			children = (
+				B700342E1B8496A100263CAD /* UIView+RoundedCorner.h */,
+				B700342F1B8496A100263CAD /* UIView+RoundedCorner.m */,
+			);
+			name = CornerRadiusCategory;
+			sourceTree = "<group>";
+		};
+		B700343B1B84ABE800263CAD /* DashboardView */ = {
+			isa = PBXGroup;
+			children = (
+				B700343C1B84AC6B00263CAD /* DashboardViewController.h */,
+				B700343D1B84AC6B00263CAD /* DashboardViewController.m */,
+			);
+			name = DashboardView;
+			sourceTree = "<group>";
+		};
+		B700343F1B84AD5C00263CAD /* EditProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				B70034401B84ADBB00263CAD /* EditProfileViewController.h */,
+				B70034411B84ADBB00263CAD /* EditProfileViewController.m */,
+			);
+			name = EditProfileView;
+			sourceTree = "<group>";
+		};
+		B70034431B84ADC100263CAD /* AddManagersView */ = {
+			isa = PBXGroup;
+			children = (
+				B70034441B84ADDD00263CAD /* AddManagerViewController.h */,
+				B70034451B84ADDD00263CAD /* AddManagerViewController.m */,
+			);
+			name = AddManagersView;
+			sourceTree = "<group>";
+		};
+		B70034471B84AEB000263CAD /* SideBar */ = {
+			isa = PBXGroup;
+			children = (
+				B700344C1B84AED700263CAD /* SidebarViewController.h */,
+				B700344D1B84AED700263CAD /* SidebarViewController.m */,
+			);
+			name = SideBar;
+			sourceTree = "<group>";
+		};
+		B70034481B84AEB900263CAD /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B70034491B84AED100263CAD /* SWRevealViewController.h */,
+				B700344A1B84AED100263CAD /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		B70A59A41B85926A00E1D793 /* GlobalSideBarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B70A59A61B8592B800E1D793 /* ActorsCamViewController.h */,
+				B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */,
+			);
+			name = GlobalSideBarViewController;
+			sourceTree = "<group>";
+		};
+		B70A59A51B85927700E1D793 /* GlobalBackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B70A59A91B8592D800E1D793 /* BackViewController.h */,
+				B70A59AA1B8592D800E1D793 /* BackViewController.m */,
+			);
+			name = GlobalBackViewController;
+			sourceTree = "<group>";
+		};
+		B789AD4E1B820F3B00C1C0AB = {
+			isa = PBXGroup;
+			children = (
+				B789AD591B820F3B00C1C0AB /* ActorsCam */,
+				B789AD731B820F3B00C1C0AB /* ActorsCamTests */,
+				B789AD581B820F3B00C1C0AB /* Products */,
+				7E3994801AB065291C6B578E /* Frameworks */,
+				990A9EBD4ED535D1FDCEBE68 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		B789AD581B820F3B00C1C0AB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B789AD571B820F3B00C1C0AB /* ActorsCam.app */,
+				B789AD701B820F3B00C1C0AB /* ActorsCamTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B789AD591B820F3B00C1C0AB /* ActorsCam */ = {
+			isa = PBXGroup;
+			children = (
+				B700344F1B84B2D000263CAD /* menu.png */,
+				B70034501B84B2D000263CAD /* menu@2x.png */,
+				B70034511B84B2D000263CAD /* menu@3x.png */,
+				B789AD821B82102100C1C0AB /* AppDelegate */,
+				B7F5B0551B8310E600C54376 /* Webservice */,
+				B789AD801B82100400C1C0AB /* ViewControllers */,
+				B7F5B00F1B82EBEF00C54376 /* HelperClass */,
+				B7F5B0141B82F09700C54376 /* Category */,
+				B789AD641B820F3B00C1C0AB /* Main.storyboard */,
+				B789AD671B820F3B00C1C0AB /* Images.xcassets */,
+				B789AD5A1B820F3B00C1C0AB /* Supporting Files */,
+			);
+			path = ActorsCam;
+			sourceTree = "<group>";
+		};
+		B789AD5A1B820F3B00C1C0AB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B70034361B849AB400263CAD /* ActorsCam-Prefix.pch */,
+				B789AD5B1B820F3B00C1C0AB /* Info.plist */,
+				B789AD5C1B820F3B00C1C0AB /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B789AD731B820F3B00C1C0AB /* ActorsCamTests */ = {
+			isa = PBXGroup;
+			children = (
+				B789AD761B820F3B00C1C0AB /* ActorsCamTests.m */,
+				B789AD741B820F3B00C1C0AB /* Supporting Files */,
+			);
+			path = ActorsCamTests;
+			sourceTree = "<group>";
+		};
+		B789AD741B820F3B00C1C0AB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B789AD751B820F3B00C1C0AB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B789AD801B82100400C1C0AB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B70A59A41B85926A00E1D793 /* GlobalSideBarViewController */,
+				B70A59A51B85927700E1D793 /* GlobalBackViewController */,
+				B789AD861B82104200C1C0AB /* LoginView */,
+				B789AD811B82100D00C1C0AB /* RegisterView */,
+				B700343B1B84ABE800263CAD /* DashboardView */,
+				B789AD8A1B8212C700C1C0AB /* ChangePasswordView */,
+				B70034431B84ADC100263CAD /* AddManagersView */,
+				B700343F1B84AD5C00263CAD /* EditProfileView */,
+				B70034471B84AEB000263CAD /* SideBar */,
+				B70034481B84AEB900263CAD /* SWRevealViewController */,
+			);
+			name = ViewControllers;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		B789AD811B82100D00C1C0AB /* RegisterView */ = {
+			isa = PBXGroup;
+			children = (
+				B789AD831B82103B00C1C0AB /* RegisterViewController.h */,
+				B789AD841B82103B00C1C0AB /* RegisterViewController.m */,
+			);
+			name = RegisterView;
+			sourceTree = "<group>";
+		};
+		B789AD821B82102100C1C0AB /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				B789AD5E1B820F3B00C1C0AB /* AppDelegate.h */,
+				B789AD5F1B820F3B00C1C0AB /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		B789AD861B82104200C1C0AB /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				B789AD871B82105300C1C0AB /* LoginViewController.h */,
+				B789AD881B82105300C1C0AB /* LoginViewController.m */,
+			);
+			name = LoginView;
+			sourceTree = "<group>";
+		};
+		B789AD8A1B8212C700C1C0AB /* ChangePasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				B789AD8B1B8212E700C1C0AB /* ChangePasswordViewController.h */,
+				B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */,
+			);
+			name = ChangePasswordView;
+			sourceTree = "<group>";
+		};
+		B7F5B00F1B82EBEF00C54376 /* HelperClass */ = {
+			isa = PBXGroup;
+			children = (
+				B7F5B0511B8310C400C54376 /* NullHandler */,
+				B7F5B0101B82EBF700C54376 /* KeyboardControls */,
+			);
+			name = HelperClass;
+			sourceTree = "<group>";
+		};
+		B7F5B0101B82EBF700C54376 /* KeyboardControls */ = {
+			isa = PBXGroup;
+			children = (
+				B7F5B00C1B82EBE500C54376 /* BSKeyboardControls.h */,
+				B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */,
+			);
+			name = KeyboardControls;
+			sourceTree = "<group>";
+		};
+		B7F5B0141B82F09700C54376 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B70034311B8496A700263CAD /* CornerRadiusCategory */,
+				B7F5B04D1B83107F00C54376 /* UIImageCategory */,
+				B7F5B0191B82F1E300C54376 /* ValidationCategory */,
+				B7F5B0151B82F0A200C54376 /* PaddingCategory */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		B7F5B0151B82F0A200C54376 /* PaddingCategory */ = {
+			isa = PBXGroup;
+			children = (
+				B7F5B0111B82F09000C54376 /* UITextField+Padding.h */,
+				B7F5B0121B82F09000C54376 /* UITextField+Padding.m */,
+			);
+			name = PaddingCategory;
+			sourceTree = "<group>";
+		};
+		B7F5B0191B82F1E300C54376 /* ValidationCategory */ = {
+			isa = PBXGroup;
+			children = (
+				B7F5B0161B82F1D700C54376 /* UITextField+Validations.h */,
+				B7F5B0171B82F1D700C54376 /* UITextField+Validations.m */,
+			);
+			name = ValidationCategory;
+			sourceTree = "<group>";
+		};
+		B7F5B04D1B83107F00C54376 /* UIImageCategory */ = {
+			isa = PBXGroup;
+			children = (
+				B7F5B04E1B83109900C54376 /* UIImage+deviceSpecificMedia.h */,
+				B7F5B04F1B83109900C54376 /* UIImage+deviceSpecificMedia.m */,
+			);
+			name = UIImageCategory;
+			sourceTree = "<group>";
+		};
+		B7F5B0511B8310C400C54376 /* NullHandler */ = {
+			isa = PBXGroup;
+			children = (
+				B7F5B0521B8310D500C54376 /* NullValueChecker.h */,
+				B7F5B0531B8310D500C54376 /* NullValueChecker.m */,
+			);
+			name = NullHandler;
+			sourceTree = "<group>";
+		};
+		B7F5B0551B8310E600C54376 /* Webservice */ = {
+			isa = PBXGroup;
+			children = (
+				B70034321B8498EA00263CAD /* WebService.h */,
+				B70034331B8498EA00263CAD /* WebService.m */,
+			);
+			name = Webservice;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B789AD561B820F3B00C1C0AB /* ActorsCam */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B789AD7A1B820F3B00C1C0AB /* Build configuration list for PBXNativeTarget "ActorsCam" */;
+			buildPhases = (
+				536D37898216975796D1A47B /* Check Pods Manifest.lock */,
+				B789AD531B820F3B00C1C0AB /* Sources */,
+				B789AD541B820F3B00C1C0AB /* Frameworks */,
+				B789AD551B820F3B00C1C0AB /* Resources */,
+				F1E01DF866D78C707E5DA93B /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ActorsCam;
+			productName = ActorsCam;
+			productReference = B789AD571B820F3B00C1C0AB /* ActorsCam.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B789AD6F1B820F3B00C1C0AB /* ActorsCamTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B789AD7D1B820F3B00C1C0AB /* Build configuration list for PBXNativeTarget "ActorsCamTests" */;
+			buildPhases = (
+				B789AD6C1B820F3B00C1C0AB /* Sources */,
+				B789AD6D1B820F3B00C1C0AB /* Frameworks */,
+				B789AD6E1B820F3B00C1C0AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B789AD721B820F3B00C1C0AB /* PBXTargetDependency */,
+			);
+			name = ActorsCamTests;
+			productName = ActorsCamTests;
+			productReference = B789AD701B820F3B00C1C0AB /* ActorsCamTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B789AD4F1B820F3B00C1C0AB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = Ranosys;
+				TargetAttributes = {
+					B789AD561B820F3B00C1C0AB = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					B789AD6F1B820F3B00C1C0AB = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = B789AD561B820F3B00C1C0AB;
+					};
+				};
+			};
+			buildConfigurationList = B789AD521B820F3B00C1C0AB /* Build configuration list for PBXProject "ActorsCam" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B789AD4E1B820F3B00C1C0AB;
+			productRefGroup = B789AD581B820F3B00C1C0AB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B789AD561B820F3B00C1C0AB /* ActorsCam */,
+				B789AD6F1B820F3B00C1C0AB /* ActorsCamTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B789AD551B820F3B00C1C0AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B70034541B84B2D000263CAD /* menu@3x.png in Resources */,
+				B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */,
+				B70034531B84B2D000263CAD /* menu@2x.png in Resources */,
+				B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */,
+				B70034521B84B2D000263CAD /* menu.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B789AD6E1B820F3B00C1C0AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		536D37898216975796D1A47B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F1E01DF866D78C707E5DA93B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B789AD531B820F3B00C1C0AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B789AD601B820F3B00C1C0AB /* AppDelegate.m in Sources */,
+				B789AD5D1B820F3B00C1C0AB /* main.m in Sources */,
+				B70034421B84ADBB00263CAD /* EditProfileViewController.m in Sources */,
+				B70034461B84ADDD00263CAD /* AddManagerViewController.m in Sources */,
+				B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */,
+				B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */,
+				B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */,
+				B7F5B0181B82F1D700C54376 /* UITextField+Validations.m in Sources */,
+				B700343E1B84AC6B00263CAD /* DashboardViewController.m in Sources */,
+				B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */,
+				B70034341B8498EA00263CAD /* WebService.m in Sources */,
+				B70A59A81B8592B800E1D793 /* ActorsCamViewController.m in Sources */,
+				B7F5B0501B83109900C54376 /* UIImage+deviceSpecificMedia.m in Sources */,
+				B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */,
+				B700344B1B84AED100263CAD /* SWRevealViewController.m in Sources */,
+				B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */,
+				B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */,
+				B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */,
+				B70034301B8496A100263CAD /* UIView+RoundedCorner.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B789AD6C1B820F3B00C1C0AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B789AD771B820F3B00C1C0AB /* ActorsCamTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B789AD721B820F3B00C1C0AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B789AD561B820F3B00C1C0AB /* ActorsCam */;
+			targetProxy = B789AD711B820F3B00C1C0AB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B789AD641B820F3B00C1C0AB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B789AD651B820F3B00C1C0AB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B789AD781B820F3B00C1C0AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B789AD791B820F3B00C1C0AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B789AD7B1B820F3B00C1C0AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				INFOPLIST_FILE = ActorsCam/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B789AD7C1B820F3B00C1C0AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17A6042FB44BB0551E518D31 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				INFOPLIST_FILE = ActorsCam/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B789AD7E1B820F3B00C1C0AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ActorsCamTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ActorsCam.app/ActorsCam";
+			};
+			name = Debug;
+		};
+		B789AD7F1B820F3B00C1C0AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17A6042FB44BB0551E518D31 /* Pods.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				INFOPLIST_FILE = ActorsCamTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ActorsCam.app/ActorsCam";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B789AD521B820F3B00C1C0AB /* Build configuration list for PBXProject "ActorsCam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B789AD781B820F3B00C1C0AB /* Debug */,
+				B789AD791B820F3B00C1C0AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B789AD7A1B820F3B00C1C0AB /* Build configuration list for PBXNativeTarget "ActorsCam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B789AD7B1B820F3B00C1C0AB /* Debug */,
+				B789AD7C1B820F3B00C1C0AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B789AD7D1B820F3B00C1C0AB /* Build configuration list for PBXNativeTarget "ActorsCamTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B789AD7E1B820F3B00C1C0AB /* Debug */,
+				B789AD7F1B820F3B00C1C0AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B789AD4F1B820F3B00C1C0AB /* Project object */;
+}
