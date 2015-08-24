@@ -91,12 +91,6 @@
                 [myDelegate ShowIndicator];
                 [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
     }
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-//    myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    [myDelegate.window setRootViewController:objReveal];
-//    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-//    [myDelegate.window makeKeyAndVisible];
 
 }
 
