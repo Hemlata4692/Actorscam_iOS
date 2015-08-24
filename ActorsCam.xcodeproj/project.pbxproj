@@ -605,6 +605,7 @@
 				B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */,
 				B70034521B84B2D000263CAD /* menu.png in Resources */,
 				B728059E1B8B42810073A836 /* img.png in Resources */,
+				B7D32C361B8B30A9000DE939 /* modal3.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
