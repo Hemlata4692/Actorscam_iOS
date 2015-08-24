@@ -29,7 +29,6 @@
                                             </imageView>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FEJ-Pm-ZsM">
                                                 <rect key="frame" x="10" y="176" width="300" height="48"/>
-                                                <color key="backgroundColor" red="1" green="0.019656989860000001" blue="0.08965088719" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
@@ -38,7 +37,6 @@
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-YV-u2S">
                                                 <rect key="frame" x="10" y="246" width="300" height="48"/>
-                                                <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <connections>
@@ -74,13 +72,12 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7DN-Us-InB">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New here?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wj6-Js-JVA">
                                                 <rect key="frame" x="177" y="439" width="83" height="30"/>
-                                                <state key="normal" title="New here?">
-                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKp-uK-IU7">
                                                 <rect key="frame" x="169" y="436" width="146" height="35"/>
                                                 <state key="normal" title="Sign Up.">
@@ -131,10 +128,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.12520240169999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -147,10 +144,13 @@
                         <outlet property="forgotPasswordEmail" destination="nUc-11-AdB" id="BTF-o4-gm4"/>
                         <outlet property="forgotPasswordPopUp" destination="4gP-N4-GQl" id="Q1k-9K-1hD"/>
                         <outlet property="forgotPasswordView" destination="XKh-m4-cz6" id="Twb-ns-f8s"/>
+                        <outlet property="hereLabel" destination="wj6-Js-JVA" id="Lbf-Je-bSt"/>
+                        <outlet property="languageLabel" destination="RDa-Fv-NwZ" id="p1J-e8-oGf"/>
                         <outlet property="loginBtn" destination="9fT-Da-UPk" id="yru-Fs-92H"/>
                         <outlet property="password" destination="CdL-YV-u2S" id="jsg-cz-xji"/>
                         <outlet property="scrollView" destination="eUv-TY-d79" id="Ghw-hx-LLU"/>
                         <outlet property="sendLinkBtn" destination="Q74-JA-34F" id="YbG-uy-6xj"/>
+                        <outlet property="signUp" destination="UKp-uK-IU7" id="5WN-Ff-i9i"/>
                         <outlet property="userEmail" destination="FEJ-Pm-ZsM" id="lRX-L9-4Bw"/>
                     </connections>
                 </viewController>
@@ -180,7 +180,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQf-0X-MGH">
-                                        <rect key="frame" x="0.0" y="209" width="144" height="41"/>
+                                        <rect key="frame" x="-1" y="209" width="145" height="41"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="CANCEL">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -190,7 +190,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZU-Wy-ecV">
-                                        <rect key="frame" x="144" y="209" width="144" height="41"/>
+                                        <rect key="frame" x="143" y="209" width="145" height="41"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="DONE">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

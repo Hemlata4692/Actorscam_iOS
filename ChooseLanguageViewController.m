@@ -27,6 +27,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _popUpView.layer.cornerRadius = 10.0;
+    _popUpView.layer.masksToBounds = YES;
+    
+    _cancel.layer.borderWidth = 1;
+    _cancel.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    _done.layer.borderWidth = 1;
+    _done.layer.borderColor = [UIColor lightGrayColor].CGColor;
+
+//    _popUpView.layer.borderColor = [UIColor greenColor].CGColor;
+//    _popUpView.layer.borderWidth = 2;
     languageArray = @[@"ENGLISH", @"FRANCAIS", @"DEUTSCH"];
     [_chooseLanguageTableView reloadData];
     

@@ -24,10 +24,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *forgotPasswordBtn;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *forgotPasswordView;
+@property (weak, nonatomic) IBOutlet UILabel *hereLabel;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UITextField *forgotPasswordEmail;
 @property (weak, nonatomic) IBOutlet UIButton *sendLinkBtn;
 @property (weak, nonatomic) IBOutlet UIView *forgotPasswordPopUp;
+@property (weak, nonatomic) IBOutlet UIButton *signUp;
+@property (weak, nonatomic) IBOutlet UIButton *languageLabel;
 
 @end
 
