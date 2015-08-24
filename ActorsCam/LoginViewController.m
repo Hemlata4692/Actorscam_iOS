@@ -12,6 +12,8 @@
 #import "BSKeyboardControls.h"
 #import "UIView+RoundedCorner.h"
 
+#import "ChooseLanguageViewController.h"
+
 @interface LoginViewController ()<UITextFieldDelegate,BSKeyboardControlsDelegate>
 {
     NSArray *textFieldArray;
@@ -61,6 +63,9 @@
     [super viewWillAppear:animated];
     
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    [self setLocalizedString];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
@@ -68,6 +73,10 @@
     [self.view addSubview:statusBarView];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
+}
+
+-(void)setLocalizedString{
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,16 +129,12 @@
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-//        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//        [myDelegate.window setRootViewController:objReveal];
-//        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-//        [myDelegate.window makeKeyAndVisible];
-        
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        [self.navigationController pushViewController:view1 animated:YES];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [myDelegate.window setRootViewController:objReveal];
+        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+        [myDelegate.window makeKeyAndVisible];
         
     } failure:^(NSError *error) {
         
@@ -153,7 +158,7 @@
     if([self performValidationsForForgotPassword])
     {
         [myDelegate ShowIndicator];
-//        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+        [self performSelector:@selector(forgotPassword) withObject:nil afterDelay:.1];
     }
 //    forgotPasswordView.hidden=YES;
     
@@ -326,6 +331,18 @@
     [textField resignFirstResponder];
     return YES;
     
+}
+#pragma mark - end
+
+#pragma mark - choose Language Action
+- (IBAction)chooseLanguageAction:(UIButton *)sender {
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ChooseLanguageViewController *chooseLangView =[storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageView"];
+    chooseLangView.myVC = (LoginViewController*)self;
+//    [self.view ]
+    [self addChildViewController:chooseLangView];
+    [self.view addSubview:chooseLangView.view];
+    [chooseLangView didMoveToParentViewController:self];
 }
 #pragma mark - end
 @end

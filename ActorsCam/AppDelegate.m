@@ -36,12 +36,12 @@
 #pragma mark - Appdelegate methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[NSUserDefaults standardUserDefaults] setObject:@"ENGLISH" forKey:@"Language"];
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header1.png"] forBarMetrics:UIBarMetricsDefault];
     //set navigation bar button color
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0], NSFontAttributeName, nil]];
-    
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.navigationController = (UINavigationController *)[self.window rootViewController];
