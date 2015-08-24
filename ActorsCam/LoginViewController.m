@@ -110,20 +110,20 @@
     
     [self.view endEditing:YES];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    [userName resignFirstResponder];
-//    [password resignFirstResponder];
+    [userName resignFirstResponder];
+    [password resignFirstResponder];
     if([self performValidationsForLogin])
     {
-        [myDelegate ShowIndicator];
-        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+                [myDelegate ShowIndicator];
+                [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
     }
-    
+
 }
 
 -(void)loginUser
 {
-    
-    [[WebService sharedManager] userLogin:userEmail.text Password:password.text success:^(id responseObject) {
+    [[WebService sharedManager] userLogin:userName.text Password:password.text success:^(id responseObject) {
+        NSLog(@"login response is %@",responseObject);
        
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
