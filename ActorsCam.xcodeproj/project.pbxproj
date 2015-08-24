@@ -33,6 +33,13 @@
 		B7D32C261B8AE055000DE939 /* radio_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C251B8AE055000DE939 /* radio_btn.png */; };
 		B7D32C281B8AE058000DE939 /* radio_btn_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C271B8AE058000DE939 /* radio_btn_selected.png */; };
 		B7D32C2B1B8AE32A000DE939 /* ChooseLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */; };
+		B7D32C2E1B8B25AD000DE939 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C2D1B8B25AD000DE939 /* back.png */; };
+		B7D32C341B8B30A9000DE939 /* modal1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C2F1B8B30A9000DE939 /* modal1.jpeg */; };
+		B7D32C351B8B30A9000DE939 /* modal2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C301B8B30A9000DE939 /* modal2.jpeg */; };
+		B7D32C361B8B30A9000DE939 /* modal3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C311B8B30A9000DE939 /* modal3.jpeg */; };
+		B7D32C371B8B30A9000DE939 /* modal4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C321B8B30A9000DE939 /* modal4.jpeg */; };
+		B7D32C381B8B30A9000DE939 /* modal5.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C331B8B30A9000DE939 /* modal5.jpeg */; };
+		B7D32C3C1B8B36B1000DE939 /* ImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */; };
 		B7EDA6EE1B870A7D00778749 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */; };
 		B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */; };
 		B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0121B82F09000C54376 /* UITextField+Padding.m */; };
@@ -100,6 +107,14 @@
 		B7D32C271B8AE058000DE939 /* radio_btn_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_btn_selected.png; sourceTree = "<group>"; };
 		B7D32C291B8AE32A000DE939 /* ChooseLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseLanguageViewController.h; sourceTree = "<group>"; };
 		B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseLanguageViewController.m; sourceTree = "<group>"; };
+		B7D32C2D1B8B25AD000DE939 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		B7D32C2F1B8B30A9000DE939 /* modal1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal1.jpeg; sourceTree = "<group>"; };
+		B7D32C301B8B30A9000DE939 /* modal2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal2.jpeg; sourceTree = "<group>"; };
+		B7D32C311B8B30A9000DE939 /* modal3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal3.jpeg; sourceTree = "<group>"; };
+		B7D32C321B8B30A9000DE939 /* modal4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal4.jpeg; sourceTree = "<group>"; };
+		B7D32C331B8B30A9000DE939 /* modal5.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal5.jpeg; sourceTree = "<group>"; };
+		B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreviewViewController.h; sourceTree = "<group>"; };
+		B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreviewViewController.m; sourceTree = "<group>"; };
 		B7EDA6EC1B870A7D00778749 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B7F5B00C1B82EBE500C54376 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
@@ -296,6 +311,7 @@
 		B789AD801B82100400C1C0AB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B7D32C391B8B3699000DE939 /* ImagePreviewView */,
 				B7D32C2C1B8AE339000DE939 /* ChooseLanguageView */,
 				B70A59A41B85926A00E1D793 /* GlobalSideBarViewController */,
 				B70A59A51B85927700E1D793 /* GlobalBackViewController */,
@@ -379,6 +395,12 @@
 		B7D32C241B8AE04C000DE939 /* tempImages */ = {
 			isa = PBXGroup;
 			children = (
+				B7D32C2F1B8B30A9000DE939 /* modal1.jpeg */,
+				B7D32C301B8B30A9000DE939 /* modal2.jpeg */,
+				B7D32C311B8B30A9000DE939 /* modal3.jpeg */,
+				B7D32C321B8B30A9000DE939 /* modal4.jpeg */,
+				B7D32C331B8B30A9000DE939 /* modal5.jpeg */,
+				B7D32C2D1B8B25AD000DE939 /* back.png */,
 				B7D32C271B8AE058000DE939 /* radio_btn_selected.png */,
 				B7D32C251B8AE055000DE939 /* radio_btn.png */,
 			);
@@ -392,6 +414,15 @@
 				B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */,
 			);
 			name = ChooseLanguageView;
+			sourceTree = "<group>";
+		};
+		B7D32C391B8B3699000DE939 /* ImagePreviewView */ = {
+			isa = PBXGroup;
+			children = (
+				B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */,
+				B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */,
+			);
+			name = ImagePreviewView;
 			sourceTree = "<group>";
 		};
 		B7EDA6EB1B870A4D00778749 /* ProgressBar */ = {
@@ -562,6 +593,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B70034541B84B2D000263CAD /* menu@3x.png in Resources */,
+				B7D32C341B8B30A9000DE939 /* modal1.jpeg in Resources */,
+				B7D32C351B8B30A9000DE939 /* modal2.jpeg in Resources */,
+				B7D32C381B8B30A9000DE939 /* modal5.jpeg in Resources */,
+				B7D32C2E1B8B25AD000DE939 /* back.png in Resources */,
+				B7D32C371B8B30A9000DE939 /* modal4.jpeg in Resources */,
 				B7D32C261B8AE055000DE939 /* radio_btn.png in Resources */,
 				B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */,
 				B7D32C281B8AE058000DE939 /* radio_btn_selected.png in Resources */,
@@ -638,6 +674,7 @@
 				B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */,
 				B700344B1B84AED100263CAD /* SWRevealViewController.m in Sources */,
 				B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */,
+				B7D32C3C1B8B36B1000DE939 /* ImagePreviewViewController.m in Sources */,
 				B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */,
 				B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */,
 				B70034301B8496A100263CAD /* UIView+RoundedCorner.m in Sources */,

@@ -55,12 +55,12 @@
         [self.window setBackgroundColor:[UIColor whiteColor]];
         [self.window makeKeyAndVisible];
     }
-    else
-    {
-        LoginViewController * objLogin = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        [self.navigationController setViewControllers: [NSArray arrayWithObject: objLogin]
-                                             animated: YES];
-    }
+//    else
+//    {
+//        LoginViewController * objLogin = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//        [self.navigationController setViewControllers: [NSArray arrayWithObject: objLogin]
+//                                             animated: YES];
+//    }
 
     return YES;
 }

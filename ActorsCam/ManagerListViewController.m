@@ -14,6 +14,7 @@
 @interface ManagerListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *managerListArray;
+    
 
 }
 @property (weak, nonatomic) IBOutlet UILabel *noManagerAddedLbl;
@@ -27,6 +28,28 @@
 @implementation ManagerListViewController
 @synthesize managerListTableView,noManagerAddedLbl;
 @synthesize addManagerBtn,addManagerImage,addManagerView;
+
+-(void)localWebservice{
+
+    NSDictionary *dict1;
+    dict1 = @{@"name" : @"Mark D.",
+              @"managerEmail" : @"markd@gmail.com"};
+    [managerListArray addObject:dict1];
+    
+    dict1 = @{@"name" : @"Jason Smith",
+              @"managerEmail" : @"jason@gmail.com"};
+    [managerListArray addObject:dict1];
+
+    dict1 = @{@"name" : @"John Thomas",
+              @"managerEmail" : @"john@gmail.com"};
+    [managerListArray addObject:dict1];
+
+    dict1 = @{@"name" : @"Thomas Wang",
+              @"managerEmail" : @"thomas@gmail.com"};
+    [managerListArray addObject:dict1];
+
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,7 +92,10 @@
     {
         cell = [[ManagersListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    cell.managerName.text=[managerListArray objectAtIndex:indexPath.row];
+    
+    NSDictionary *data = [managerListArray objectAtIndex:indexPath.row];
+    [cell displayData:data];
+//    cell.managerName.text=[managerListArray objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -103,11 +129,19 @@
     //Obviously, if this returns no, the edit option won't even populate
     return YES;
 }
+
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Edit" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         
-        NSLog(@"Edit action");
+        NSDictionary *data = [managerListArray objectAtIndex:indexPath.row];
+        
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+        addManagerView.navTitle = @"Edit Managers";
+        addManagerView.emailId = [data objectForKey:@"managerEmail"];
+        addManagerView.name = [data objectForKey:@"name"];
+        [self.navigationController pushViewController:addManagerView animated:YES];
         
     }];
     editAction.backgroundColor = [UIColor grayColor];

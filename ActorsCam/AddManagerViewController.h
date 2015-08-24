@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ActorsCamViewController.h"
+#import "BackViewController.h"
 
-@interface AddManagerViewController : ActorsCamViewController
-
+@interface AddManagerViewController : BackViewController
+@property(retain, nonatomic) NSString *navTitle;
+@property(retain, nonatomic) NSString *emailId;
+@property(retain, nonatomic) NSString *name;
 @end

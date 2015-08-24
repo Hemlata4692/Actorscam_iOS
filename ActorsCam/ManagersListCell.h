@@ -12,4 +12,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *managerName;
 @property (weak, nonatomic) IBOutlet UILabel *manageremail;
 
+-(void)displayData :(NSDictionary *)Dict;
+
 @end

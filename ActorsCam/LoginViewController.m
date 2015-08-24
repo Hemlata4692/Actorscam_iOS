@@ -24,10 +24,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *forgotPasswordBtn;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *forgotPasswordView;
+@property (weak, nonatomic) IBOutlet UILabel *hereLabel;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UITextField *forgotPasswordEmail;
 @property (weak, nonatomic) IBOutlet UIButton *sendLinkBtn;
 @property (weak, nonatomic) IBOutlet UIView *forgotPasswordPopUp;
+@property (weak, nonatomic) IBOutlet UIButton *signUp;
+@property (weak, nonatomic) IBOutlet UIButton *languageLabel;
 
 @end
 
@@ -124,18 +127,19 @@
        
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userid"] forKey:@"UserId"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"username"] forKey:@"UserName"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        [myDelegate.window setRootViewController:objReveal];
-        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-        [myDelegate.window makeKeyAndVisible];
-        
+        [self.navigationController pushViewController:objReveal animated:YES];
+//        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        [myDelegate.window setRootViewController:objReveal];
+//        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+//        [myDelegate.window makeKeyAndVisible];
+//        
     } failure:^(NSError *error) {
         
     }] ;

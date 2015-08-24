@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ActorsCamViewController.h"
 
-@interface ManagerListViewController : UIViewController
+@interface ManagerListViewController : ActorsCamViewController
 
 @end
