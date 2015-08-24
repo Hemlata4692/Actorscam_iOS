@@ -9,10 +9,10 @@
 #import "WebService.h"
 #import "NullValueChecker.h"
 
-#define kUrlLogin                       @"userLogin"
-#define kUrlRegister                    @"registerUser"
-#define kUrlForgotPassword              @"forgotPassword"
-#define kUrlChangePassword              @"changePassword"
+#define kUrlLogin                       @"login"
+#define kUrlRegister                    @"register"
+#define kUrlForgotPassword              @"forgotpassword"
+#define kUrlChangePassword              @"changepassword"
 
 @implementation WebService
 @synthesize manager;
@@ -193,7 +193,7 @@
 //Forgot Password
 -(void)forgotPassword:(NSString *)mailId success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
-    NSDictionary *requestDict = @{ @"userid":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"email":mailId};
+    NSDictionary *requestDict = @{@"email":mailId};
     
     [self post:kUrlForgotPassword parameters:requestDict success:^(id responseObject)
      {

@@ -16,7 +16,7 @@
 {
     NSArray *textFieldArray;
 }
-@property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (weak, nonatomic) IBOutlet UITextField *userEmail;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *forgotPasswordBtn;
@@ -30,8 +30,9 @@
 @end
 
 @implementation LoginViewController
-@synthesize userName,password,loginBtn,forgotPasswordBtn,scrollView;
+@synthesize userEmail,password,loginBtn,forgotPasswordBtn,scrollView;
 @synthesize forgotPasswordEmail,forgotPasswordView,sendLinkBtn,forgotPasswordPopUp;
+
 #pragma mark - View life cycle
 - (void)viewDidLoad
 {
@@ -41,10 +42,18 @@
     
     forgotPasswordView.hidden=YES;
     //Adding textfield to array
-    textFieldArray = @[userName,password];
+    textFieldArray = @[userEmail,password];
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
+    
+    UITapGestureRecognizer* forgotPasswordViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
+    
+    forgotPasswordViewTap.numberOfTapsRequired = 1;
+    forgotPasswordViewTap.numberOfTouchesRequired = 1;
+    [forgotPasswordView addGestureRecognizer: forgotPasswordViewTap];
+//    UITapGestureRecognizer *forgotPasswordViewTap =
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -67,42 +76,42 @@
 }
 -(void)addTextFieldPadding
 {
-    [userName addTextFieldPadding:userName];
+    
+    [userEmail addTextFieldPadding:userEmail];
     [password addTextFieldPadding:password];
     [forgotPasswordEmail addTextFieldPadding:forgotPasswordEmail];
+    
 }
 -(void)addCornerRadius
 {
+    
     [loginBtn setCornerRadius:5.0f];
     [sendLinkBtn setCornerRadius:5.0f];
     [forgotPasswordPopUp setCornerRadius:2.0f];
+    
 }
-
 #pragma mark - end
 
 #pragma mark - Login Actions
 - (IBAction)loginButtonAction:(id)sender
 {
-//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    [self.view endEditing:YES];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 //    [userName resignFirstResponder];
 //    [password resignFirstResponder];
-//    if([self performValidationsForLogin])
-//    {
-            //    [myDelegate ShowIndicator];
-//        //        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
-//    }
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-    myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [myDelegate.window setRootViewController:objReveal];
-    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-    [myDelegate.window makeKeyAndVisible];
-
+    if([self performValidationsForLogin])
+    {
+        [myDelegate ShowIndicator];
+        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+    }
+    
 }
 
 -(void)loginUser
 {
-    [[WebService sharedManager] userLogin:userName.text Password:password.text success:^(id responseObject) {
+    
+    [[WebService sharedManager] userLogin:userEmail.text Password:password.text success:^(id responseObject) {
        
         //[myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -110,6 +119,14 @@
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+//        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        [myDelegate.window setRootViewController:objReveal];
+//        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+//        [myDelegate.window makeKeyAndVisible];
+        
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
         [self.navigationController pushViewController:view1 animated:YES];
@@ -118,55 +135,146 @@
         
     }] ;
     
-    
-    
 }
-
-
 #pragma mark - end
 
 #pragma mark - Forgot Password Actions
+- (IBAction)forgotPasswordButtonAction:(id)sender
+{
+    
+    forgotPasswordView.hidden=NO;
+    
+}
 
 - (IBAction)sendForgotPasswordLink:(id)sender
 {
-    forgotPasswordView.hidden=YES;
+    
+    [self.view endEditing:YES];
+    if([self performValidationsForForgotPassword])
+    {
+        [myDelegate ShowIndicator];
+//        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+    }
+//    forgotPasswordView.hidden=YES;
+    
 }
 
-- (IBAction)forgotPasswordButtonAction:(id)sender
+-(void)forgotPassword
 {
-    forgotPasswordView.hidden=NO;
+//    userLogin:userEmail.text Password:password.text success:^(id responseObject)
+    
+    [[WebService sharedManager] forgotPassword:forgotPasswordEmail.text success:^(id responseObject){
+        
+        //[myDelegate StopIndicator];
+         UIAlertView *alert;
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password is sent to the registered email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.tag = 1;
+        [alert show];
+        
+    } failure:^(NSError *error) {
+        
+    }] ;
+    
 }
-#pragma mark - end
-#pragma mark - Textfield Validation Action
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // the user clicked one of the OK/Cancel buttons
+    if (alertView.tag == 1)
+    {
+        forgotPasswordEmail.text = @"";
+        forgotPasswordView.hidden=YES;
+    }
+}
+
+-(void)handleSingleTap{
+    
+    forgotPasswordEmail.text = @"";
+    forgotPasswordView.hidden=YES;
+    
+}
+
+#pragma mark - end
+
+#pragma mark - Textfield Validation Action
 - (BOOL)performValidationsForLogin
 {
-    UIAlertView *alert;
-    if ([userName isEmpty] || [password isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill in all fields." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        return NO;
-    }
     
-    else if (password.text.length<6)
+    UIAlertView *alert;
+    if ([userEmail isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.tag = 0;
         [alert show];
         return NO;
     }
     else
     {
-        return YES;
+        if ([userEmail isValidEmail])
+        {
+            if ([password isEmpty])
+            {
+                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert.tag = 0;
+                [alert show];
+                return NO;
+            }
+            else if (password.text.length<6)
+            {
+                
+                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert.tag = 0;
+                [alert show];
+                return NO;
+            }
+            else
+            {
+                return YES;
+            }
+        }
+        else
+        {
+            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter valid Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert.tag = 0;
+            [alert show];
+            return NO;
+        }
     }
+    
 }
 
+- (BOOL)performValidationsForForgotPassword
+{
+    
+    UIAlertView *alert;
+    if ([forgotPasswordEmail isEmpty])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.tag = 0;
+        [alert show];
+        return NO;
+    }
+    else
+    {
+        if ([forgotPasswordEmail isValidEmail])
+        {
+            return YES;
+        }
+        else
+        {
+            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter valid Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert.tag = 0;
+            [alert show];
+            return NO;
+        }
+    }
+    
+}
 #pragma mark - end
-
 
 #pragma mark - Keyboard Controls Delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
+    
     UIView *view;
     
     if ([[UIDevice currentDevice].systemVersion floatValue]< 7.0) {
@@ -174,13 +282,14 @@
     } else {
         view = field.superview.superview.superview;
     }
+    
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
 {
+    
     [keyboardControls.activeField resignFirstResponder];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    
     
 }
 
@@ -192,7 +301,7 @@
     
     [self.keyboardControls setActiveField:textField];
     
-    if (textField==userName)
+    if (textField==userEmail)
     {
         [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-120) animated:YES];
     }
@@ -213,8 +322,10 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    
     [textField resignFirstResponder];
     return YES;
+    
 }
 #pragma mark - end
 @end
