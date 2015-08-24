@@ -10,10 +10,12 @@
 #import "UITextField+Padding.h"
 #import "UITextField+Validations.h"
 #import "BSKeyboardControls.h"
+#import "WebService.h"
 
-@interface RegisterViewController ()<BSKeyboardControlsDelegate>
+@interface RegisterViewController ()<BSKeyboardControlsDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     NSArray *textFieldArray;
+     UIImagePickerController *imgPicker;
 }
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *email;
@@ -23,10 +25,12 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+
 @end
 
 @implementation RegisterViewController
-@synthesize name,email,userName,password,scrollView,confirmPassword;
+@synthesize name,email,userName,password,scrollView,confirmPassword,profileImageView;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
@@ -35,8 +39,10 @@
     
     [self addTextFieldPadding];
   
+    imgPicker = [[UIImagePickerController alloc] init];
+    
     //Adding textfield to array
-    textFieldArray = @[name,email,userName,password,confirmPassword];
+    textFieldArray = @[name,email,password,confirmPassword];
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
@@ -70,21 +76,99 @@
 
 #pragma mark - end
 
-#pragma mark - Button Actions
+#pragma mark - Register User Actions
 
 - (IBAction)signUpButtonAction:(id)sender
 {
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [self.keyboardControls.activeField resignFirstResponder];
-    if([self performValidationsForSignUp])
-    {
-//        [myDelegate ShowIndicator];
-//        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
-    }
+//    if([self performValidationsForSignUp])
+//    {
+        [myDelegate ShowIndicator];
+        [self performSelector:@selector(signUpUser) withObject:nil afterDelay:.1];
+   // }
+
+}
+
+-(void)signUpUser
+{
+    [[WebService sharedManager] registerUser:email.text password:password.text name:name.text image:profileImageView.image  success:^(id responseObject) {
+        
+        [myDelegate StopIndicator];
+//        NSDictionary *dict = (NSDictionary *)responseObject;
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+//        [self.navigationController pushViewController:view1 animated:YES];
+        
+    } failure:^(NSError *error) {
+        
+    }] ;
 
 }
 
 #pragma mark - end
+
+#pragma mark - Image Picker
+- (IBAction)imagePickerAction:(id)sender
+{
+    UIActionSheet * share=[[UIActionSheet alloc]initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing Photo", nil];
+    [share showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
+{
+    profileImageView.image = image;
+    [imgPicker dismissViewControllerAnimated:YES completion:NULL];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+}
+
+#pragma mark - end
+
+#pragma mark - Actionsheet
+//Action sheet for setting image from camera or gallery
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==0)
+    {
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            
+            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                  message:@"Device has no camera."
+                                                                 delegate:nil
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles: nil];
+            
+            [myAlertView show];
+            
+        }
+        else
+        {
+        //Setting image from camera
+        [imgPicker setAllowsEditing:YES];
+        imgPicker = [[UIImagePickerController alloc] init];
+        imgPicker.delegate = self;
+        imgPicker.allowsEditing = YES;
+        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+        [self presentViewController:imgPicker animated:YES completion:NULL];
+        }
+    }
+    else if(buttonIndex==1)
+    {
+        //Setting image from gallery
+        imgPicker.delegate = self;
+        imgPicker.allowsEditing = YES;
+        imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:imgPicker animated:YES completion:NULL];
+    }
+    
+}
+#pragma mark - end
+
 
 #pragma mark - Textfield Validation Action
 

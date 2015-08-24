@@ -83,13 +83,13 @@
 #pragma mark - Login Actions
 - (IBAction)loginButtonAction:(id)sender
 {
-//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    [userName resignFirstResponder];
-//    [password resignFirstResponder];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [userName resignFirstResponder];
+    [password resignFirstResponder];
 //    if([self performValidationsForLogin])
 //    {
-            //    [myDelegate ShowIndicator];
-//        //        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+//                [myDelegate ShowIndicator];
+//                [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
 //    }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
@@ -104,7 +104,7 @@
 {
     [[WebService sharedManager] userLogin:userName.text Password:password.text success:^(id responseObject) {
        
-        //[myDelegate StopIndicator];
+        [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
