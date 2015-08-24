@@ -8,6 +8,7 @@
 
 #import "WebService.h"
 #import "NullValueChecker.h"
+#import "LoginViewController.h"
 
 #define kUrlLogin                       @"login"
 #define kUrlRegister                    @"register"
@@ -65,6 +66,7 @@
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+   
     manager.securityPolicy.allowInvalidCertificates = YES;
     
     NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
@@ -84,27 +86,53 @@
 }
 
 - (BOOL)isStatusOK:(id)responseObject {
-    NSNumber *number = responseObject[@"IsSuccess"];
+    NSNumber *number = responseObject[@"isSuccess"];
     
-    switch (number.integerValue) {
+    switch (number.integerValue)
+    {
+        case 0:
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+            
+        }
+
         case 1:
             return YES;
             break;
-        case 0: {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"Message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alert show];
             
+        case 2:
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            alert.tag=2;
+            [alert show];
+
         }
             return NO;
             break;
         default: {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"Message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
             
         }
             return NO;
             break;
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==2 && buttonIndex==0)
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LoginViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [myDelegate.window setRootViewController:objReveal];
+        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+        [myDelegate.window makeKeyAndVisible];
+        
+    }
+
 }
 #pragma mark - end
 
@@ -140,7 +168,7 @@
 //Register
 -(void)registerUser:(NSString *)mailId password:(NSString *)password name:(NSString*)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
-    NSDictionary *requestDict = @{@"email":mailId,@"password":password,@"name":name};
+    NSDictionary *requestDict = @{@"email":mailId,@"password":password,@"username":name};
     
     if(image==nil)
     {

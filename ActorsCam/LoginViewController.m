@@ -86,23 +86,24 @@
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [userName resignFirstResponder];
     [password resignFirstResponder];
-//    if([self performValidationsForLogin])
-//    {
-//                [myDelegate ShowIndicator];
-//                [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
-//    }
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-    myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [myDelegate.window setRootViewController:objReveal];
-    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-    [myDelegate.window makeKeyAndVisible];
+    if([self performValidationsForLogin])
+    {
+                [myDelegate ShowIndicator];
+                [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+    }
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+//    myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    [myDelegate.window setRootViewController:objReveal];
+//    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+//    [myDelegate.window makeKeyAndVisible];
 
 }
 
 -(void)loginUser
 {
     [[WebService sharedManager] userLogin:userName.text Password:password.text success:^(id responseObject) {
+        NSLog(@"login response is %@",responseObject);
        
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
