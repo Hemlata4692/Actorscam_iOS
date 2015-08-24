@@ -20,4 +20,15 @@
     // Configure the view for the selected state
 }
 
+-(void)displayData :(NSDictionary *)dict
+{
+//    dict1 = @{@"name" : @"Mark D.",
+//              @"managerEmail" : @"markd@gmail.com"};
+
+    self.managerName.text = [dict objectForKey:@"name"];
+    self.manageremail.text = [dict objectForKey:@"managerEmail"];
+    
+}
+
+
 @end

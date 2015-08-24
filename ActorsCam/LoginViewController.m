@@ -110,8 +110,8 @@
     
     [self.view endEditing:YES];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    [userName resignFirstResponder];
-    [password resignFirstResponder];
+//    [userName resignFirstResponder];
+//    [password resignFirstResponder];
     if([self performValidationsForLogin])
     {
                 [myDelegate ShowIndicator];
@@ -122,23 +122,24 @@
 
 -(void)loginUser
 {
-    [[WebService sharedManager] userLogin:userName.text Password:password.text success:^(id responseObject) {
+    [[WebService sharedManager] userLogin:userEmail.text Password:password.text success:^(id responseObject) {
         NSLog(@"login response is %@",responseObject);
        
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userid"] forKey:@"UserId"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"username"] forKey:@"UserName"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        [myDelegate.window setRootViewController:objReveal];
-        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-        [myDelegate.window makeKeyAndVisible];
-        
+        [self.navigationController pushViewController:objReveal animated:YES];
+//        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        [myDelegate.window setRootViewController:objReveal];
+//        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+//        [myDelegate.window makeKeyAndVisible];
+//        
     } failure:^(NSError *error) {
         
     }] ;

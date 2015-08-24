@@ -54,7 +54,7 @@
     [super viewWillAppear:animated];
     
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
     
 }
 

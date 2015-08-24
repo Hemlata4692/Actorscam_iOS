@@ -8,6 +8,7 @@
 
 #import "SidebarViewController.h"
 #import "SWRevealViewController.h"
+#import "LoginViewController.h"
 
 
 
@@ -139,6 +140,37 @@
     [headerView addSubview:imgView];
     return headerView;   // return headerLabel;
 
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    // Check Row and Select Next View controller
+    if (indexPath.row == 4)
+    {
+//        if (!([FBSession activeSession].state != FBSessionStateOpen &&
+//              [FBSession activeSession].state != FBSessionStateOpenTokenExtended))
+//        {
+//            [[FBSession activeSession] closeAndClearTokenInformation];
+//        }
+//        
+        
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        myDelegate.window.rootViewController = myDelegate.navigationController;
+        LoginViewController *firstVC=[sb instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [myDelegate.navigationController setViewControllers: [NSArray arrayWithObject: firstVC]
+                                                   animated: YES];
+        
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userid"] forKey:@"UserId"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"username"] forKey:@"UserName"];
+//        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults removeObjectForKey:@"UserId"];
+        [defaults removeObjectForKey:@"UserName"];
+        [defaults synchronize];
+        
+        
+    }
 }
 
 #pragma mark - Navigation
