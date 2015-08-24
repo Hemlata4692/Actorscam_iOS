@@ -20,6 +20,7 @@
 		B70034541B84B2D000263CAD /* menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B70034511B84B2D000263CAD /* menu@3x.png */; };
 		B70A59A81B8592B800E1D793 /* ActorsCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */; };
 		B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59AA1B8592D800E1D793 /* BackViewController.m */; };
+		B728059E1B8B42810073A836 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = B728059D1B8B42810073A836 /* img.png */; };
 		B789AD5D1B820F3B00C1C0AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD5C1B820F3B00C1C0AB /* main.m */; };
 		B789AD601B820F3B00C1C0AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD5F1B820F3B00C1C0AB /* AppDelegate.m */; };
 		B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B789AD641B820F3B00C1C0AB /* Main.storyboard */; };
@@ -83,6 +84,7 @@
 		B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActorsCamViewController.m; path = ActorsCam/ActorsCamViewController.m; sourceTree = "<group>"; };
 		B70A59A91B8592D800E1D793 /* BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackViewController.h; path = ActorsCam/BackViewController.h; sourceTree = "<group>"; };
 		B70A59AA1B8592D800E1D793 /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackViewController.m; path = ActorsCam/BackViewController.m; sourceTree = "<group>"; };
+		B728059D1B8B42810073A836 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
 		B789AD571B820F3B00C1C0AB /* ActorsCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActorsCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B789AD5B1B820F3B00C1C0AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B789AD5C1B820F3B00C1C0AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 		B7F5B0141B82F09700C54376 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				B728059D1B8B42810073A836 /* img.png */,
 				B70034311B8496A700263CAD /* CornerRadiusCategory */,
 				B7F5B04D1B83107F00C54376 /* UIImageCategory */,
 				B7F5B0191B82F1E300C54376 /* ValidationCategory */,
@@ -601,6 +604,7 @@
 				B70034531B84B2D000263CAD /* menu@2x.png in Resources */,
 				B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */,
 				B70034521B84B2D000263CAD /* menu.png in Resources */,
+				B728059E1B8B42810073A836 /* img.png in Resources */,
 				B7D32C361B8B30A9000DE939 /* modal3.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

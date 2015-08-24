@@ -114,8 +114,8 @@
 //    [password resignFirstResponder];
     if([self performValidationsForLogin])
     {
-                [myDelegate ShowIndicator];
-                [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+        [myDelegate ShowIndicator];
+        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
     }
 
 }
@@ -174,11 +174,8 @@
     
     [[WebService sharedManager] forgotPassword:forgotPasswordEmail.text success:^(id responseObject){
         
-        //[myDelegate StopIndicator];
-         UIAlertView *alert;
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password is sent to the registered email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        alert.tag = 1;
-        [alert show];
+        [myDelegate StopIndicator];
+          NSLog(@"forgot password response is %@",responseObject);
         
     } failure:^(NSError *error) {
         
@@ -186,14 +183,6 @@
     
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    // the user clicked one of the OK/Cancel buttons
-    if (alertView.tag == 1)
-    {
-        forgotPasswordEmail.text = @"";
-        forgotPasswordView.hidden=YES;
-    }
-}
 
 -(void)handleSingleTap{
     
@@ -212,7 +201,6 @@
     if ([userEmail isEmpty])
     {
         alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        alert.tag = 0;
         [alert show];
         return NO;
     }
@@ -223,7 +211,6 @@
             if ([password isEmpty])
             {
                 alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                alert.tag = 0;
                 [alert show];
                 return NO;
             }
@@ -231,7 +218,6 @@
             {
                 
                 alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                alert.tag = 0;
                 [alert show];
                 return NO;
             }
@@ -243,7 +229,6 @@
         else
         {
             alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter valid Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            alert.tag = 0;
             [alert show];
             return NO;
         }
@@ -258,7 +243,6 @@
     if ([forgotPasswordEmail isEmpty])
     {
         alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        alert.tag = 0;
         [alert show];
         return NO;
     }
@@ -271,7 +255,6 @@
         else
         {
             alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter valid Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            alert.tag = 0;
             [alert show];
             return NO;
         }

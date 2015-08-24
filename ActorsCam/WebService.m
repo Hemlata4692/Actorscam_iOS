@@ -170,31 +170,7 @@
 {
     NSDictionary *requestDict = @{@"email":mailId,@"password":password,@"username":name};
     
-    if(image==nil)
-    {
-        [self post:kUrlRegister parameters:requestDict success:^(id responseObject)     {
-            responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
-            NSLog(@"Register User Response%@", responseObject);
-            
-            if([self isStatusOK:responseObject])
-            {
-                success(responseObject);
-            }
-            else
-            {
-                [myDelegate StopIndicator];
-                failure(nil);
-            }
-        } failure:^(NSError *error)
-         {
-             [myDelegate StopIndicator];
-             failure(error);
-         }];
-        
-    }
-    else
-    {
-        [self postImage:kUrlRegister parameters:requestDict image:image success:^(id responseObject)
+           [self postImage:kUrlRegister parameters:requestDict image:image success:^(id responseObject)
          {
              responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
              NSLog(@"Register User Response%@", responseObject);
@@ -213,7 +189,7 @@
              [myDelegate StopIndicator];
              failure(error);
          }];
-    }
+    
 }
 #pragma mark - end
 
