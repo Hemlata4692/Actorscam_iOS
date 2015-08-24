@@ -113,7 +113,7 @@
     
     [[WebService sharedManager] userLogin:userEmail.text Password:password.text success:^(id responseObject) {
        
-        //[myDelegate StopIndicator];
+        [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
