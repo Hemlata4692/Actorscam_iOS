@@ -8,6 +8,8 @@
 
 #import "ManagerListViewController.h"
 #import "ManagersListCell.h"
+#import "AddManagerViewController.h"
+#import "UIView+RoundedCorner.h"
 
 @interface ManagerListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -15,18 +17,24 @@
 
 }
 @property (weak, nonatomic) IBOutlet UILabel *noManagerAddedLbl;
+@property (weak, nonatomic) IBOutlet UIView *addManagerView;
+@property (weak, nonatomic) IBOutlet UIImageView *addManagerImage;
 @property (weak, nonatomic) IBOutlet UITableView *managerListTableView;
+@property (weak, nonatomic) IBOutlet UIButton *addManagerBtn;
 
 @end
 
 @implementation ManagerListViewController
 @synthesize managerListTableView,noManagerAddedLbl;
+@synthesize addManagerBtn,addManagerImage,addManagerView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    noManagerAddedLbl.hidden=YES;
+  //  addManagerView.hidden=YES;
+    [addManagerBtn setCornerRadius:5.0f];
     managerListArray = [[NSMutableArray alloc]initWithObjects:@"test1",@"test2",@"test3",@"test4", nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,8 +45,8 @@
 #pragma mark - Add Manager Action
 - (IBAction)addManagerButtonAction:(id)sender
 {
-    
-}
+    AddManagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+    [self.navigationController pushViewController:controller animated:YES];}
 
 #pragma mark - end
 
