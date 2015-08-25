@@ -74,6 +74,7 @@
     controller.name = @"";
     controller.managerId = @"";
     [self.navigationController pushViewController:controller animated:YES];
+}
 
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];

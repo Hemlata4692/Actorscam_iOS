@@ -26,6 +26,7 @@
 
 @implementation AddManagerViewController
 @synthesize navTitle, userEmail, userName, emailId, name, managerId;
+@synthesize addEditManager;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -51,7 +52,7 @@
 
 -(void)addTextFieldPadding
 {
-    [addManagerBtn setCornerRadius:5.0f];
+    [addEditManager setCornerRadius:5.0f];
     [userEmail addTextFieldPadding:userEmail];
     [userName addTextFieldPadding:userName];
     
@@ -188,6 +189,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-
+*/
 
 @end
