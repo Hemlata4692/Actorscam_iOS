@@ -103,7 +103,10 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        [self.navigationController pushViewController:view1 animated:YES];
+        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [myDelegate.window setRootViewController:view1];
+        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+        [myDelegate.window makeKeyAndVisible];
         
     } failure:^(NSError *error) {
         

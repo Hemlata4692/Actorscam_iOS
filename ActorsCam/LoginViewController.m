@@ -168,7 +168,7 @@
         
         [myDelegate StopIndicator];
           NSLog(@"forgot password response is %@",responseObject);
-        
+        forgotPasswordView.hidden=YES;
     } failure:^(NSError *error) {
         
     }] ;

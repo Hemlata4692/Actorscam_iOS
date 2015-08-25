@@ -11,10 +11,9 @@
 #import "LoginViewController.h"
 
 #define kUrlLogin                       @"login"
-#define kUrlRegister                    @"test"
+#define kUrlRegister                    @"register"
 #define kUrlForgotPassword              @"forgotpassword"
 #define kUrlChangePassword              @"changepassword"
-#define kUrlpostanswer                  @"postanswer"
 
 @implementation WebService
 @synthesize manager;
@@ -248,33 +247,4 @@
 }
 #pragma mark - end
 
--(void)postanswer:(NSString *)threadId answer:(NSString *)answer image:(UIImage *)image embedUrl:(NSString *)embedUrl groupId:(NSString *)groupId success:(void (^)(id))success failure:(void (^)(NSError *))failure
-{
-    
-    NSDictionary *requestDict = @{ @"userId":@"119",@"role":@"s",@"groupId":groupId,@"threadId":threadId,@"answer":answer ,@"embedUrl":embedUrl};
-    
-           [self postImage:kUrlpostanswer parameters:requestDict image:image success:^(id responseObject)     {
-            responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
-            NSLog(@"post answer: %@", responseObject);
-            
-            if([self isStatusOK:responseObject])
-            {
-            
-                success(responseObject);
-            }
-            else
-            {
-                [myDelegate StopIndicator];
-                failure(nil);
-            }
-        } failure:^(NSError *error)
-         {
-             [myDelegate StopIndicator];
-             failure(error);
-         }];
-        
-        
-   
-    
-}
 @end
