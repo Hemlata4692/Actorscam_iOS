@@ -56,10 +56,6 @@
     // Do any additional setup after loading the view.
   //  addManagerView.hidden=YES;
     [addManagerBtn setCornerRadius:5.0f];
-    managerListArray = [[NSMutableArray alloc]initWithObjects:@"test1",@"test2",@"test3",@"test4", nil];
-    
-    noManagerAddedLbl.hidden=YES;
-//    managerListArray = [[NSMutableArray alloc]initWithObjects:@"test1",@"test2",@"test3",@"test4", nil];
     managerListArray = [NSMutableArray new];
     [self localWebservice];
 }

@@ -12,7 +12,7 @@
 #import "BSKeyboardControls.h"
 #import "WebService.h"
 
-@interface RegisterViewController ()<BSKeyboardControlsDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface RegisterViewController ()<BSKeyboardControlsDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate>
 {
     NSArray *textFieldArray;
      UIImagePickerController *imgPicker;
@@ -26,11 +26,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
-
+@property (nonatomic, strong) UIPopoverController *popover;
 @end
 
 @implementation RegisterViewController
 @synthesize name,email,userName,password,scrollView,confirmPassword,profileImageView;
+@synthesize popover;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
@@ -102,11 +103,22 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        [self.navigationController pushViewController:view1 animated:YES];
+        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [myDelegate.window setRootViewController:view1];
+        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+        [myDelegate.window makeKeyAndVisible];
         
     } failure:^(NSError *error) {
         
     }] ;
+//    [[WebService sharedManager] postanswer:@"1440072790" answer:@"testing12358" image:profileImageView.image embedUrl:@"" groupId:@"1" success:^(id responseData) {
+//        [myDelegate StopIndicator];
+//        NSLog(@"responseData %@",responseData);
+//      
+//    } failure:^(NSError *error) {
+//        
+//    }];
+
 
 }
 
@@ -116,7 +128,17 @@
 - (IBAction)imagePickerAction:(id)sender
 {
     UIActionSheet * share=[[UIActionSheet alloc]initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing Photo", nil];
-    [share showInView:[UIApplication sharedApplication].keyWindow];
+    
+    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad) {
+        
+            [share showFromRect:CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y+154, 320, 120) inView:self.view animated:YES];
+      }
+    else{
+        // In this case the device is an iPhone/iPod Touch.
+         [share showInView:[UIApplication sharedApplication].keyWindow];
+    }
+
+  
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
@@ -163,7 +185,20 @@
         imgPicker.delegate = self;
         imgPicker.allowsEditing = YES;
         imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:imgPicker animated:YES completion:NULL];
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
+            self.popover.delegate = self;
+            
+            [self.popover presentPopoverFromRect:CGRectMake(600, 400, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO];
+            [self.popover setPopoverContentSize:CGSizeMake(330, 515)];
+
+        }
+        else
+        {
+             [self presentViewController:imgPicker animated:YES completion:NULL];
+        }
+       
     }
     
 }

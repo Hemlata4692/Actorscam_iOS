@@ -12,6 +12,7 @@
 //testing link
 #define BASE_URL                              @"http://ranosys.net/client/actorscam/api"
 
+
 @interface WebService : NSObject
 
 @property(nonatomic,retain)AFHTTPRequestOperationManager *manager;
@@ -29,7 +30,6 @@
 //Forgot password method
 -(void)forgotPassword:(NSString *)mailId success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 //end
-
 
 //Change Password
 -(void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword success:(void (^)(id))success failure:(void (^)(NSError *))failure;

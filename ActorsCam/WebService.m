@@ -51,10 +51,10 @@
     manager.securityPolicy.allowInvalidCertificates = YES;
     
     [manager POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // [myDelegate StopIndicator];
+         [myDelegate StopIndicator];
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [myDelegate StopIndicator];
+         [myDelegate StopIndicator];
         failure(error);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
@@ -79,10 +79,10 @@
         [formData appendPartWithFileData:imageData name:@"files" fileName:@"files.jpg" mimeType:@"image/jpeg"];
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //[myDelegate StopIndicator];
+        [myDelegate StopIndicator];
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //[myDelegate StopIndicator];
+        [myDelegate StopIndicator];
         failure(error);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
@@ -98,7 +98,7 @@
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
-            
+            return NO;
         }
 
         case 1:

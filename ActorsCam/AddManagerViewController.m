@@ -10,6 +10,7 @@
 #import "UITextField+Padding.h"
 #import "UITextField+Validations.h"
 #import "BSKeyboardControls.h"
+#import "UIView+RoundedCorner.h"
 
 @interface AddManagerViewController ()<UITextFieldDelegate,BSKeyboardControlsDelegate>
 {
@@ -50,7 +51,7 @@
 
 -(void)addTextFieldPadding
 {
-    
+    [addManagerBtn setCornerRadius:5.0f];
     [userEmail addTextFieldPadding:userEmail];
     [userName addTextFieldPadding:userName];
     
@@ -187,6 +188,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end

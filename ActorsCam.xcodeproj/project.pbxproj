@@ -115,16 +115,16 @@
 		B7AD47451B8726B800D12F33 /* ManagerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManagerListViewController.m; path = ActorsCam/ManagerListViewController.m; sourceTree = "<group>"; };
 		B7D32C251B8AE055000DE939 /* radio_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_btn.png; sourceTree = "<group>"; };
 		B7D32C271B8AE058000DE939 /* radio_btn_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_btn_selected.png; sourceTree = "<group>"; };
-		B7D32C291B8AE32A000DE939 /* ChooseLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseLanguageViewController.h; sourceTree = "<group>"; };
-		B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseLanguageViewController.m; sourceTree = "<group>"; };
+		B7D32C291B8AE32A000DE939 /* ChooseLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChooseLanguageViewController.h; path = ActorsCam/ChooseLanguageViewController.h; sourceTree = "<group>"; };
+		B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChooseLanguageViewController.m; path = ActorsCam/ChooseLanguageViewController.m; sourceTree = "<group>"; };
 		B7D32C2D1B8B25AD000DE939 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		B7D32C2F1B8B30A9000DE939 /* modal1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal1.jpeg; sourceTree = "<group>"; };
 		B7D32C301B8B30A9000DE939 /* modal2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal2.jpeg; sourceTree = "<group>"; };
 		B7D32C311B8B30A9000DE939 /* modal3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal3.jpeg; sourceTree = "<group>"; };
 		B7D32C321B8B30A9000DE939 /* modal4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal4.jpeg; sourceTree = "<group>"; };
 		B7D32C331B8B30A9000DE939 /* modal5.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal5.jpeg; sourceTree = "<group>"; };
-		B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreviewViewController.h; sourceTree = "<group>"; };
-		B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreviewViewController.m; sourceTree = "<group>"; };
+		B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePreviewViewController.h; path = ActorsCam/ImagePreviewViewController.h; sourceTree = "<group>"; };
+		B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePreviewViewController.m; path = ActorsCam/ImagePreviewViewController.m; sourceTree = "<group>"; };
 		B7EDA6EC1B870A7D00778749 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B7F5B00C1B82EBE500C54376 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
@@ -207,13 +207,13 @@
 			name = EditProfileView;
 			sourceTree = "<group>";
 		};
-		B70034431B84ADC100263CAD /* ManagersView */ = {
+		B70034431B84ADC100263CAD /* ManagerListView */ = {
 			isa = PBXGroup;
 			children = (
 				B7AD47491B87286F00D12F33 /* ManagersListCell */,
 				B7AD47481B87286000D12F33 /* ManagersList */,
 			);
-			name = ManagersView;
+			name = ManagerListView;
 			sourceTree = "<group>";
 		};
 		B70034471B84AEB000263CAD /* SideBar */ = {
@@ -350,7 +350,7 @@
 				B700343B1B84ABE800263CAD /* DashboardView */,
 				B789AD8A1B8212C700C1C0AB /* ChangePasswordView */,
 				B7AD47471B8726BE00D12F33 /* AddManagersView */,
-				B70034431B84ADC100263CAD /* ManagersView */,
+				B70034431B84ADC100263CAD /* ManagerListView */,
 				B700343F1B84AD5C00263CAD /* EditProfileView */,
 				B70034471B84AEB000263CAD /* SideBar */,
 				B70034481B84AEB900263CAD /* SWRevealViewController */,
