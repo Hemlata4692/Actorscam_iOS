@@ -34,4 +34,22 @@
 //Change Password
 -(void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 //end
+
+//Add manager
+- (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure;
+//end
+
+//Manager Listing
+- (void)managerListing:(void (^)(id))success failure:(void (^)(NSError *))failure;
+//end
+
+//Update Manager
+- (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure;
+//end
+
+//Delete Manager
+- (void)deleteManager:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure;
+//end
+
+
 @end

@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BackViewController.h"
+#import "CustomCameraViewController.h"
 
 @interface ImagePreviewViewController : BackViewController
+@property(nonatomic,retain) NSMutableArray *imageArray;
+@property(nonatomic,retain) CustomCameraViewController *customCameraVC;
 
 @end

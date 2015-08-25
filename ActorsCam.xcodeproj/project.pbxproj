@@ -21,6 +21,10 @@
 		B70A59A81B8592B800E1D793 /* ActorsCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */; };
 		B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59AA1B8592D800E1D793 /* BackViewController.m */; };
 		B728059E1B8B42810073A836 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = B728059D1B8B42810073A836 /* img.png */; };
+		B767DDA21B8C667500C721C9 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B767DDA11B8C667500C721C9 /* Camera.png */; };
+		B767DDA41B8C673400C721C9 /* Revert.png in Resources */ = {isa = PBXBuildFile; fileRef = B767DDA31B8C673400C721C9 /* Revert.png */; };
+		B767DDA71B8C68FC00C721C9 /* PreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B767DDA61B8C68FC00C721C9 /* PreviewView.m */; };
+		B767DDAC1B8C697400C721C9 /* CustomCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */; };
 		B789AD5D1B820F3B00C1C0AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD5C1B820F3B00C1C0AB /* main.m */; };
 		B789AD601B820F3B00C1C0AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD5F1B820F3B00C1C0AB /* AppDelegate.m */; };
 		B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B789AD641B820F3B00C1C0AB /* Main.storyboard */; };
@@ -85,6 +89,12 @@
 		B70A59A91B8592D800E1D793 /* BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackViewController.h; path = ActorsCam/BackViewController.h; sourceTree = "<group>"; };
 		B70A59AA1B8592D800E1D793 /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackViewController.m; path = ActorsCam/BackViewController.m; sourceTree = "<group>"; };
 		B728059D1B8B42810073A836 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
+		B767DDA11B8C667500C721C9 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera.png; sourceTree = "<group>"; };
+		B767DDA31B8C673400C721C9 /* Revert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Revert.png; sourceTree = "<group>"; };
+		B767DDA51B8C68FC00C721C9 /* PreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewView.h; sourceTree = "<group>"; };
+		B767DDA61B8C68FC00C721C9 /* PreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewView.m; sourceTree = "<group>"; };
+		B767DDAA1B8C697400C721C9 /* CustomCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCameraViewController.h; sourceTree = "<group>"; };
+		B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCameraViewController.m; sourceTree = "<group>"; };
 		B789AD571B820F3B00C1C0AB /* ActorsCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActorsCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B789AD5B1B820F3B00C1C0AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B789AD5C1B820F3B00C1C0AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -242,6 +252,26 @@
 			name = GlobalBackViewController;
 			sourceTree = "<group>";
 		};
+		B767DDA81B8C693B00C721C9 /* ImagePreview */ = {
+			isa = PBXGroup;
+			children = (
+				B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */,
+				B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */,
+			);
+			name = ImagePreview;
+			sourceTree = "<group>";
+		};
+		B767DDA91B8C694400C721C9 /* CameraView */ = {
+			isa = PBXGroup;
+			children = (
+				B767DDA51B8C68FC00C721C9 /* PreviewView.h */,
+				B767DDA61B8C68FC00C721C9 /* PreviewView.m */,
+				B767DDAA1B8C697400C721C9 /* CustomCameraViewController.h */,
+				B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */,
+			);
+			name = CameraView;
+			sourceTree = "<group>";
+		};
 		B789AD4E1B820F3B00C1C0AB = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +425,8 @@
 		B7D32C241B8AE04C000DE939 /* tempImages */ = {
 			isa = PBXGroup;
 			children = (
+				B767DDA31B8C673400C721C9 /* Revert.png */,
+				B767DDA11B8C667500C721C9 /* Camera.png */,
 				B7D32C2F1B8B30A9000DE939 /* modal1.jpeg */,
 				B7D32C301B8B30A9000DE939 /* modal2.jpeg */,
 				B7D32C311B8B30A9000DE939 /* modal3.jpeg */,
@@ -419,8 +451,8 @@
 		B7D32C391B8B3699000DE939 /* ImagePreviewView */ = {
 			isa = PBXGroup;
 			children = (
-				B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */,
-				B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */,
+				B767DDA91B8C694400C721C9 /* CameraView */,
+				B767DDA81B8C693B00C721C9 /* ImagePreview */,
 			);
 			name = ImagePreviewView;
 			sourceTree = "<group>";
@@ -597,6 +629,8 @@
 				B7D32C351B8B30A9000DE939 /* modal2.jpeg in Resources */,
 				B7D32C381B8B30A9000DE939 /* modal5.jpeg in Resources */,
 				B7D32C2E1B8B25AD000DE939 /* back.png in Resources */,
+				B767DDA41B8C673400C721C9 /* Revert.png in Resources */,
+				B767DDA21B8C667500C721C9 /* Camera.png in Resources */,
 				B7D32C371B8B30A9000DE939 /* modal4.jpeg in Resources */,
 				B7D32C261B8AE055000DE939 /* radio_btn.png in Resources */,
 				B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */,
@@ -672,6 +706,7 @@
 				B70034341B8498EA00263CAD /* WebService.m in Sources */,
 				B70A59A81B8592B800E1D793 /* ActorsCamViewController.m in Sources */,
 				B7F5B0501B83109900C54376 /* UIImage+deviceSpecificMedia.m in Sources */,
+				B767DDA71B8C68FC00C721C9 /* PreviewView.m in Sources */,
 				B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */,
 				B700344B1B84AED100263CAD /* SWRevealViewController.m in Sources */,
 				B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */,
@@ -679,6 +714,7 @@
 				B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */,
 				B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */,
 				B70034301B8496A100263CAD /* UIView+RoundedCorner.m in Sources */,
+				B767DDAC1B8C697400C721C9 /* CustomCameraViewController.m in Sources */,
 				B7AD47461B8726B800D12F33 /* ManagerListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

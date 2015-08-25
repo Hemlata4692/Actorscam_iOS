@@ -73,7 +73,15 @@
 - (IBAction)addManagerButtonAction:(id)sender
 {
     AddManagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    [self.navigationController pushViewController:controller animated:YES];}
+    controller.navTitle = @"Add Managers";
+    controller.emailId = @"";
+    controller.name = @"";
+    controller.managerId = @"";
+    [self.navigationController pushViewController:controller animated:YES];
+
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
 
 #pragma mark - end
 
@@ -141,11 +149,13 @@
         NSDictionary *data = [managerListArray objectAtIndex:indexPath.row];
         
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-        addManagerView.navTitle = @"Edit Managers";
-        addManagerView.emailId = [data objectForKey:@"managerEmail"];
-        addManagerView.name = [data objectForKey:@"name"];
-        [self.navigationController pushViewController:addManagerView animated:YES];
+        AddManagerViewController *addManagerView1 =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+        addManagerView1.navTitle = @"Edit Managers";
+        addManagerView1.emailId = [data objectForKey:@"managerEmail"];
+        addManagerView1.name = [data objectForKey:@"name"];
+        addManagerView1.managerId = @"10245";
+//        addManagerView1.managerId = [data objectForKey:@"managerId"];//this come webservice
+        [self.navigationController pushViewController:addManagerView1 animated:YES];
         
     }];
     editAction.backgroundColor = [UIColor grayColor];
@@ -153,6 +163,8 @@
     
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
          NSLog(@"delete action");
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Email." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+        [alert show];
         
     }];
     deleteAction.backgroundColor = [UIColor redColor];
@@ -160,5 +172,47 @@
     return @[deleteAction,editAction];
 }
 #pragma mark - end
+
+#pragma mark - AlertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1)
+    {
+        [myDelegate ShowIndicator];
+        [self performSelector:@selector(deleteManager) withObject:nil afterDelay:.1];
+    }
+    
+}
+#pragma mark - end
+
+#pragma mark - Delete Manager method
+-(void)deleteManager
+{
+    [[WebService sharedManager] deleteManager:@"managerid" success:^(id responseObject) {
+            NSLog(@"response is %@",responseObject);
+            [myDelegate StopIndicator];
+            
+        } failure:^(NSError *error) {
+            
+        }] ;
+
+}
+#pragma mark - end
+
+#pragma mark - Manager Listing method
+-(void)managerListing
+{
+    [[WebService sharedManager] managerListing:^(id responseObject) {
+        NSLog(@"̊response is %@",responseObject);
+        [myDelegate StopIndicator];
+        
+    } failure:^(NSError *error) {
+        
+    }] ;
+    
+}
+#pragma mark - end
+
+
 
 @end

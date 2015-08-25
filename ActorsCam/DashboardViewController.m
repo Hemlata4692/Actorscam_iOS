@@ -11,6 +11,7 @@
 #import "ChooseLanguageViewController.h"
 #import "AddManagerViewController.h"
 #import "ImagePreviewViewController.h"
+#import "CustomCameraViewController.h"
 
 @interface DashboardViewController ()
 
@@ -59,7 +60,7 @@
 
 - (IBAction)takePhotosAction:(UIButton *)sender {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ImagePreviewViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"ImagePreviewViewController"];
+    CustomCameraViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"CustomCameraView"];
     [self.navigationController pushViewController:previewView animated:YES];
 }
 
@@ -70,6 +71,7 @@
     addManagerView.navTitle = @"Add Managers";
     addManagerView.emailId = @"";
     addManagerView.name = @"";
+    addManagerView.managerId = @"";
     [self.navigationController pushViewController:addManagerView animated:YES];
 }
 

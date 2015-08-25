@@ -123,7 +123,7 @@
 -(void)loginUser
 {
     [[WebService sharedManager] userLogin:userEmail.text Password:password.text success:^(id responseObject) {
-        NSLog(@"login response is %@",responseObject);
+        NSLog(@"response is %@",responseObject);
        
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -159,6 +159,7 @@
 {
     
     [self.view endEditing:YES];
+    password.text = @"";
     if([self performValidationsForForgotPassword])
     {
         [myDelegate ShowIndicator];
@@ -175,6 +176,8 @@
     [[WebService sharedManager] forgotPassword:forgotPasswordEmail.text success:^(id responseObject){
         
         [myDelegate StopIndicator];
+        forgotPasswordEmail.text = @"";
+        forgotPasswordView.hidden=YES;
           NSLog(@"forgot password response is %@",responseObject);
         
     } failure:^(NSError *error) {

@@ -19,11 +19,12 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *userEmail;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (weak, nonatomic) IBOutlet UIButton *addEditManager;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @end
 
 @implementation AddManagerViewController
-@synthesize navTitle, userEmail, userName, emailId, name;
+@synthesize navTitle, userEmail, userName, emailId, name, managerId;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -104,6 +105,80 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - add/Edit Manager Action
+- (IBAction)addEditManagerAction:(UIButton *)sender {
+    
+    [self.view endEditing:YES];
+    if([self performValidationsForManageData])
+    {
+        [myDelegate ShowIndicator];
+        [self performSelector:@selector(callAddEditManager) withObject:nil afterDelay:.1];
+    }
+}
+
+-(void)callAddEditManager
+{
+    if ([emailId isEqualToString:@""] || emailId.length == 0) {
+        //Add manager
+        [[WebService sharedManager] addManager:userName.text managerEmail:userEmail.text success:^(id responseObject) {
+            NSLog(@"response is %@",responseObject);
+            [myDelegate StopIndicator];
+            
+        } failure:^(NSError *error) {
+            
+        }] ;
+    }
+    else{
+        //edit manager
+         [[WebService sharedManager] updateManager:userName.text managerEmail:userEmail.text managerId:managerId success:^(id responseObject) {
+            NSLog(@"response is %@",responseObject);
+            [myDelegate StopIndicator];
+            
+        } failure:^(NSError *error) {
+            
+        }] ;
+    }
+    
+    
+}
+#pragma mark - end
+
+#pragma mark - Textfield Validation Action
+- (BOOL)performValidationsForManageData
+{
+    
+    UIAlertView *alert;
+    if ([userEmail isEmpty])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    else
+    {
+        if ([userEmail isValidEmail])
+        {
+            if ([userName isEmpty])
+            {
+                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Name." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                return NO;
+            }
+            else
+            {
+                return YES;
+            }
+        }
+        else
+        {
+            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter valid Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            return NO;
+        }
+    }
+    
+}
+#pragma mark - end
 /*
 #pragma mark - Navigation
 

@@ -61,11 +61,33 @@
     [self.keyboardControls.activeField resignFirstResponder];
     if([self performValidationsForChangePassword])
     {
-        //        [myDelegate ShowIndicator];
-        //        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+            [myDelegate ShowIndicator];
+            [self performSelector:@selector(changePasswordMethod) withObject:nil afterDelay:.1];
     }
 
 }
+
+-(void)changePasswordMethod
+{
+    
+    [[WebService sharedManager] changePassword:currentPassword.text newPassword:changePassword.text success:^(id responseObject) {
+        
+        [myDelegate StopIndicator];
+//        NSDictionary *dict = (NSDictionary *)responseObject;
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+//        [self.navigationController pushViewController:view1 animated:YES];
+        
+    } failure:^(NSError *error) {
+        
+    }] ;
+    
+}
+
 
 #pragma mark - end
 

@@ -9,7 +9,7 @@
 #import "ImagePreviewViewController.h"
 
 @interface ImagePreviewViewController (){
-    NSMutableArray *imageArray, *pickerArray;
+    NSMutableArray *pickerArray;
     int selectedImage;
 }
 
@@ -28,20 +28,22 @@
 @end
 
 @implementation ImagePreviewViewController
+@synthesize imageArray,customCameraVC;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    imageArray = [NSMutableArray arrayWithObjects:
-                   @"modal1.jpeg", @"modal2.jpeg",
-                   @"modal3.jpeg", @"modal4.jpeg", @"modal5.jpeg", nil];
+//    imageArray = [NSMutableArray arrayWithObjects:
+//                   @"modal1.jpeg", @"modal2.jpeg",
+//                   @"modal3.jpeg", @"modal4.jpeg", @"modal5.jpeg", nil];
     pickerArray = [NSMutableArray arrayWithObjects:
                   @"Sumeet", @"Shiven",
                   @"Vikas", @"Priyavrat", nil];
 
     
     selectedImage = 0;
-    _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+//    _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+    _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];
     _imagePreviewView.userInteractionEnabled = YES;
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
@@ -74,6 +76,9 @@
         _selectManagerView.hidden = NO;
         _noManager.hidden = YES;
      */
+    
+//    [myDelegate ShowIndicator];
+//    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
 
 #pragma mark - Collection View
@@ -90,7 +95,7 @@
                                     forIndexPath:indexPath];
     
     UIImageView *image = (UIImageView*)[myCell viewWithTag:1];
-    image.image = [UIImage imageNamed:[imageArray objectAtIndex:indexPath.row]];
+    image.image = [imageArray objectAtIndex:indexPath.row];
     
     if (selectedImage == indexPath.row) {
         image.layer.borderColor = [UIColor blueColor].CGColor;
@@ -110,8 +115,8 @@
     UIImageView *image = (UIImageView*)[cell viewWithTag:1];
     image.layer.borderColor = [UIColor blueColor].CGColor;
     image.layer.borderWidth = 2;
-    selectedImage = indexPath.row;
-     _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+    selectedImage = (int)indexPath.row;
+     _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
     for (int i=0; i<imageArray.count; i++) {
         if (i!=indexPath.row) {
             NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -147,7 +152,7 @@
     if (imageArray.count!=0) {
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:selectedImage inSection:0];
         [self.previewCollectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
-        _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+        _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
         [_previewCollectionView reloadData];
     }
     else{
@@ -219,11 +224,11 @@
 
             UIImageView *moveIMageView = _imagePreviewView;
             [self addAnimationPresentToView:moveIMageView];
-            _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+            _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
             [self.previewCollectionView reloadData];
         }
         else{
-            selectedImage=imageArray.count-1;
+            selectedImage = (int)imageArray.count-1;
         }
     }
     else{
@@ -251,7 +256,7 @@
             
             UIImageView *moveIMageView = _imagePreviewView;
             [self addAnimationPresentToViewOut:moveIMageView];
-            _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+            _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
             [self.previewCollectionView reloadData];
         }
         else{
@@ -291,6 +296,27 @@
     
 }
 #pragma mark - end
+
+
+#pragma mark - Manager Listing method
+-(void)managerListing
+{
+    [[WebService sharedManager] managerListing:^(id responseObject) {
+        NSLog(@"response is %@",responseObject);
+        [myDelegate StopIndicator];
+        
+    } failure:^(NSError *error) {
+        
+    }] ;
+    
+}
+#pragma mark - end
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+     customCameraVC.imageArray = [imageArray mutableCopy];
+}
+
 /*
 #pragma mark - Navigation
 

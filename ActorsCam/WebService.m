@@ -14,6 +14,10 @@
 #define kUrlRegister                    @"register"
 #define kUrlForgotPassword              @"forgotpassword"
 #define kUrlChangePassword              @"changepassword"
+#define kUrlAddManager                  @"addmanager"
+#define kUrlManagerListing              @"getManagerListing"
+#define kUrlUpdateManager               @"updateManager"
+#define kUrlDeleteManager               @"deleteManager"
 
 @implementation WebService
 @synthesize manager;
@@ -72,7 +76,7 @@
     NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
     [manager POST:path parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //[formData appendPartWithFormData:imageData name:@"image.png"];
-        [formData appendPartWithFileData:imageData name:@"uploads" fileName:@"files.jpg" mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:imageData name:@"files" fileName:@"files.jpg" mimeType:@"image/jpeg"];
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //[myDelegate StopIndicator];
@@ -224,7 +228,7 @@
 //Change Password
 -(void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
-    NSDictionary *requestDict = @{ @"userid":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"oldPassword":oldPassword, @"newPassword":oldPassword};
+    NSDictionary *requestDict = @{ @"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"oldPassword":oldPassword, @"newPassword":newPassword};
     
     [self post:kUrlChangePassword parameters:requestDict success:^(id responseObject)
      {
@@ -246,4 +250,113 @@
     
 }
 #pragma mark - end
+
+#pragma mark- Add manager Method
+//Add manager
+- (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    
+    NSDictionary *requestDict = @{@"managerName":managerName,@"managerEmail":managerEmail,@"userid":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    
+    [self post:kUrlAddManager parameters:requestDict success:^(id responseObject)
+     {
+         responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
+         
+         if([self isStatusOK:responseObject])
+         {
+             success(responseObject);
+         } else
+         {
+             [myDelegate StopIndicator];
+             failure(nil);
+         }
+     } failure:^(NSError *error)
+     {
+         [myDelegate StopIndicator];
+         failure(error);
+     }];
+    
+}
+#pragma mark - end
+
+#pragma mark- Manager Listing Method
+//Manager Listing
+- (void)managerListing:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    
+    NSDictionary *requestDict = @{@"userid":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    
+    [self post:kUrlManagerListing parameters:requestDict success:^(id responseObject)
+     {
+         responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
+         
+         if([self isStatusOK:responseObject])
+         {
+             success(responseObject);
+         } else
+         {
+             [myDelegate StopIndicator];
+             failure(nil);
+         }
+     } failure:^(NSError *error)
+     {
+         [myDelegate StopIndicator];
+         failure(error);
+     }];
+    
+}
+#pragma mark - end
+
+#pragma mark- Update Manager Method
+//Update Manager
+- (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    
+    NSDictionary *requestDict = @{@"name":name,@"managerEmail":managerEmail,@"managerId":managerId,@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    
+    [self post:kUrlUpdateManager parameters:requestDict success:^(id responseObject)
+     {
+         responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
+         
+         if([self isStatusOK:responseObject])
+         {
+             success(responseObject);
+         } else
+         {
+             [myDelegate StopIndicator];
+             failure(nil);
+         }
+     } failure:^(NSError *error)
+     {
+         [myDelegate StopIndicator];
+         failure(error);
+     }];
+    
+}
+#pragma mark - end
+
+#pragma mark- Delete Manager Method
+//Delete Manager
+- (void)deleteManager:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    
+    NSDictionary *requestDict = @{@"managerId":managerId,@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    
+    [self post:kUrlDeleteManager parameters:requestDict success:^(id responseObject)
+     {
+         responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
+         
+         if([self isStatusOK:responseObject])
+         {
+             success(responseObject);
+         } else
+         {
+             [myDelegate StopIndicator];
+             failure(nil);
+         }
+     } failure:^(NSError *error)
+     {
+         [myDelegate StopIndicator];
+         failure(error);
+     }];
+    
+}
+#pragma mark - end
+
 @end
