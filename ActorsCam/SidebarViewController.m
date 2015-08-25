@@ -148,22 +148,24 @@
     // Check Row and Select Next View controller
     if (indexPath.row == 4)
     {
-//        if (!([FBSession activeSession].state != FBSessionStateOpen &&
-//              [FBSession activeSession].state != FBSessionStateOpenTokenExtended))
-//        {
-//            [[FBSession activeSession] closeAndClearTokenInformation];
-//        }
-//        
         
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        myDelegate.window.rootViewController = myDelegate.navigationController;
-        LoginViewController *firstVC=[sb instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        [myDelegate.navigationController setViewControllers: [NSArray arrayWithObject: firstVC]
-                                                   animated: YES];
+//        LoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//        [myDelegate.navigationController setViewControllers: [NSArray arrayWithObject: controller]
+//                                                   animated: YES];
+//        myDelegate.window.rootViewController = myDelegate.navigationController;
         
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userid"] forKey:@"UserId"];
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"username"] forKey:@"UserName"];
-//        
+//        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//       
+//        LoginViewController *firstVC=[sb instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//        [myDelegate.navigationController setViewControllers: [NSArray arrayWithObject: firstVC]
+//                                                   animated: YES];
+//         myDelegate.window.rootViewController = myDelegate.navigationController;
+        
+        UIViewController* rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        
+        UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:rootController];
+        myDelegate.window.rootViewController = navigation;
+     
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults removeObjectForKey:@"UserId"];
         [defaults removeObjectForKey:@"UserName"];

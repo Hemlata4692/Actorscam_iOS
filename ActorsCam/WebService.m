@@ -11,9 +11,10 @@
 #import "LoginViewController.h"
 
 #define kUrlLogin                       @"login"
-#define kUrlRegister                    @"register"
+#define kUrlRegister                    @"test"
 #define kUrlForgotPassword              @"forgotpassword"
 #define kUrlChangePassword              @"changepassword"
+#define kUrlpostanswer                  @"postanswer"
 
 @implementation WebService
 @synthesize manager;
@@ -47,10 +48,10 @@
     manager.securityPolicy.allowInvalidCertificates = YES;
     
     [manager POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // [myDelegate StopIndicator];
+         [myDelegate StopIndicator];
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // [myDelegate StopIndicator];
+         [myDelegate StopIndicator];
         failure(error);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
@@ -72,13 +73,13 @@
     NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
     [manager POST:path parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //[formData appendPartWithFormData:imageData name:@"image.png"];
-        [formData appendPartWithFileData:imageData name:@"uploads" fileName:@"files.jpg" mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:imageData name:@"files" fileName:@"files.jpg" mimeType:@"image/jpeg"];
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //[myDelegate StopIndicator];
+        [myDelegate StopIndicator];
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //[myDelegate StopIndicator];
+        [myDelegate StopIndicator];
         failure(error);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
@@ -94,7 +95,7 @@
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
-            
+            return NO;
         }
 
         case 1:
@@ -246,4 +247,34 @@
     
 }
 #pragma mark - end
+
+-(void)postanswer:(NSString *)threadId answer:(NSString *)answer image:(UIImage *)image embedUrl:(NSString *)embedUrl groupId:(NSString *)groupId success:(void (^)(id))success failure:(void (^)(NSError *))failure
+{
+    
+    NSDictionary *requestDict = @{ @"userId":@"119",@"role":@"s",@"groupId":groupId,@"threadId":threadId,@"answer":answer ,@"embedUrl":embedUrl};
+    
+           [self postImage:kUrlpostanswer parameters:requestDict image:image success:^(id responseObject)     {
+            responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
+            NSLog(@"post answer: %@", responseObject);
+            
+            if([self isStatusOK:responseObject])
+            {
+            
+                success(responseObject);
+            }
+            else
+            {
+                [myDelegate StopIndicator];
+                failure(nil);
+            }
+        } failure:^(NSError *error)
+         {
+             [myDelegate StopIndicator];
+             failure(error);
+         }];
+        
+        
+   
+    
+}
 @end

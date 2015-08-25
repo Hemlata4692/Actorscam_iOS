@@ -11,6 +11,7 @@
 
 //testing link
 #define BASE_URL                              @"http://ranosys.net/client/actorscam/api"
+//#define BASE_URL  @"http://ranosys.net/client/westwood/qa/admin/api/"
 
 @interface WebService : NSObject
 
@@ -29,7 +30,7 @@
 //Forgot password method
 -(void)forgotPassword:(NSString *)mailId success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 //end
-
+-(void)postanswer:(NSString *)threadId answer:(NSString *)answer image:(UIImage *)image embedUrl:(NSString *)embedUrl groupId:(NSString *)groupId success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 
 //Change Password
 -(void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword success:(void (^)(id))success failure:(void (^)(NSError *))failure;

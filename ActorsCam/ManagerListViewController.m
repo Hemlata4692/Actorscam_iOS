@@ -56,10 +56,6 @@
     // Do any additional setup after loading the view.
   //  addManagerView.hidden=YES;
     [addManagerBtn setCornerRadius:5.0f];
-    managerListArray = [[NSMutableArray alloc]initWithObjects:@"test1",@"test2",@"test3",@"test4", nil];
-    
-    noManagerAddedLbl.hidden=YES;
-//    managerListArray = [[NSMutableArray alloc]initWithObjects:@"test1",@"test2",@"test3",@"test4", nil];
     managerListArray = [NSMutableArray new];
     [self localWebservice];
 }
@@ -73,7 +69,8 @@
 - (IBAction)addManagerButtonAction:(id)sender
 {
     AddManagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    [self.navigationController pushViewController:controller animated:YES];}
+    [self.navigationController pushViewController:controller animated:YES];
+}
 
 #pragma mark - end
 
@@ -141,11 +138,11 @@
         NSDictionary *data = [managerListArray objectAtIndex:indexPath.row];
         
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-        addManagerView.navTitle = @"Edit Managers";
-        addManagerView.emailId = [data objectForKey:@"managerEmail"];
-        addManagerView.name = [data objectForKey:@"name"];
-        [self.navigationController pushViewController:addManagerView animated:YES];
+        AddManagerViewController *addManagerObj =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+        addManagerObj.navTitle = @"Edit Managers";
+        addManagerObj.emailId = [data objectForKey:@"managerEmail"];
+        addManagerObj.name = [data objectForKey:@"name"];
+        [self.navigationController pushViewController:addManagerObj animated:YES];
         
     }];
     editAction.backgroundColor = [UIColor grayColor];

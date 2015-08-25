@@ -10,6 +10,7 @@
 #import "UITextField+Padding.h"
 #import "UITextField+Validations.h"
 #import "BSKeyboardControls.h"
+#import "UIView+RoundedCorner.h"
 
 @interface AddManagerViewController ()<UITextFieldDelegate,BSKeyboardControlsDelegate>
 {
@@ -19,11 +20,13 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *userEmail;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (weak, nonatomic) IBOutlet UIButton *addManagerBtn;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @end
 
 @implementation AddManagerViewController
 @synthesize navTitle, userEmail, userName, emailId, name;
+@synthesize addManagerBtn;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -49,7 +52,7 @@
 
 -(void)addTextFieldPadding
 {
-    
+    [addManagerBtn setCornerRadius:5.0f];
     [userEmail addTextFieldPadding:userEmail];
     [userName addTextFieldPadding:userName];
     
@@ -103,15 +106,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)addManagerButtonAction:(id)sender {
 }
-*/
+
 
 @end

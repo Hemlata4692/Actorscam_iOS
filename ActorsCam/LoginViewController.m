@@ -110,8 +110,7 @@
     
     [self.view endEditing:YES];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    [userName resignFirstResponder];
-//    [password resignFirstResponder];
+
     if([self performValidationsForLogin])
     {
         [myDelegate ShowIndicator];
@@ -135,11 +134,6 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
         [self.navigationController pushViewController:objReveal animated:YES];
-//        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//        [myDelegate.window setRootViewController:objReveal];
-//        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-//        [myDelegate.window makeKeyAndVisible];
-//        
     } failure:^(NSError *error) {
         
     }] ;
@@ -170,8 +164,6 @@
 
 -(void)forgotPassword
 {
-//    userLogin:userEmail.text Password:password.text success:^(id responseObject)
-    
     [[WebService sharedManager] forgotPassword:forgotPasswordEmail.text success:^(id responseObject){
         
         [myDelegate StopIndicator];

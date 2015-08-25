@@ -197,13 +197,13 @@
 			name = EditProfileView;
 			sourceTree = "<group>";
 		};
-		B70034431B84ADC100263CAD /* ManagersView */ = {
+		B70034431B84ADC100263CAD /* ManagerListView */ = {
 			isa = PBXGroup;
 			children = (
 				B7AD47491B87286F00D12F33 /* ManagersListCell */,
 				B7AD47481B87286000D12F33 /* ManagersList */,
 			);
-			name = ManagersView;
+			name = ManagerListView;
 			sourceTree = "<group>";
 		};
 		B70034471B84AEB000263CAD /* SideBar */ = {
@@ -320,7 +320,7 @@
 				B700343B1B84ABE800263CAD /* DashboardView */,
 				B789AD8A1B8212C700C1C0AB /* ChangePasswordView */,
 				B7AD47471B8726BE00D12F33 /* AddManagersView */,
-				B70034431B84ADC100263CAD /* ManagersView */,
+				B70034431B84ADC100263CAD /* ManagerListView */,
 				B700343F1B84AD5C00263CAD /* EditProfileView */,
 				B70034471B84AEB000263CAD /* SideBar */,
 				B70034481B84AEB900263CAD /* SWRevealViewController */,
