@@ -9,7 +9,7 @@
 #import "ImagePreviewViewController.h"
 
 @interface ImagePreviewViewController (){
-    NSMutableArray *imageArray;
+    NSMutableArray *imageArray, *pickerArray;
     int selectedImage;
 }
 
@@ -20,6 +20,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *managerName;
 @property (weak, nonatomic) IBOutlet UIButton *sendImageButton;
 @property (weak, nonatomic) IBOutlet UILabel *noManager;
+@property (weak, nonatomic) IBOutlet UIView *selectManagerView;
+@property (weak, nonatomic) IBOutlet UIPickerView *managerListPickerView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *toolBarDone;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+
 @end
 
 @implementation ImagePreviewViewController
@@ -27,17 +32,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     imageArray = [NSMutableArray arrayWithObjects:
                    @"modal1.jpeg", @"modal2.jpeg",
                    @"modal3.jpeg", @"modal4.jpeg", @"modal5.jpeg", nil];
-//    if (imageArray.count) {
-        selectedImage = 0;
-//    }
-//    else{
-//        selectedImage = -1;
-//    }
+    pickerArray = [NSMutableArray arrayWithObjects:
+                  @"Sumeet", @"Shiven",
+                  @"Vikas", @"Priyavrat", nil];
+
     
+    selectedImage = 0;
     _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
     _imagePreviewView.userInteractionEnabled = YES;
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
@@ -50,11 +53,118 @@
     [_imagePreviewView addGestureRecognizer:swipeLeft];
     [_imagePreviewView addGestureRecognizer:swipeRight];
 
-    
-    
     // Do any additional setup after loading the view.
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    _selectManagerView.hidden = NO;
+    _noManager.hidden = YES;
+    _managerListPickerView.hidden = YES;
+    _toolBar.hidden = YES;
+    
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    self.navigationItem.title = @"Preview";
+    
+    /* call webservice
+     if i have bot manager list so
+        _selectManagerView.hidden = YES;
+        _noManager.hidden = NO;
+     else
+        _selectManagerView.hidden = NO;
+        _noManager.hidden = YES;
+     */
+}
+
+#pragma mark - Collection View
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return imageArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView1 cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *myCell = [collectionView1
+                                    dequeueReusableCellWithReuseIdentifier:@"myCell"
+                                    forIndexPath:indexPath];
+    
+    UIImageView *image = (UIImageView*)[myCell viewWithTag:1];
+    image.image = [UIImage imageNamed:[imageArray objectAtIndex:indexPath.row]];
+    
+    if (selectedImage == indexPath.row) {
+        image.layer.borderColor = [UIColor blueColor].CGColor;
+        image.layer.borderWidth = 2;
+    }
+    else{
+        image.layer.borderColor = [UIColor clearColor].CGColor;
+        image.layer.borderWidth = 2;
+    }
+    return myCell;
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    UIImageView *image = (UIImageView*)[cell viewWithTag:1];
+    image.layer.borderColor = [UIColor blueColor].CGColor;
+    image.layer.borderWidth = 2;
+    selectedImage = indexPath.row;
+     _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+    for (int i=0; i<imageArray.count; i++) {
+        if (i!=indexPath.row) {
+            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            UICollectionViewCell *cell1 = [collectionView cellForItemAtIndexPath:newIndexPath];
+            UIImageView *image = (UIImageView*)[cell1 viewWithTag:1];
+            image.layer.borderColor = [UIColor clearColor].CGColor;
+            image.layer.borderWidth = 2;
+        }
+    }
+    
+}
+
+//-(void) scrollViewDidScroll:(UIScrollView *)scrollView{
+//    for (UICollectionViewCell *cell in [self.previewCollectionView visibleCells]) {
+//        NSIndexPath *indexPath = [self.previewCollectionView indexPathForCell:cell];
+//        NSLog(@"%@",indexPath);
+//    }
+//}
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    
+//}
+#pragma mark - end
+
+- (IBAction)selectManagerAction:(UIButton *)sender {
+    [_scrollView setContentOffset:CGPointMake(0, _managerName.frame.origin.y + 150) animated:YES];
+    _managerListPickerView.hidden = NO;
+    _toolBar.hidden = NO;
+}
+
+- (IBAction)deleteImageAction:(UIButton *)sender {
+    [imageArray removeObjectAtIndex:selectedImage];
+    selectedImage = 0;
+    if (imageArray.count!=0) {
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:selectedImage inSection:0];
+        [self.previewCollectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+        _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+        [_previewCollectionView reloadData];
+    }
+    else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+}
+
+- (IBAction)sendImageButtonAction:(id)sender {
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UISwipeGesture handler
 - (void)addAnimationPresentToView:(UIView *)viewTobeAnimated
 {
     CATransition *transition = [CATransition animation];
@@ -81,7 +191,6 @@
     
 }
 
-
 - (void)swipeRecognizer:(UISwipeGestureRecognizer *)sender {
     if(sender.direction==UISwipeGestureRecognizerDirectionLeft){
         NSLog(@"right");
@@ -89,6 +198,25 @@
         selectedImage++;
         if(selectedImage<imageArray.count){
             
+//            NSArray* cv = [self.previewCollectionView visibleCells];
+            BOOL flag = NO;
+            for (UICollectionViewCell *cell in [self.previewCollectionView visibleCells]) {
+                NSIndexPath *indexPath = [self.previewCollectionView indexPathForCell:cell];
+                if (indexPath.row != selectedImage) {
+                    flag = YES;
+                }
+                else{
+                    flag = NO;
+                    break;
+                }
+                NSLog(@"%@",indexPath);
+            }
+            
+            if (flag) {
+                NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:selectedImage inSection:0];
+                [self.previewCollectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+            }
+
             UIImageView *moveIMageView = _imagePreviewView;
             [self addAnimationPresentToView:moveIMageView];
             _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
@@ -102,6 +230,25 @@
         NSLog(@"left");
         selectedImage--;
         if(selectedImage>=0){
+            
+            BOOL flag = NO;
+            for (UICollectionViewCell *cell in [self.previewCollectionView visibleCells]) {
+                NSIndexPath *indexPath = [self.previewCollectionView indexPathForCell:cell];
+                if (indexPath.row != selectedImage) {
+                    flag = YES;
+                }
+                else{
+                    flag = NO;
+                    break;
+                }
+                NSLog(@"%@",indexPath);
+            }
+            
+            if (flag) {
+                NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:selectedImage inSection:0];
+                [self.previewCollectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+            }
+            
             UIImageView *moveIMageView = _imagePreviewView;
             [self addAnimationPresentToViewOut:moveIMageView];
             _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
@@ -114,79 +261,36 @@
     }
     
 }
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    self.navigationItem.title = @"Preview";
-}
-
-#pragma mark - Collection View
-
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
- 
-    return imageArray.count;
-    
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView1 cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *myCell = [collectionView1
-                                    dequeueReusableCellWithReuseIdentifier:@"myCell"
-                                    forIndexPath:indexPath];
-    
-    UIImageView *image = (UIImageView*)[myCell viewWithTag:1];
-    image.image = [UIImage imageNamed:[imageArray objectAtIndex:indexPath.row]];
-    
-    if (selectedImage == indexPath.row) {
-        image.layer.borderColor = [UIColor blueColor].CGColor;
-        image.layer.borderWidth = 1;
-    }
-    else{
-        image.layer.borderColor = [UIColor clearColor].CGColor;
-        image.layer.borderWidth = 1;
-    }
-    return myCell;
-    
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    UIImageView *image = (UIImageView*)[cell viewWithTag:1];
-    image.layer.borderColor = [UIColor blueColor].CGColor;
-    image.layer.borderWidth = 1;
-    selectedImage = indexPath.row;
-     _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
-    for (int i=0; i<imageArray.count; i++) {
-        if (i!=indexPath.row) {
-            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            UICollectionViewCell *cell1 = [collectionView cellForItemAtIndexPath:newIndexPath];
-            UIImageView *image = (UIImageView*)[cell1 viewWithTag:1];
-            image.layer.borderColor = [UIColor clearColor].CGColor;
-            image.layer.borderWidth = 1;
-        }
-    }
-    
-}
-
 #pragma mark - end
 
-- (IBAction)selectManagerAction:(UIButton *)sender {
+#pragma mark - Pickerview Delegate Methods
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
 }
 
-- (IBAction)deleteImageAction:(UIButton *)sender {
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return pickerArray.count;
 }
 
-- (IBAction)sendImageButtonAction:(id)sender {
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [pickerArray objectAtIndex:row];
 }
+#pragma mark - end
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Toolbar Done Action
+- (IBAction)DoneAction:(UIBarButtonItem *)sender {
+    NSInteger index = [_managerListPickerView selectedRowInComponent:0];
+    _managerName.text=[pickerArray objectAtIndex:index];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    _managerListPickerView.hidden = YES;
+    _toolBar.hidden = YES;
+    
 }
-
+#pragma mark - end
 /*
 #pragma mark - Navigation
 
