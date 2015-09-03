@@ -33,6 +33,7 @@
 		B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD841B82103B00C1C0AB /* RegisterViewController.m */; };
 		B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD881B82105300C1C0AB /* LoginViewController.m */; };
 		B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */; };
+		B79FC7111B941FD200D9EA79 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = B79FC7101B941FD200D9EA79 /* UIView+Toast.m */; };
 		B7AD47461B8726B800D12F33 /* ManagerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AD47451B8726B800D12F33 /* ManagerListViewController.m */; };
 		B7D32C261B8AE055000DE939 /* radio_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C251B8AE055000DE939 /* radio_btn.png */; };
 		B7D32C281B8AE058000DE939 /* radio_btn_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C271B8AE058000DE939 /* radio_btn_selected.png */; };
@@ -111,6 +112,8 @@
 		B789AD881B82105300C1C0AB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ActorsCam/LoginViewController.m; sourceTree = "<group>"; };
 		B789AD8B1B8212E700C1C0AB /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = ActorsCam/ChangePasswordViewController.h; sourceTree = "<group>"; };
 		B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = ActorsCam/ChangePasswordViewController.m; sourceTree = "<group>"; };
+		B79FC70F1B941FD200D9EA79 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		B79FC7101B941FD200D9EA79 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		B7AD47441B8726B800D12F33 /* ManagerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManagerListViewController.h; path = ActorsCam/ManagerListViewController.h; sourceTree = "<group>"; };
 		B7AD47451B8726B800D12F33 /* ManagerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManagerListViewController.m; path = ActorsCam/ManagerListViewController.m; sourceTree = "<group>"; };
 		B7D32C251B8AE055000DE939 /* radio_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_btn.png; sourceTree = "<group>"; };
@@ -395,6 +398,15 @@
 			name = ChangePasswordView;
 			sourceTree = "<group>";
 		};
+		B79FC70B1B9417FA00D9EA79 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				B79FC70F1B941FD200D9EA79 /* UIView+Toast.h */,
+				B79FC7101B941FD200D9EA79 /* UIView+Toast.m */,
+			);
+			name = Toast;
+			sourceTree = "<group>";
+		};
 		B7AD47471B8726BE00D12F33 /* AddManagersView */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +481,7 @@
 		B7F5B00F1B82EBEF00C54376 /* HelperClass */ = {
 			isa = PBXGroup;
 			children = (
+				B79FC70B1B9417FA00D9EA79 /* Toast */,
 				B7EDA6EB1B870A4D00778749 /* ProgressBar */,
 				B7F5B0511B8310C400C54376 /* NullHandler */,
 				B7F5B0101B82EBF700C54376 /* KeyboardControls */,
@@ -690,6 +703,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B79FC7111B941FD200D9EA79 /* UIView+Toast.m in Sources */,
 				B789AD601B820F3B00C1C0AB /* AppDelegate.m in Sources */,
 				B7D32C2B1B8AE32A000DE939 /* ChooseLanguageViewController.m in Sources */,
 				B7FF11311B8754D700D1E54F /* ManagersListCell.m in Sources */,

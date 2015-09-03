@@ -26,7 +26,7 @@
 //              @"managerEmail" : @"markd@gmail.com"};
 
     self.managerName.text = [dict objectForKey:@"name"];
-    self.manageremail.text = [dict objectForKey:@"managerEmail"];
+    self.manageremail.text = [dict objectForKey:@"email"];
     
 }
 

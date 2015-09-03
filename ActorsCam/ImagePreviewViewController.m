@@ -7,8 +7,10 @@
 //
 
 #import "ImagePreviewViewController.h"
+#import "DashboardViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface ImagePreviewViewController (){
+@interface ImagePreviewViewController ()<MFMailComposeViewControllerDelegate>{
     NSMutableArray *pickerArray;
     int selectedImage;
 }
@@ -43,6 +45,8 @@
     
     selectedImage = 0;
 //    _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
+//    UIImage *image =[UIImage imageNamed:@"modal1.jpeg"];
+//    [imageArray addObject:image];
     _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];
     _imagePreviewView.userInteractionEnabled = YES;
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
@@ -77,9 +81,10 @@
         _noManager.hidden = YES;
      */
     
-//    [myDelegate ShowIndicator];
-//    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
+
 
 #pragma mark - Collection View
 
@@ -162,6 +167,81 @@
 }
 
 - (IBAction)sendImageButtonAction:(id)sender {
+    if ([MFMailComposeViewController canSendMail])
+        
+    {
+        
+        // Email Subject
+        
+        NSString *emailTitle = @"The Blue Barrel Career Search";
+        
+        NSArray *toRecipents = [NSArray arrayWithObject:@""];
+        
+        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        
+        mc.mailComposeDelegate = self;
+        
+        [mc setSubject:emailTitle];
+        
+        [mc setMessageBody:@"Hunting for a new job!! Then it is the right platform!! You can try this application." isHTML:NO];
+        
+        for (UIImage *yourImage in imageArray )
+            
+        {
+            
+            NSData *imgData = UIImageJPEGRepresentation(yourImage, 0.5);
+            
+            [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
+            
+            //movie path
+            
+            //           NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:moviePath];
+            
+            //            [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"defectVideo.MOV"];
+            
+            
+            
+            //audio
+            
+//            NSString *mp3File = [NSTemporaryDirectory() stringByAppendingPathComponent: @"tmp.mp3"];
+//            
+//            NSURL    *fileURL = [[NSURL alloc] initFileURLWithPath:mp3File];
+//            
+//            NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
+//            
+//            [mc addAttachmentData:soundFile mimeType:@"audio/mpeg" fileName:@"tmp.mp3"];
+            
+            
+            
+        }
+        
+        [mc setToRecipients:toRecipents];
+        
+        
+        
+        [self presentViewController:mc animated:YES completion:NULL];
+        
+    }
+    
+    else
+        
+    {
+        
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  
+                                  initWithTitle:nil
+                                  
+                                  message:@"Email account is not configured in your device."
+                                  
+                                  delegate:self
+                                  
+                                  cancelButtonTitle:@"OK"
+                                  
+                                  otherButtonTitles:nil];
+        
+        [alertView show];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -311,6 +391,21 @@
     
 }
 #pragma mark - end
+
+- (IBAction)backButton:(UIButton *)sender {
+    for (id controller in [self.navigationController viewControllers])
+    {
+        if ([controller isKindOfClass:[DashboardViewController class]])
+        {
+            [self.navigationController popToViewController:controller animated:YES];
+            break;
+        }
+    }
+}
+
+- (IBAction)cameraButton:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];

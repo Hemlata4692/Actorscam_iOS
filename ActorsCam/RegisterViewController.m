@@ -97,16 +97,19 @@
         
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        [myDelegate.window setRootViewController:view1];
-        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-        [myDelegate.window makeKeyAndVisible];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
+//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+//        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        [myDelegate.window setRootViewController:view1];
+//        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+//        [myDelegate.window makeKeyAndVisible];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
         
     } failure:^(NSError *error) {
         
@@ -122,6 +125,10 @@
 
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark - end
 
 #pragma mark - Image Picker

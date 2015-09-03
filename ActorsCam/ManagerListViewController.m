@@ -14,7 +14,7 @@
 @interface ManagerListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *managerListArray;
-    
+    int indexpathRow;
 
 }
 @property (weak, nonatomic) IBOutlet UILabel *noManagerAddedLbl;
@@ -29,36 +29,33 @@
 @synthesize managerListTableView,noManagerAddedLbl;
 @synthesize addManagerBtn,addManagerImage,addManagerView;
 
--(void)localWebservice{
-
-    NSDictionary *dict1;
-    dict1 = @{@"name" : @"Mark D.",
-              @"managerEmail" : @"markd@gmail.com"};
-    [managerListArray addObject:dict1];
-    
-    dict1 = @{@"name" : @"Jason Smith",
-              @"managerEmail" : @"jason@gmail.com"};
-    [managerListArray addObject:dict1];
-
-    dict1 = @{@"name" : @"John Thomas",
-              @"managerEmail" : @"john@gmail.com"};
-    [managerListArray addObject:dict1];
-
-    dict1 = @{@"name" : @"Thomas Wang",
-              @"managerEmail" : @"thomas@gmail.com"};
-    [managerListArray addObject:dict1];
-
-}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    deleteMangerId = @"-1";
+//    // Do any additional setup after loading the view.
+//    managerListTableView.hidden = NO;
+//    addManagerView.hidden=YES;
+//    [addManagerBtn setCornerRadius:5.0f];
+//    managerListArray = [NSMutableArray new];
+//    [self localWebservice];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    indexpathRow = -1;
     // Do any additional setup after loading the view.
-  //  addManagerView.hidden=YES;
+    managerListTableView.hidden = NO;
+    addManagerView.hidden=YES;
     [addManagerBtn setCornerRadius:5.0f];
     managerListArray = [NSMutableArray new];
-    [self localWebservice];
+    [managerListTableView reloadData];
+    
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -75,11 +72,6 @@
     controller.managerId = @"";
     [self.navigationController pushViewController:controller animated:YES];
 }
-
-    [myDelegate ShowIndicator];
-    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
-}
-
 #pragma mark - end
 
 #pragma mark - Table View Data source
@@ -148,9 +140,9 @@
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         AddManagerViewController *addManagerView1 =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
         addManagerView1.navTitle = @"Edit Managers";
-        addManagerView1.emailId = [data objectForKey:@"managerEmail"];
+        addManagerView1.emailId = [data objectForKey:@"email"];
         addManagerView1.name = [data objectForKey:@"name"];
-        addManagerView1.managerId = @"10245";
+        addManagerView1.managerId = [data objectForKey:@"managerId"];
 //        addManagerView1.managerId = [data objectForKey:@"managerId"];//this come webservice
         [self.navigationController pushViewController:addManagerView1 animated:YES];
         
@@ -159,8 +151,11 @@
     
     
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        
+        
+        indexpathRow = indexPath.row;
          NSLog(@"delete action");
-        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Email." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Do you want to delete this manager?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
         [alert show];
         
     }];
@@ -178,6 +173,9 @@
         [myDelegate ShowIndicator];
         [self performSelector:@selector(deleteManager) withObject:nil afterDelay:.1];
     }
+    else{
+        indexpathRow = -1;
+    }
     
 }
 #pragma mark - end
@@ -185,10 +183,21 @@
 #pragma mark - Delete Manager method
 -(void)deleteManager
 {
-    [[WebService sharedManager] deleteManager:@"managerid" success:^(id responseObject) {
+    NSDictionary *data = [managerListArray objectAtIndex:indexpathRow];
+    [[WebService sharedManager] deleteManager:[data objectForKey:@"managerId"] managerEmail:[data objectForKey:@"email"] success:^(id responseObject) {
             NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
-            
+        [managerListArray removeObjectAtIndex:indexpathRow];
+        if (managerListArray.count==0) {
+            addManagerView.hidden=NO;
+            managerListTableView.hidden = YES;
+        }
+        else{
+            addManagerView.hidden=YES;
+            managerListTableView.hidden = NO;
+        }
+        indexpathRow = -1;
+        [managerListTableView reloadData];
         } failure:^(NSError *error) {
             
         }] ;
@@ -200,15 +209,26 @@
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
-        NSLog(@"̊response is %@",responseObject);
+        NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
-        
+         managerListArray = [responseObject objectForKey:@"managerList"];
+        if (managerListArray.count==0) {
+            addManagerView.hidden=NO;
+            managerListTableView.hidden = YES;
+        }
+        else{
+            addManagerView.hidden=YES;
+            managerListTableView.hidden = NO;
+        }
+        [managerListTableView reloadData];
     } failure:^(NSError *error) {
         
     }] ;
     
 }
 #pragma mark - end
+
+
 
 
 

@@ -48,8 +48,14 @@
 //end
 
 //Delete Manager
-- (void)deleteManager:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure;
+- (void)deleteManager:(NSString *)managerId managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 //end
 
+//Get Profile
+- (void)getprofile:(void (^)(id))success failure:(void (^)(NSError *))failure;
+//end
 
+//update profile
+-(void)updateprofile:(NSString *)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure;
+//end
 @end

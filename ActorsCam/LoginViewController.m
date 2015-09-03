@@ -128,7 +128,7 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userid"] forKey:@"UserId"];
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"username"] forKey:@"UserName"];
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"profileImageUrl"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

@@ -9,8 +9,7 @@
 #import "SidebarViewController.h"
 #import "SWRevealViewController.h"
 #import "LoginViewController.h"
-
-
+#import <UIImageView+AFNetworking.h>
 
 @interface SidebarViewController (){
     NSArray *menuItems;
@@ -31,6 +30,11 @@
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, self.view.frame.size.width, 20)];
     statusBarView.backgroundColor = [UIColor colorWithRed:83.0/255.0 green:24.0/255.0 blue:152.0/255.0 alpha:1.0];
     [self.view addSubview:statusBarView];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -104,7 +108,7 @@
     
     headerView.backgroundColor=[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1.0];
     UILabel * label1;
-    label1 = [[UILabel alloc] initWithFrame:CGRectMake(75, 130, 100, 22)];
+    label1 = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-50, 130, 100, 22)];
     label1.backgroundColor = [UIColor whiteColor];
     label1.textAlignment=NSTextAlignmentCenter;
     label1.textColor=[UIColor colorWithRed:253.0/255.0 green:47.0/255.0 blue:47.0/255.0 alpha:1.0];
@@ -112,27 +116,43 @@
     label1.text = @"Welcome" ;// i.e. array element
    
     UILabel *label2;
-    label2 = [[UILabel alloc] initWithFrame:CGRectMake(75, 160, 130, 35)];
-    label2.backgroundColor = [UIColor whiteColor];
+    label2 = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-65, 160, 130, 35)];
+    label2.backgroundColor = [UIColor clearColor];
     label2.textAlignment=NSTextAlignmentCenter;
     label2.lineBreakMode = NSLineBreakByWordWrapping;
     label2.numberOfLines = 2;
     label2.textColor=[UIColor colorWithRed:121.0/255.0 green:115.0/255.0 blue:115.0/255.0 alpha:1.0];
     label2.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"Name"] isEqualToString:@""]) {
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"UserName"] isEqualToString:@""]) {
         
         label2.text = @"User" ;
     }
     else
     {
-        label2.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"Name"];
+        label2.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"UserName"];
     }
     // i.e. array element
+    
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(75, 20, 100, 100)] ;
     //imgView.contentMode=UIViewContentModeScaleAspectFill;
     imgView.contentMode = UIViewContentModeScaleAspectFill;
     imgView.clipsToBounds = YES;
-    imgView.backgroundColor=[UIColor whiteColor];
+    imgView.backgroundColor=[UIColor clearColor];
+   // profileImageUrl
+     __weak UIImageView *weakRef = imgView;
+    NSString *tempImageString = [[NSUserDefaults standardUserDefaults]objectForKey:@"profileImageUrl"];
+    
+    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:tempImageString]
+                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                              timeoutInterval:60];
+    
+    [imgView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"picture"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        weakRef.contentMode = UIViewContentModeScaleAspectFit;
+        weakRef.clipsToBounds = YES;
+        weakRef.image = image;
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        
+    }];
   //  imgView.image=profileImage;
     imgView.layer.cornerRadius = imgView.frame.size.width / 2;
     [headerView addSubview:label1];

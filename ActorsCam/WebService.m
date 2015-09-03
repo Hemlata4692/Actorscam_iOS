@@ -15,9 +15,11 @@
 #define kUrlForgotPassword              @"forgotpassword"
 #define kUrlChangePassword              @"changepassword"
 #define kUrlAddManager                  @"addmanager"
-#define kUrlManagerListing              @"getManagerListing"
-#define kUrlUpdateManager               @"updateManager"
-#define kUrlDeleteManager               @"deleteManager"
+#define kUrlManagerListing              @"getmanagerlisting"
+#define kUrlUpdateManager               @"updatemanager"
+#define kUrlDeleteManager               @"deletemanager"
+#define kUrlGetprofile                  @"getprofile"
+#define kUrlUpdateprofile               @"updateprofile"
 
 @implementation WebService
 @synthesize manager;
@@ -255,7 +257,7 @@
 //Add manager
 - (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
-    NSDictionary *requestDict = @{@"managerName":managerName,@"managerEmail":managerEmail,@"userid":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    NSDictionary *requestDict = @{@"managerName":managerName,@"managerEmail":managerEmail,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
     
     [self post:kUrlAddManager parameters:requestDict success:^(id responseObject)
      {
@@ -282,7 +284,7 @@
 //Manager Listing
 - (void)managerListing:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
-    NSDictionary *requestDict = @{@"userid":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
     
     [self post:kUrlManagerListing parameters:requestDict success:^(id responseObject)
      {
@@ -309,7 +311,7 @@
 //Update Manager
 - (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
-    NSDictionary *requestDict = @{@"name":name,@"managerEmail":managerEmail,@"managerId":managerId,@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    NSDictionary *requestDict = @{@"managerName":name,@"managerEmail":managerEmail,@"managerId":managerId,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
     
     [self post:kUrlUpdateManager parameters:requestDict success:^(id responseObject)
      {
@@ -334,9 +336,9 @@
 
 #pragma mark- Delete Manager Method
 //Delete Manager
-- (void)deleteManager:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+- (void)deleteManager:(NSString *)managerId managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
-    NSDictionary *requestDict = @{@"managerId":managerId,@"userId":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    NSDictionary *requestDict = @{@"managerId":managerId,@"managerEmail":managerEmail ,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
     
     [self post:kUrlDeleteManager parameters:requestDict success:^(id responseObject)
      {
@@ -346,6 +348,62 @@
          {
              success(responseObject);
          } else
+         {
+             [myDelegate StopIndicator];
+             failure(nil);
+         }
+     } failure:^(NSError *error)
+     {
+         [myDelegate StopIndicator];
+         failure(error);
+     }];
+    
+}
+#pragma mark - end
+
+#pragma mark- Delete Manager Method
+//Get Profile
+- (void)getprofile:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    
+    NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    
+    [self post:kUrlGetprofile parameters:requestDict success:^(id responseObject)
+     {
+         responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
+         
+         if([self isStatusOK:responseObject])
+         {
+             success(responseObject);
+         } else
+         {
+             [myDelegate StopIndicator];
+             failure(nil);
+         }
+     } failure:^(NSError *error)
+     {
+         [myDelegate StopIndicator];
+         failure(error);
+     }];
+    
+}
+#pragma mark - end
+
+#pragma mark - Update profile Method
+//update profile
+-(void)updateprofile:(NSString *)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure
+{
+    NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"],@"username":name};
+    
+    [self postImage:kUrlUpdateprofile parameters:requestDict image:image success:^(id responseObject)
+     {
+         responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
+         NSLog(@"Update profile User Response%@", responseObject);
+         
+         if([self isStatusOK:responseObject])
+         {
+             success(responseObject);
+         }
+         else
          {
              [myDelegate StopIndicator];
              failure(nil);

@@ -125,6 +125,11 @@
         [[WebService sharedManager] addManager:userName.text managerEmail:userEmail.text success:^(id responseObject) {
             NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            alert.tag = 1;
+            [alert show];
+
             
         } failure:^(NSError *error) {
             
@@ -135,6 +140,11 @@
          [[WebService sharedManager] updateManager:userName.text managerEmail:userEmail.text managerId:managerId success:^(id responseObject) {
             NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
+             NSDictionary *dict = (NSDictionary *)responseObject;
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+              alert.tag = 1;
+             [alert show];
+
             
         } failure:^(NSError *error) {
             
@@ -142,6 +152,14 @@
     }
     
     
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+          [self.navigationController popViewControllerAnimated:YES];
+    }
+  
 }
 #pragma mark - end
 

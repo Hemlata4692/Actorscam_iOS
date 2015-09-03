@@ -11,12 +11,15 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PreviewView.h"
 #import "ImagePreviewViewController.h"
+#import "UIView+Toast.h"
 
 static void * CapturingStillImageContext = &CapturingStillImageContext;
 static void * RecordingContext = &RecordingContext;
 static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDeviceAuthorizedContext;
 
-@interface CustomCameraViewController ()<AVCaptureFileOutputRecordingDelegate>
+@interface CustomCameraViewController ()<AVCaptureFileOutputRecordingDelegate>{
+    unsigned long long imageSize;
+}
 
 @property (nonatomic, retain) AVCaptureVideoPreviewLayer *prevLayer;
 
@@ -62,6 +65,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     [super viewDidLoad];
     imageArray = [NSMutableArray new];
+    imageSize = 0;
     _imageCount.text = [NSString stringWithFormat:@"%d",imageArray.count];
     //    self.previewView.translatesAutoresizingMaskIntoConstraints = YES;
     //    self.previewView.frame = CGRectMake(-48, 0, self.view.frame.size.width+48 , self.view.frame.size.height);
@@ -155,7 +159,19 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = NO;
+    imageSize = 0;
     _imageCount.text = [NSString stringWithFormat:@"%d",imageArray.count];
+    for (int i=0; i<imageArray.count; i++) {
+        UIImage *yourImage = [imageArray objectAtIndex:i];
+        NSData *imgData = UIImageJPEGRepresentation(yourImage, 1.0f);
+        imageSize = imgData.length + imageSize;
+        NSLog(@"%llu",(unsigned long long)imgData.length);
+    }
+     NSLog(@"image size %llu",imageSize/1024/1024);
+//    for (UIImage *images in imageArray) {
+//        NSData *data2 = [NSData dataWithData:UIImageJPEGRepresentation(images, 1.0f)];
+//        NSLog(@"%llu",(unsigned long long)data2.length);
+//    }
     dispatch_async([self sessionQueue], ^{
         [self addObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:SessionRunningAndDeviceAuthorizedContext];
         [self addObserver:self forKeyPath:@"stillImageOutput.capturingStillImage" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:CapturingStillImageContext];
@@ -323,6 +339,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (IBAction)captureImageMethod:(id)sender
 {
+    if (imageSize > 10*1024*1024) {
+        //set toast
+       [self.view makeToast:@"Your image size cannot exceed more than 20mb"];
+    }
+    else{
     dispatch_async([self sessionQueue], ^{
         // Update the orientation on the still image output video connection before capturing.
         [[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
@@ -336,16 +357,32 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             if (imageDataSampleBuffer)
             {
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+//                NSLog(@"%llu",(unsigned long long)imageData.length);
                 UIImage *image = [[UIImage alloc] initWithData:imageData];
-                [imageArray addObject:image];
-                _imagePreview.image = image;
-                int count = [_imageCount.text intValue];
-                count = count+1;
-                _imageCount.text = [NSString stringWithFormat:@"%d", count];
+                NSData *imgData1 = UIImageJPEGRepresentation(image, 1.0f);
+                imageSize = imgData1.length + imageSize;
+                NSLog(@"%llu",(unsigned long long)imgData1.length);
+                 NSLog(@"%llu",(unsigned long long)imageData.length);
+                unsigned long long tempSize = imageSize + imgData1.length;
+                 NSLog(@"%llu",(unsigned long long)imgData1.length);
+                if (tempSize > 10*1024*1024) {
+                    //set toast
+                   [self.view makeToast:@"Your image size cannot exceed more than 20mb"];
+                }
+                else{
+                    [imageArray addObject:image];
+                   imageSize = imageSize + imgData1.length;
+                    _imagePreview.image = image;
+                    int count = [_imageCount.text intValue];
+                    count = count+1;
+                    _imageCount.text = [NSString stringWithFormat:@"%d", count];
+                }
+               
 //                [[[ALAssetsLibrary alloc] init] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:nil];
             }
         }];
     });
+    }
 }
 
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
