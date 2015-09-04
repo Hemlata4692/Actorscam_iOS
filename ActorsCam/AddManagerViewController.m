@@ -170,7 +170,7 @@
     UIAlertView *alert;
     if ([userEmail isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Email." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -180,7 +180,7 @@
         {
             if ([userName isEmpty])
             {
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Name." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 return NO;
             }
@@ -191,7 +191,7 @@
         }
         else
         {
-            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter valid Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
             return NO;
         }

@@ -25,6 +25,7 @@
 @implementation ChooseLanguageViewController
 @synthesize myVC;
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     _popUpView.layer.cornerRadius = 10.0;
@@ -49,6 +50,7 @@
     
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - end
 
 #pragma mark - Table view methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -110,17 +112,18 @@
 //    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:oldIndexPath.row inSection:1];
 //    oldIndexPath = newIndexPath;
 }
-
-
 #pragma mark - end
 
+#pragma mark - Cancel action
 - (IBAction)cancelAction:(id)sender {
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
     NSLog(@"checker");
 }
+#pragma mark - end
 
+#pragma mark - Done action
 - (IBAction)doneAction:(UIButton *)sender {
     [[NSUserDefaults standardUserDefaults] setObject:[languageArray objectAtIndex:selectedIndex] forKey:@"Language"];
     [self willMoveToParentViewController:nil];
@@ -133,7 +136,7 @@
 //    NSLog(@"checker");
     
 }
-
+#pragma mark - end
 /*
 #pragma mark - Navigation
 

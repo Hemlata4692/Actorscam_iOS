@@ -97,32 +97,13 @@
         
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-//        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//        [myDelegate.window setRootViewController:view1];
-//        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-//        [myDelegate.window makeKeyAndVisible];
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         
     } failure:^(NSError *error) {
         
     }] ;
-//    [[WebService sharedManager] postanswer:@"1440072790" answer:@"testing12358" image:profileImageView.image embedUrl:@"" groupId:@"1" success:^(id responseData) {
-//        [myDelegate StopIndicator];
-//        NSLog(@"responseData %@",responseData);
-//      
-//    } failure:^(NSError *error) {
-//        
-//    }];
-
-
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -145,7 +126,6 @@
          [share showInView:[UIApplication sharedApplication].keyWindow];
     }
 
-  
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
@@ -211,7 +191,6 @@
 }
 #pragma mark - end
 
-
 #pragma mark - Textfield Validation Action
 
 - (BOOL)performValidationsForSignUp
@@ -219,7 +198,7 @@
     UIAlertView *alert;
     if ([name isEmpty] || [email isEmpty] || [userName isEmpty] || [password isEmpty] || [confirmPassword isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill in all fields." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Fields cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -229,21 +208,21 @@
         {
             if ([password isEmpty])
             {
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 return NO;
             }
-            else if (password.text.length<6)
-            {
-                
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                return NO;
-            }
+//            else if (password.text.length<6)
+//            {
+//                
+//                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//                [alert show];
+//                return NO;
+//            }
             else if (!([password.text isEqualToString:confirmPassword.text]))
             {
                 
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password and confirm password must be same." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Passwords do not match." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 return NO;
             }
@@ -255,7 +234,7 @@
         }
         else
         {
-            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter valid Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
             return NO;
         }

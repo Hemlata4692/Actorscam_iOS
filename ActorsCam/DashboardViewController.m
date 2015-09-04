@@ -21,8 +21,14 @@
 
 @implementation DashboardViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //Remove swipe gesture for sidebar
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+    {
+        [self.view removeGestureRecognizer:recognizer];
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -42,12 +48,14 @@
     
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - end
+
+#pragma mark - choose Language Action
 - (IBAction)chooseLanguageAction:(UIButton *)sender {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ChooseLanguageViewController *chooseLangView =[storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageView"];
@@ -57,13 +65,17 @@
     [self.view addSubview:chooseLangView.view];
     [chooseLangView didMoveToParentViewController:self];
 }
+#pragma mark - end
 
+#pragma mark - take Photos Action
 - (IBAction)takePhotosAction:(UIButton *)sender {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     CustomCameraViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"CustomCameraView"];
     [self.navigationController pushViewController:previewView animated:YES];
 }
+#pragma mark - end
 
+#pragma mark - add Manager Action
 - (IBAction)addManagerAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -74,7 +86,7 @@
     addManagerView.managerId = @"";
     [self.navigationController pushViewController:addManagerView animated:YES];
 }
-
+#pragma mark - end
 /*
 #pragma mark - Navigation
 

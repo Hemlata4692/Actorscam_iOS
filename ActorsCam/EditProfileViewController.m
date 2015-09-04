@@ -36,8 +36,14 @@
 @synthesize name,profileImageView,emailId;
 //@synthesize popover;
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //Remove swipe gesture for sidebar
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+    {
+        [self.view removeGestureRecognizer:recognizer];
+    }
     [self addTextFieldPadding];
 //    name.backgroundColor = [UIColor redColor];
     imgPicker = [[UIImagePickerController alloc] init];
@@ -63,6 +69,17 @@
   
 }
 
+-(void)addTextFieldPadding
+{
+    [name addTextFieldPadding:name];
+    [emailId addTextFieldPadding:emailId];
+    //    [userName addTextFieldPadding:userName];
+    //    [password addTextFieldPadding:password];
+    //    [confirmPassword addTextFieldPadding:confirmPassword];
+}
+#pragma mark - end
+
+#pragma mark - Call getProfile web-service
 -(void)getprofile
 {
     [[WebService sharedManager] getprofile:^(id responseObject) {
@@ -91,29 +108,19 @@
     }] ;
 
 }
+#pragma mark - end
 
-
--(void)addTextFieldPadding
-{
-    [name addTextFieldPadding:name];
-    [emailId addTextFieldPadding:emailId];
-//    [userName addTextFieldPadding:userName];
-//    [password addTextFieldPadding:password];
-//    [confirmPassword addTextFieldPadding:confirmPassword];
-}
-
-#pragma mark - Register User Actions
-
+#pragma mark - Submit Button Actions and call edit profile web-service
 - (IBAction)SaveButtonAction:(id)sender
 {
 //    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 //    [self.keyboardControls.activeField resignFirstResponder];
     [self.view endEditing:YES];
-    //    if([self performValidationsForSignUp])
-    //    {
+    if([self performValidationsForEditProfile])
+        {
     [myDelegate ShowIndicator];
     [self performSelector:@selector(changeProfile) withObject:nil afterDelay:.1];
-    // }
+     }
     
 }
 
@@ -126,31 +133,12 @@
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"image"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] setObject:name.text forKey:@"UserName"];
         
-        //        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
-        //        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
-        //        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
-        //        [[NSUserDefaults standardUserDefaults] synchronize];
-        //        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        //        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        //        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        //        [myDelegate.window setRootViewController:view1];
-        //        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-        //        [myDelegate.window makeKeyAndVisible];
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         
     } failure:^(NSError *error) {
         
     }] ;
-    //    [[WebService sharedManager] postanswer:@"1440072790" answer:@"testing12358" image:profileImageView.image embedUrl:@"" groupId:@"1" success:^(id responseData) {
-    //        [myDelegate StopIndicator];
-    //        NSLog(@"responseData %@",responseData);
-    //
-    //    } failure:^(NSError *error) {
-    //
-    //    }];
-    
     
 }
 //
@@ -160,7 +148,7 @@
 //}
 #pragma mark - end
 //
-//#pragma mark - Image Picker
+#pragma mark - Image Picker Action
 - (IBAction)imagePickerAction:(id)sender
 {
     UIActionSheet * share=[[UIActionSheet alloc]initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing Photo", nil];
@@ -176,7 +164,9 @@
     
     
 }
-//
+#pragma mark - end
+
+#pragma mark - imagePickerController Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
 {
     profileImageView.image = image;
@@ -184,9 +174,9 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 }
-//
+
 #pragma mark - end
-//
+
 #pragma mark - Actionsheet
 //Action sheet for setting image from camera or gallery
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -241,58 +231,22 @@
 #pragma mark - end
 //
 //
-//#pragma mark - Textfield Validation Action
-//
-//- (BOOL)performValidationsForSignUp
-//{
-//    UIAlertView *alert;
-//    if ([name isEmpty] || [email isEmpty] || [userName isEmpty] || [password isEmpty] || [confirmPassword isEmpty])
-//    {
-//        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill in all fields." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [alert show];
-//        return NO;
-//    }
-//    else
-//    {
-//        if ([email isValidEmail])
-//        {
-//            if ([password isEmpty])
-//            {
-//                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter the Password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [alert show];
-//                return NO;
-//            }
-//            else if (password.text.length<6)
-//            {
-//                
-//                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [alert show];
-//                return NO;
-//            }
-//            else if (!([password.text isEqualToString:confirmPassword.text]))
-//            {
-//                
-//                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password and confirm password must be same." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [alert show];
-//                return NO;
-//            }
-//            
-//            else
-//            {
-//                return YES;
-//            }
-//        }
-//        else
-//        {
-//            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please enter valid Email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//            [alert show];
-//            return NO;
-//        }
-//    }
-//    
-//    
-//}
-//#pragma mark - end
+#pragma mark - Textfield Validation Action
+- (BOOL)performValidationsForEditProfile
+{
+    UIAlertView *alert;
+    if ([name isEmpty])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Fields cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+     else{
+        return YES;
+     }
+    
+}
+#pragma mark - end
 //
 //#pragma mark - Keyboard Controls Delegate
 //- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
@@ -331,23 +285,7 @@
 //    {
 //        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-90) animated:YES];
 //    }
-//    else if (textField==userName)
-//    {
-//        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-100) animated:YES];
-//    }
-//    else if (textField==password)
-//    {
-//        
-//        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-110) animated:YES];
-//        
-//    }
-//    else if (textField==confirmPassword)
-//    {
-//        
-//        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-130) animated:YES];
-//        
-//    }
-//    
+
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {

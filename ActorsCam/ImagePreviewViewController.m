@@ -32,6 +32,7 @@
 @implementation ImagePreviewViewController
 @synthesize imageArray,customCameraVC;
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -84,7 +85,7 @@
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
-
+#pragma mark - end
 
 #pragma mark - Collection View
 
@@ -145,12 +146,15 @@
 //}
 #pragma mark - end
 
+#pragma mark - select Manager Action
 - (IBAction)selectManagerAction:(UIButton *)sender {
     [_scrollView setContentOffset:CGPointMake(0, _managerName.frame.origin.y + 150) animated:YES];
     _managerListPickerView.hidden = NO;
     _toolBar.hidden = NO;
 }
+#pragma mark - end
 
+#pragma mark - delete Image Action
 - (IBAction)deleteImageAction:(UIButton *)sender {
     [imageArray removeObjectAtIndex:selectedImage];
     selectedImage = 0;
@@ -165,7 +169,9 @@
     }
     
 }
+#pragma mark - end
 
+#pragma mark - send Image Button Action
 - (IBAction)sendImageButtonAction:(id)sender {
     if ([MFMailComposeViewController canSendMail])
         
@@ -243,6 +249,7 @@
         
     }
 }
+#pragma mark - end
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -392,6 +399,7 @@
 }
 #pragma mark - end
 
+#pragma mark - back/camera Button
 - (IBAction)backButton:(UIButton *)sender {
     for (id controller in [self.navigationController viewControllers])
     {
@@ -406,6 +414,7 @@
 - (IBAction)cameraButton:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+#pragma mark - end
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];

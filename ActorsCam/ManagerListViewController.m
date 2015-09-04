@@ -29,8 +29,14 @@
 @synthesize managerListTableView,noManagerAddedLbl;
 @synthesize addManagerBtn,addManagerImage,addManagerView;
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //Remove swipe gesture for sidebar
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+    {
+        [self.view removeGestureRecognizer:recognizer];
+    }
 //    deleteMangerId = @"-1";
 //    // Do any additional setup after loading the view.
 //    managerListTableView.hidden = NO;
@@ -54,13 +60,11 @@
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
 
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - end
 
 #pragma mark - Add Manager Action
 - (IBAction)addManagerButtonAction:(id)sender
@@ -74,13 +78,12 @@
 }
 #pragma mark - end
 
-#pragma mark - Table View Data source
+#pragma mark - Table View Data source/Delegates
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     return managerListArray.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -140,8 +143,8 @@
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         AddManagerViewController *addManagerView1 =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
         addManagerView1.navTitle = @"Edit Managers";
-        addManagerView1.emailId = [data objectForKey:@"email"];
-        addManagerView1.name = [data objectForKey:@"name"];
+        addManagerView1.emailId = [data objectForKey:@"managerEmail"];
+        addManagerView1.name = [data objectForKey:@"managerName"];
         addManagerView1.managerId = [data objectForKey:@"managerId"];
 //        addManagerView1.managerId = [data objectForKey:@"managerId"];//this come webservice
         [self.navigationController pushViewController:addManagerView1 animated:YES];
@@ -184,7 +187,7 @@
 -(void)deleteManager
 {
     NSDictionary *data = [managerListArray objectAtIndex:indexpathRow];
-    [[WebService sharedManager] deleteManager:[data objectForKey:@"managerId"] managerEmail:[data objectForKey:@"email"] success:^(id responseObject) {
+    [[WebService sharedManager] deleteManager:[data objectForKey:@"managerId"] managerEmail:[data objectForKey:@"managerEmail"] success:^(id responseObject) {
             NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
         [managerListArray removeObjectAtIndex:indexpathRow];
@@ -227,9 +230,5 @@
     
 }
 #pragma mark - end
-
-
-
-
 
 @end

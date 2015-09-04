@@ -61,12 +61,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     return [NSSet setWithObjects:@"session.running", @"deviceAuthorized", nil];
 }
 
+#pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     imageArray = [NSMutableArray new];
     imageSize = 0;
-    _imageCount.text = [NSString stringWithFormat:@"%d",imageArray.count];
+    _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
     //    self.previewView.translatesAutoresizingMaskIntoConstraints = YES;
     //    self.previewView.frame = CGRectMake(-48, 0, self.view.frame.size.width+48 , self.view.frame.size.height);
     
@@ -160,7 +161,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     self.navigationController.navigationBarHidden = NO;
     imageSize = 0;
-    _imageCount.text = [NSString stringWithFormat:@"%d",imageArray.count];
+    _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
     for (int i=0; i<imageArray.count; i++) {
         UIImage *yourImage = [imageArray objectAtIndex:i];
         NSData *imgData = UIImageJPEGRepresentation(yourImage, 1.0f);
@@ -204,7 +205,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         [self removeObserver:self forKeyPath:@"movieFileOutput.recording" context:RecordingContext];
     });
 }
-
+#pragma mark - end
 //- (BOOL)prefersStatusBarHidden
 //{
 //    return YES;
@@ -341,7 +342,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     if (imageSize > 10*1024*1024) {
         //set toast
-       [self.view makeToast:@"Your image size cannot exceed more than 20mb"];
+       [self.view makeToast:@"File size cannot exceed 20 MB."];
     }
     else{
     dispatch_async([self sessionQueue], ^{

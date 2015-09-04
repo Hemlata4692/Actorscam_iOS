@@ -41,8 +41,7 @@
 
 #pragma mark - Method to add global side bar button
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage
-{
-    
+{    
     CGRect frameimg = CGRectMake(0, 0, buttonImage.size.width, buttonImage.size.height);
     UIButton *button = [[UIButton alloc] initWithFrame:frameimg];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
@@ -57,7 +56,5 @@
     }
 }
 #pragma mark - end
-
-
 
 @end

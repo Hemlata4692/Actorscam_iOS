@@ -33,6 +33,12 @@
     [super viewDidLoad];
     [self addTextFieldPadding];
     
+    //Remove swipe gesture for sidebar
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+    {
+        [self.view removeGestureRecognizer:recognizer];
+    }
+    
     //Adding textfield to array
     textFieldArray = @[currentPassword,changePassword,confirmPassword];
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
@@ -73,21 +79,12 @@
     [[WebService sharedManager] changePassword:currentPassword.text newPassword:changePassword.text success:^(id responseObject) {
         
         [myDelegate StopIndicator];
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"UserId"] forKey:@"userid"];
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"Name"] forKey:@"name"];
-//        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"ProfileImage"] forKey:@"profileImageUrl"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        UIViewController *view1=[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-//        [self.navigationController pushViewController:view1 animated:YES];
         
     } failure:^(NSError *error) {
         
     }] ;
     
 }
-
 
 #pragma mark - end
 
@@ -99,21 +96,21 @@
     UIAlertView *alert;
     if ([currentPassword isEmpty] || [changePassword isEmpty] || [confirmPassword isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill in all fields." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Fields cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    else if (changePassword.text.length<6)
-    {
-        
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        return NO;
-    }
+//    else if (changePassword.text.length<6)
+//    {
+//        
+//        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alert show];
+//        return NO;
+//    }
     else if (!([changePassword.text isEqualToString:confirmPassword.text]))
     {
         
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password and confirm password must be same." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Passwords do not match." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }

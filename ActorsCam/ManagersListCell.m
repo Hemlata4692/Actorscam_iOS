@@ -22,11 +22,9 @@
 
 -(void)displayData :(NSDictionary *)dict
 {
-//    dict1 = @{@"name" : @"Mark D.",
-//              @"managerEmail" : @"markd@gmail.com"};
 
-    self.managerName.text = [dict objectForKey:@"name"];
-    self.manageremail.text = [dict objectForKey:@"email"];
+    self.managerName.text = [dict objectForKey:@"managerName"];
+    self.manageremail.text = [dict objectForKey:@"managerEmail"];
     
 }
 
