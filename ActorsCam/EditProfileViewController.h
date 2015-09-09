@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ActorsCamViewController.h"
+#import "SideBarMenu.h"
 
-@interface EditProfileViewController : ActorsCamViewController
+@interface EditProfileViewController : SideBarMenu
 
 @end

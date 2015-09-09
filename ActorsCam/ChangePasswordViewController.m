@@ -100,13 +100,6 @@
         [alert show];
         return NO;
     }
-//    else if (changePassword.text.length<6)
-//    {
-//        
-//        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [alert show];
-//        return NO;
-//    }
     else if (!([changePassword.text isEqualToString:confirmPassword.text]))
     {
         

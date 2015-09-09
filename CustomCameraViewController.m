@@ -68,8 +68,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     imageArray = [NSMutableArray new];
     imageSize = 0;
     _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
-    //    self.previewView.translatesAutoresizingMaskIntoConstraints = YES;
-    //    self.previewView.frame = CGRectMake(-48, 0, self.view.frame.size.width+48 , self.view.frame.size.height);
     
     // Create the AVCaptureSession
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
@@ -78,16 +76,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     self.prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
     self.prevLayer.frame = CGRectMake(0, 0, self.previewView.frame.size.width, self.previewView.frame.size.height);
     
-//    CGRect bounds=self.previewView.layer.bounds;
     self.prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-//    self.prevLayer.bounds=bounds;
-//    self.prevLayer.position=CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
     [self.previewView.layer addSublayer:self.prevLayer];
-    
-    // Setup the preview view
-    //    [[self previewView] setSession:session];
-    
-    // Check for device authorization
+
     [self checkDeviceAuthorizationStatus];
     
     // In general it is not safe to mutate an AVCaptureSession or any of its inputs, outputs, or connections from multiple threads at the same time.
@@ -115,13 +106,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [session addInput:videoDeviceInput];
             [self setVideoDeviceInput:videoDeviceInput];
             
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //                // Why are we dispatching this to the main queue?
-            //                // Because AVCaptureVideoPreviewLayer is the backing layer for AVCamPreviewView and UIView can only be manipulated on main thread.
-            //                // Note: As an exception to the above rule, it is not necessary to serialize video orientation changes on the AVCaptureVideoPreviewLayer’s connection with other session manipulation.
-            //
-            //                [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)[self interfaceOrientation]];
-            //            });
         }
         
         AVCaptureDevice *audioDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
@@ -169,10 +153,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         NSLog(@"%llu",(unsigned long long)imgData.length);
     }
      NSLog(@"image size %llu",imageSize/1024/1024);
-//    for (UIImage *images in imageArray) {
-//        NSData *data2 = [NSData dataWithData:UIImageJPEGRepresentation(images, 1.0f)];
-//        NSLog(@"%llu",(unsigned long long)data2.length);
-//    }
+
     dispatch_async([self sessionQueue], ^{
         [self addObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:SessionRunningAndDeviceAuthorizedContext];
         [self addObserver:self forKeyPath:@"stillImageOutput.capturingStillImage" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:CapturingStillImageContext];
@@ -185,7 +166,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             dispatch_async([strongSelf sessionQueue], ^{
                 // Manually restarting the session since it must have been stopped due to an error.
                 [[strongSelf session] startRunning];
-                //                [[strongSelf recordButton] setTitle:NSLocalizedString(@"Record", @"Recording button record title") forState:UIControlStateNormal];
             });
         }]];
         [[self session] startRunning];
@@ -206,26 +186,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     });
 }
 #pragma mark - end
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//}
-
-//- (BOOL)shouldAutorotate
-//{
-//    // Disable autorotation of the interface when recording is in progress.
-//    return ![self lockInterfaceRotation];
-//}
-
-//- (NSUInteger)supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskAll;
-//}
-
-//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-//{
-//    [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)toInterfaceOrientation];
-//}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -238,25 +198,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [self runStillImageCaptureAnimation];
         }
     }
-    //    else if (context == RecordingContext)
-    //    {
-    //        BOOL isRecording = [change[NSKeyValueChangeNewKey] boolValue];
-    //
-    //        dispatch_async(dispatch_get_main_queue(), ^{
-    //            if (isRecording)
-    //            {
-    //                [[self cameraButton] setEnabled:NO];
-    //                [[self recordButton] setTitle:NSLocalizedString(@"Stop", @"Recording button stop title") forState:UIControlStateNormal];
-    //                [[self recordButton] setEnabled:YES];
-    //            }
-    //            else
-    //            {
-    //                [[self cameraButton] setEnabled:YES];
-    //                [[self recordButton] setTitle:NSLocalizedString(@"Record", @"Recording button record title") forState:UIControlStateNormal];
-    //                [[self recordButton] setEnabled:YES];
-    //            }
-    //        });
-    //    }
     else if (context == SessionRunningAndDeviceAuthorizedContext)
     {
         BOOL isRunning = [change[NSKeyValueChangeNewKey] boolValue];

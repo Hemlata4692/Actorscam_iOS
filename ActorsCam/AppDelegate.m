@@ -17,7 +17,6 @@
 
 @implementation AppDelegate
 
-
 #pragma mark - Activity indicator
 - (void) ShowIndicator
 {
@@ -36,7 +35,9 @@
 #pragma mark - Appdelegate methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [[NSUserDefaults standardUserDefaults] setObject:@"ENGLISH" forKey:@"Language"];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@""]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];
+    }
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header1.png"] forBarMetrics:UIBarMetricsDefault];
     //set navigation bar button color

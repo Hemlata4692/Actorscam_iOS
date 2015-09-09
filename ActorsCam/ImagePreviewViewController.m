@@ -36,18 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    imageArray = [NSMutableArray arrayWithObjects:
-//                   @"modal1.jpeg", @"modal2.jpeg",
-//                   @"modal3.jpeg", @"modal4.jpeg", @"modal5.jpeg", nil];
-    pickerArray = [NSMutableArray arrayWithObjects:
-                  @"Sumeet", @"Shiven",
-                  @"Vikas", @"Priyavrat", nil];
-
-    
+    pickerArray = [NSMutableArray new];
     selectedImage = 0;
-//    _imagePreviewView.image = [UIImage imageNamed:[imageArray objectAtIndex:selectedImage]];
-//    UIImage *image =[UIImage imageNamed:@"modal1.jpeg"];
-//    [imageArray addObject:image];
     _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];
     _imagePreviewView.userInteractionEnabled = YES;
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
@@ -72,15 +62,6 @@
     
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     self.navigationItem.title = @"Preview";
-    
-    /* call webservice
-     if i have bot manager list so
-        _selectManagerView.hidden = YES;
-        _noManager.hidden = NO;
-     else
-        _selectManagerView.hidden = NO;
-        _noManager.hidden = YES;
-     */
     
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
@@ -135,15 +116,6 @@
     
 }
 
-//-(void) scrollViewDidScroll:(UIScrollView *)scrollView{
-//    for (UICollectionViewCell *cell in [self.previewCollectionView visibleCells]) {
-//        NSIndexPath *indexPath = [self.previewCollectionView indexPathForCell:cell];
-//        NSLog(@"%@",indexPath);
-//    }
-//}
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    
-//}
 #pragma mark - end
 
 #pragma mark - select Manager Action
@@ -391,6 +363,8 @@
     [[WebService sharedManager] managerListing:^(id responseObject) {
         NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
+        pickerArray = [responseObject objectForKey:@"managerList"];
+        [_managerListPickerView reloadAllComponents];
         
     } failure:^(NSError *error) {
         

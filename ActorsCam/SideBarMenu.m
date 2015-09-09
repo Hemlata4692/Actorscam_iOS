@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Ranosys. All rights reserved.
 //
 
-#import "ActorsCamViewController.h"
+#import "SideBarMenu.h"
 #import "SWRevealViewController.h"
 
-@interface ActorsCamViewController ()<SWRevealViewControllerDelegate>
+@interface SideBarMenu ()<SWRevealViewControllerDelegate>
 {
     UIBarButtonItem *barButton;
     
@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @end
 
-@implementation ActorsCamViewController
+@implementation SideBarMenu
 
 #pragma mark - View life cycle
 

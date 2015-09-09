@@ -36,10 +36,8 @@
 {
     [super viewWillAppear:animated];
     
-//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    
     [self setLocalizedString];
-//
+
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     
 }

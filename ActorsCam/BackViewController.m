@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-   // myDelegate.currentNavigationController=self.navigationController;
     [self addLeftBarButtonWithImage:[UIImage imageNamed:@"back.png"]];
    
 }

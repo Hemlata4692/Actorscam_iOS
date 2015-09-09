@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ActorsCamViewController : UIViewController
+@interface SideBarMenu : UIViewController
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage;
 @end

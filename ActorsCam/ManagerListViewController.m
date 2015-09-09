@@ -37,20 +37,13 @@
     {
         [self.view removeGestureRecognizer:recognizer];
     }
-//    deleteMangerId = @"-1";
-//    // Do any additional setup after loading the view.
-//    managerListTableView.hidden = NO;
-//    addManagerView.hidden=YES;
-//    [addManagerBtn setCornerRadius:5.0f];
-//    managerListArray = [NSMutableArray new];
-//    [self localWebservice];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     indexpathRow = -1;
     // Do any additional setup after loading the view.
-    managerListTableView.hidden = NO;
+    managerListTableView.hidden = YES;
     addManagerView.hidden=YES;
     [addManagerBtn setCornerRadius:5.0f];
     managerListArray = [NSMutableArray new];
@@ -99,7 +92,6 @@
     
     NSDictionary *data = [managerListArray objectAtIndex:indexPath.row];
     [cell displayData:data];
-//    cell.managerName.text=[managerListArray objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -146,7 +138,6 @@
         addManagerView1.emailId = [data objectForKey:@"managerEmail"];
         addManagerView1.name = [data objectForKey:@"managerName"];
         addManagerView1.managerId = [data objectForKey:@"managerId"];
-//        addManagerView1.managerId = [data objectForKey:@"managerId"];//this come webservice
         [self.navigationController pushViewController:addManagerView1 animated:YES];
         
     }];
@@ -156,7 +147,7 @@
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         
         
-        indexpathRow = indexPath.row;
+        indexpathRow = (int)indexPath.row;
          NSLog(@"delete action");
         UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Do you want to delete this manager?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
         [alert show];

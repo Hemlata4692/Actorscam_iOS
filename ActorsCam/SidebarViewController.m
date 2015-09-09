@@ -42,21 +42,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-//#pragma mark - Table view data source
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Potentially incomplete method implementation.
-//    // Return the number of sections.
-//    return 0;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete method implementation.
-//    // Return the number of rows in the section.
-//    return 0;
-//}
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -85,20 +70,6 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return @"Utilities";
-    //    if (tab_Icon.count >0 && Utility_Icon_Array.count > 0 ) {
-    //        if (section == 0) {
-    //            return @"   Essential";
-    //        }
-    //        else
-    //        {
-    //            return @"   Utilities";
-    //        }
-    //    }
-    //    else if (tab_Icon.count > 0)
-    //    {
-    //        return @"   Essential";
-    //    }
-    //    return @"   Utilities";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -107,46 +78,46 @@
     UIView *headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 200)];
     
     headerView.backgroundColor=[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1.0];
-    UILabel * label1;
-    label1 = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-50, 130, 100, 22)];
-    label1.backgroundColor = [UIColor whiteColor];
-    label1.textAlignment=NSTextAlignmentCenter;
-    label1.textColor=[UIColor colorWithRed:253.0/255.0 green:47.0/255.0 blue:47.0/255.0 alpha:1.0];
-    label1.font = [UIFont fontWithName:@"Helvetica" size:13];
-    label1.text = @"Welcome" ;// i.e. array element
+    UILabel * welcomeLabel;
+    welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-50, 130, 100, 22)];
+    welcomeLabel.backgroundColor = [UIColor whiteColor];
+    welcomeLabel.textAlignment=NSTextAlignmentCenter;
+    welcomeLabel.textColor=[UIColor colorWithRed:253.0/255.0 green:47.0/255.0 blue:47.0/255.0 alpha:1.0];
+    welcomeLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
+    welcomeLabel.text = @"Welcome" ;// i.e. array element
    
-    UILabel *label2;
-    label2 = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-65, 160, 130, 35)];
-    label2.backgroundColor = [UIColor clearColor];
-    label2.textAlignment=NSTextAlignmentCenter;
-    label2.lineBreakMode = NSLineBreakByWordWrapping;
-    label2.numberOfLines = 2;
-    label2.textColor=[UIColor colorWithRed:121.0/255.0 green:115.0/255.0 blue:115.0/255.0 alpha:1.0];
-    label2.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"UserName"] isEqualToString:@""]) {
+    UILabel *actorName;
+    actorName = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-65, 160, 130, 35)];
+    actorName.backgroundColor = [UIColor clearColor];
+    actorName.textAlignment=NSTextAlignmentCenter;
+    actorName.lineBreakMode = NSLineBreakByWordWrapping;
+    actorName.numberOfLines = 2;
+    actorName.textColor=[UIColor colorWithRed:121.0/255.0 green:115.0/255.0 blue:115.0/255.0 alpha:1.0];
+    actorName.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"] isEqualToString:@""]) {
         
-        label2.text = @"User" ;
+        actorName.text = @"User" ;
     }
     else
     {
-        label2.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"UserName"];
+        actorName.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"];
     }
     // i.e. array element
     
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(75, 20, 100, 100)] ;
+    UIImageView *ProfileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(75, 20, 100, 100)] ;
     //imgView.contentMode=UIViewContentModeScaleAspectFill;
-    imgView.contentMode = UIViewContentModeScaleAspectFill;
-    imgView.clipsToBounds = YES;
-    imgView.backgroundColor=[UIColor clearColor];
+    ProfileImgView.contentMode = UIViewContentModeScaleAspectFill;
+    ProfileImgView.clipsToBounds = YES;
+    ProfileImgView.backgroundColor=[UIColor clearColor];
    // profileImageUrl
-     __weak UIImageView *weakRef = imgView;
+     __weak UIImageView *weakRef = ProfileImgView;
     NSString *tempImageString = [[NSUserDefaults standardUserDefaults]objectForKey:@"profileImageUrl"];
     
     NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:tempImageString]
                                                   cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                               timeoutInterval:60];
     
-    [imgView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"picture"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    [ProfileImgView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"picture"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         weakRef.contentMode = UIViewContentModeScaleAspectFit;
         weakRef.clipsToBounds = YES;
         weakRef.image = image;
@@ -154,10 +125,10 @@
         
     }];
   //  imgView.image=profileImage;
-    imgView.layer.cornerRadius = imgView.frame.size.width / 2;
-    [headerView addSubview:label1];
-    [headerView addSubview:label2];
-    [headerView addSubview:imgView];
+    ProfileImgView.layer.cornerRadius = ProfileImgView.frame.size.width / 2;
+    [headerView addSubview:welcomeLabel];
+    [headerView addSubview:actorName];
+    [headerView addSubview:ProfileImgView];
     return headerView;   // return headerLabel;
 
 }
@@ -169,18 +140,6 @@
     if (indexPath.row == 4)
     {
         
-//        LoginViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//        [myDelegate.navigationController setViewControllers: [NSArray arrayWithObject: controller]
-//                                                   animated: YES];
-//        myDelegate.window.rootViewController = myDelegate.navigationController;
-        
-//        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//       
-//        LoginViewController *firstVC=[sb instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//        [myDelegate.navigationController setViewControllers: [NSArray arrayWithObject: firstVC]
-//                                                   animated: YES];
-//         myDelegate.window.rootViewController = myDelegate.navigationController;
-        
         UIViewController* rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
         
         UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:rootController];
@@ -188,9 +147,8 @@
      
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults removeObjectForKey:@"UserId"];
-        [defaults removeObjectForKey:@"UserName"];
+        [defaults removeObjectForKey:@"actorName"];
         [defaults synchronize];
-        
         
     }
 }
@@ -206,59 +164,7 @@
     UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
     destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
     
-    // Set the photo if it navigates to the PhotoView
-    //    if ([segue.identifier isEqualToString:@"showPhoto"]) {
-    //        UINavigationController *navController = segue.destinationViewController;
-    //        LeaveManagementViewController *photoController = [navController childViewControllers].firstObject;
-    //        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo", [menuItems objectAtIndex:indexPath.row]];
-    //        //photoController.photoFilename = photoFilename;
-    //    }
 }
-
-
-/*
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
- 
- // Configure the cell...
- 
- return cell;
- }
- */
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 /*
  #pragma mark - Navigation

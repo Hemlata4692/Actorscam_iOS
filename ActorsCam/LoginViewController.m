@@ -36,7 +36,8 @@
 
 @implementation LoginViewController
 @synthesize userEmail,password,loginBtn,forgotPasswordBtn,scrollView;
-@synthesize forgotPasswordEmail,forgotPasswordView,sendLinkBtn,forgotPasswordPopUp;
+@synthesize forgotPasswordEmail,forgotPasswordView,sendLinkBtn,forgotPasswordPopUp,hereLabel;
+@synthesize signUp,languageLabel;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
@@ -61,9 +62,21 @@
     
 }
 
+-(void)setLocalizedString{
+    [loginBtn changeTextLanguage:@"Login"];
+    [userEmail changeTextLanguage:@"Email"];
+    [password changeTextLanguage:@"Password"];
+        
+    [forgotPasswordBtn changeTextLanguage:@"Forgot Password?"];
+    [forgotPasswordEmail changeTextLanguage:@"Email"];
+    [signUp changeTextLanguage:@"Sign Up"];
+    [languageLabel changeTextLanguage:@"Button"];
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self setLocalizedString];
     
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
@@ -78,9 +91,6 @@
     
 }
 
--(void)setLocalizedString{
-
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -127,7 +137,7 @@
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userid"] forKey:@"UserId"];
-        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"username"] forKey:@"UserName"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"username"] forKey:@"actorName"];
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"profileImageUrl"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -159,7 +169,6 @@
         [myDelegate ShowIndicator];
         [self performSelector:@selector(forgotPassword) withObject:nil afterDelay:.1];
     }
-//    forgotPasswordView.hidden=YES;
     
 }
 

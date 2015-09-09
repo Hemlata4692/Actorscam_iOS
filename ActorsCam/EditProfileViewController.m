@@ -12,6 +12,7 @@
 #import "BSKeyboardControls.h"
 #import "WebService.h"
 #import <UIImageView+AFNetworking.h>
+#import "DashboardViewController.h"
 
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate>
 {
@@ -19,13 +20,7 @@
     UIImagePickerController *imgPicker;
 }
 @property (weak, nonatomic) IBOutlet UITextField *name;
-//@property (weak, nonatomic) IBOutlet UITextField *email;
-//@property (weak, nonatomic) IBOutlet UITextField *userName;
-//@property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UIButton *save;
-//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-//@property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
-//@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UITextField *emailId;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 //@property (nonatomic, strong) UIPopoverController *popover;
@@ -45,15 +40,7 @@
         [self.view removeGestureRecognizer:recognizer];
     }
     [self addTextFieldPadding];
-//    name.backgroundColor = [UIColor redColor];
     imgPicker = [[UIImagePickerController alloc] init];
-    
-    //Adding textfield to array
-//    textFieldArray = @[name,email,password,confirmPassword];
-    //Keyboard toolbar action to display toolbar with keyboard to move next,previous
-//    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
-//    [self.keyboardControls setDelegate:self];
-
     
     // Do any additional setup after loading the view.
     [myDelegate ShowIndicator];
@@ -64,7 +51,6 @@
 {
     [super viewWillAppear:animated];
     
-//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
   
 }
@@ -73,9 +59,6 @@
 {
     [name addTextFieldPadding:name];
     [emailId addTextFieldPadding:emailId];
-    //    [userName addTextFieldPadding:userName];
-    //    [password addTextFieldPadding:password];
-    //    [confirmPassword addTextFieldPadding:confirmPassword];
 }
 #pragma mark - end
 
@@ -113,8 +96,6 @@
 #pragma mark - Submit Button Actions and call edit profile web-service
 - (IBAction)SaveButtonAction:(id)sender
 {
-//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    [self.keyboardControls.activeField resignFirstResponder];
     [self.view endEditing:YES];
     if([self performValidationsForEditProfile])
         {
@@ -131,7 +112,7 @@
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"image"] forKey:@"profileImageUrl"];
-        [[NSUserDefaults standardUserDefaults] setObject:name.text forKey:@"UserName"];
+        [[NSUserDefaults standardUserDefaults] setObject:name.text forKey:@"actorName"];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
@@ -141,11 +122,14 @@
     }] ;
     
 }
-//
-//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    DashboardViewController *dashboardView =[storyboard instantiateViewControllerWithIdentifier:@"DashboardView"];
+    
+    [self.navigationController pushViewController:dashboardView animated:YES];
+}
 #pragma mark - end
 //
 #pragma mark - Image Picker Action
@@ -229,8 +213,7 @@
     
 }
 #pragma mark - end
-//
-//
+
 #pragma mark - Textfield Validation Action
 - (BOOL)performValidationsForEditProfile
 {
@@ -247,50 +230,16 @@
     
 }
 #pragma mark - end
-//
-//#pragma mark - Keyboard Controls Delegate
-//- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
-//{
-//    UIView *view;
-//    
-//    if ([[UIDevice currentDevice].systemVersion floatValue]< 7.0) {
-//        view = field.superview.superview;
-//    } else {
-//        view = field.superview.superview.superview;
-//    }
-//}
-//
-//- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
-//{
-//    [keyboardControls.activeField resignFirstResponder];
-//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    
-//    
-//}
-//
-//#pragma mark - end
-//
+
 #pragma mark - Textfield Delegates
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
-//    [self.keyboardControls setActiveField:textField];
-//    
-//    if (textField==name)
-//    {
-//        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    }
-//    else if (textField==email)
-//    {
-//        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-90) animated:YES];
-//    }
 
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
-//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
 }
 

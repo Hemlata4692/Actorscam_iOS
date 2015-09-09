@@ -83,11 +83,11 @@
 {
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [self.keyboardControls.activeField resignFirstResponder];
-//    if([self performValidationsForSignUp])
-//    {
+    if([self performValidationsForSignUp])
+    {
         [myDelegate ShowIndicator];
         [self performSelector:@selector(signUpUser) withObject:nil afterDelay:.1];
-   // }
+    }
 
 }
 
@@ -212,13 +212,6 @@
                 [alert show];
                 return NO;
             }
-//            else if (password.text.length<6)
-//            {
-//                
-//                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [alert show];
-//                return NO;
-//            }
             else if (!([password.text isEqualToString:confirmPassword.text]))
             {
                 

@@ -7,6 +7,7 @@
 //
 
 #import "ChooseLanguageViewController.h"
+#import "ChooseLanguageCell.h"
 
 @interface ChooseLanguageViewController (){
     NSArray* languageArray;
@@ -28,6 +29,8 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    selectedIndex = -1;
+    
     _popUpView.layer.cornerRadius = 10.0;
     _popUpView.layer.masksToBounds = YES;
     
@@ -37,8 +40,6 @@
     _done.layer.borderWidth = 1;
     _done.layer.borderColor = [UIColor lightGrayColor].CGColor;
 
-//    _popUpView.layer.borderColor = [UIColor greenColor].CGColor;
-//    _popUpView.layer.borderWidth = 2;
     languageArray = @[@"ENGLISH", @"FRANCAIS", @"DEUTSCH"];
     [_chooseLanguageTableView reloadData];
     
@@ -70,52 +71,31 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell ;
+    ChooseLanguageCell *cell ;
     NSString *simpleTableIdentifier = @"cell";
     cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell = [[ChooseLanguageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    UIImageView *radioButton = (UIImageView *)[cell viewWithTag:0];
-    UILabel *chooseLanguageLabel = (UILabel *)[cell viewWithTag:1];
-    
-    chooseLanguageLabel.text = [languageArray objectAtIndex:indexPath.row];
-    
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:[languageArray objectAtIndex:indexPath.row]]) {
-        radioButton.image = [UIImage imageNamed:@"radio_btn_selected.png"];
-        selectedIndex = indexPath.row;
-    }
-    else{
-        radioButton.image = [UIImage imageNamed:@"radio_btn.png"];
-    }
-    
+     selectedIndex = [cell changeLanguageCellMethod:languageArray indexPath:indexPath selectedIndex:selectedIndex];
+   
     return cell;
     
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    UIImageView *radioButton = (UIImageView *)[cell viewWithTag:0];
-    radioButton.image = [UIImage imageNamed:@"radio_btn_selected.png"];
-    selectedIndex = indexPath.row;
-    for (int i=0; i<languageArray.count; i++) {
-        if (i!=indexPath.row) {
-            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            UITableViewCell *cell1 = [tableView cellForRowAtIndexPath:newIndexPath];
-            UIImageView *radioButton1 = (UIImageView *)[cell1 viewWithTag:0];
-            radioButton1.image = [UIImage imageNamed:@"radio_btn.png"];
-        }
-    }
-//    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:oldIndexPath.row inSection:1];
-//    oldIndexPath = newIndexPath;
+    ChooseLanguageCell *cell = (ChooseLanguageCell*)[tableView cellForRowAtIndexPath:indexPath];
+    selectedIndex = (int)indexPath.row;
+    [cell didSelectCellMethod:languageArray indexPath:indexPath tableView:tableView];
 }
 #pragma mark - end
 
 #pragma mark - Cancel action
 - (IBAction)cancelAction:(id)sender {
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"]);
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
@@ -125,15 +105,21 @@
 
 #pragma mark - Done action
 - (IBAction)doneAction:(UIButton *)sender {
-    [[NSUserDefaults standardUserDefaults] setObject:[languageArray objectAtIndex:selectedIndex] forKey:@"Language"];
+    if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"ENGLISH"]) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];
+    }
+    else if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"FRANCAIS"]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"fr" forKey:@"Language"];
+    }
+    else if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"DEUTSCH"]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];
+    }
+    
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
-//    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    LoginViewController *chooseLangView =[storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//    [myVC viewWillAppear:YES];
     [myVC setLocalizedString];
-//    NSLog(@"checker");
+
     
 }
 #pragma mark - end
