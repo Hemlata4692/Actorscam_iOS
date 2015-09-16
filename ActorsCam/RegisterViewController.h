@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BackViewController.h"
 
-@interface RegisterViewController : UIViewController
+@interface RegisterViewController : BackViewController
 
 @end

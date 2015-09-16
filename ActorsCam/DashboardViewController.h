@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ActorsCamViewController.h"
+#import "GlobalMenuViewController.h"
 
-@interface DashboardViewController : ActorsCamViewController
+@interface DashboardViewController : GlobalMenuViewController
 
 @end

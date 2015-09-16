@@ -15,11 +15,15 @@
 		B70034461B84ADDD00263CAD /* AddManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70034451B84ADDD00263CAD /* AddManagerViewController.m */; };
 		B700344B1B84AED100263CAD /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700344A1B84AED100263CAD /* SWRevealViewController.m */; };
 		B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700344D1B84AED700263CAD /* SidebarViewController.m */; };
-		B70034521B84B2D000263CAD /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = B700344F1B84B2D000263CAD /* menu.png */; };
-		B70034531B84B2D000263CAD /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B70034501B84B2D000263CAD /* menu@2x.png */; };
-		B70034541B84B2D000263CAD /* menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B70034511B84B2D000263CAD /* menu@3x.png */; };
-		B70A59A81B8592B800E1D793 /* ActorsCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */; };
+		B70A59A81B8592B800E1D793 /* GlobalMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* GlobalMenuViewController.m */; };
 		B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59AA1B8592D800E1D793 /* BackViewController.m */; };
+		B728059E1B8B42810073A836 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = B728059D1B8B42810073A836 /* img.png */; };
+		B75DCCBF1B9EF25000A61D60 /* LocalizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DCCBC1B9EF25000A61D60 /* LocalizedObject.m */; };
+		B75DCCC01B9EF25000A61D60 /* UILabel+LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DCCBE1B9EF25000A61D60 /* UILabel+LocalizedString.m */; };
+		B767DDA21B8C667500C721C9 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B767DDA11B8C667500C721C9 /* Camera.png */; };
+		B767DDA41B8C673400C721C9 /* Revert.png in Resources */ = {isa = PBXBuildFile; fileRef = B767DDA31B8C673400C721C9 /* Revert.png */; };
+		B767DDA71B8C68FC00C721C9 /* PreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B767DDA61B8C68FC00C721C9 /* PreviewView.m */; };
+		B767DDAC1B8C697400C721C9 /* CustomCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */; };
 		B789AD5D1B820F3B00C1C0AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD5C1B820F3B00C1C0AB /* main.m */; };
 		B789AD601B820F3B00C1C0AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD5F1B820F3B00C1C0AB /* AppDelegate.m */; };
 		B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B789AD641B820F3B00C1C0AB /* Main.storyboard */; };
@@ -28,11 +32,27 @@
 		B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD841B82103B00C1C0AB /* RegisterViewController.m */; };
 		B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD881B82105300C1C0AB /* LoginViewController.m */; };
 		B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */; };
+		B79FC7111B941FD200D9EA79 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = B79FC7101B941FD200D9EA79 /* UIView+Toast.m */; };
+		B7AD47461B8726B800D12F33 /* ManagerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AD47451B8726B800D12F33 /* ManagerListViewController.m */; };
+		B7C06A181B9FE5D900C2E616 /* ChooseLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C06A171B9FE5D900C2E616 /* ChooseLanguageCell.m */; };
+		B7D32C261B8AE055000DE939 /* radio_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C251B8AE055000DE939 /* radio_btn.png */; };
+		B7D32C281B8AE058000DE939 /* radio_btn_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C271B8AE058000DE939 /* radio_btn_selected.png */; };
+		B7D32C2B1B8AE32A000DE939 /* ChooseLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */; };
+		B7D32C2E1B8B25AD000DE939 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C2D1B8B25AD000DE939 /* back.png */; };
+		B7D32C341B8B30A9000DE939 /* modal1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C2F1B8B30A9000DE939 /* modal1.jpeg */; };
+		B7D32C351B8B30A9000DE939 /* modal2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C301B8B30A9000DE939 /* modal2.jpeg */; };
+		B7D32C361B8B30A9000DE939 /* modal3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C311B8B30A9000DE939 /* modal3.jpeg */; };
+		B7D32C371B8B30A9000DE939 /* modal4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C321B8B30A9000DE939 /* modal4.jpeg */; };
+		B7D32C381B8B30A9000DE939 /* modal5.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7D32C331B8B30A9000DE939 /* modal5.jpeg */; };
+		B7D32C3C1B8B36B1000DE939 /* ImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */; };
+		B7EDA6EE1B870A7D00778749 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */; };
 		B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */; };
 		B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0121B82F09000C54376 /* UITextField+Padding.m */; };
 		B7F5B0181B82F1D700C54376 /* UITextField+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0171B82F1D700C54376 /* UITextField+Validations.m */; };
 		B7F5B0501B83109900C54376 /* UIImage+deviceSpecificMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B04F1B83109900C54376 /* UIImage+deviceSpecificMedia.m */; };
 		B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0531B8310D500C54376 /* NullValueChecker.m */; };
+		B7FF11311B8754D700D1E54F /* ManagersListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FF11301B8754D700D1E54F /* ManagersListCell.m */; };
+		B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7FFA3A01B9E9520002B37D9 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,13 +83,23 @@
 		B700344A1B84AED100263CAD /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = ActorsCam/SWRevealViewController.m; sourceTree = "<group>"; };
 		B700344C1B84AED700263CAD /* SidebarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarViewController.h; path = ActorsCam/SidebarViewController.h; sourceTree = "<group>"; };
 		B700344D1B84AED700263CAD /* SidebarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SidebarViewController.m; path = ActorsCam/SidebarViewController.m; sourceTree = "<group>"; };
-		B700344F1B84B2D000263CAD /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
-		B70034501B84B2D000263CAD /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
-		B70034511B84B2D000263CAD /* menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@3x.png"; sourceTree = "<group>"; };
-		B70A59A61B8592B800E1D793 /* ActorsCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActorsCamViewController.h; path = ActorsCam/ActorsCamViewController.h; sourceTree = "<group>"; };
-		B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActorsCamViewController.m; path = ActorsCam/ActorsCamViewController.m; sourceTree = "<group>"; };
+		B70A59A61B8592B800E1D793 /* GlobalMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalMenuViewController.h; path = ActorsCam/GlobalMenuViewController.h; sourceTree = "<group>"; };
+		B70A59A71B8592B800E1D793 /* GlobalMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalMenuViewController.m; path = ActorsCam/GlobalMenuViewController.m; sourceTree = "<group>"; };
 		B70A59A91B8592D800E1D793 /* BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackViewController.h; path = ActorsCam/BackViewController.h; sourceTree = "<group>"; };
 		B70A59AA1B8592D800E1D793 /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackViewController.m; path = ActorsCam/BackViewController.m; sourceTree = "<group>"; };
+		B728059D1B8B42810073A836 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
+		B73C2EF31B9E956700093384 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B73C2EF41B9E957000093384 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B75DCCBB1B9EF25000A61D60 /* LocalizedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedObject.h; sourceTree = "<group>"; };
+		B75DCCBC1B9EF25000A61D60 /* LocalizedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedObject.m; sourceTree = "<group>"; };
+		B75DCCBD1B9EF25000A61D60 /* UILabel+LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+LocalizedString.h"; sourceTree = "<group>"; };
+		B75DCCBE1B9EF25000A61D60 /* UILabel+LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LocalizedString.m"; sourceTree = "<group>"; };
+		B767DDA11B8C667500C721C9 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera.png; sourceTree = "<group>"; };
+		B767DDA31B8C673400C721C9 /* Revert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Revert.png; sourceTree = "<group>"; };
+		B767DDA51B8C68FC00C721C9 /* PreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewView.h; sourceTree = "<group>"; };
+		B767DDA61B8C68FC00C721C9 /* PreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewView.m; sourceTree = "<group>"; };
+		B767DDAA1B8C697400C721C9 /* CustomCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCameraViewController.h; sourceTree = "<group>"; };
+		B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCameraViewController.m; sourceTree = "<group>"; };
 		B789AD571B820F3B00C1C0AB /* ActorsCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActorsCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B789AD5B1B820F3B00C1C0AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B789AD5C1B820F3B00C1C0AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -86,6 +116,26 @@
 		B789AD881B82105300C1C0AB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ActorsCam/LoginViewController.m; sourceTree = "<group>"; };
 		B789AD8B1B8212E700C1C0AB /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = ActorsCam/ChangePasswordViewController.h; sourceTree = "<group>"; };
 		B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = ActorsCam/ChangePasswordViewController.m; sourceTree = "<group>"; };
+		B79FC70F1B941FD200D9EA79 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		B79FC7101B941FD200D9EA79 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		B7AD47441B8726B800D12F33 /* ManagerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManagerListViewController.h; path = ActorsCam/ManagerListViewController.h; sourceTree = "<group>"; };
+		B7AD47451B8726B800D12F33 /* ManagerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManagerListViewController.m; path = ActorsCam/ManagerListViewController.m; sourceTree = "<group>"; };
+		B7C06A161B9FE5D900C2E616 /* ChooseLanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseLanguageCell.h; sourceTree = "<group>"; };
+		B7C06A171B9FE5D900C2E616 /* ChooseLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseLanguageCell.m; sourceTree = "<group>"; };
+		B7D32C251B8AE055000DE939 /* radio_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_btn.png; sourceTree = "<group>"; };
+		B7D32C271B8AE058000DE939 /* radio_btn_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_btn_selected.png; sourceTree = "<group>"; };
+		B7D32C291B8AE32A000DE939 /* ChooseLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChooseLanguageViewController.h; path = ActorsCam/ChooseLanguageViewController.h; sourceTree = "<group>"; };
+		B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChooseLanguageViewController.m; path = ActorsCam/ChooseLanguageViewController.m; sourceTree = "<group>"; };
+		B7D32C2D1B8B25AD000DE939 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		B7D32C2F1B8B30A9000DE939 /* modal1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal1.jpeg; sourceTree = "<group>"; };
+		B7D32C301B8B30A9000DE939 /* modal2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal2.jpeg; sourceTree = "<group>"; };
+		B7D32C311B8B30A9000DE939 /* modal3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal3.jpeg; sourceTree = "<group>"; };
+		B7D32C321B8B30A9000DE939 /* modal4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal4.jpeg; sourceTree = "<group>"; };
+		B7D32C331B8B30A9000DE939 /* modal5.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal5.jpeg; sourceTree = "<group>"; };
+		B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePreviewViewController.h; path = ActorsCam/ImagePreviewViewController.h; sourceTree = "<group>"; };
+		B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePreviewViewController.m; path = ActorsCam/ImagePreviewViewController.m; sourceTree = "<group>"; };
+		B7EDA6EC1B870A7D00778749 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B7F5B00C1B82EBE500C54376 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		B7F5B0111B82F09000C54376 /* UITextField+Padding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Padding.h"; sourceTree = "<group>"; };
@@ -96,6 +146,8 @@
 		B7F5B04F1B83109900C54376 /* UIImage+deviceSpecificMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+deviceSpecificMedia.m"; sourceTree = "<group>"; };
 		B7F5B0521B8310D500C54376 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
 		B7F5B0531B8310D500C54376 /* NullValueChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullValueChecker.m; sourceTree = "<group>"; };
+		B7FF112F1B8754D700D1E54F /* ManagersListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManagersListCell.h; path = ActorsCam/ManagersListCell.h; sourceTree = "<group>"; };
+		B7FF11301B8754D700D1E54F /* ManagersListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManagersListCell.m; path = ActorsCam/ManagersListCell.m; sourceTree = "<group>"; };
 		BC5833CD0E39D9EEAA9DBA37 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,13 +216,13 @@
 			name = EditProfileView;
 			sourceTree = "<group>";
 		};
-		B70034431B84ADC100263CAD /* AddManagersView */ = {
+		B70034431B84ADC100263CAD /* ManagerListView */ = {
 			isa = PBXGroup;
 			children = (
-				B70034441B84ADDD00263CAD /* AddManagerViewController.h */,
-				B70034451B84ADDD00263CAD /* AddManagerViewController.m */,
+				B7AD47491B87286F00D12F33 /* ManagersListCell */,
+				B7AD47481B87286000D12F33 /* ManagersList */,
 			);
-			name = AddManagersView;
+			name = ManagerListView;
 			sourceTree = "<group>";
 		};
 		B70034471B84AEB000263CAD /* SideBar */ = {
@@ -191,13 +243,13 @@
 			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
-		B70A59A41B85926A00E1D793 /* GlobalSideBarViewController */ = {
+		B70A59A41B85926A00E1D793 /* GlobalSideBarMenu */ = {
 			isa = PBXGroup;
 			children = (
-				B70A59A61B8592B800E1D793 /* ActorsCamViewController.h */,
-				B70A59A71B8592B800E1D793 /* ActorsCamViewController.m */,
+				B70A59A61B8592B800E1D793 /* GlobalMenuViewController.h */,
+				B70A59A71B8592B800E1D793 /* GlobalMenuViewController.m */,
 			);
-			name = GlobalSideBarViewController;
+			name = GlobalSideBarMenu;
 			sourceTree = "<group>";
 		};
 		B70A59A51B85927700E1D793 /* GlobalBackViewController */ = {
@@ -207,6 +259,26 @@
 				B70A59AA1B8592D800E1D793 /* BackViewController.m */,
 			);
 			name = GlobalBackViewController;
+			sourceTree = "<group>";
+		};
+		B767DDA81B8C693B00C721C9 /* ImagePreview */ = {
+			isa = PBXGroup;
+			children = (
+				B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */,
+				B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */,
+			);
+			name = ImagePreview;
+			sourceTree = "<group>";
+		};
+		B767DDA91B8C694400C721C9 /* CameraView */ = {
+			isa = PBXGroup;
+			children = (
+				B767DDA51B8C68FC00C721C9 /* PreviewView.h */,
+				B767DDA61B8C68FC00C721C9 /* PreviewView.m */,
+				B767DDAA1B8C697400C721C9 /* CustomCameraViewController.h */,
+				B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */,
+			);
+			name = CameraView;
 			sourceTree = "<group>";
 		};
 		B789AD4E1B820F3B00C1C0AB = {
@@ -232,9 +304,6 @@
 		B789AD591B820F3B00C1C0AB /* ActorsCam */ = {
 			isa = PBXGroup;
 			children = (
-				B700344F1B84B2D000263CAD /* menu.png */,
-				B70034501B84B2D000263CAD /* menu@2x.png */,
-				B70034511B84B2D000263CAD /* menu@3x.png */,
 				B789AD821B82102100C1C0AB /* AppDelegate */,
 				B7F5B0551B8310E600C54376 /* Webservice */,
 				B789AD801B82100400C1C0AB /* ViewControllers */,
@@ -250,6 +319,8 @@
 		B789AD5A1B820F3B00C1C0AB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B7FFA3A01B9E9520002B37D9 /* Localizable.strings */,
+				B7D32C241B8AE04C000DE939 /* tempImages */,
 				B70034361B849AB400263CAD /* ActorsCam-Prefix.pch */,
 				B789AD5B1B820F3B00C1C0AB /* Info.plist */,
 				B789AD5C1B820F3B00C1C0AB /* main.m */,
@@ -277,13 +348,16 @@
 		B789AD801B82100400C1C0AB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B70A59A41B85926A00E1D793 /* GlobalSideBarViewController */,
+				B7D32C391B8B3699000DE939 /* ImagePreviewView */,
+				B7D32C2C1B8AE339000DE939 /* ChooseLanguageView */,
+				B70A59A41B85926A00E1D793 /* GlobalSideBarMenu */,
 				B70A59A51B85927700E1D793 /* GlobalBackViewController */,
 				B789AD861B82104200C1C0AB /* LoginView */,
 				B789AD811B82100D00C1C0AB /* RegisterView */,
 				B700343B1B84ABE800263CAD /* DashboardView */,
 				B789AD8A1B8212C700C1C0AB /* ChangePasswordView */,
-				B70034431B84ADC100263CAD /* AddManagersView */,
+				B7AD47471B8726BE00D12F33 /* AddManagersView */,
+				B70034431B84ADC100263CAD /* ManagerListView */,
 				B700343F1B84AD5C00263CAD /* EditProfileView */,
 				B70034471B84AEB000263CAD /* SideBar */,
 				B70034481B84AEB900263CAD /* SWRevealViewController */,
@@ -328,9 +402,121 @@
 			name = ChangePasswordView;
 			sourceTree = "<group>";
 		};
+		B79FC70B1B9417FA00D9EA79 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				B79FC70F1B941FD200D9EA79 /* UIView+Toast.h */,
+				B79FC7101B941FD200D9EA79 /* UIView+Toast.m */,
+			);
+			name = Toast;
+			sourceTree = "<group>";
+		};
+		B7AD47471B8726BE00D12F33 /* AddManagersView */ = {
+			isa = PBXGroup;
+			children = (
+				B70034441B84ADDD00263CAD /* AddManagerViewController.h */,
+				B70034451B84ADDD00263CAD /* AddManagerViewController.m */,
+			);
+			name = AddManagersView;
+			sourceTree = "<group>";
+		};
+		B7AD47481B87286000D12F33 /* ManagersList */ = {
+			isa = PBXGroup;
+			children = (
+				B7AD47441B8726B800D12F33 /* ManagerListViewController.h */,
+				B7AD47451B8726B800D12F33 /* ManagerListViewController.m */,
+			);
+			name = ManagersList;
+			sourceTree = "<group>";
+		};
+		B7AD47491B87286F00D12F33 /* ManagersListCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7FF112F1B8754D700D1E54F /* ManagersListCell.h */,
+				B7FF11301B8754D700D1E54F /* ManagersListCell.m */,
+			);
+			name = ManagersListCell;
+			sourceTree = "<group>";
+		};
+		B7C06A191B9FE5E200C2E616 /* ChooseLanguage */ = {
+			isa = PBXGroup;
+			children = (
+				B7D32C291B8AE32A000DE939 /* ChooseLanguageViewController.h */,
+				B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */,
+			);
+			name = ChooseLanguage;
+			sourceTree = "<group>";
+		};
+		B7C06A1A1B9FE5EA00C2E616 /* ChooseLanguageCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7C06A161B9FE5D900C2E616 /* ChooseLanguageCell.h */,
+				B7C06A171B9FE5D900C2E616 /* ChooseLanguageCell.m */,
+			);
+			name = ChooseLanguageCell;
+			sourceTree = "<group>";
+		};
+		B7C06A1B1B9FE5F700C2E616 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				B75DCCBB1B9EF25000A61D60 /* LocalizedObject.h */,
+				B75DCCBC1B9EF25000A61D60 /* LocalizedObject.m */,
+				B75DCCBD1B9EF25000A61D60 /* UILabel+LocalizedString.h */,
+				B75DCCBE1B9EF25000A61D60 /* UILabel+LocalizedString.m */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		B7D32C241B8AE04C000DE939 /* tempImages */ = {
+			isa = PBXGroup;
+			children = (
+				B728059D1B8B42810073A836 /* img.png */,
+				B767DDA31B8C673400C721C9 /* Revert.png */,
+				B767DDA11B8C667500C721C9 /* Camera.png */,
+				B7D32C2F1B8B30A9000DE939 /* modal1.jpeg */,
+				B7D32C301B8B30A9000DE939 /* modal2.jpeg */,
+				B7D32C311B8B30A9000DE939 /* modal3.jpeg */,
+				B7D32C321B8B30A9000DE939 /* modal4.jpeg */,
+				B7D32C331B8B30A9000DE939 /* modal5.jpeg */,
+				B7D32C2D1B8B25AD000DE939 /* back.png */,
+				B7D32C271B8AE058000DE939 /* radio_btn_selected.png */,
+				B7D32C251B8AE055000DE939 /* radio_btn.png */,
+			);
+			name = tempImages;
+			sourceTree = "<group>";
+		};
+		B7D32C2C1B8AE339000DE939 /* ChooseLanguageView */ = {
+			isa = PBXGroup;
+			children = (
+				B7C06A1B1B9FE5F700C2E616 /* Other */,
+				B7C06A1A1B9FE5EA00C2E616 /* ChooseLanguageCell */,
+				B7C06A191B9FE5E200C2E616 /* ChooseLanguage */,
+			);
+			name = ChooseLanguageView;
+			sourceTree = "<group>";
+		};
+		B7D32C391B8B3699000DE939 /* ImagePreviewView */ = {
+			isa = PBXGroup;
+			children = (
+				B767DDA91B8C694400C721C9 /* CameraView */,
+				B767DDA81B8C693B00C721C9 /* ImagePreview */,
+			);
+			name = ImagePreviewView;
+			sourceTree = "<group>";
+		};
+		B7EDA6EB1B870A4D00778749 /* ProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				B7EDA6EC1B870A7D00778749 /* MBProgressHUD.h */,
+				B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */,
+			);
+			name = ProgressBar;
+			sourceTree = "<group>";
+		};
 		B7F5B00F1B82EBEF00C54376 /* HelperClass */ = {
 			isa = PBXGroup;
 			children = (
+				B7EDA6EB1B870A4D00778749 /* ProgressBar */,
 				B7F5B0511B8310C400C54376 /* NullHandler */,
 				B7F5B0101B82EBF700C54376 /* KeyboardControls */,
 			);
@@ -349,6 +535,7 @@
 		B7F5B0141B82F09700C54376 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				B79FC70B1B9417FA00D9EA79 /* Toast */,
 				B70034311B8496A700263CAD /* CornerRadiusCategory */,
 				B7F5B04D1B83107F00C54376 /* UIImageCategory */,
 				B7F5B0191B82F1E300C54376 /* ValidationCategory */,
@@ -484,11 +671,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B70034541B84B2D000263CAD /* menu@3x.png in Resources */,
+				B7D32C341B8B30A9000DE939 /* modal1.jpeg in Resources */,
+				B7D32C351B8B30A9000DE939 /* modal2.jpeg in Resources */,
+				B7D32C381B8B30A9000DE939 /* modal5.jpeg in Resources */,
+				B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */,
+				B7D32C2E1B8B25AD000DE939 /* back.png in Resources */,
+				B767DDA41B8C673400C721C9 /* Revert.png in Resources */,
+				B767DDA21B8C667500C721C9 /* Camera.png in Resources */,
+				B7D32C371B8B30A9000DE939 /* modal4.jpeg in Resources */,
+				B7D32C261B8AE055000DE939 /* radio_btn.png in Resources */,
 				B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */,
-				B70034531B84B2D000263CAD /* menu@2x.png in Resources */,
+				B7D32C281B8AE058000DE939 /* radio_btn_selected.png in Resources */,
 				B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */,
-				B70034521B84B2D000263CAD /* menu.png in Resources */,
+				B728059E1B8B42810073A836 /* img.png in Resources */,
+				B7D32C361B8B30A9000DE939 /* modal3.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,25 +735,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B79FC7111B941FD200D9EA79 /* UIView+Toast.m in Sources */,
 				B789AD601B820F3B00C1C0AB /* AppDelegate.m in Sources */,
+				B7D32C2B1B8AE32A000DE939 /* ChooseLanguageViewController.m in Sources */,
+				B75DCCC01B9EF25000A61D60 /* UILabel+LocalizedString.m in Sources */,
+				B7FF11311B8754D700D1E54F /* ManagersListCell.m in Sources */,
 				B789AD5D1B820F3B00C1C0AB /* main.m in Sources */,
 				B70034421B84ADBB00263CAD /* EditProfileViewController.m in Sources */,
 				B70034461B84ADDD00263CAD /* AddManagerViewController.m in Sources */,
 				B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */,
 				B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */,
 				B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */,
+				B7EDA6EE1B870A7D00778749 /* MBProgressHUD.m in Sources */,
 				B7F5B0181B82F1D700C54376 /* UITextField+Validations.m in Sources */,
 				B700343E1B84AC6B00263CAD /* DashboardViewController.m in Sources */,
+				B75DCCBF1B9EF25000A61D60 /* LocalizedObject.m in Sources */,
 				B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */,
 				B70034341B8498EA00263CAD /* WebService.m in Sources */,
-				B70A59A81B8592B800E1D793 /* ActorsCamViewController.m in Sources */,
+				B70A59A81B8592B800E1D793 /* GlobalMenuViewController.m in Sources */,
 				B7F5B0501B83109900C54376 /* UIImage+deviceSpecificMedia.m in Sources */,
+				B767DDA71B8C68FC00C721C9 /* PreviewView.m in Sources */,
 				B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */,
 				B700344B1B84AED100263CAD /* SWRevealViewController.m in Sources */,
+				B7C06A181B9FE5D900C2E616 /* ChooseLanguageCell.m in Sources */,
 				B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */,
+				B7D32C3C1B8B36B1000DE939 /* ImagePreviewViewController.m in Sources */,
 				B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */,
 				B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */,
 				B70034301B8496A100263CAD /* UIView+RoundedCorner.m in Sources */,
+				B767DDAC1B8C697400C721C9 /* CustomCameraViewController.m in Sources */,
+				B7AD47461B8726B800D12F33 /* ManagerListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +795,16 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		B7FFA3A01B9E9520002B37D9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B73C2EF31B9E956700093384 /* en */,
+				B73C2EF41B9E957000093384 /* Base */,
+			);
+			name = Localizable.strings;
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -616,7 +833,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -660,7 +877,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -680,7 +897,8 @@
 			baseConfigurationReference = EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				INFOPLIST_FILE = ActorsCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -697,7 +915,8 @@
 			baseConfigurationReference = 17A6042FB44BB0551E518D31 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				INFOPLIST_FILE = ActorsCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -718,7 +937,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -739,7 +958,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				GCC_PREFIX_HEADER = "/Users/Ranosys/Documents/ActorsCamProject/ActorsCam/ActorsCam/ActorsCam-Prefix.pch";
+				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				INFOPLIST_FILE = ActorsCamTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

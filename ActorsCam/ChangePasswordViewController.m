@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
-
 @end
 
 @implementation ChangePasswordViewController
@@ -32,6 +31,12 @@
 {
     [super viewDidLoad];
     [self addTextFieldPadding];
+    
+    //Remove swipe gesture for sidebar
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
+    {
+        [self.view removeGestureRecognizer:recognizer];
+    }
     
     //Adding textfield to array
     textFieldArray = @[currentPassword,changePassword,confirmPassword];
@@ -45,53 +50,56 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(void)addTextFieldPadding
 {
     [currentPassword addTextFieldPadding:currentPassword];
     [confirmPassword addTextFieldPadding:confirmPassword];
     [changePassword addTextFieldPadding:changePassword];
 }
-
 #pragma mark - end
 
-#pragma mark - Button Actions
+#pragma mark - Change Password
 - (IBAction)changePasswordButtonAction:(id)sender
 {
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [self.keyboardControls.activeField resignFirstResponder];
     if([self performValidationsForChangePassword])
     {
-        //        [myDelegate ShowIndicator];
-        //        [self performSelector:@selector(loginUser) withObject:nil afterDelay:.1];
+            [myDelegate ShowIndicator];
+            [self performSelector:@selector(changePasswordMethod) withObject:nil afterDelay:.1];
     }
 
 }
 
+-(void)changePasswordMethod
+{
+    
+    [[WebService sharedManager] changePassword:currentPassword.text newPassword:changePassword.text success:^(id responseObject) {
+        
+        [myDelegate StopIndicator];
+        
+    } failure:^(NSError *error) {
+        
+    }] ;
+    
+}
 #pragma mark - end
 
-
-#pragma mark - Textfield Validation Action
-
+#pragma mark - Textfield Validation
 - (BOOL)performValidationsForChangePassword
 {
     UIAlertView *alert;
     if ([currentPassword isEmpty] || [changePassword isEmpty] || [confirmPassword isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill in all fields." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        return NO;
-    }
-    else if (changePassword.text.length<6)
-    {
-        
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password should be at least six digits." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Fields cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (!([changePassword.text isEqualToString:confirmPassword.text]))
     {
         
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password and confirm password must be same." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Passwords do not match." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -103,7 +111,6 @@
 
 }
 #pragma mark - end
-
 
 #pragma mark - Keyboard Controls Delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
@@ -124,11 +131,9 @@
     
     
 }
-
 #pragma mark - end
 
 #pragma mark - Textfield Delegates
-
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
@@ -160,6 +165,5 @@
     [textField resignFirstResponder];
     return YES;
 }
-
 #pragma mark - end
 @end

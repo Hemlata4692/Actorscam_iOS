@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Ranosys. All rights reserved.
 //
 
-#import "ActorsCamViewController.h"
+#import "GlobalMenuViewController.h"
 #import "SWRevealViewController.h"
 
-@interface ActorsCamViewController ()<SWRevealViewControllerDelegate>
+@interface GlobalMenuViewController ()<SWRevealViewControllerDelegate>
 {
     UIBarButtonItem *barButton;
     
@@ -17,10 +17,9 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @end
 
-@implementation ActorsCamViewController
+@implementation GlobalMenuViewController
 
 #pragma mark - View life cycle
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,8 +40,7 @@
 
 #pragma mark - Method to add global side bar button
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage
-{
-    
+{    
     CGRect frameimg = CGRectMake(0, 0, buttonImage.size.width, buttonImage.size.height);
     UIButton *button = [[UIButton alloc] initWithFrame:frameimg];
     [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
@@ -57,7 +55,5 @@
     }
 }
 #pragma mark - end
-
-
 
 @end

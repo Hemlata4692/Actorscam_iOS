@@ -186,9 +186,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     _frontView.frame = [self hierarchycalFrameAdjustment:frame];
 }
 
-
 # pragma mark - overrides
-
 - (void)layoutSubviews
 {
     if ( _disableLayout ) return;
@@ -214,7 +212,6 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:shadowBounds];
     _frontView.layer.shadowPath = shadowPath.CGPath;
 }
-
 
 - (BOOL)pointInsideD:(CGPoint)point withEvent:(UIEvent *)event
 {
@@ -1828,9 +1825,7 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 
 @end
 
-
 #pragma mark - SWRevealViewControllerSeguePushController class
-
 @implementation SWRevealViewControllerSeguePushController
 
 - (void)perform
@@ -1841,57 +1836,5 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 @end
-
-
-//#pragma mark - SWRevealViewControllerSegue Class
-//
-//@implementation SWRevealViewControllerSegue  // DEPRECATED
-//
-//- (void)perform
-//{
-//    if ( _performBlock )
-//        _performBlock( self, self.sourceViewController, self.destinationViewController );
-//}
-//
-//@end
-//
-//
-//#pragma mark Storyboard support
-//
-//@implementation SWRevealViewController(deprecated)
-//
-//- (void)prepareForSegue:(SWRevealViewControllerSegue *)segue sender:(id)sender   // TO REMOVE: DEPRECATED IMPLEMENTATION
-//{
-//    // This method is required for compatibility with SWRevealViewControllerSegue, now deprecated.
-//    // It can be simply removed when using SWRevealViewControllerSegueSetController and SWRevealViewControlerSeguePushController
-//    
-//    NSString *identifier = segue.identifier;
-//    if ( [segue isKindOfClass:[SWRevealViewControllerSegue class]] && sender == nil )
-//    {
-//        if ( [identifier isEqualToString:SWSegueRearIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setRearViewController:dvc animated:NO];
-//            };
-//        }
-//        else if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setFrontViewController:dvc animated:NO];
-//            };
-//        }
-//        else if ( [identifier isEqualToString:SWSegueRightIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setRightViewController:dvc animated:NO];
-//            };
-//        }
-//    }
-//}
-//
-//@end
 
 
