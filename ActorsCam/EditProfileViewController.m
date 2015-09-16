@@ -93,7 +93,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Submit Button Actions and call edit profile web-service
+#pragma mark - Edit profile
 - (IBAction)SaveButtonAction:(id)sender
 {
     [self.view endEditing:YES];
@@ -145,8 +145,6 @@
         // In this case the device is an iPhone/iPod Touch.
         [share showInView:[UIApplication sharedApplication].keyWindow];
     }
-    
-    
 }
 #pragma mark - end
 
@@ -161,7 +159,7 @@
 
 #pragma mark - end
 
-#pragma mark - Actionsheet
+#pragma mark - Actionsheet delegate
 //Action sheet for setting image from camera or gallery
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex==0)
@@ -214,7 +212,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield Validation Action
+#pragma mark - Textfield Validation
 - (BOOL)performValidationsForEditProfile
 {
     UIAlertView *alert;
@@ -232,7 +230,6 @@
 #pragma mark - end
 
 #pragma mark - Textfield Delegates
-
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
 

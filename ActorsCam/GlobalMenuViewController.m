@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Ranosys. All rights reserved.
 //
 
-#import "SideBarMenu.h"
+#import "GlobalMenuViewController.h"
 #import "SWRevealViewController.h"
 
-@interface SideBarMenu ()<SWRevealViewControllerDelegate>
+@interface GlobalMenuViewController ()<SWRevealViewControllerDelegate>
 {
     UIBarButtonItem *barButton;
     
@@ -17,10 +17,9 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @end
 
-@implementation SideBarMenu
+@implementation GlobalMenuViewController
 
 #pragma mark - View life cycle
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

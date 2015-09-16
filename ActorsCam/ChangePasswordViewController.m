@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
-
 @end
 
 @implementation ChangePasswordViewController
@@ -51,16 +50,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(void)addTextFieldPadding
 {
     [currentPassword addTextFieldPadding:currentPassword];
     [confirmPassword addTextFieldPadding:confirmPassword];
     [changePassword addTextFieldPadding:changePassword];
 }
-
 #pragma mark - end
 
-#pragma mark - Button Actions
+#pragma mark - Change Password
 - (IBAction)changePasswordButtonAction:(id)sender
 {
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -85,12 +84,9 @@
     }] ;
     
 }
-
 #pragma mark - end
 
-
-#pragma mark - Textfield Validation Action
-
+#pragma mark - Textfield Validation
 - (BOOL)performValidationsForChangePassword
 {
     UIAlertView *alert;
@@ -116,7 +112,6 @@
 }
 #pragma mark - end
 
-
 #pragma mark - Keyboard Controls Delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
@@ -136,11 +131,9 @@
     
     
 }
-
 #pragma mark - end
 
 #pragma mark - Textfield Delegates
-
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
@@ -172,6 +165,5 @@
     [textField resignFirstResponder];
     return YES;
 }
-
 #pragma mark - end
 @end

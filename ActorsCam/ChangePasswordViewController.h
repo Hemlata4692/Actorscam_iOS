@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SideBarMenu.h"
+#import "GlobalMenuViewController.h"
 
-@interface ChangePasswordViewController : SideBarMenu
+@interface ChangePasswordViewController : GlobalMenuViewController
 
 @end

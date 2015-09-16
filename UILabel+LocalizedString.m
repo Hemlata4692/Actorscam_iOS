@@ -24,9 +24,6 @@ static const char kBundleKey = 0;
 }
 @end
 
-//@interface UIButton (LocalizedString)
-//@end
-
 @implementation UIButton (LocalizedString)
 
 - (UIButton*)changeTextLanguage:(NSString*)text

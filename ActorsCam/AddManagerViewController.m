@@ -107,7 +107,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - add/Edit Manager Action
+#pragma mark - add/Edit Manager
 - (IBAction)addEditManagerAction:(UIButton *)sender {
     
     [self.view endEditing:YES];
@@ -162,7 +162,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield Validation Action
+#pragma mark - Textfield Validation
 - (BOOL)performValidationsForManageData
 {
     

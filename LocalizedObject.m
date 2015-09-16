@@ -10,8 +10,7 @@
 #import <objc/runtime.h>
 
 @implementation LocalizedObject
-+ (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName bundleName:(NSBundle*)bundle
-{
++ (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName bundleName:(NSBundle*)bundle{
     return [bundle localizedStringForKey:key value:value table:tableName];
 }
 

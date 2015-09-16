@@ -91,11 +91,11 @@
     
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(void)addTextFieldPadding
 {
     
@@ -114,7 +114,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Login Actions
+#pragma mark - Login
 - (IBAction)loginButtonAction:(id)sender
 {
     
@@ -151,7 +151,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Forgot Password Actions
+#pragma mark - Forgot Password
 - (IBAction)forgotPasswordButtonAction:(id)sender
 {
     
@@ -197,7 +197,7 @@
 
 #pragma mark - end
 
-#pragma mark - Textfield Validation Action
+#pragma mark - Textfield Validation
 - (BOOL)performValidationsForLogin
 {
     

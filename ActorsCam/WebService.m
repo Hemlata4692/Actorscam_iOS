@@ -24,7 +24,6 @@
 @implementation WebService
 @synthesize manager;
 
-#pragma mark - AFNetworking method
 + (id)sharedManager
 {
     static WebService *sharedMyManager = nil;
@@ -43,6 +42,7 @@
     return self;
 }
 
+#pragma mark - AFNetworking method
 - (void)post:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];

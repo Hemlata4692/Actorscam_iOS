@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SideBarMenu.h"
+#import "GlobalMenuViewController.h"
 
-@interface ManagerListViewController : SideBarMenu
+@interface ManagerListViewController : GlobalMenuViewController
 
 @end

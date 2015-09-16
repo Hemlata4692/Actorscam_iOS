@@ -69,7 +69,6 @@
 #pragma mark - end
 
 #pragma mark - Collection View
-
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return imageArray.count;
@@ -115,7 +114,6 @@
     }
     
 }
-
 #pragma mark - end
 
 #pragma mark - select Manager Action
@@ -148,7 +146,6 @@
     if ([MFMailComposeViewController canSendMail])
         
     {
-        
         // Email Subject
         
         NSString *emailTitle = @"The Blue Barrel Career Search";
@@ -193,10 +190,7 @@
             
         }
         
-        [mc setToRecipients:toRecipents];
-        
-        
-        
+        [mc setToRecipients:toRecipents];      
         [self presentViewController:mc animated:YES completion:NULL];
         
     }

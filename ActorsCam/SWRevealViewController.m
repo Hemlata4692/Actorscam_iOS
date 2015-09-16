@@ -1825,9 +1825,7 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 
 @end
 
-
 #pragma mark - SWRevealViewControllerSeguePushController class
-
 @implementation SWRevealViewControllerSeguePushController
 
 - (void)perform

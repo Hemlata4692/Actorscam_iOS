@@ -77,8 +77,7 @@
 
 #pragma mark - end
 
-#pragma mark - Register User Actions
-
+#pragma mark - Register User
 - (IBAction)signUpButtonAction:(id)sender
 {
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -135,7 +134,6 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 }
-
 #pragma mark - end
 
 #pragma mark - Actionsheet
@@ -191,8 +189,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield Validation Action
-
+#pragma mark - Textfield Validation
 - (BOOL)performValidationsForSignUp
 {
     UIAlertView *alert;
@@ -256,11 +253,9 @@
     
    
 }
-
 #pragma mark - end
 
 #pragma mark - Textfield Delegates
-
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
@@ -304,8 +299,5 @@
     [textField resignFirstResponder];
     return YES;
 }
-
 #pragma mark - end
-
-
 @end

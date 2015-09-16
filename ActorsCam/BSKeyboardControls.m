@@ -23,9 +23,7 @@
 	return YES;
 }
 
-
-#pragma mark -
-#pragma mark Lifecycle
+#pragma mark - Lifecycle
 
 - (id)init
 {
@@ -96,8 +94,8 @@
     [self setDoneButton:nil];
 }
 
-#pragma mark -
-#pragma mark Public Methods
+#pragma mark - end
+#pragma mark - Public Methods
 
 - (void)setActiveField:(id)activeField
 {
@@ -220,8 +218,8 @@
     }
 }
 
-#pragma mark -
-#pragma mark Private Methods
+#pragma mark - end
+#pragma mark - Private Methods
 
 - (void)segmentedControlValueChanged:(id)sender
 {

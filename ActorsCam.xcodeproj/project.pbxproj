@@ -15,7 +15,7 @@
 		B70034461B84ADDD00263CAD /* AddManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70034451B84ADDD00263CAD /* AddManagerViewController.m */; };
 		B700344B1B84AED100263CAD /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700344A1B84AED100263CAD /* SWRevealViewController.m */; };
 		B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700344D1B84AED700263CAD /* SidebarViewController.m */; };
-		B70A59A81B8592B800E1D793 /* SideBarMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* SideBarMenu.m */; };
+		B70A59A81B8592B800E1D793 /* GlobalMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* GlobalMenuViewController.m */; };
 		B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59AA1B8592D800E1D793 /* BackViewController.m */; };
 		B728059E1B8B42810073A836 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = B728059D1B8B42810073A836 /* img.png */; };
 		B75DCCBF1B9EF25000A61D60 /* LocalizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DCCBC1B9EF25000A61D60 /* LocalizedObject.m */; };
@@ -83,8 +83,8 @@
 		B700344A1B84AED100263CAD /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = ActorsCam/SWRevealViewController.m; sourceTree = "<group>"; };
 		B700344C1B84AED700263CAD /* SidebarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarViewController.h; path = ActorsCam/SidebarViewController.h; sourceTree = "<group>"; };
 		B700344D1B84AED700263CAD /* SidebarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SidebarViewController.m; path = ActorsCam/SidebarViewController.m; sourceTree = "<group>"; };
-		B70A59A61B8592B800E1D793 /* SideBarMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideBarMenu.h; path = ActorsCam/SideBarMenu.h; sourceTree = "<group>"; };
-		B70A59A71B8592B800E1D793 /* SideBarMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideBarMenu.m; path = ActorsCam/SideBarMenu.m; sourceTree = "<group>"; };
+		B70A59A61B8592B800E1D793 /* GlobalMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalMenuViewController.h; path = ActorsCam/GlobalMenuViewController.h; sourceTree = "<group>"; };
+		B70A59A71B8592B800E1D793 /* GlobalMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalMenuViewController.m; path = ActorsCam/GlobalMenuViewController.m; sourceTree = "<group>"; };
 		B70A59A91B8592D800E1D793 /* BackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackViewController.h; path = ActorsCam/BackViewController.h; sourceTree = "<group>"; };
 		B70A59AA1B8592D800E1D793 /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackViewController.m; path = ActorsCam/BackViewController.m; sourceTree = "<group>"; };
 		B728059D1B8B42810073A836 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
@@ -246,8 +246,8 @@
 		B70A59A41B85926A00E1D793 /* GlobalSideBarMenu */ = {
 			isa = PBXGroup;
 			children = (
-				B70A59A61B8592B800E1D793 /* SideBarMenu.h */,
-				B70A59A71B8592B800E1D793 /* SideBarMenu.m */,
+				B70A59A61B8592B800E1D793 /* GlobalMenuViewController.h */,
+				B70A59A71B8592B800E1D793 /* GlobalMenuViewController.m */,
 			);
 			name = GlobalSideBarMenu;
 			sourceTree = "<group>";
@@ -516,7 +516,6 @@
 		B7F5B00F1B82EBEF00C54376 /* HelperClass */ = {
 			isa = PBXGroup;
 			children = (
-				B79FC70B1B9417FA00D9EA79 /* Toast */,
 				B7EDA6EB1B870A4D00778749 /* ProgressBar */,
 				B7F5B0511B8310C400C54376 /* NullHandler */,
 				B7F5B0101B82EBF700C54376 /* KeyboardControls */,
@@ -536,6 +535,7 @@
 		B7F5B0141B82F09700C54376 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				B79FC70B1B9417FA00D9EA79 /* Toast */,
 				B70034311B8496A700263CAD /* CornerRadiusCategory */,
 				B7F5B04D1B83107F00C54376 /* UIImageCategory */,
 				B7F5B0191B82F1E300C54376 /* ValidationCategory */,
@@ -752,7 +752,7 @@
 				B75DCCBF1B9EF25000A61D60 /* LocalizedObject.m in Sources */,
 				B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */,
 				B70034341B8498EA00263CAD /* WebService.m in Sources */,
-				B70A59A81B8592B800E1D793 /* SideBarMenu.m in Sources */,
+				B70A59A81B8592B800E1D793 /* GlobalMenuViewController.m in Sources */,
 				B7F5B0501B83109900C54376 /* UIImage+deviceSpecificMedia.m in Sources */,
 				B767DDA71B8C68FC00C721C9 /* PreviewView.m in Sources */,
 				B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */,
@@ -897,6 +897,7 @@
 			baseConfigurationReference = EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				INFOPLIST_FILE = ActorsCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -914,6 +915,7 @@
 			baseConfigurationReference = 17A6042FB44BB0551E518D31 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				INFOPLIST_FILE = ActorsCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

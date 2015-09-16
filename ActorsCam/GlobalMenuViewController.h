@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SideBarMenu : UIViewController
+@interface GlobalMenuViewController : UIViewController
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage;
 @end

@@ -223,7 +223,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     }
 }
 
-#pragma mark Actions
+#pragma mark - Revert camera actions
 - (IBAction)revertCameraMethod:(id)sender
 {
     [[self revertButton] setEnabled:NO];
@@ -278,7 +278,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         });
     });
 }
+#pragma mark - end
 
+#pragma mark - Capture Image Method
 - (IBAction)captureImageMethod:(id)sender
 {
     if (imageSize > 10*1024*1024) {
@@ -326,7 +328,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     });
     }
 }
+#pragma mark - end
 
+#pragma mark - focusAndExposeTap gesture action
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint devicePoint = [(AVCaptureVideoPreviewLayer *)[[self previewView] layer] captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:[gestureRecognizer view]]];
@@ -338,9 +342,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     CGPoint devicePoint = CGPointMake(.5, .5);
     [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposeWithMode:AVCaptureExposureModeContinuousAutoExposure atDevicePoint:devicePoint monitorSubjectAreaChange:NO];
 }
+#pragma mark - end
 
 #pragma mark File Output Delegate
-
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
     if (error)
@@ -362,9 +366,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [[UIApplication sharedApplication] endBackgroundTask:backgroundRecordingID];
     }];
 }
+#pragma mark - end
 
-#pragma mark Device Configuration
-
+#pragma mark - Device Configuration
 - (void)focusWithMode:(AVCaptureFocusMode)focusMode exposeWithMode:(AVCaptureExposureMode)exposureMode atDevicePoint:(CGPoint)point monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 {
     dispatch_async([self sessionQueue], ^{
@@ -425,9 +429,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     
     return captureDevice;
 }
+#pragma mark - end
 
-#pragma mark UI
-
+#pragma mark - UI
 - (void)runStillImageCaptureAnimation
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -462,7 +466,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
     }];
 }
+#pragma mark - end
 
+#pragma mark - Done Action
 - (IBAction)doneMethod:(UIButton *)sender {
     if (imageArray.count==0) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -475,6 +481,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         [self.navigationController pushViewController:previewView animated:YES];
     }
 }
+#pragma mark - end
+
+#pragma mark - Preview image action
 - (IBAction)previewImageButton:(UIButton *)sender {
     if (imageArray.count==0) {
         sender.enabled = NO;
@@ -488,7 +497,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         [self.navigationController pushViewController:previewView animated:YES];
     }
 }
-
+#pragma mark - end
 /*
 #pragma mark - Navigation
 

@@ -71,8 +71,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Table View Data source/Delegates
-
+#pragma mark - Table View Datasource/Delegates
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     return managerListArray.count;

@@ -20,6 +20,7 @@
 
 @implementation SidebarViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -41,9 +42,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - end
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
@@ -152,9 +153,9 @@
         
     }
 }
+#pragma mark - end
 
 #pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
@@ -165,6 +166,7 @@
     destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
     
 }
+#pragma mark - end
 
 /*
  #pragma mark - Navigation
