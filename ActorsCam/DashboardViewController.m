@@ -12,19 +12,36 @@
 #import "AddManagerViewController.h"
 #import "ImagePreviewViewController.h"
 #import "CustomCameraViewController.h"
+#import "SWRevealViewController.h"
 
-@interface DashboardViewController ()
+@interface DashboardViewController ()<SWRevealViewControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UIButton *menuBar;
 @property (weak, nonatomic) IBOutlet UIButton *chooseLanguage;
+@property (strong, nonatomic) IBOutlet UILabel *takePhoto;
+@property (strong, nonatomic) IBOutlet UILabel *recordAudio;
+@property (strong, nonatomic) IBOutlet UILabel *addRepresentative;
+@property (strong, nonatomic) IBOutlet UILabel *recordVideo;
 
 @end
 
 @implementation DashboardViewController
-
+@synthesize menuBar, chooseLanguage, takePhoto, recordAudio, recordVideo, addRepresentative;
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Remove swipe gesture for sidebar
+    SWRevealViewController *revealController = [self revealViewController];
+    [revealController panGestureRecognizer];
+    [revealController tapGestureRecognizer];
+    SWRevealViewController *revealViewController = self.revealViewController;
+    if (revealViewController)
+    {
+        [menuBar addTarget:self.revealViewController action:@selector(revealToggle:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    }
+
     for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
     {
         [self.view removeGestureRecognizer:recognizer];
@@ -36,14 +53,22 @@
 {
     [super viewWillAppear:animated];
     
+    chooseLanguage.layer.cornerRadius = 17.0;
+    chooseLanguage.layer.borderColor = [UIColor whiteColor].CGColor;
+    chooseLanguage.layer.borderWidth = 2;
+    
     [self setLocalizedString];
 
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
 }
 
 -(void)setLocalizedString{
     
+    [takePhoto changeTextLanguage:@"TAKE PHOTOS"];
+    [recordVideo changeTextLanguage:@"RECORD VIDEO"];
+    [recordAudio changeTextLanguage:@"RECORD AUDIO"];
+    [addRepresentative changeTextLanguage:@"ADD REPRESENTATIVE"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,7 +102,34 @@
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    addManagerView.navTitle = @"Add Managers";
+    addManagerView.navTitle = @"Add Representative";
+    addManagerView.emailId = @"";
+    addManagerView.name = @"";
+    addManagerView.managerId = @"";
+    addManagerView.category = @"";
+    [self.navigationController pushViewController:addManagerView animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - add audio Action
+- (IBAction)addAudioAction:(UIButton *)sender {
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+    addManagerView.navTitle = @"Add Representative";
+    addManagerView.emailId = @"";
+    addManagerView.name = @"";
+    addManagerView.managerId = @"";
+    [self.navigationController pushViewController:addManagerView animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - add video Action
+- (IBAction)addVideoAction:(UIButton *)sender {
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+    addManagerView.navTitle = @"Add Representative";
     addManagerView.emailId = @"";
     addManagerView.name = @"";
     addManagerView.managerId = @"";

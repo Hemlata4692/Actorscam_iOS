@@ -15,7 +15,8 @@
 @interface RegisterViewController ()<BSKeyboardControlsDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate>
 {
     NSArray *textFieldArray;
-     UIImagePickerController *imgPicker;
+    UIImagePickerController *imgPicker;
+    NSString *takePhoto, *choosePhoto, *cancel, *navTitle;
 }
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *email;
@@ -30,13 +31,19 @@
 @end
 
 @implementation RegisterViewController
-@synthesize name,email,userName,password,scrollView,confirmPassword,profileImageView;
+@synthesize name,email,userName,password,scrollView,confirmPassword,profileImageView,registerBtn;
 @synthesize popover;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2;
+    
+    takePhoto = @"Take Photo";
+    choosePhoto = @"Choose Existing Photo";
+    cancel = @"Cancel";
+    navTitle = @"Sign Up";
     
     [self addTextFieldPadding];
   
@@ -53,12 +60,28 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    self.title = navTitle;
+    if([[UIScreen mainScreen] bounds].size.height>550)
+    {
+        scrollView.scrollEnabled=NO;
+    }
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     
 }
 
+-(void)setLocalizedString{
+    
+    [name changeTextLanguage:@"Name"];
+    [email changeTextLanguage:@"Email"];
+    [password changeTextLanguage:@"Password"];
+    [confirmPassword changeTextLanguage:@"Confirm Password"];
+    [takePhoto changeTextLanguage:takePhoto];
+    [choosePhoto changeTextLanguage:choosePhoto];
+    [cancel changeTextLanguage:cancel];
+    [registerBtn changeTextLanguage:@"SIGN UP"];
+    [navTitle changeTextLanguage:@"Sign Up"];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -68,11 +91,11 @@
 
 -(void)addTextFieldPadding
 {
-    [name addTextFieldPadding:name];
-    [email addTextFieldPadding:email];
-    [userName addTextFieldPadding:userName];
-    [password addTextFieldPadding:password];
-    [confirmPassword addTextFieldPadding:confirmPassword];
+    [name addTextFieldPadding:name color:[UIColor lightGrayColor]];
+    [email addTextFieldPadding:email color:[UIColor lightGrayColor]];
+    [userName addTextFieldPadding:userName color:[UIColor lightGrayColor]];
+    [password addTextFieldPadding:password color:[UIColor lightGrayColor]];
+    [confirmPassword addTextFieldPadding:confirmPassword color:[UIColor lightGrayColor]];
 }
 
 #pragma mark - end
@@ -92,6 +115,7 @@
 
 -(void)signUpUser
 {
+    
     [[WebService sharedManager] registerUser:email.text password:password.text name:name.text image:profileImageView.image  success:^(id responseObject) {
         
         [myDelegate StopIndicator];
@@ -114,15 +138,16 @@
 #pragma mark - Image Picker
 - (IBAction)imagePickerAction:(id)sender
 {
-    UIActionSheet * share=[[UIActionSheet alloc]initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing Photo", nil];
+    
+    UIActionSheet * profileImageAction=[[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:takePhoto, choosePhoto, nil];
     
     if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad) {
         
-            [share showFromRect:CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y+154, 320, 120) inView:self.view animated:YES];
+            [profileImageAction showFromRect:CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y+154, 320, 120) inView:self.view animated:YES];
       }
     else{
         // In this case the device is an iPhone/iPod Touch.
-         [share showInView:[UIApplication sharedApplication].keyWindow];
+         [profileImageAction showInView:[UIApplication sharedApplication].keyWindow];
     }
 
 }
@@ -193,43 +218,36 @@
 - (BOOL)performValidationsForSignUp
 {
     UIAlertView *alert;
-    if ([name isEmpty] || [email isEmpty] || [userName isEmpty] || [password isEmpty] || [confirmPassword isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Fields cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    if ([name isEmpty] || (name.text.length == 0) || [name.text isEqualToString:@""]){
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
-    else
-    {
-        if ([email isValidEmail])
-        {
-            if ([password isEmpty])
-            {
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                return NO;
-            }
-            else if (!([password.text isEqualToString:confirmPassword.text]))
-            {
-                
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Passwords do not match." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                return NO;
-            }
-
-            else
-            {
-                return YES;
-            }
-        }
-        else
-        {
-            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-            return NO;
-        }
+    else if ([email isEmpty] || (email.text.length == 0) || [email.text isEqualToString:@""]){
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
     }
-
+    else if (![email isValidEmail])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    
+    }
+    else if ([password isEmpty] || (password.text.length == 0) || [password.text isEqualToString:@""]){
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    else if ([confirmPassword isEmpty] || (confirmPassword.text.length == 0) || [confirmPassword.text isEqualToString:@""]){
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Confirm Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    else{
+        return YES;
+    }
     
 }
 #pragma mark - end
@@ -248,10 +266,10 @@
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
 {
+    
     [keyboardControls.activeField resignFirstResponder];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
-   
 }
 #pragma mark - end
 
@@ -261,31 +279,8 @@
     
     [self.keyboardControls setActiveField:textField];
     
-    if (textField==name)
-    {
-        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    }
-    else if (textField==email)
-    {
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-90) animated:YES];
-    }
-    else if (textField==userName)
-    {
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-100) animated:YES];
-    }
-    else if (textField==password)
-    {
-        
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-110) animated:YES];
-        
-    }
-    else if (textField==confirmPassword)
-    {
-        
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-130) animated:YES];
-        
-    }
-    
+    [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y - 80) animated:YES];
+   
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {

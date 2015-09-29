@@ -11,6 +11,7 @@
 @interface ManagersListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *managerName;
 @property (weak, nonatomic) IBOutlet UILabel *manageremail;
+@property (strong, nonatomic) IBOutlet UILabel *managerCategory;
 
 -(void)displayData :(NSDictionary *)Dict;
 

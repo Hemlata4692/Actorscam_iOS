@@ -79,7 +79,7 @@
         cell = [[ChooseLanguageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-     selectedIndex = [cell changeLanguageCellMethod:languageArray indexPath:indexPath selectedIndex:selectedIndex];
+    selectedIndex = [cell changeLanguageCellMethod:languageArray indexPath:indexPath selectedIndex:selectedIndex];
    
     return cell;
     

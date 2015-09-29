@@ -14,4 +14,5 @@
 @property(retain, nonatomic) NSString *emailId;
 @property(retain, nonatomic) NSString *name;
 @property(retain, nonatomic) NSString *managerId;
+@property(retain, nonatomic) NSString *category;
 @end

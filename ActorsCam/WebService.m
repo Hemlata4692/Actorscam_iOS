@@ -9,7 +9,7 @@
 #import "WebService.h"
 #import "NullValueChecker.h"
 #import "LoginViewController.h"
-
+#import "Internet.h"
 #define kUrlLogin                       @"login"
 #define kUrlRegister                    @"register"
 #define kUrlForgotPassword              @"forgotpassword"
@@ -44,6 +44,13 @@
 
 #pragma mark - AFNetworking method
 - (void)post:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    Internet *internet=[[Internet alloc] init];
+    if ([internet start])
+    {
+        [myDelegate StopIndicator];
+    }
+    else
+    {
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -61,10 +68,18 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
     }];
-    
+    }
 }
 
 - (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    Internet *internet=[[Internet alloc] init];
+    if ([internet start])
+    {
+        [myDelegate StopIndicator];
+    }
+    else
+    {
+
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"path: %@, %@", path, parameters);
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -86,10 +101,12 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [myDelegate StopIndicator];
         failure(error);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }];
-}
+    }
+    
+    }
 
 - (BOOL)isStatusOK:(id)responseObject {
     NSNumber *number = responseObject[@"isSuccess"];
@@ -255,9 +272,9 @@
 
 #pragma mark- Add manager Method
 //Add manager
-- (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+- (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail category:(NSString *)category  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
-    NSDictionary *requestDict = @{@"managerName":managerName,@"managerEmail":managerEmail,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    NSDictionary *requestDict = @{@"managerName":managerName,@"managerEmail":managerEmail,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"category":category};
     
     [self post:kUrlAddManager parameters:requestDict success:^(id responseObject)
      {
@@ -284,7 +301,7 @@
 //Manager Listing
 - (void)managerListing:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
-    NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+    NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"category":@""};
     
     [self post:kUrlManagerListing parameters:requestDict success:^(id responseObject)
      {
@@ -309,9 +326,10 @@
 
 #pragma mark- Update Manager Method
 //Update Manager
-- (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+- (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId category:(NSString *)category success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
-    NSDictionary *requestDict = @{@"managerName":name,@"managerEmail":managerEmail,@"managerId":managerId,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
+   
+    NSDictionary *requestDict = @{@"managerName":name,@"managerEmail":managerEmail,@"managerId":managerId,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"category":category};
     
     [self post:kUrlUpdateManager parameters:requestDict success:^(id responseObject)
      {

@@ -18,6 +18,7 @@
 {
 //    NSArray *textFieldArray;
     UIImagePickerController *imgPicker;
+    NSString *takePhoto, *choosePhoto, *cancel, *navTitle;
 }
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UIButton *save;
@@ -28,13 +29,20 @@
 @end
 
 @implementation EditProfileViewController
-@synthesize name,profileImageView,emailId;
+@synthesize name,profileImageView,emailId,save;
 //@synthesize popover;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Remove swipe gesture for sidebar
+    profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2;
+    
+    takePhoto = @"Take Photo";
+    choosePhoto = @"Choose Existing Photo";
+    cancel = @"Cancel";
+    navTitle = @"Edit Profile";
+    
     for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
     {
         [self.view removeGestureRecognizer:recognizer];
@@ -44,21 +52,33 @@
     
     // Do any additional setup after loading the view.
     [myDelegate ShowIndicator];
-    [self performSelector:@selector(getprofile) withObject:nil afterDelay:.1];
+    [self performSelector:@selector(getprofile) withObject:nil afterDelay:.5];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    self.title = navTitle;
+    NSLog(@"%f , %f",self.view.frame.origin.y,self.view.frame.size.height);
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
-  
+
+}
+
+-(void)setLocalizedString{
+    
+    [name changeTextLanguage:@"Name"];
+    [takePhoto changeTextLanguage:takePhoto];
+    [choosePhoto changeTextLanguage:choosePhoto];
+    [cancel changeTextLanguage:cancel];
+    [save changeTextLanguage:@"SUBMIT"];
+    [navTitle changeTextLanguage:@"Edit Profile"];
+    
 }
 
 -(void)addTextFieldPadding
 {
-    [name addTextFieldPadding:name];
-    [emailId addTextFieldPadding:emailId];
+    [name setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [emailId setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 #pragma mark - end
 
@@ -78,7 +98,7 @@
                                                       cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                                   timeoutInterval:60];
         
-        [profileImageView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"picture"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [profileImageView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"sideBarPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             weakRef.contentMode = UIViewContentModeScaleAspectFit;
             weakRef.clipsToBounds = YES;
             weakRef.image = image;
@@ -135,7 +155,7 @@
 #pragma mark - Image Picker Action
 - (IBAction)imagePickerAction:(id)sender
 {
-    UIActionSheet * share=[[UIActionSheet alloc]initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing Photo", nil];
+    UIActionSheet * share=[[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:takePhoto,choosePhoto, nil];
     
     if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad) {
         
@@ -218,7 +238,7 @@
     UIAlertView *alert;
     if ([name isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Fields cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -232,12 +252,25 @@
 #pragma mark - Textfield Delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    if([[UIScreen mainScreen] bounds].size.height < 490)
+    {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.view.frame=CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-38, self.view.frame.size.width, self.view.frame.size.height);
+        }];
 
+    }
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
-    
+    if([[UIScreen mainScreen] bounds].size.height < 490)
+    {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.view.frame=CGRectMake(self.view.frame.origin.x, 64, self.view.frame.size.width, self.view.frame.size.height);
+        }];
+        
+    }
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

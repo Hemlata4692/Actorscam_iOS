@@ -35,14 +35,15 @@
 #pragma mark - Appdelegate methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@""]){
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@""] || ([[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] == NULL)){
         [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];
     }
-    
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"header1.png"] forBarMetrics:UIBarMetricsDefault];
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"]);
+
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0]];
     //set navigation bar button color
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Regular" size:18.0], NSFontAttributeName, nil]];
+//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"OpenSans-Semibold" size:18.0], NSFontAttributeName, nil]];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.navigationController = (UINavigationController *)[self.window rootViewController];

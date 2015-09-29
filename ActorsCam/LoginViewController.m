@@ -11,6 +11,7 @@
 #import "UITextField+Validations.h"
 #import "BSKeyboardControls.h"
 #import "UIView+RoundedCorner.h"
+#import "RegisterViewController.h"
 
 #import "ChooseLanguageViewController.h"
 
@@ -18,6 +19,8 @@
 {
     NSArray *textFieldArray;
 }
+
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UITextField *userEmail;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -28,8 +31,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *forgotPasswordEmail;
 @property (weak, nonatomic) IBOutlet UIButton *sendLinkBtn;
 @property (weak, nonatomic) IBOutlet UIView *forgotPasswordPopUp;
-@property (weak, nonatomic) IBOutlet UIButton *signUp;
+@property (strong, nonatomic) IBOutlet UILabel *signUpLabel;
 @property (weak, nonatomic) IBOutlet UIButton *languageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *forgotLabel;
+@property (strong, nonatomic) IBOutlet UILabel *forgotDescriptionLabel;
 
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @end
@@ -37,12 +42,16 @@
 @implementation LoginViewController
 @synthesize userEmail,password,loginBtn,forgotPasswordBtn,scrollView;
 @synthesize forgotPasswordEmail,forgotPasswordView,sendLinkBtn,forgotPasswordPopUp,hereLabel;
-@synthesize signUp,languageLabel;
+@synthesize signUpLabel,languageLabel,forgotLabel,forgotDescriptionLabel;
+@synthesize backgroundImage;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImage * tempImg =[UIImage imageNamed:@"bg"];
+    backgroundImage.image = [UIImage imageNamed:[tempImg imageForDeviceWithName:@"bg"]];
+    
     [self addTextFieldPadding];
     [self addCornerRadius];
     
@@ -53,40 +62,41 @@
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
     
-    UITapGestureRecognizer* forgotPasswordViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
-    
-    forgotPasswordViewTap.numberOfTapsRequired = 1;
-    forgotPasswordViewTap.numberOfTouchesRequired = 1;
-    [forgotPasswordView addGestureRecognizer: forgotPasswordViewTap];
-//    UITapGestureRecognizer *forgotPasswordViewTap =
-    
 }
 
 -(void)setLocalizedString{
     [loginBtn changeTextLanguage:@"Login"];
     [userEmail changeTextLanguage:@"Email"];
     [password changeTextLanguage:@"Password"];
-        
     [forgotPasswordBtn changeTextLanguage:@"Forgot Password?"];
     [forgotPasswordEmail changeTextLanguage:@"Email"];
-    [signUp changeTextLanguage:@"Sign Up"];
-    [languageLabel changeTextLanguage:@"Button"];
+    [signUpLabel changeTextLanguage:@"Sign Up"];
+    
+    [hereLabel changeTextLanguage:@"New here?"];
+    [forgotLabel changeTextLanguage:@"Forgot Password"];
+    [forgotDescriptionLabel changeTextLanguage:@"We will send you an email with a new password."];
+    [sendLinkBtn changeTextLanguage:@"SUBMIT"];
+    
+//    [languageLabel changeTextLanguage:@"Button"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setLocalizedString];
     
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
+    languageLabel.layer.cornerRadius = 17.0;
+    languageLabel.layer.borderColor = [UIColor whiteColor].CGColor;
+    languageLabel.layer.borderWidth = 2;
     [self setLocalizedString];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
-    statusBarView.backgroundColor = [UIColor colorWithRed:83.0/255.0 green:24.0/255.0 blue:152.0/255.0 alpha:1.0];
-    [self.view addSubview:statusBarView];
+//    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+//    statusBarView.backgroundColor = [UIColor colorWithRed:83.0/255.0 green:24.0/255.0 blue:152.0/255.0 alpha:1.0];
+//    [self.view addSubview:statusBarView];
+
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
 }
@@ -99,17 +109,17 @@
 -(void)addTextFieldPadding
 {
     
-    [userEmail addTextFieldPadding:userEmail];
-    [password addTextFieldPadding:password];
-    [forgotPasswordEmail addTextFieldPadding:forgotPasswordEmail];
+    [userEmail addTextFieldPadding:userEmail color:[UIColor colorWithRed:202.0/255.0 green:202.0/255.0 blue:202.0/255.0 alpha:1.0]];
+    [password addTextFieldPadding:password color:[UIColor colorWithRed:202.0/255.0 green:202.0/255.0 blue:202.0/255.0 alpha:1.0]];
+    [forgotPasswordEmail setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     
 }
 -(void)addCornerRadius
 {
     
-    [loginBtn setCornerRadius:5.0f];
-    [sendLinkBtn setCornerRadius:5.0f];
-    [forgotPasswordPopUp setCornerRadius:2.0f];
+//    [loginBtn setCornerRadius:5.0f];
+//    [sendLinkBtn setCornerRadius:5.0f];
+    [forgotPasswordPopUp setCornerRadius:10.0f];
     
 }
 #pragma mark - end
@@ -151,10 +161,20 @@
 }
 #pragma mark - end
 
+#pragma mark - signUp
+- (IBAction)signUpAction:(UIButton *)sender {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    RegisterViewController * signUpView = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+    [self.navigationController pushViewController:signUpView animated:YES];
+    
+}
+#pragma mark - end
+
 #pragma mark - Forgot Password
 - (IBAction)forgotPasswordButtonAction:(id)sender
 {
-    
+    [self.view endEditing:YES];
     forgotPasswordView.hidden=NO;
     
 }
@@ -184,14 +204,6 @@
     } failure:^(NSError *error) {
         
     }] ;
-    
-}
-
-
--(void)handleSingleTap{
-    
-    forgotPasswordEmail.text = @"";
-    forgotPasswordView.hidden=YES;
     
 }
 
@@ -225,7 +237,7 @@
         }
         else
         {
-            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
             return NO;
         }
@@ -251,7 +263,7 @@
         }
         else
         {
-            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password cannot be blank." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
             return NO;
         }
@@ -289,16 +301,17 @@
 {
     
     [self.keyboardControls setActiveField:textField];
-    
-    if (textField==userEmail)
-    {
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-120) animated:YES];
+    if (textField == userEmail || textField == password) {
+        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y + textField.frame.size.height) animated:YES];
     }
-    else if (textField==password)
-    {
-        
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-140) animated:YES];
-        
+    else if (textField == forgotPasswordEmail){
+        if([[UIScreen mainScreen] bounds].size.height < 490)
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                forgotPasswordPopUp.frame=CGRectMake(forgotPasswordPopUp.frame.origin.x, forgotPasswordPopUp.frame.origin.y - 20, forgotPasswordPopUp.frame.size.width, forgotPasswordPopUp.frame.size.height);
+            }];
+            
+        }
     }
     
 }
@@ -306,7 +319,13 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    
+    if([[UIScreen mainScreen] bounds].size.height < 490)
+    {
+        [UIView animateWithDuration:0.3 animations:^{
+            forgotPasswordPopUp.frame=CGRectMake(forgotPasswordPopUp.frame.origin.x, forgotPasswordPopUp.frame.origin.y + 20, forgotPasswordPopUp.frame.size.width, forgotPasswordPopUp.frame.size.height);
+        }];
+        
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -329,4 +348,13 @@
     [chooseLangView didMoveToParentViewController:self];
 }
 #pragma mark - end
+
+- (IBAction)crossAction:(UIButton *)sender {
+    
+    [self.view endEditing:YES];
+    forgotPasswordEmail.text = @"";
+    forgotPasswordView.hidden=YES;
+    
+}
+
 @end

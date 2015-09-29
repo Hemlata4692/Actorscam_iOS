@@ -63,7 +63,7 @@
             [self setSegmentedControlItem:[[UIBarButtonItem alloc] initWithCustomView:self.segmentedControl]];
         }
         
-        [self setDoneButton:[[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Done", @"BSKeyboardControls", @"Done button title.")
+        [self setDoneButton:[[UIBarButtonItem alloc] initWithTitle:[@"Done" changeTextLanguage:@"Done"]
                                                              style:UIBarButtonItemStyleDone
                                                             target:self
                                                             action:@selector(doneButtonPressed:)]];

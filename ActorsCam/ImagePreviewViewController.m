@@ -9,20 +9,37 @@
 #import "ImagePreviewViewController.h"
 #import "DashboardViewController.h"
 #import <MessageUI/MessageUI.h>
+#import "BSKeyboardControls.h"
+#import "AddManagerViewController.h"
 
-@interface ImagePreviewViewController ()<MFMailComposeViewControllerDelegate>{
-    NSMutableArray *pickerArray;
-    int selectedImage;
+#define kCellsPerRow 3
+
+@interface ImagePreviewViewController ()<MFMailComposeViewControllerDelegate,BSKeyboardControlsDelegate>{
+    NSMutableArray *pickerArray, *managerListArray, *categoryList, *managerNameList;
+    int selectedImage, selectedCategoryIndex, selectedManagerIndex;
+    NSString *pickerChecker, *navTitle;
+    NSDictionary *selectedData;
 }
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *mainView;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imagePreviewView;
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCollectionView;
-@property (weak, nonatomic) IBOutlet UILabel *selectManager;
-@property (weak, nonatomic) IBOutlet UITextField *managerName;
-@property (weak, nonatomic) IBOutlet UIButton *sendImageButton;
+
+@property (strong, nonatomic) IBOutlet UIView *noManagerView;
 @property (weak, nonatomic) IBOutlet UILabel *noManager;
+@property (strong, nonatomic) IBOutlet UIButton *addRepresentative;
+
 @property (weak, nonatomic) IBOutlet UIView *selectManagerView;
+@property (weak, nonatomic) IBOutlet UILabel *selectRepresentativeLabel;
+@property (strong, nonatomic) IBOutlet UITextField *selectCategory;
+@property (weak, nonatomic) IBOutlet UITextField *managerName;
+@property (strong, nonatomic) IBOutlet UILabel *notesLabel;
+@property (strong, nonatomic) IBOutlet UITextView *noteTextView;
+@property (weak, nonatomic) IBOutlet UIButton *sendImageButton;
+
 @property (weak, nonatomic) IBOutlet UIPickerView *managerListPickerView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolBarDone;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
@@ -30,16 +47,39 @@
 @end
 
 @implementation ImagePreviewViewController
+
+@synthesize scrollView,imagePreviewView,previewCollectionView;
+@synthesize noManagerView,noManager,addRepresentative;
+@synthesize selectManagerView,selectRepresentativeLabel,selectCategory,managerName,notesLabel,noteTextView,sendImageButton;
+@synthesize managerListPickerView,toolBar,toolBarDone;
+
 @synthesize imageArray,customCameraVC;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    pickerArray = [NSMutableArray new];
-    selectedImage = 0;
-    _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];
-    _imagePreviewView.userInteractionEnabled = YES;
+    //Keyboard toolbar action to display toolbar with keyboard to move next,previous
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[noteTextView]]];
+    [self.keyboardControls setDelegate:self];
+    
+    navTitle = @"Preview";
+//    pickerChecker = @"";
+//    pickerArray = [NSMutableArray new];
+//    managerListArray = [NSMutableArray new];
+//    categoryList = [NSMutableArray new];
+//    noManagerView.hidden = YES;
+//    selectManagerView.hidden = NO;
+//    
+//    selectedImage = 0;
+//    imagePreviewView.image = [imageArray objectAtIndex:selectedImage];
+    imagePreviewView.userInteractionEnabled = YES;
+    
+    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout*)self.previewCollectionView.collectionViewLayout;
+    CGFloat availableWidthForCells = CGRectGetWidth(self.view.frame) - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * (kCellsPerRow -1)-5;
+    CGFloat cellWidth = (availableWidthForCells / kCellsPerRow);
+    flowLayout.itemSize = CGSizeMake(cellWidth, flowLayout.itemSize.height);
+    
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
     
@@ -47,24 +87,98 @@
     [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
     
     // Adding the swipe gesture on image view
-    [_imagePreviewView addGestureRecognizer:swipeLeft];
-    [_imagePreviewView addGestureRecognizer:swipeRight];
+    [imagePreviewView addGestureRecognizer:swipeLeft];
+    [imagePreviewView addGestureRecognizer:swipeRight];
 
     // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    _selectManagerView.hidden = NO;
-    _noManager.hidden = YES;
-    _managerListPickerView.hidden = YES;
-    _toolBar.hidden = YES;
+    pickerChecker = @"";
+    pickerArray = [NSMutableArray new];
+    managerListArray = [NSMutableArray new];
+    categoryList = [NSMutableArray new];
+    noManagerView.hidden = YES;
+    selectManagerView.hidden = NO;
+    
+    selectedImage = 0;
+    imagePreviewView.image = [imageArray objectAtIndex:selectedImage];
+    
+    selectedCategoryIndex = 0;
+    selectedManagerIndex = 0;
+    
+    self.mainView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.mainView.frame = CGRectMake(0, 0, self.view.frame.size.width, 658);
+    
+    UIView *rightPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 0)];
+    managerName.rightView = rightPadding;
+    managerName.rightViewMode = UITextFieldViewModeAlways;
+    
+    [managerName setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    noteTextView.layer.borderColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:190.0/255.0 alpha:1.0].CGColor;
+    noteTextView.layer.borderWidth = 1;
+    
+    selectManagerView.hidden = NO;
+    noManagerView.hidden = YES;
+//    noManager.hidden = YES;
+    managerListPickerView.hidden = YES;
+    toolBar.hidden = YES;
     
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    self.navigationItem.title = @"Preview";
+    self.navigationItem.title = navTitle;
     
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
+
+-(void)setLocalizedString{
+    [noManager changeTextLanguage:@"You don't have any representative added yet!"];
+    [addRepresentative changeTextLanguage:@"ADD REPRESENTATIVE"];
+    
+    [selectRepresentativeLabel changeTextLanguage:@"Select Representative"];
+    [selectCategory changeTextLanguage:@"Category"];
+    [managerName changeTextLanguage:@"Name"];
+    [notesLabel changeTextLanguage:@"Notes"];
+    [sendImageButton changeTextLanguage:@"SUBMIT"];
+    
+    [navTitle changeTextLanguage:@"Preview"];
+}
+#pragma mark - end
+
+#pragma mark - TextView Delegate
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self.keyboardControls setActiveField:textView];
+    [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height + 200) animated:YES];
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - Keyboard Controls Delegate
+- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
+{
+    
+    UIView *view;
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue]< 7.0) {
+        view = field.superview.superview;
+    } else {
+        view = field.superview.superview.superview;
+    }
+    
+}
+
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
+{
+    
+    [keyboardControls.activeField resignFirstResponder];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
 }
 #pragma mark - end
 
@@ -84,7 +198,7 @@
     image.image = [imageArray objectAtIndex:indexPath.row];
     
     if (selectedImage == indexPath.row) {
-        image.layer.borderColor = [UIColor blueColor].CGColor;
+        image.layer.borderColor = [UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0].CGColor;
         image.layer.borderWidth = 2;
     }
     else{
@@ -99,10 +213,10 @@
     
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     UIImageView *image = (UIImageView*)[cell viewWithTag:1];
-    image.layer.borderColor = [UIColor blueColor].CGColor;
+    image.layer.borderColor = [UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0].CGColor;
     image.layer.borderWidth = 2;
     selectedImage = (int)indexPath.row;
-     _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
+     imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
     for (int i=0; i<imageArray.count; i++) {
         if (i!=indexPath.row) {
             NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -116,14 +230,6 @@
 }
 #pragma mark - end
 
-#pragma mark - select Manager Action
-- (IBAction)selectManagerAction:(UIButton *)sender {
-    [_scrollView setContentOffset:CGPointMake(0, _managerName.frame.origin.y + 150) animated:YES];
-    _managerListPickerView.hidden = NO;
-    _toolBar.hidden = NO;
-}
-#pragma mark - end
-
 #pragma mark - delete Image Action
 - (IBAction)deleteImageAction:(UIButton *)sender {
     [imageArray removeObjectAtIndex:selectedImage];
@@ -131,8 +237,8 @@
     if (imageArray.count!=0) {
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:selectedImage inSection:0];
         [self.previewCollectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
-        _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
-        [_previewCollectionView reloadData];
+        imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
+        [previewCollectionView reloadData];
     }
     else{
         [self.navigationController popViewControllerAnimated:YES];
@@ -148,9 +254,9 @@
     {
         // Email Subject
         
-        NSString *emailTitle = @"The Blue Barrel Career Search";
+        NSString *emailTitle = @"Actor's CAM - New Images from  model";
         
-        NSArray *toRecipents = [NSArray arrayWithObject:@""];
+        NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
         
         MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
         
@@ -158,13 +264,13 @@
         
         [mc setSubject:emailTitle];
         
-        [mc setMessageBody:@"Hunting for a new job!! Then it is the right platform!! You can try this application." isHTML:NO];
+        [mc setMessageBody:noteTextView.text isHTML:NO];
         
         for (UIImage *yourImage in imageArray )
             
         {
             
-            NSData *imgData = UIImageJPEGRepresentation(yourImage, 0.5);
+            NSData *imgData = UIImagePNGRepresentation(yourImage);
             
             [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
             
@@ -189,7 +295,9 @@
             
             
         }
+//
         
+         mc.navigationBar.tintColor = [UIColor whiteColor];
         [mc setToRecipients:toRecipents];      
         [self presentViewController:mc animated:YES completion:NULL];
         
@@ -214,6 +322,13 @@
         [alertView show];
         
     }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
 
@@ -275,9 +390,9 @@
                 [self.previewCollectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
             }
 
-            UIImageView *moveIMageView = _imagePreviewView;
+            UIImageView *moveIMageView = imagePreviewView;
             [self addAnimationPresentToView:moveIMageView];
-            _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
+            imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
             [self.previewCollectionView reloadData];
         }
         else{
@@ -307,9 +422,9 @@
                 [self.previewCollectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
             }
             
-            UIImageView *moveIMageView = _imagePreviewView;
+            UIImageView *moveIMageView = imagePreviewView;
             [self addAnimationPresentToViewOut:moveIMageView];
-            _imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
+            imagePreviewView.image = [imageArray objectAtIndex:selectedImage];;
             [self.previewCollectionView reloadData];
         }
         else{
@@ -329,24 +444,90 @@
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return pickerArray.count;
+    if ([pickerChecker isEqualToString:@"manager"]) {
+        return pickerArray.count;
+    }
+    else if ([pickerChecker isEqualToString:@"category"]){
+        return categoryList.count;
+    }
+    else{
+        return 1;
+    }
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [pickerArray objectAtIndex:row];
+    
+    if ([pickerChecker isEqualToString:@"manager"]) {
+        return [[pickerArray objectAtIndex:row] objectForKey:@"managerName"];
+    }
+    else if ([pickerChecker isEqualToString:@"category"]){
+        NSString *categoryString = [pickerArray objectAtIndex:row];
+        return [categoryString changeTextLanguage:categoryString];
+    }
+     else{
+         return @"";
+     }
+    
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if ([pickerChecker isEqualToString:@"manager"]) {
+         managerName.text = [[pickerArray objectAtIndex:row] objectForKey:@"managerName"];
+    }
+    else if ([pickerChecker isEqualToString:@"category"]){
+        NSString *categoryString = [pickerArray objectAtIndex:row];
+        selectCategory.text = [categoryString changeTextLanguage:categoryString];
+//        [selectCategory changeTextLanguage:[categoryString changeTextLanguage:categoryString]];
+    }
 }
 #pragma mark - end
 
 #pragma mark - Toolbar Done Action
 - (IBAction)DoneAction:(UIBarButtonItem *)sender {
-    NSInteger index = [_managerListPickerView selectedRowInComponent:0];
-    _managerName.text=[pickerArray objectAtIndex:index];
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    
-    _managerListPickerView.hidden = YES;
-    _toolBar.hidden = YES;
-    
+    if (managerListArray.count != 0) {
+        
+        NSInteger index = [managerListPickerView selectedRowInComponent:0];
+        //    managerName.text=[pickerArray objectAtIndex:index];
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        
+        managerListPickerView.hidden = YES;
+        toolBar.hidden = YES;
+        
+        if ([pickerChecker isEqualToString:@"category"]){
+            selectedCategoryIndex = (int)index;
+            selectedManagerIndex = 0;
+            pickerChecker = @"manager";
+            [pickerArray removeAllObjects];
+            int managerNameIndex = 0;
+            for (int i=0; i < managerListArray.count; i++) {
+                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
+                    if (managerNameIndex == 0) {
+                        managerNameIndex++;
+                        selectedData = [[managerListArray objectAtIndex:i] copy];
+                         managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
+                    }
+                   
+                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
+                }
+                
+            }
+            
+            NSString *categoryString = [categoryList objectAtIndex:index];
+            selectCategory.text = [categoryString changeTextLanguage:categoryString];
+//            [selectCategory changeTextLanguage:[categoryList objectAtIndex:index]];
+            [managerListPickerView reloadAllComponents];
+            
+//            [myDelegate ShowIndicator];
+//            [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+        }
+        else{
+            selectedManagerIndex = (int)index;
+            selectedData = [[pickerArray objectAtIndex:index] copy];
+            managerName.text=[[pickerArray objectAtIndex:index] objectForKey:@"managerName"];
+        }
+    }
 }
 #pragma mark - end
 
@@ -357,9 +538,33 @@
     [[WebService sharedManager] managerListing:^(id responseObject) {
         NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
-        pickerArray = [responseObject objectForKey:@"managerList"];
-        [_managerListPickerView reloadAllComponents];
-        
+        pickerChecker = @"category";
+        [managerListArray removeAllObjects];
+//        categoryList = [responseObject objectForKey:@"category_type"];
+        [categoryList addObject:@"Agent"];
+        [categoryList addObject:@"manager"];
+        managerListArray = [responseObject objectForKey:@"managerList"];
+       
+        if(managerListArray.count != 0){
+            selectCategory.text = [categoryList objectAtIndex:0];
+            noManagerView.hidden = YES;
+            selectManagerView.hidden = NO;
+            for (int i=0; i < managerListArray.count; i++) {
+                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
+                    managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
+                    selectedData = [[managerListArray objectAtIndex:i] copy];
+                    break;
+                }
+            }
+        }
+        else{
+            self.mainView.translatesAutoresizingMaskIntoConstraints = YES;
+            self.mainView.frame = CGRectMake(0, 0, self.view.frame.size.width, 472);
+            managerName.text=@"";
+            selectCategory.text = @"";
+            noManagerView.hidden = NO;
+            selectManagerView.hidden = YES;
+        }
     } failure:^(NSError *error) {
         
     }] ;
@@ -389,6 +594,46 @@
      customCameraVC.imageArray = [imageArray mutableCopy];
 }
 
+#pragma mark - Add Representation Action
+- (IBAction)addRepresentativeAction:(UIButton *)sender {
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+    addManagerView.navTitle = @"Add Representative";
+    addManagerView.emailId = @"";
+    addManagerView.name = @"";
+    addManagerView.managerId = @"";
+    addManagerView.category = @"";
+    [self.navigationController pushViewController:addManagerView animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - select Manager Action
+- (IBAction)selectManagerAction:(UIButton *)sender {
+    pickerChecker = @"manager";
+//    [pickerArray removeAllObjects];
+//    pickerArray = [managerListArray mutableCopy];
+    [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
+    managerListPickerView.hidden = NO;
+    toolBar.hidden = NO;
+    [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
+//    [managerListPickerView reloadAllComponents];
+}
+#pragma mark - end
+
+#pragma mark - Select category textfield
+- (IBAction)selectCategoryAction:(UIButton *)sender {
+    
+    [pickerArray removeAllObjects];
+    
+    pickerChecker = @"category";
+    pickerArray = [categoryList mutableCopy];
+    [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
+    managerListPickerView.hidden = NO;
+    toolBar.hidden = NO;
+    [managerListPickerView reloadAllComponents];
+    [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
+}
+#pragma mark - end
 /*
 #pragma mark - Navigation
 

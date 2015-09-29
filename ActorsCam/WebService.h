@@ -36,7 +36,7 @@
 //end
 
 //Add manager
-- (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure;
+- (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail category:(NSString *)category success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 //end
 
 //Manager Listing
@@ -44,7 +44,7 @@
 //end
 
 //Update Manager
-- (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId success:(void (^)(id))success failure:(void (^)(NSError *))failure;
+- (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId category:(NSString *)category success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 //end
 
 //Delete Manager

@@ -10,6 +10,6 @@
 
 @interface UITextField (Padding)
 
--(void)addTextFieldPadding: (UITextField *)textfield;
 -(void)addTextFieldPaddingWithoutImages: (UITextField *)textfield;
+-(void)addTextFieldPadding: (UITextField *)textfield color:(UIColor *)color;
 @end

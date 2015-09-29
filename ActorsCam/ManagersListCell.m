@@ -25,6 +25,7 @@
 
     self.managerName.text = [dict objectForKey:@"managerName"];
     self.manageremail.text = [dict objectForKey:@"managerEmail"];
+    self.managerCategory.text = [dict objectForKey:@"category"];
     
 }
 

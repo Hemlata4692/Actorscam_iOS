@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "GlobalMenuViewController.h"
 
-@interface DashboardViewController : GlobalMenuViewController
+@interface DashboardViewController : UIViewController
 
 @end

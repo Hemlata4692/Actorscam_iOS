@@ -19,3 +19,7 @@
 @interface UITextField (LocalizedString)
 - (UITextField*)changeTextLanguage:(NSString*)text;
 @end
+
+@interface NSString (LocalizedString)
+- (NSString*)changeTextLanguage:(NSString*)text;
+@end

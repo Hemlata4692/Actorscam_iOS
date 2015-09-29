@@ -14,25 +14,36 @@
 
 @interface AddManagerViewController ()<UITextFieldDelegate,BSKeyboardControlsDelegate>
 {
-    NSArray *textFieldArray;
+    NSArray *textFieldArray, *pickerArrayItem;
 }
 
 
 @property (weak, nonatomic) IBOutlet UITextField *userEmail;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (strong, nonatomic) IBOutlet UITextField *managerCategory;
+@property (strong, nonatomic) IBOutlet UIButton *categoryPicker;
+@property (strong, nonatomic) IBOutlet UIPickerView *categoryPickerView;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *toolbarDone;
+
 @property (weak, nonatomic) IBOutlet UIButton *addEditManager;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @end
 
 @implementation AddManagerViewController
-@synthesize navTitle, userEmail, userName, emailId, name, managerId;
-@synthesize addEditManager;
+@synthesize navTitle, userEmail, userName, emailId, name, managerId, category;
+@synthesize managerCategory,categoryPicker,categoryPickerView,toolBar,toolbarDone;
+@synthesize addEditManager,scrollView;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTextFieldPadding];
+    pickerArrayItem = @[[@"Agent" changeTextLanguage:@"Agent"], [@"Manager" changeTextLanguage:@"Manager"], [@"Self" changeTextLanguage:@"Self"], [@"Other" changeTextLanguage:@"Other"]];
     
+    categoryPickerView.hidden = YES;
+    toolBar.hidden = YES;
     textFieldArray = @[userName, userEmail];
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
@@ -47,14 +58,27 @@
     self.navigationItem.title = navTitle;
     userEmail.text = emailId;
     userName.text = name;
+    managerCategory.text = category;
     
 }
 
+-(void)setLocalizedString{
+    
+    [userName changeTextLanguage:@"Name"];
+    [userEmail changeTextLanguage:@"Email"];
+    [managerCategory changeTextLanguage:@"Category"];
+    [addEditManager changeTextLanguage:@"SAVE"];
+    [toolbarDone.title changeTextLanguage:toolbarDone.title];
+    [navTitle changeTextLanguage:navTitle];
+    [category changeTextLanguage:category];
+}
+
+
 -(void)addTextFieldPadding
 {
-    [addEditManager setCornerRadius:5.0f];
-    [userEmail addTextFieldPadding:userEmail];
-    [userName addTextFieldPadding:userName];
+    [managerCategory addTextFieldPadding:managerCategory color:[UIColor lightGrayColor]];
+    [userEmail addTextFieldPadding:userEmail color:[UIColor lightGrayColor]];
+    [userName addTextFieldPadding:userName color:[UIColor lightGrayColor]];
     
 }
 #pragma mark - end
@@ -87,11 +111,21 @@
 {
     
     [self.keyboardControls setActiveField:textField];
+    categoryPickerView.hidden = YES;
+    toolBar.hidden = YES;
     
+    if([[UIScreen mainScreen] bounds].size.height < 550)
+    {
+        if (textField==userName || textField==userEmail)
+        {
+            [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y - 75) animated:YES];
+        }
+    }
+
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
-    
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -106,6 +140,41 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)doneAction:(UIBarButtonItem *)sender {
+    NSInteger index = [categoryPickerView selectedRowInComponent:0];
+    managerCategory.text=[pickerArrayItem objectAtIndex:index];
+
+    categoryPickerView.hidden = YES;
+    toolBar.hidden = YES;
+}
+
+- (IBAction)pickerViewAction:(UIButton *)sender {
+    [self.view endEditing:YES];
+    categoryPickerView.hidden = NO;
+    toolBar.hidden = NO;
+}
+
+#pragma mark - Pickerview Delegate Methods
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return pickerArrayItem.count;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [pickerArrayItem objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    managerCategory.text=[pickerArrayItem objectAtIndex:row];
+}
+#pragma mark - end
 
 #pragma mark - add/Edit Manager
 - (IBAction)addEditManagerAction:(UIButton *)sender {
@@ -122,11 +191,11 @@
 {
     if ([emailId isEqualToString:@""] || emailId.length == 0) {
         //Add manager
-        [[WebService sharedManager] addManager:userName.text managerEmail:userEmail.text success:^(id responseObject) {
+        [[WebService sharedManager] addManager:userName.text managerEmail:userEmail.text category:(NSString *)managerCategory.text success:^(id responseObject) {
             NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
             NSDictionary *dict = (NSDictionary *)responseObject;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             alert.tag = 1;
             [alert show];
 
@@ -137,7 +206,7 @@
     }
     else{
         //edit manager
-         [[WebService sharedManager] updateManager:userName.text managerEmail:userEmail.text managerId:managerId success:^(id responseObject) {
+         [[WebService sharedManager] updateManager:userName.text managerEmail:userEmail.text managerId:managerId category:(NSString *)managerCategory.text success:^(id responseObject) {
             NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
              NSDictionary *dict = (NSDictionary *)responseObject;

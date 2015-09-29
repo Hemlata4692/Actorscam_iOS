@@ -23,9 +23,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  //  myDelegate.currentNavigationController=self.navigationController;
+//    UIView *addStatusBar = [[UIView alloc] init];
+//    addStatusBar.frame = CGRectMake(0, 0, 320, 20);
+//    addStatusBar.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:97.0/255.0 blue:70.0/255.0 alpha:1.0];
+//    [self.view addSubview:addStatusBar];
     
-    [self addLeftBarButtonWithImage:[UIImage imageNamed:@"menu.png"]];
+    [self addLeftBarButtonWithImage:[UIImage imageNamed:@"menu"]];
     
     SWRevealViewController *revealController = [self revealViewController];
     [revealController panGestureRecognizer];

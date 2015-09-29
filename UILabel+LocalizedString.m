@@ -48,7 +48,19 @@ static const char kBundleKey = 0;
    
     return self;
 }
+@end
 
+@implementation NSString (LocalizedString)
+
+- (NSString*)changeTextLanguage:(NSString*)text
+{
+    NSString *language = [[NSUserDefaults standardUserDefaults] objectForKey:@"Language"];
+    id value = language ? [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:language ofType:@"lproj"]] : nil;
+    objc_setAssociatedObject([NSBundle mainBundle], &kBundleKey, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    text = [LocalizedObject localizedStringForKey:text value:@"" table:@"Localizable" bundleName:[NSBundle mainBundle]];
+    
+    return text;
+}
 @end
 
 

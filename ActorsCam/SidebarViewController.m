@@ -12,9 +12,8 @@
 #import <UIImageView+AFNetworking.h>
 
 @interface SidebarViewController (){
-    NSArray *menuItems;
+    NSArray *menuItems,*tableItem;
 }
-
 
 @end
 
@@ -24,17 +23,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    menuItems = @[@"Home", @"Edit Profile", @"Managers", @"Change Password", @"Logout"];
+    tableItem = @[@"Home", @"Edit Profile", @"Representative", @"Change Password", @"Logout"];
+    
+    menuItems = @[[@"Home" changeTextLanguage:@"Home"], [@"Edit Profile" changeTextLanguage:@"Edit Profile"], [@"Representative" changeTextLanguage:@"Representative"], [@"Change Password" changeTextLanguage:@"Change Password"], [@"Logout" changeTextLanguage:@"Logout"]];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, self.view.frame.size.width, 20)];
-    statusBarView.backgroundColor = [UIColor colorWithRed:83.0/255.0 green:24.0/255.0 blue:152.0/255.0 alpha:1.0];
+    statusBarView.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0];
     [self.view addSubview:statusBarView];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    if([[UIScreen mainScreen] bounds].size.height>490)
+    {
+        self.tableView.scrollEnabled=NO;
+    }
+
+    
     [self.tableView reloadData];
 }
 
@@ -57,7 +65,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *CellIdentifier = [menuItems objectAtIndex:indexPath.row];
+    NSString *CellIdentifier = [tableItem objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     return cell;
@@ -65,7 +73,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 200.0;
+    return 225.0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -76,36 +84,46 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSLog(@"table size %f",tableView.bounds.size.width);
-    UIView *headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 200)];
+    UIView *headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 225)];
     
-    headerView.backgroundColor=[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:204.0/255.0 alpha:1.0];
+    headerView.backgroundColor=[UIColor clearColor];
+    UIImageView *headerBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 225)] ;
+    headerBg.image = [UIImage imageNamed:@"sideBarBg"];
     UILabel * welcomeLabel;
-    welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-50, 130, 100, 22)];
-    welcomeLabel.backgroundColor = [UIColor whiteColor];
+    welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-50, 150, 100, 22)];
+    welcomeLabel.backgroundColor = [UIColor clearColor];
     welcomeLabel.textAlignment=NSTextAlignmentCenter;
-    welcomeLabel.textColor=[UIColor colorWithRed:253.0/255.0 green:47.0/255.0 blue:47.0/255.0 alpha:1.0];
-    welcomeLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
-    welcomeLabel.text = @"Welcome" ;// i.e. array element
-   
+    welcomeLabel.textColor=[UIColor whiteColor];
+    welcomeLabel.font = [UIFont fontWithName:@"OpenSans" size:13];
+//    welcomeLabel.text = [@"Welcome" changeTextLanguage:@"Welcome"] ;// i.e. array element
+    [welcomeLabel changeTextLanguage:@"Welcome"];
+    
     UILabel *actorName;
-    actorName = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-65, 160, 130, 35)];
+    actorName = [[UILabel alloc] initWithFrame:CGRectMake(20, welcomeLabel.frame.origin.y + 10, tableView.bounds.size.width - 40, 50)];
     actorName.backgroundColor = [UIColor clearColor];
     actorName.textAlignment=NSTextAlignmentCenter;
     actorName.lineBreakMode = NSLineBreakByWordWrapping;
     actorName.numberOfLines = 2;
-    actorName.textColor=[UIColor colorWithRed:121.0/255.0 green:115.0/255.0 blue:115.0/255.0 alpha:1.0];
-    actorName.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+    actorName.textColor=[UIColor whiteColor];
+    actorName.font = [UIFont fontWithName:@"OpenSans-Semibold" size:17];
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"] isEqualToString:@""]) {
         
-        actorName.text = @"User" ;
+//        actorName.text = @"User" ;
+        [actorName changeTextLanguage:@"User"];
     }
     else
     {
-        actorName.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"];
+        [actorName changeTextLanguage:[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"]];
+//        actorName.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"];
     }
     // i.e. array element
     
-    UIImageView *ProfileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(75, 20, 100, 100)] ;
+    UIView *profileImageBackView=[[UIView alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-57, 20, 114, 114)];
+    profileImageBackView.backgroundColor = [UIColor clearColor];
+    profileImageBackView.layer.borderWidth = 1.0;
+    profileImageBackView.layer.borderColor = [UIColor colorWithRed:255.0/255.0 green:50.0/255.0 blue:50.0/255.0 alpha:1.0].CGColor;
+
+    UIImageView *ProfileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 7, 100, 100)] ;
     //imgView.contentMode=UIViewContentModeScaleAspectFill;
     ProfileImgView.contentMode = UIViewContentModeScaleAspectFill;
     ProfileImgView.clipsToBounds = YES;
@@ -118,7 +136,7 @@
                                                   cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                               timeoutInterval:60];
     
-    [ProfileImgView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"picture"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    [ProfileImgView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"sideBarPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         weakRef.contentMode = UIViewContentModeScaleAspectFit;
         weakRef.clipsToBounds = YES;
         weakRef.image = image;
@@ -127,9 +145,13 @@
     }];
   //  imgView.image=profileImage;
     ProfileImgView.layer.cornerRadius = ProfileImgView.frame.size.width / 2;
+    profileImageBackView.layer.cornerRadius = profileImageBackView.frame.size.width / 2;
+    [profileImageBackView addSubview:ProfileImgView];
+    
+    [headerView addSubview:headerBg];
     [headerView addSubview:welcomeLabel];
     [headerView addSubview:actorName];
-    [headerView addSubview:ProfileImgView];
+    [headerView addSubview:profileImageBackView];
     return headerView;   // return headerLabel;
 
 }

@@ -65,6 +65,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [_doneOutlet changeTextLanguage:@"DONE"];
+    
     imageArray = [NSMutableArray new];
     imageSize = 0;
     _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
@@ -224,60 +226,60 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 
 #pragma mark - Revert camera actions
-- (IBAction)revertCameraMethod:(id)sender
-{
-    [[self revertButton] setEnabled:NO];
-    //    [[self recordButton] setEnabled:NO];
-    [[self captureButton] setEnabled:NO];
-    
-    dispatch_async([self sessionQueue], ^{
-        AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
-        AVCaptureDevicePosition preferredPosition = AVCaptureDevicePositionUnspecified;
-        AVCaptureDevicePosition currentPosition = [currentVideoDevice position];
-        
-        switch (currentPosition)
-        {
-            case AVCaptureDevicePositionUnspecified:
-                preferredPosition = AVCaptureDevicePositionBack;
-                break;
-            case AVCaptureDevicePositionBack:
-                preferredPosition = AVCaptureDevicePositionFront;
-                break;
-            case AVCaptureDevicePositionFront:
-                preferredPosition = AVCaptureDevicePositionBack;
-                break;
-        }
-        
-        AVCaptureDevice *videoDevice = [CustomCameraViewController deviceWithMediaType:AVMediaTypeVideo preferringPosition:preferredPosition];
-        AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:nil];
-        
-        [[self session] beginConfiguration];
-        
-        [[self session] removeInput:[self videoDeviceInput]];
-        if ([[self session] canAddInput:videoDeviceInput])
-        {
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:currentVideoDevice];
-            
-            [CustomCameraViewController setFlashMode:AVCaptureFlashModeAuto forDevice:videoDevice];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:videoDevice];
-            
-            [[self session] addInput:videoDeviceInput];
-            [self setVideoDeviceInput:videoDeviceInput];
-        }
-        else
-        {
-            [[self session] addInput:[self videoDeviceInput]];
-        }
-        
-        [[self session] commitConfiguration];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[self revertButton] setEnabled:YES];
-            //            [[self recordButton] setEnabled:YES];
-            [[self captureButton] setEnabled:YES];
-        });
-    });
-}
+//- (IBAction)revertCameraMethod:(id)sender
+//{
+//    [[self revertButton] setEnabled:NO];
+//    //    [[self recordButton] setEnabled:NO];
+//    [[self captureButton] setEnabled:NO];
+//    
+//    dispatch_async([self sessionQueue], ^{
+//        AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
+//        AVCaptureDevicePosition preferredPosition = AVCaptureDevicePositionUnspecified;
+//        AVCaptureDevicePosition currentPosition = [currentVideoDevice position];
+//        
+//        switch (currentPosition)
+//        {
+//            case AVCaptureDevicePositionUnspecified:
+//                preferredPosition = AVCaptureDevicePositionBack;
+//                break;
+//            case AVCaptureDevicePositionBack:
+//                preferredPosition = AVCaptureDevicePositionFront;
+//                break;
+//            case AVCaptureDevicePositionFront:
+//                preferredPosition = AVCaptureDevicePositionBack;
+//                break;
+//        }
+//        
+//        AVCaptureDevice *videoDevice = [CustomCameraViewController deviceWithMediaType:AVMediaTypeVideo preferringPosition:preferredPosition];
+//        AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:nil];
+//        
+//        [[self session] beginConfiguration];
+//        
+//        [[self session] removeInput:[self videoDeviceInput]];
+//        if ([[self session] canAddInput:videoDeviceInput])
+//        {
+//            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:currentVideoDevice];
+//            
+//            [CustomCameraViewController setFlashMode:AVCaptureFlashModeAuto forDevice:videoDevice];
+//            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:videoDevice];
+//            
+//            [[self session] addInput:videoDeviceInput];
+//            [self setVideoDeviceInput:videoDeviceInput];
+//        }
+//        else
+//        {
+//            [[self session] addInput:[self videoDeviceInput]];
+//        }
+//        
+//        [[self session] commitConfiguration];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [[self revertButton] setEnabled:YES];
+//            //            [[self recordButton] setEnabled:YES];
+//            [[self captureButton] setEnabled:YES];
+//        });
+//    });
+//}
 #pragma mark - end
 
 #pragma mark - Capture Image Method
@@ -311,7 +313,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                  NSLog(@"%llu",(unsigned long long)imgData1.length);
                 if (tempSize > 10*1024*1024) {
                     //set toast
-                   [self.view makeToast:@"Your image size cannot exceed more than 20mb"];
+                   [self.view makeToast:@"File size cannot exceed 20 MB."];
                 }
                 else{
                     [imageArray addObject:image];
@@ -456,8 +458,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         {
             //Not granted access to mediaType
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"AVCam!"
-                                            message:@"AVCam doesn't have permission to use Camera, please change privacy settings"
+                [[[UIAlertView alloc] initWithTitle:@"Alert"
+                                            message:@"Your app doesn't have permission to use Camera, please change privacy settings"
                                            delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil] show];
@@ -470,6 +472,15 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 #pragma mark - Done Action
 - (IBAction)doneMethod:(UIButton *)sender {
+    [imageArray addObject:[UIImage imageNamed:@"modal1.jpeg"]];
+    [imageArray addObject:[UIImage imageNamed:@"modal2.jpeg"]];
+    [imageArray addObject:[UIImage imageNamed:@"modal3.jpeg"]];
+    [imageArray addObject:[UIImage imageNamed:@"modal4.jpeg"]];
+    [imageArray addObject:[UIImage imageNamed:@"modal5.jpeg"]];
+    [imageArray addObject:[UIImage imageNamed:@"modal6.jpeg"]];
+    [imageArray addObject:[UIImage imageNamed:@"modal7.jpeg"]];
+    [imageArray addObject:[UIImage imageNamed:@"modal8.jpeg"]];
+    
     if (imageArray.count==0) {
         [self.navigationController popViewControllerAnimated:YES];
     }

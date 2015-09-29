@@ -15,7 +15,7 @@
 {
     NSMutableArray *managerListArray;
     int indexpathRow;
-
+    NSString *navTitle;
 }
 @property (weak, nonatomic) IBOutlet UILabel *noManagerAddedLbl;
 @property (weak, nonatomic) IBOutlet UIView *addManagerView;
@@ -32,6 +32,7 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    navTitle = @"Representative";
     //Remove swipe gesture for sidebar
     for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
     {
@@ -41,11 +42,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    self.title = navTitle;
     indexpathRow = -1;
     // Do any additional setup after loading the view.
     managerListTableView.hidden = YES;
     addManagerView.hidden=YES;
-    [addManagerBtn setCornerRadius:5.0f];
+//    [addManagerBtn setCornerRadius:5.0f];
     managerListArray = [NSMutableArray new];
     [managerListTableView reloadData];
     
@@ -63,10 +65,11 @@
 - (IBAction)addManagerButtonAction:(id)sender
 {
     AddManagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    controller.navTitle = @"Add Managers";
+    controller.navTitle = @"Add Representatives";
     controller.emailId = @"";
     controller.name = @"";
     controller.managerId = @"";
+    controller.category = @"";
     [self.navigationController pushViewController:controller animated:YES];
 }
 #pragma mark - end
@@ -133,26 +136,27 @@
         
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         AddManagerViewController *addManagerView1 =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-        addManagerView1.navTitle = @"Edit Managers";
+        addManagerView1.navTitle = @"Edit Representatives";
         addManagerView1.emailId = [data objectForKey:@"managerEmail"];
         addManagerView1.name = [data objectForKey:@"managerName"];
         addManagerView1.managerId = [data objectForKey:@"managerId"];
+        addManagerView1.category = [data objectForKey:@"category"];
         [self.navigationController pushViewController:addManagerView1 animated:YES];
         
     }];
-    editAction.backgroundColor = [UIColor grayColor];
     
+    editAction.backgroundColor = [UIColor lightGrayColor];
     
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         
         
         indexpathRow = (int)indexPath.row;
          NSLog(@"delete action");
-        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Do you want to delete this manager?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to delete this representative?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
         [alert show];
         
     }];
-    deleteAction.backgroundColor = [UIColor redColor];
+    deleteAction.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:50.0/255.0 blue:50.0/255.0 alpha:1.0];
     
     return @[deleteAction,editAction];
 }

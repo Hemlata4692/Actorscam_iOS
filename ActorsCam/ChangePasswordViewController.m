@@ -14,23 +14,28 @@
 @interface ChangePasswordViewController ()<BSKeyboardControlsDelegate>
 {
     NSArray *textFieldArray;
+    NSString *navTitle;
 }
 @property (weak, nonatomic) IBOutlet UITextField *currentPassword;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
 @property (weak, nonatomic) IBOutlet UITextField *changePassword;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property (strong, nonatomic) IBOutlet UIButton *submitBtn;
 
 @end
 
 @implementation ChangePasswordViewController
-@synthesize currentPassword,confirmPassword,changePassword,scrollView;
+@synthesize currentPassword,confirmPassword,changePassword,scrollView,submitBtn;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    navTitle = @"Change Password";
+    
     [self addTextFieldPadding];
+    [self setLocalizedString];
     
     //Remove swipe gesture for sidebar
     for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
@@ -46,17 +51,37 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    self.title = navTitle;
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+-(void)setLocalizedString{
+    [currentPassword changeTextLanguage:@"Current Password"];
+    [confirmPassword changeTextLanguage:@"Confirm Password"];
+    [changePassword changeTextLanguage:@"New Password"];
+    [submitBtn changeTextLanguage:@"SUBMIT"];
+    [navTitle changeTextLanguage:@"Change Password"];
+}
+
 -(void)addTextFieldPadding
 {
-    [currentPassword addTextFieldPadding:currentPassword];
-    [confirmPassword addTextFieldPadding:confirmPassword];
-    [changePassword addTextFieldPadding:changePassword];
+    [currentPassword addTextFieldPadding:currentPassword color:[UIColor lightGrayColor]];
+    [confirmPassword addTextFieldPadding:confirmPassword color:[UIColor lightGrayColor]];
+    [changePassword addTextFieldPadding:changePassword color:[UIColor lightGrayColor]];
+    
 }
+
 #pragma mark - end
 
 #pragma mark - Change Password
@@ -90,9 +115,18 @@
 - (BOOL)performValidationsForChangePassword
 {
     UIAlertView *alert;
-    if ([currentPassword isEmpty] || [changePassword isEmpty] || [confirmPassword isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Fields cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    if ([currentPassword isEmpty] || (currentPassword.text.length == 0) || [currentPassword.text isEqualToString:@""]){
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Current Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    else if ([changePassword isEmpty] || (changePassword.text.length == 0) || [changePassword.text isEqualToString:@""]){
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"New Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    else if ([confirmPassword isEmpty] || (confirmPassword.text.length == 0) || [confirmPassword.text isEqualToString:@""]){
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Confirm Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -129,7 +163,6 @@
     [keyboardControls.activeField resignFirstResponder];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
-    
 }
 #pragma mark - end
 
@@ -138,20 +171,15 @@
 {
     
     [self.keyboardControls setActiveField:textField];
-    
-    if (textField==currentPassword)
+
+    if([[UIScreen mainScreen] bounds].size.height<490)
     {
-        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        if (textField==confirmPassword)
+        {
+            [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-115) animated:YES];
+        }
     }
-    else if (textField==changePassword)
-    {
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-90) animated:YES];
-    }
-    else if (textField==confirmPassword)
-    {
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-100) animated:YES];
-    }
-       
+
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {

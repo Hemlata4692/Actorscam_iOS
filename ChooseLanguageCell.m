@@ -25,46 +25,46 @@
     
     if ([[languageArray objectAtIndex:indexPath.row] isEqualToString:@"ENGLISH"]) {
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"en"]) {
-            radioImage.image = [UIImage imageNamed:@"radio_btn_selected.png"];
+            radioImage.image = [UIImage imageNamed:@"radioSelected"];
             selectedIndex = (int)indexPath.row;
         }
         else{
-            radioImage.image = [UIImage imageNamed:@"radio_btn.png"];
+            radioImage.image = [UIImage imageNamed:@"radio"];
         }
     }
     else if ([[languageArray objectAtIndex:indexPath.row] isEqualToString:@"FRANCAIS"]){
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"fr"]) {
-            radioImage.image = [UIImage imageNamed:@"radio_btn_selected.png"];
+            radioImage.image = [UIImage imageNamed:@"radioSelected"];
             selectedIndex = (int)indexPath.row;
         }
         else{
-            radioImage.image = [UIImage imageNamed:@"radio_btn.png"];
+            radioImage.image = [UIImage imageNamed:@"radio"];
         }
     }
     else if ([[languageArray objectAtIndex:indexPath.row] isEqualToString:@"DEUTSCH"]){
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"zn"]) {
-            radioImage.image = [UIImage imageNamed:@"radio_btn_selected.png"];
+            radioImage.image = [UIImage imageNamed:@"radioSelected"];
             selectedIndex = (int)indexPath.row;
         }
         else{
-            radioImage.image = [UIImage imageNamed:@"radio_btn.png"];
+            radioImage.image = [UIImage imageNamed:@"radio"];
         }
     }
     else{
-        radioImage.image = [UIImage imageNamed:@"radio_btn.png"];
+        radioImage.image = [UIImage imageNamed:@"radio"];
     }
     return selectedIndex;
 }
 
 -(void)didSelectCellMethod:(NSArray*)languageArray indexPath:(NSIndexPath*)indexPath tableView:(UITableView*)tableView{
-    radioImage.image = [UIImage imageNamed:@"radio_btn_selected.png"];
+    radioImage.image = [UIImage imageNamed:@"radioSelected"];
     
     for (int i=0; i<languageArray.count; i++) {
         if (i!=indexPath.row) {
            
             NSIndexPath* cellPath = [NSIndexPath indexPathForRow:i inSection:0];
             ChooseLanguageCell* cell = (ChooseLanguageCell *)[tableView cellForRowAtIndexPath:cellPath];
-            cell.radioImage.image = [UIImage imageNamed:@"radio_btn.png"];
+            cell.radioImage.image = [UIImage imageNamed:@"radio"];
             
         }
     }
