@@ -42,8 +42,17 @@
         self.tableView.scrollEnabled=NO;
     }
 
-    
+    [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
     [self.tableView reloadData];
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    
+    [super viewWillDisappear:animated];
+    [self.revealViewController.frontViewController.view setUserInteractionEnabled:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
