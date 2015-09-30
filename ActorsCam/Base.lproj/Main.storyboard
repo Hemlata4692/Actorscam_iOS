@@ -1901,7 +1901,7 @@
                                 </constraints>
                             </scrollView>
                             <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RIE-gd-9zP">
-                                <rect key="frame" x="0.0" y="258" width="320" height="162"/>
+                                <rect key="frame" x="0.0" y="261" width="320" height="155"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="155" id="Akd-Sq-DNp"/>
