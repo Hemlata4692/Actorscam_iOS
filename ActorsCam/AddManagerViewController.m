@@ -39,11 +39,13 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    categoryPickerView.translatesAutoresizingMaskIntoConstraints=YES;
+    toolBar.translatesAutoresizingMaskIntoConstraints=YES;
+    [self hidePickerWithAnimation];
+    
     [self addTextFieldPadding];
     pickerArrayItem = @[[@"Agent" changeTextLanguage:@"Agent"], [@"Manager" changeTextLanguage:@"Manager"], [@"Self" changeTextLanguage:@"Self"], [@"Other" changeTextLanguage:@"Other"]];
     
-    categoryPickerView.hidden = YES;
-    toolBar.hidden = YES;
     textFieldArray = @[userName, userEmail];
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
@@ -83,6 +85,36 @@
 }
 #pragma mark - end
 
+#pragma mark - Picker view animation
+-(void)showPickerWithAnimation
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    //    [_sliderScrollView setContentOffset:CGPointMake(0, _sliderScrollView.frame.origin.y+100) animated:YES];
+    
+    categoryPickerView.backgroundColor=[UIColor whiteColor];
+    
+    categoryPickerView.frame = CGRectMake(categoryPickerView.frame.origin.x, (self.view.frame.size.height-categoryPickerView.frame.size.height) , self.view.frame.size.width, categoryPickerView.frame.size.height);
+    
+    toolBar.backgroundColor=[UIColor whiteColor];
+    toolBar.frame = CGRectMake(toolBar.frame.origin.x, categoryPickerView.frame.origin.y-44, self.view.frame.size.width, toolBar.frame.size.height);
+    [UIView commitAnimations];
+    
+}
+
+
+-(void)hidePickerWithAnimation
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    categoryPickerView.frame = CGRectMake(categoryPickerView.frame.origin.x, 1000, self.view.frame.size.width, categoryPickerView.frame.size.height);
+    toolBar.frame = CGRectMake(toolBar.frame.origin.x, 1000, self.view.frame.size.width, toolBar.frame.size.height);
+    [UIView commitAnimations];
+}
+#pragma mark - end
+
 #pragma mark - Keyboard Controls Delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
@@ -111,8 +143,7 @@
 {
     
     [self.keyboardControls setActiveField:textField];
-    categoryPickerView.hidden = YES;
-    toolBar.hidden = YES;
+    [self hidePickerWithAnimation];
     
     if([[UIScreen mainScreen] bounds].size.height < 550)
     {
@@ -144,14 +175,12 @@
     NSInteger index = [categoryPickerView selectedRowInComponent:0];
     managerCategory.text=[pickerArrayItem objectAtIndex:index];
 
-    categoryPickerView.hidden = YES;
-    toolBar.hidden = YES;
+    [self hidePickerWithAnimation];
 }
 
 - (IBAction)pickerViewAction:(UIButton *)sender {
     [self.view endEditing:YES];
-    categoryPickerView.hidden = NO;
-    toolBar.hidden = NO;
+    [self showPickerWithAnimation];;
 }
 
 #pragma mark - Pickerview Delegate Methods

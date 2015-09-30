@@ -11,6 +11,7 @@
 #import "ChooseLanguageViewController.h"
 #import "AddManagerViewController.h"
 #import "ImagePreviewViewController.h"
+#import "AudioViewController.h"
 #import "CustomCameraViewController.h"
 #import "SWRevealViewController.h"
 
@@ -115,12 +116,8 @@
 - (IBAction)addAudioAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    addManagerView.navTitle = @"Add Representative";
-    addManagerView.emailId = @"";
-    addManagerView.name = @"";
-    addManagerView.managerId = @"";
-    [self.navigationController pushViewController:addManagerView animated:YES];
+    AudioViewController *audioView =[storyboard instantiateViewControllerWithIdentifier:@"AudioView"];
+    [self.navigationController pushViewController:audioView animated:YES];
 }
 #pragma mark - end
 

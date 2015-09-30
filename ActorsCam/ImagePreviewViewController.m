@@ -58,7 +58,8 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    managerListPickerView.translatesAutoresizingMaskIntoConstraints=YES;
+    toolBar.translatesAutoresizingMaskIntoConstraints=YES;
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[noteTextView]]];
     [self.keyboardControls setDelegate:self];
@@ -97,6 +98,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    [self hidePickerWithAnimation];
+    
     pickerChecker = @"";
     pickerArray = [NSMutableArray new];
     managerListArray = [NSMutableArray new];
@@ -121,12 +124,6 @@
     noteTextView.layer.borderColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:190.0/255.0 alpha:1.0].CGColor;
     noteTextView.layer.borderWidth = 1;
     
-    selectManagerView.hidden = NO;
-    noManagerView.hidden = YES;
-//    noManager.hidden = YES;
-    managerListPickerView.hidden = YES;
-    toolBar.hidden = YES;
-    
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     self.navigationItem.title = navTitle;
     
@@ -148,9 +145,41 @@
 }
 #pragma mark - end
 
+#pragma mark - Picker view animation
+-(void)showPickerWithAnimation
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+//    [_sliderScrollView setContentOffset:CGPointMake(0, _sliderScrollView.frame.origin.y+100) animated:YES];
+    
+    managerListPickerView.backgroundColor=[UIColor whiteColor];
+    
+    managerListPickerView.frame = CGRectMake(managerListPickerView.frame.origin.x, (self.view.frame.size.height-managerListPickerView.frame.size.height) , self.view.frame.size.width, managerListPickerView.frame.size.height);
+    
+    toolBar.backgroundColor=[UIColor whiteColor];
+    toolBar.frame = CGRectMake(toolBar.frame.origin.x, managerListPickerView.frame.origin.y-44, self.view.frame.size.width, toolBar.frame.size.height);
+    [UIView commitAnimations];
+
+}
+
+
+-(void)hidePickerWithAnimation
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    managerListPickerView.frame = CGRectMake(managerListPickerView.frame.origin.x, 1000, self.view.frame.size.width, managerListPickerView.frame.size.height);
+    toolBar.frame = CGRectMake(toolBar.frame.origin.x, 1000, self.view.frame.size.width, toolBar.frame.size.height);
+    [UIView commitAnimations];
+}
+#pragma mark - end
+
 #pragma mark - TextView Delegate
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
+    [self hidePickerWithAnimation];
+    
     [self.keyboardControls setActiveField:textView];
     [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height + 200) animated:YES];
 }
@@ -234,6 +263,7 @@
 
 #pragma mark - delete Image Action
 - (IBAction)deleteImageAction:(UIButton *)sender {
+    [self hidePickerWithAnimation];
     [imageArray removeObjectAtIndex:selectedImage];
     selectedImage = 0;
     if (imageArray.count!=0) {
@@ -488,14 +518,13 @@
 
 #pragma mark - Toolbar Done Action
 - (IBAction)DoneAction:(UIBarButtonItem *)sender {
+    [self hidePickerWithAnimation];
+    
     if (managerListArray.count != 0) {
         
         NSInteger index = [managerListPickerView selectedRowInComponent:0];
         //    managerName.text=[pickerArray objectAtIndex:index];
         [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-        
-        managerListPickerView.hidden = YES;
-        toolBar.hidden = YES;
         
         if ([pickerChecker isEqualToString:@"category"]){
             selectedCategoryIndex = (int)index;
@@ -576,6 +605,8 @@
 
 #pragma mark - back/camera Button
 - (IBAction)backButton:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
     for (id controller in [self.navigationController viewControllers])
     {
         if ([controller isKindOfClass:[DashboardViewController class]])
@@ -587,6 +618,8 @@
 }
 
 - (IBAction)cameraButton:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - end
@@ -598,6 +631,8 @@
 
 #pragma mark - Add Representation Action
 - (IBAction)addRepresentativeAction:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
     addManagerView.navTitle = @"Add Representative";
@@ -611,12 +646,12 @@
 
 #pragma mark - select Manager Action
 - (IBAction)selectManagerAction:(UIButton *)sender {
+    [self showPickerWithAnimation];
+    
     pickerChecker = @"manager";
 //    [pickerArray removeAllObjects];
 //    pickerArray = [managerListArray mutableCopy];
     [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
-    managerListPickerView.hidden = NO;
-    toolBar.hidden = NO;
     [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
 //    [managerListPickerView reloadAllComponents];
 }
@@ -624,14 +659,13 @@
 
 #pragma mark - Select category textfield
 - (IBAction)selectCategoryAction:(UIButton *)sender {
+    [self showPickerWithAnimation];
     
     [pickerArray removeAllObjects];
     
     pickerChecker = @"category";
     pickerArray = [categoryList mutableCopy];
     [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
-    managerListPickerView.hidden = NO;
-    toolBar.hidden = NO;
     [managerListPickerView reloadAllComponents];
     [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
 }

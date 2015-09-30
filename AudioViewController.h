@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BackViewController.h"
 
-@interface AudioViewController : UIViewController
+@interface AudioViewController : BackViewController
 
 @end
