@@ -54,7 +54,7 @@
     
     [self addTextFieldPadding];
     [self addCornerRadius];
-    
+    NSLog(@"test log!!!");
     forgotPasswordView.hidden=YES;
     //Adding textfield to array
     textFieldArray = @[userEmail,password];
