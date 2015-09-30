@@ -17,10 +17,12 @@
     },
     {
       "idiom" : "ipad",
+      "filename" : "caterogy1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "ipad",
+      "filename" : "caterogy.png",
       "scale" : "2x"
     }
   ],
