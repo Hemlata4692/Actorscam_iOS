@@ -42,6 +42,7 @@
 		B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD841B82103B00C1C0AB /* RegisterViewController.m */; };
 		B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD881B82105300C1C0AB /* LoginViewController.m */; };
 		B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */; };
+		B793FEF21BBBBFE900DF6E50 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B793FEF11BBBBFE900DF6E50 /* AudioViewController.m */; settings = {ASSET_TAGS = (); }; };
 		B79FC7111B941FD200D9EA79 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = B79FC7101B941FD200D9EA79 /* UIView+Toast.m */; };
 		B7AD47461B8726B800D12F33 /* ManagerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AD47451B8726B800D12F33 /* ManagerListViewController.m */; };
 		B7BAFE511BB95BC600BE13E8 /* modal2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE4B1BB95BC600BE13E8 /* modal2.jpeg */; settings = {ASSET_TAGS = (); }; };
@@ -139,6 +140,8 @@
 		B789AD881B82105300C1C0AB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ActorsCam/LoginViewController.m; sourceTree = "<group>"; };
 		B789AD8B1B8212E700C1C0AB /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = ActorsCam/ChangePasswordViewController.h; sourceTree = "<group>"; };
 		B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = ActorsCam/ChangePasswordViewController.m; sourceTree = "<group>"; };
+		B793FEF01BBBBFE900DF6E50 /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
+		B793FEF11BBBBFE900DF6E50 /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
 		B79FC70F1B941FD200D9EA79 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		B79FC7101B941FD200D9EA79 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		B7AD47441B8726B800D12F33 /* ManagerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManagerListViewController.h; path = ActorsCam/ManagerListViewController.h; sourceTree = "<group>"; };
@@ -402,6 +405,7 @@
 		B789AD801B82100400C1C0AB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B793FEF31BBBBFEC00DF6E50 /* AudiioView */,
 				B7D32C391B8B3699000DE939 /* ImagePreviewView */,
 				B7D32C2C1B8AE339000DE939 /* ChooseLanguageView */,
 				B70A59A41B85926A00E1D793 /* GlobalSideBarMenu */,
@@ -454,6 +458,15 @@
 				B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */,
 			);
 			name = ChangePasswordView;
+			sourceTree = "<group>";
+		};
+		B793FEF31BBBBFEC00DF6E50 /* AudiioView */ = {
+			isa = PBXGroup;
+			children = (
+				B793FEF01BBBBFE900DF6E50 /* AudioViewController.h */,
+				B793FEF11BBBBFE900DF6E50 /* AudioViewController.m */,
+			);
+			name = AudiioView;
 			sourceTree = "<group>";
 		};
 		B79FC70B1B9417FA00D9EA79 /* Toast */ = {
@@ -831,6 +844,7 @@
 				B7D32C2B1B8AE32A000DE939 /* ChooseLanguageViewController.m in Sources */,
 				B75DCCC01B9EF25000A61D60 /* UILabel+LocalizedString.m in Sources */,
 				B7FF11311B8754D700D1E54F /* ManagersListCell.m in Sources */,
+				B793FEF21BBBBFE900DF6E50 /* AudioViewController.m in Sources */,
 				B789AD5D1B820F3B00C1C0AB /* main.m in Sources */,
 				B70034421B84ADBB00263CAD /* EditProfileViewController.m in Sources */,
 				B70034461B84ADDD00263CAD /* AddManagerViewController.m in Sources */,

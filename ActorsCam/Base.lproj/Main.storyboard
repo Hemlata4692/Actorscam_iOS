@@ -1899,22 +1899,16 @@
                                     <constraint firstItem="V9I-Mr-JVc" firstAttribute="centerX" secondItem="Mco-bb-c1A" secondAttribute="centerX" id="Ujd-1H-yxV"/>
                                 </constraints>
                             </scrollView>
-                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RIE-gd-9zP">
-                                <rect key="frame" x="0.0" y="261" width="320" height="155"/>
+                            <pickerView hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RIE-gd-9zP">
+                                <rect key="frame" x="0.0" y="1000" width="320" height="155"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="155" id="Akd-Sq-DNp"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="R9z-85-AAk" id="27S-6W-crp"/>
                                     <outlet property="delegate" destination="R9z-85-AAk" id="Z4E-u4-kNc"/>
                                 </connections>
                             </pickerView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdu-hL-OIR">
-                                <rect key="frame" x="0.0" y="219" width="320" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="sQI-Ng-vme"/>
-                                </constraints>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gdu-hL-OIR">
+                                <rect key="frame" x="0.0" y="1000" width="320" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="TLo-oN-Cm7"/>
                                     <barButtonItem title="Done" id="7a9-Py-1pH">
@@ -1930,13 +1924,7 @@
                             <constraint firstItem="Mco-bb-c1A" firstAttribute="leading" secondItem="9fK-w4-2Qd" secondAttribute="leading" id="3av-Yd-4VB"/>
                             <constraint firstItem="BTC-Qb-oTJ" firstAttribute="top" secondItem="Mco-bb-c1A" secondAttribute="bottom" id="775-f6-cF3"/>
                             <constraint firstItem="Mco-bb-c1A" firstAttribute="top" secondItem="2p1-b3-tXs" secondAttribute="bottom" id="Avj-xt-Y0u"/>
-                            <constraint firstItem="BTC-Qb-oTJ" firstAttribute="top" secondItem="RIE-gd-9zP" secondAttribute="bottom" id="BTw-Yj-hrt"/>
-                            <constraint firstItem="RIE-gd-9zP" firstAttribute="leading" secondItem="9fK-w4-2Qd" secondAttribute="leading" id="CLV-Kd-LKi"/>
-                            <constraint firstItem="gdu-hL-OIR" firstAttribute="leading" secondItem="9fK-w4-2Qd" secondAttribute="leading" id="PYG-jv-nvL"/>
                             <constraint firstAttribute="trailing" secondItem="Mco-bb-c1A" secondAttribute="trailing" id="UHv-wT-XWH"/>
-                            <constraint firstAttribute="trailing" secondItem="gdu-hL-OIR" secondAttribute="trailing" id="Z2p-pJ-K4Y"/>
-                            <constraint firstItem="RIE-gd-9zP" firstAttribute="top" secondItem="gdu-hL-OIR" secondAttribute="bottom" constant="-2" id="lVp-gm-xnK"/>
-                            <constraint firstAttribute="trailing" secondItem="RIE-gd-9zP" secondAttribute="trailing" id="pAU-gA-pcu"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
