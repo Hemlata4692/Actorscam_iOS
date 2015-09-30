@@ -17,10 +17,12 @@
     },
     {
       "idiom" : "ipad",
+      "filename" : "radioselected1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "ipad",
+      "filename" : "radioselected-3.png",
       "scale" : "2x"
     }
   ],

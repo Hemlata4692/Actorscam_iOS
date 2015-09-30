@@ -17,10 +17,12 @@
     },
     {
       "idiom" : "ipad",
+      "filename" : "email1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "ipad",
+      "filename" : "email.png",
       "scale" : "2x"
     }
   ],

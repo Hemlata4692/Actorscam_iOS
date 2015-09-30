@@ -17,10 +17,12 @@
     },
     {
       "idiom" : "ipad",
+      "filename" : "sidebarbg1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "ipad",
+      "filename" : "sidebarbg-3.png",
       "scale" : "2x"
     }
   ],
