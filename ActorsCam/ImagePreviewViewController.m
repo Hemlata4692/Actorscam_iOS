@@ -80,6 +80,8 @@
     CGFloat cellWidth = (availableWidthForCells / kCellsPerRow);
     flowLayout.itemSize = CGSizeMake(cellWidth, flowLayout.itemSize.height);
     
+    
+    
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
     

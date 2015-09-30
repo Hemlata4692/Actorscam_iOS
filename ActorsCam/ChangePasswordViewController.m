@@ -103,12 +103,27 @@
     [[WebService sharedManager] changePassword:currentPassword.text newPassword:changePassword.text success:^(id responseObject) {
         
         [myDelegate StopIndicator];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+       
+        [alert show];
+         alert.tag=1;
+
         
     } failure:^(NSError *error) {
         
     }] ;
     
 }
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==1 && buttonIndex==0)
+    {
+         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+         UIViewController * dashboard = [storyboard instantiateViewControllerWithIdentifier:@"DashboardView"];
+        [self.navigationController pushViewController:dashboard animated:YES];
+    }
+}
+
 #pragma mark - end
 
 #pragma mark - Textfield Validation

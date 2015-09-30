@@ -41,8 +41,7 @@
     NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"]);
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0]];
-    //set navigation bar button color
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+     
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"OpenSans-Semibold" size:18.0], NSFontAttributeName, nil]];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
