@@ -14,6 +14,7 @@
 #import "AudioViewController.h"
 #import "CustomCameraViewController.h"
 #import "SWRevealViewController.h"
+#import "CustomVideoViewController.h"
 
 @interface DashboardViewController ()<SWRevealViewControllerDelegate>
 
@@ -125,12 +126,8 @@
 - (IBAction)addVideoAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    addManagerView.navTitle = @"Add Representative";
-    addManagerView.emailId = @"";
-    addManagerView.name = @"";
-    addManagerView.managerId = @"";
-    [self.navigationController pushViewController:addManagerView animated:YES];
+    CustomVideoViewController *videoView =[storyboard instantiateViewControllerWithIdentifier:@"CustomVideoView"];
+    [self.navigationController pushViewController:videoView animated:YES];
 }
 #pragma mark - end
 /*

@@ -238,60 +238,60 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 
 #pragma mark - Revert camera actions
-//- (IBAction)revertCameraMethod:(id)sender
-//{
-//    [[self revertButton] setEnabled:NO];
-//    //    [[self recordButton] setEnabled:NO];
-//    [[self captureButton] setEnabled:NO];
-//    
-//    dispatch_async([self sessionQueue], ^{
-//        AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
-//        AVCaptureDevicePosition preferredPosition = AVCaptureDevicePositionUnspecified;
-//        AVCaptureDevicePosition currentPosition = [currentVideoDevice position];
-//        
-//        switch (currentPosition)
-//        {
-//            case AVCaptureDevicePositionUnspecified:
-//                preferredPosition = AVCaptureDevicePositionBack;
-//                break;
-//            case AVCaptureDevicePositionBack:
-//                preferredPosition = AVCaptureDevicePositionFront;
-//                break;
-//            case AVCaptureDevicePositionFront:
-//                preferredPosition = AVCaptureDevicePositionBack;
-//                break;
-//        }
-//        
-//        AVCaptureDevice *videoDevice = [CustomCameraViewController deviceWithMediaType:AVMediaTypeVideo preferringPosition:preferredPosition];
-//        AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:nil];
-//        
-//        [[self session] beginConfiguration];
-//        
-//        [[self session] removeInput:[self videoDeviceInput]];
-//        if ([[self session] canAddInput:videoDeviceInput])
-//        {
-//            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:currentVideoDevice];
-//            
-//            [CustomCameraViewController setFlashMode:AVCaptureFlashModeAuto forDevice:videoDevice];
-//            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:videoDevice];
-//            
-//            [[self session] addInput:videoDeviceInput];
-//            [self setVideoDeviceInput:videoDeviceInput];
-//        }
-//        else
-//        {
-//            [[self session] addInput:[self videoDeviceInput]];
-//        }
-//        
-//        [[self session] commitConfiguration];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [[self revertButton] setEnabled:YES];
-//            //            [[self recordButton] setEnabled:YES];
-//            [[self captureButton] setEnabled:YES];
-//        });
-//    });
-//}
+- (IBAction)revertCameraMethod:(id)sender
+{
+    [[self revertButton] setEnabled:NO];
+    //    [[self recordButton] setEnabled:NO];
+    [[self captureButton] setEnabled:NO];
+    
+    dispatch_async([self sessionQueue], ^{
+        AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
+        AVCaptureDevicePosition preferredPosition = AVCaptureDevicePositionUnspecified;
+        AVCaptureDevicePosition currentPosition = [currentVideoDevice position];
+        
+        switch (currentPosition)
+        {
+            case AVCaptureDevicePositionUnspecified:
+                preferredPosition = AVCaptureDevicePositionBack;
+                break;
+            case AVCaptureDevicePositionBack:
+                preferredPosition = AVCaptureDevicePositionFront;
+                break;
+            case AVCaptureDevicePositionFront:
+                preferredPosition = AVCaptureDevicePositionBack;
+                break;
+        }
+        
+        AVCaptureDevice *videoDevice = [CustomCameraViewController deviceWithMediaType:AVMediaTypeVideo preferringPosition:preferredPosition];
+        AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:nil];
+        
+        [[self session] beginConfiguration];
+        
+        [[self session] removeInput:[self videoDeviceInput]];
+        if ([[self session] canAddInput:videoDeviceInput])
+        {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:currentVideoDevice];
+            
+            [CustomCameraViewController setFlashMode:AVCaptureFlashModeAuto forDevice:videoDevice];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:videoDevice];
+            
+            [[self session] addInput:videoDeviceInput];
+            [self setVideoDeviceInput:videoDeviceInput];
+        }
+        else
+        {
+            [[self session] addInput:[self videoDeviceInput]];
+        }
+        
+        [[self session] commitConfiguration];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[self revertButton] setEnabled:YES];
+            //            [[self recordButton] setEnabled:YES];
+            [[self captureButton] setEnabled:YES];
+        });
+    });
+}
 #pragma mark - end
 
 #pragma mark - Capture Image Method

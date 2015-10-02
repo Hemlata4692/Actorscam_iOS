@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VideoPreviewViewController : UIViewController
-
+@property(nonatomic,retain) NSURL *filePath;
 @end

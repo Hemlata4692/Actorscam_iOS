@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BackViewController.h"
 
-@interface CustomVideoViewController : UIViewController
+@interface CustomVideoViewController : BackViewController
+@property(nonatomic,retain) NSMutableArray *imageArray;
 
 @end

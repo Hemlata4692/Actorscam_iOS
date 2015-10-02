@@ -79,6 +79,8 @@
     [super viewWillAppear:YES];
     [self hidePickerWithAnimation];
     
+    [self removeAudioFile];
+    
     second = 0;
     minute = 0;
     hour = 0;
@@ -89,11 +91,13 @@
     [recordOulet setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateSelected];
     playOutlet.selected = NO;
     recordOulet.selected = NO;
+    
+    timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
 
     //    Create Audio file in nsdocument and outputUrl of audio file
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"MyAudioMemo.m4a"];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
     NSURL *outputFileURL = [NSURL URLWithString:filePath];
     
     //    Setup audio session
@@ -246,6 +250,11 @@
     }
     else{
     if (managerListArray.count != 0) {
+        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        
+        NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+        if (fileExists) {
         if ([MFMailComposeViewController canSendMail])
             
         {
@@ -280,18 +289,18 @@
             //
             //
 //                        audio
-            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//            
+//            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
+//            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
             
-            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"MyAudioMemo.m4a"];
-            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
-            if (fileExists) {
                 
                 NSURL    *fileURL = [NSURL URLWithString:filepath];
                 
                 NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
                 
-                [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"MyAudioMemo.m4a"];
-            }
+                [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"ActorCamAudio.m4a"];
+//            }
     
             [mc setTitle:@"ac"];
             mc.title = @"Actor's CAM";
@@ -321,6 +330,7 @@
             [alertView show];
             
         }
+    }
     }
     }
 }
@@ -657,7 +667,7 @@
 //    NSLog(@"finish");
 //    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 //    
-//    NSString* filepath = [documentsPath stringByAppendingPathComponent:@"MyAudioMemo.m4a"];
+//    NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
 //    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
 //    if (fileExists) {
 //        playOutlet.enabled = YES;
@@ -677,6 +687,19 @@
     playOutlet.selected = NO;
     [myTimer invalidate];
     myTimer = nil;
+}
+
+- (void)removeAudioFile
+{
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+    if (fileExists) {
+        [fileManager removeItemAtPath:filePath error:nil];
+    }
+
 }
 
 /*
