@@ -17,15 +17,15 @@
 		B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700344D1B84AED700263CAD /* SidebarViewController.m */; };
 		B70A59A81B8592B800E1D793 /* GlobalMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* GlobalMenuViewController.m */; };
 		B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59AA1B8592D800E1D793 /* BackViewController.m */; };
+		B74AABB61BBCFD4B00D1FE54 /* bg~ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B74AABB41BBCFD4B00D1FE54 /* bg~ipad.jpg */; settings = {ASSET_TAGS = (); }; };
+		B74AABB71BBCFD4B00D1FE54 /* bg~ipad@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B74AABB51BBCFD4B00D1FE54 /* bg~ipad@2x.jpg */; settings = {ASSET_TAGS = (); }; };
 		B75B30DF1BB41A9400F981C8 /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = B75B30DE1BB41A9400F981C8 /* cross.png */; settings = {ASSET_TAGS = (); }; };
 		B75DCCBF1B9EF25000A61D60 /* LocalizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DCCBC1B9EF25000A61D60 /* LocalizedObject.m */; };
 		B75DCCC01B9EF25000A61D60 /* UILabel+LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DCCBE1B9EF25000A61D60 /* UILabel+LocalizedString.m */; };
 		B767DDA71B8C68FC00C721C9 /* PreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B767DDA61B8C68FC00C721C9 /* PreviewView.m */; };
 		B767DDAC1B8C697400C721C9 /* CustomCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */; };
-		B77103241BB57C08005DDDF8 /* bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B77103201BB57C08005DDDF8 /* bg-568h@2x.png */; settings = {ASSET_TAGS = (); }; };
-		B77103251BB57C08005DDDF8 /* bg-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B77103211BB57C08005DDDF8 /* bg-667h@2x.png */; settings = {ASSET_TAGS = (); }; };
-		B77103261BB57C08005DDDF8 /* bg-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B77103221BB57C08005DDDF8 /* bg-736h@3x.png */; settings = {ASSET_TAGS = (); }; };
-		B77103271BB57C08005DDDF8 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B77103231BB57C08005DDDF8 /* bg.png */; settings = {ASSET_TAGS = (); }; };
+		B76A68671BBE367000AF03CF /* CustomVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76A68661BBE367000AF03CF /* CustomVideoViewController.m */; settings = {ASSET_TAGS = (); }; };
+		B76A686C1BBE36A100AF03CF /* VideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76A686B1BBE36A100AF03CF /* VideoPreviewViewController.m */; settings = {ASSET_TAGS = (); }; };
 		B77937A71BB3B4D20041510D /* TCCustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B77937A61BB3B4D20041510D /* TCCustomFont.m */; settings = {ASSET_TAGS = (); }; };
 		B77937AA1BB3B5220041510D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B77937A81BB3B5220041510D /* OpenSans-Regular.ttf */; settings = {ASSET_TAGS = (); }; };
 		B77937AB1BB3B5220041510D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B77937A91BB3B5220041510D /* OpenSans-Semibold.ttf */; settings = {ASSET_TAGS = (); }; };
@@ -56,6 +56,10 @@
 		B7C06A181B9FE5D900C2E616 /* ChooseLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C06A171B9FE5D900C2E616 /* ChooseLanguageCell.m */; };
 		B7D32C2B1B8AE32A000DE939 /* ChooseLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */; };
 		B7D32C3C1B8B36B1000DE939 /* ImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */; };
+		B7E5D6FF1BBCF24F00280C6A /* bg-568h@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7E5D6FB1BBCF24F00280C6A /* bg-568h@2x.jpg */; settings = {ASSET_TAGS = (); }; };
+		B7E5D7001BBCF24F00280C6A /* bg-667h@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7E5D6FC1BBCF24F00280C6A /* bg-667h@2x.jpg */; settings = {ASSET_TAGS = (); }; };
+		B7E5D7011BBCF24F00280C6A /* bg-736h@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7E5D6FD1BBCF24F00280C6A /* bg-736h@3x.jpg */; settings = {ASSET_TAGS = (); }; };
+		B7E5D7021BBCF24F00280C6A /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7E5D6FE1BBCF24F00280C6A /* bg.jpg */; settings = {ASSET_TAGS = (); }; };
 		B7EDA6EE1B870A7D00778749 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */; };
 		B7F5B00E1B82EBE500C54376 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B00D1B82EBE500C54376 /* BSKeyboardControls.m */; };
 		B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0121B82F09000C54376 /* UITextField+Padding.m */; };
@@ -100,6 +104,8 @@
 		B70A59AA1B8592D800E1D793 /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackViewController.m; path = ActorsCam/BackViewController.m; sourceTree = "<group>"; };
 		B73C2EF31B9E956700093384 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B73C2EF41B9E957000093384 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B74AABB41BBCFD4B00D1FE54 /* bg~ipad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg~ipad.jpg"; sourceTree = "<group>"; };
+		B74AABB51BBCFD4B00D1FE54 /* bg~ipad@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg~ipad@2x.jpg"; sourceTree = "<group>"; };
 		B75B30DE1BB41A9400F981C8 /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
 		B75DCCBB1B9EF25000A61D60 /* LocalizedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedObject.h; sourceTree = "<group>"; };
 		B75DCCBC1B9EF25000A61D60 /* LocalizedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedObject.m; sourceTree = "<group>"; };
@@ -109,10 +115,10 @@
 		B767DDA61B8C68FC00C721C9 /* PreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewView.m; sourceTree = "<group>"; };
 		B767DDAA1B8C697400C721C9 /* CustomCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCameraViewController.h; sourceTree = "<group>"; };
 		B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCameraViewController.m; sourceTree = "<group>"; };
-		B77103201BB57C08005DDDF8 /* bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-568h@2x.png"; sourceTree = "<group>"; };
-		B77103211BB57C08005DDDF8 /* bg-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-667h@2x.png"; sourceTree = "<group>"; };
-		B77103221BB57C08005DDDF8 /* bg-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-736h@3x.png"; sourceTree = "<group>"; };
-		B77103231BB57C08005DDDF8 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		B76A68651BBE367000AF03CF /* CustomVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomVideoViewController.h; sourceTree = "<group>"; };
+		B76A68661BBE367000AF03CF /* CustomVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomVideoViewController.m; sourceTree = "<group>"; };
+		B76A686A1BBE36A100AF03CF /* VideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPreviewViewController.h; sourceTree = "<group>"; };
+		B76A686B1BBE36A100AF03CF /* VideoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPreviewViewController.m; sourceTree = "<group>"; };
 		B77937A61BB3B4D20041510D /* TCCustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCustomFont.m; sourceTree = "<group>"; };
 		B77937A81BB3B5220041510D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		B77937A91BB3B5220041510D /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
@@ -160,6 +166,10 @@
 		B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChooseLanguageViewController.m; path = ActorsCam/ChooseLanguageViewController.m; sourceTree = "<group>"; };
 		B7D32C3A1B8B36B1000DE939 /* ImagePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePreviewViewController.h; path = ActorsCam/ImagePreviewViewController.h; sourceTree = "<group>"; };
 		B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePreviewViewController.m; path = ActorsCam/ImagePreviewViewController.m; sourceTree = "<group>"; };
+		B7E5D6FB1BBCF24F00280C6A /* bg-568h@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-568h@2x.jpg"; sourceTree = "<group>"; };
+		B7E5D6FC1BBCF24F00280C6A /* bg-667h@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-667h@2x.jpg"; sourceTree = "<group>"; };
+		B7E5D6FD1BBCF24F00280C6A /* bg-736h@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-736h@3x.jpg"; sourceTree = "<group>"; };
+		B7E5D6FE1BBCF24F00280C6A /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
 		B7EDA6EC1B870A7D00778749 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		B7EDA6ED1B870A7D00778749 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B7F5B00C1B82EBE500C54376 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
@@ -307,6 +317,33 @@
 			name = CameraView;
 			sourceTree = "<group>";
 		};
+		B76A68641BBE361A00AF03CF /* VideoRecordView */ = {
+			isa = PBXGroup;
+			children = (
+				B76A68691BBE368700AF03CF /* VideoView */,
+				B76A68681BBE367600AF03CF /* VideoPreviewView */,
+			);
+			name = VideoRecordView;
+			sourceTree = "<group>";
+		};
+		B76A68681BBE367600AF03CF /* VideoPreviewView */ = {
+			isa = PBXGroup;
+			children = (
+				B76A686A1BBE36A100AF03CF /* VideoPreviewViewController.h */,
+				B76A686B1BBE36A100AF03CF /* VideoPreviewViewController.m */,
+			);
+			name = VideoPreviewView;
+			sourceTree = "<group>";
+		};
+		B76A68691BBE368700AF03CF /* VideoView */ = {
+			isa = PBXGroup;
+			children = (
+				B76A68651BBE367000AF03CF /* CustomVideoViewController.h */,
+				B76A68661BBE367000AF03CF /* CustomVideoViewController.m */,
+			);
+			name = VideoView;
+			sourceTree = "<group>";
+		};
 		B77937A51BB3B4BF0041510D /* FontCategory */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,8 +442,9 @@
 		B789AD801B82100400C1C0AB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B793FEF31BBBBFEC00DF6E50 /* AudiioView */,
-				B7D32C391B8B3699000DE939 /* ImagePreviewView */,
+				B76A68641BBE361A00AF03CF /* VideoRecordView */,
+				B793FEF31BBBBFEC00DF6E50 /* AudiioRecordView */,
+				B7D32C391B8B3699000DE939 /* TakePhotoView */,
 				B7D32C2C1B8AE339000DE939 /* ChooseLanguageView */,
 				B70A59A41B85926A00E1D793 /* GlobalSideBarMenu */,
 				B70A59A51B85927700E1D793 /* GlobalBackViewController */,
@@ -460,13 +498,13 @@
 			name = ChangePasswordView;
 			sourceTree = "<group>";
 		};
-		B793FEF31BBBBFEC00DF6E50 /* AudiioView */ = {
+		B793FEF31BBBBFEC00DF6E50 /* AudiioRecordView */ = {
 			isa = PBXGroup;
 			children = (
 				B793FEF01BBBBFE900DF6E50 /* AudioViewController.h */,
 				B793FEF11BBBBFE900DF6E50 /* AudioViewController.m */,
 			);
-			name = AudiioView;
+			name = AudiioRecordView;
 			sourceTree = "<group>";
 		};
 		B79FC70B1B9417FA00D9EA79 /* Toast */ = {
@@ -566,23 +604,25 @@
 			name = ChooseLanguageView;
 			sourceTree = "<group>";
 		};
-		B7D32C391B8B3699000DE939 /* ImagePreviewView */ = {
+		B7D32C391B8B3699000DE939 /* TakePhotoView */ = {
 			isa = PBXGroup;
 			children = (
 				B767DDA91B8C694400C721C9 /* CameraView */,
 				B767DDA81B8C693B00C721C9 /* ImagePreview */,
 			);
-			name = ImagePreviewView;
+			name = TakePhotoView;
 			sourceTree = "<group>";
 		};
 		B7DF6D9A1BB3B18100351333 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				B75B30DE1BB41A9400F981C8 /* cross.png */,
-				B77103201BB57C08005DDDF8 /* bg-568h@2x.png */,
-				B77103211BB57C08005DDDF8 /* bg-667h@2x.png */,
-				B77103221BB57C08005DDDF8 /* bg-736h@3x.png */,
-				B77103231BB57C08005DDDF8 /* bg.png */,
+				B7E5D6FB1BBCF24F00280C6A /* bg-568h@2x.jpg */,
+				B7E5D6FC1BBCF24F00280C6A /* bg-667h@2x.jpg */,
+				B7E5D6FD1BBCF24F00280C6A /* bg-736h@3x.jpg */,
+				B7E5D6FE1BBCF24F00280C6A /* bg.jpg */,
+				B74AABB41BBCFD4B00D1FE54 /* bg~ipad.jpg */,
+				B74AABB51BBCFD4B00D1FE54 /* bg~ipad@2x.jpg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -769,26 +809,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B77103251BB57C08005DDDF8 /* bg-667h@2x.png in Resources */,
 				B7BAFE541BB95BC600BE13E8 /* modal5.jpeg in Resources */,
 				B7BAFE521BB95BC600BE13E8 /* modal7.jpeg in Resources */,
-				B77103261BB57C08005DDDF8 /* bg-736h@3x.png in Resources */,
-				B77103271BB57C08005DDDF8 /* bg.png in Resources */,
 				B7BAFE531BB95BC600BE13E8 /* modal6.jpeg in Resources */,
+				B74AABB61BBCFD4B00D1FE54 /* bg~ipad.jpg in Resources */,
+				B7E5D7011BBCF24F00280C6A /* bg-736h@3x.jpg in Resources */,
 				B75B30DF1BB41A9400F981C8 /* cross.png in Resources */,
 				B7BAFE561BB95BC600BE13E8 /* modal3.jpeg in Resources */,
 				B77937AF1BB3B58F0041510D /* OpenSans-Bold.ttf in Resources */,
+				B7E5D7001BBCF24F00280C6A /* bg-667h@2x.jpg in Resources */,
+				B7E5D6FF1BBCF24F00280C6A /* bg-568h@2x.jpg in Resources */,
 				B7BAFE5A1BB95BDE00BE13E8 /* modal1.jpeg in Resources */,
+				B7E5D7021BBCF24F00280C6A /* bg.jpg in Resources */,
 				B77937AB1BB3B5220041510D /* OpenSans-Semibold.ttf in Resources */,
 				B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */,
 				B77937AD1BB3B56C0041510D /* OpenSans-Italic.ttf in Resources */,
 				B77937AA1BB3B5220041510D /* OpenSans-Regular.ttf in Resources */,
+				B74AABB71BBCFD4B00D1FE54 /* bg~ipad@2x.jpg in Resources */,
 				B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */,
 				B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */,
 				B7BAFE511BB95BC600BE13E8 /* modal2.jpeg in Resources */,
 				B7BAFE551BB95BC600BE13E8 /* modal4.jpeg in Resources */,
 				B7BAFE581BB95BCD00BE13E8 /* modal8.jpeg in Resources */,
-				B77103241BB57C08005DDDF8 /* bg-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,6 +892,7 @@
 				B70034461B84ADDD00263CAD /* AddManagerViewController.m in Sources */,
 				B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */,
 				B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */,
+				B76A68671BBE367000AF03CF /* CustomVideoViewController.m in Sources */,
 				B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */,
 				B7EDA6EE1B870A7D00778749 /* MBProgressHUD.m in Sources */,
 				B77E98651BB2C3B200368C03 /* Internet.m in Sources */,
@@ -864,6 +907,7 @@
 				B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */,
 				B700344B1B84AED100263CAD /* SWRevealViewController.m in Sources */,
 				B7C06A181B9FE5D900C2E616 /* ChooseLanguageCell.m in Sources */,
+				B76A686C1BBE36A100AF03CF /* VideoPreviewViewController.m in Sources */,
 				B7F5B0131B82F09000C54376 /* UITextField+Padding.m in Sources */,
 				B7D32C3C1B8B36B1000DE939 /* ImagePreviewViewController.m in Sources */,
 				B77937A71BB3B4D20041510D /* TCCustomFont.m in Sources */,

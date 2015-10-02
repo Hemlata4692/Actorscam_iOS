@@ -42,31 +42,31 @@ thisDeviceClass currentDeviceClass() {
     switch (currentDeviceClass())
     {
         case thisDeviceClass_iPhone:
-            return @"";
+            return @".jpg";
             break;
         case thisDeviceClass_iPhoneRetina:
-            return @"";
+            return @".jpg";
             break;
         case thisDeviceClass_iPhone5:
-            return @"-568h@2x";
+            return @"-568h@2x.jpg";
             break;
         case thisDeviceClass_iPhone6:
-            return @"-667h@2x"; //or some other arbitrary string..
+            return @"-667h@2x.jpg"; //or some other arbitrary string..
             break;
         case thisDeviceClass_iPhone6plus:
-            return @"-736h@3x";
+            return @"-736h@3x.jpg";
             break;
             
         case thisDeviceClass_iPad:
-            return @"~ipad";
+            return @"~ipad.jpg";
             break;
         case thisDeviceClass_iPadRetina:
-            return @"~ipad@2x";
+            return @"~ipad@2x.jpg";
             break;
             
         case thisDeviceClass_unknown:
         default:
-            return @"";
+            return @".jpg";
             break;
     }
 }
@@ -88,31 +88,31 @@ thisDeviceClass currentDeviceClass() {
     switch (currentDeviceClass())
     {
         case thisDeviceClass_iPhone:
-            return @"";
+            return @".jpg";
             break;
         case thisDeviceClass_iPhoneRetina:
-            return @"";
+            return @".jpg";
             break;
         case thisDeviceClass_iPhone5:
-            return @"";
+            return @".jpg";
             break;
         case thisDeviceClass_iPhone6:
-            return @"-667h@2x"; //or some other arbitrary string..
+            return @"-667h@2x.jpg"; //or some other arbitrary string..
             break;
         case thisDeviceClass_iPhone6plus:
-            return @"-736h@3x";
+            return @"-736h@3x.jpg";
             break;
             
         case thisDeviceClass_iPad:
-            return @"~ipad";
+            return @"~ipad.jpg";
             break;
         case thisDeviceClass_iPadRetina:
-            return @"~ipad@2x";
+            return @"~ipad@2x.jpg";
             break;
             
         case thisDeviceClass_unknown:
         default:
-            return @"";
+            return @".jpg";
             break;
     }
 }

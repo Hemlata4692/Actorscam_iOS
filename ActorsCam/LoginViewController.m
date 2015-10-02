@@ -49,9 +49,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage * tempImg =[UIImage imageNamed:@"bg"];
+    UIImage * tempImg =[UIImage imageNamed:@"bg.jpg"];
     backgroundImage.image = [UIImage imageNamed:[tempImg imageForDeviceWithName:@"bg"]];
-    
+    NSLog(@"%@",[tempImg imageForDeviceWithName:@"bg"]);
     [self addTextFieldPadding];
     [self addCornerRadius];
     NSLog(@"test log!!!");
@@ -149,6 +149,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userid"] forKey:@"UserId"];
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"username"] forKey:@"actorName"];
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"profileImageUrl"] forKey:@"profileImageUrl"];
+        [[NSUserDefaults standardUserDefaults] setObject:userEmail.text forKey:@"EmailId"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -230,6 +231,14 @@
                 [alert show];
                 return NO;
             }
+            else if (password.text.length < 8)
+            {
+                
+                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Your password must be atleast 8 characters long." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                return NO;
+                
+            }
             else
             {
                 return YES;
@@ -301,8 +310,11 @@
 {
     
     [self.keyboardControls setActiveField:textField];
-    if (textField == userEmail || textField == password) {
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y + textField.frame.size.height) animated:YES];
+    if (textField == userEmail) {
+        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y + textField.frame.size.height + 20) animated:YES];
+    }
+    else if (textField == password){
+     [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y + textField.frame.size.height - 20) animated:YES];
     }
     else if (textField == forgotPasswordEmail){
         if([[UIScreen mainScreen] bounds].size.height < 490)

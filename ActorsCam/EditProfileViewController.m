@@ -24,19 +24,20 @@
 @property (weak, nonatomic) IBOutlet UIButton *save;
 @property (weak, nonatomic) IBOutlet UITextField *emailId;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
-//@property (nonatomic, strong) UIPopoverController *popover;
+@property (nonatomic, strong) UIPopoverController *popover;
 
 @end
 
 @implementation EditProfileViewController
 @synthesize name,profileImageView,emailId,save;
-//@synthesize popover;
+@synthesize popover;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Remove swipe gesture for sidebar
     profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2;
+    profileImageView.layer.masksToBounds = YES;
     
     takePhoto = @"Take Photo";
     choosePhoto = @"Choose Existing Photo";
@@ -107,6 +108,10 @@
         }];
 
     } failure:^(NSError *error) {
+
+        name.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"];
+        emailId.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"EmailId"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
 
     }] ;
 
@@ -213,19 +218,20 @@
         imgPicker.delegate = self;
         imgPicker.allowsEditing = YES;
         imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-//        {
-//            self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
-//            self.popover.delegate = self;
-//            
-//            [self.popover presentPopoverFromRect:CGRectMake(600, 400, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO];
-//            [self.popover setPopoverContentSize:CGSizeMake(330, 515)];
-//            
-//        }
-//        else
-//        {
+        imgPicker.navigationBar.tintColor = [UIColor whiteColor];
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
+            self.popover.delegate = self;
+            
+            [self.popover presentPopoverFromRect:CGRectMake(600, 400, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO];
+            [self.popover setPopoverContentSize:CGSizeMake(330, 515)];
+            
+        }
+        else
+        {
             [self presentViewController:imgPicker animated:YES completion:NULL];
-//        }
+        }
         
     }
     
@@ -258,6 +264,18 @@
             self.view.frame=CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-38, self.view.frame.size.width, self.view.frame.size.height);
         }];
 
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.text.length >= MAX_LENGTH && range.length == 0)
+    {
+        return NO; // return NO to not change text
+    }
+    else
+    {
+        return YES;
     }
 }
 

@@ -33,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     navTitle = @"Representative";
+    managerListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     //Remove swipe gesture for sidebar
     for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
     {

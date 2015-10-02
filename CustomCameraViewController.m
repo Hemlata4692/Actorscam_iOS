@@ -19,11 +19,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 @interface CustomCameraViewController ()<AVCaptureFileOutputRecordingDelegate>{
     unsigned long long imageSize;
+    NSString *navTitle;
 }
 
 @property (nonatomic, retain) AVCaptureVideoPreviewLayer *prevLayer;
 
 @property (nonatomic, weak) IBOutlet PreviewView *previewView;
+@property (strong, nonatomic) IBOutlet UIView *intialView;
 
 @property (nonatomic, weak) IBOutlet UIButton *revertButton;
 @property (nonatomic, weak) IBOutlet UIButton *captureButton;
@@ -49,7 +51,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 @end
 
 @implementation CustomCameraViewController
-@synthesize imageArray;
+@synthesize imageArray, intialView;
 
 - (BOOL)isSessionRunningAndDeviceAuthorized
 {
@@ -65,8 +67,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_doneOutlet changeTextLanguage:@"DONE"];
+    intialView.hidden = YES;
+    navTitle = @"Take Photos";
     
+    [_doneOutlet changeTextLanguage:@"DONE"];
+    [navTitle changeTextLanguage:navTitle];
+    [_doneOutlet changeTextLanguage:@"DONE"];
+
     imageArray = [NSMutableArray new];
     imageSize = 0;
     _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
@@ -129,7 +136,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [session addOutput:movieFileOutput];
             AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
             if ([connection isVideoStabilizationSupported])
-                [connection setEnablesVideoStabilizationWhenAvailable:YES];
+                [connection setPreferredVideoStabilizationMode:YES];
+//                [connection setEnablesVideoStabilizationWhenAvailable:YES];
             [self setMovieFileOutput:movieFileOutput];
         }
         
@@ -146,6 +154,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = NO;
+    self.title = navTitle;
+    
     imageSize = 0;
     _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
     for (int i=0; i<imageArray.count; i++) {
@@ -171,7 +181,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             });
         }]];
         [[self session] startRunning];
+        
     });
+//    intialView.hidden = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -285,7 +297,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 #pragma mark - Capture Image Method
 - (IBAction)captureImageMethod:(id)sender
 {
-    if (imageSize > 10*1024*1024) {
+    if (imageSize > 20*1024*1024) {
         //set toast
        [self.view makeToast:@"File size cannot exceed 20 MB."];
     }
@@ -311,7 +323,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                  NSLog(@"%llu",(unsigned long long)imageData.length);
                 unsigned long long tempSize = imageSize + imgData1.length;
                  NSLog(@"%llu",(unsigned long long)imgData1.length);
-                if (tempSize > 10*1024*1024) {
+                if (tempSize > 20*1024*1024) {
                     //set toast
                    [self.view makeToast:@"File size cannot exceed 20 MB."];
                 }
@@ -472,14 +484,14 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 #pragma mark - Done Action
 - (IBAction)doneMethod:(UIButton *)sender {
-    [imageArray addObject:[UIImage imageNamed:@"modal1.jpeg"]];
-    [imageArray addObject:[UIImage imageNamed:@"modal2.jpeg"]];
-    [imageArray addObject:[UIImage imageNamed:@"modal3.jpeg"]];
-    [imageArray addObject:[UIImage imageNamed:@"modal4.jpeg"]];
-    [imageArray addObject:[UIImage imageNamed:@"modal5.jpeg"]];
-    [imageArray addObject:[UIImage imageNamed:@"modal6.jpeg"]];
-    [imageArray addObject:[UIImage imageNamed:@"modal7.jpeg"]];
-    [imageArray addObject:[UIImage imageNamed:@"modal8.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal1.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal2.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal3.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal4.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal5.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal6.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal7.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal8.jpeg"]];
     
     if (imageArray.count==0) {
         [self.navigationController popViewControllerAnimated:YES];

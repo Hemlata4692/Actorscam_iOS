@@ -12,6 +12,7 @@
 #import "BSKeyboardControls.h"
 #import "WebService.h"
 
+
 @interface RegisterViewController ()<BSKeyboardControlsDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate>
 {
     NSArray *textFieldArray;
@@ -39,6 +40,7 @@
 {
     [super viewDidLoad];
     profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2;
+    profileImageView.layer.masksToBounds = YES;
     
     takePhoto = @"Take Photo";
     choosePhoto = @"Choose Existing Photo";
@@ -103,10 +105,11 @@
 #pragma mark - Register User
 - (IBAction)signUpButtonAction:(id)sender
 {
-    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [self.keyboardControls.activeField resignFirstResponder];
     if([self performValidationsForSignUp])
     {
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         [myDelegate ShowIndicator];
         [self performSelector:@selector(signUpUser) withObject:nil afterDelay:.1];
     }
@@ -195,6 +198,8 @@
         imgPicker.delegate = self;
         imgPicker.allowsEditing = YES;
         imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imgPicker.navigationBar.tintColor = [UIColor whiteColor];
+        
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
             self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
@@ -240,10 +245,26 @@
         [alert show];
         return NO;
     }
+    else if (password.text.length < 8)
+    {
+        
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Your password must be atleast 8 characters long." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+        
+    }
     else if ([confirmPassword isEmpty] || (confirmPassword.text.length == 0) || [confirmPassword.text isEqualToString:@""]){
         alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Confirm Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
+    }
+    else if (![password.text isEqualToString:confirmPassword.text])
+    {
+        
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Passwords do not match." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+        
     }
     else{
         return YES;
@@ -282,6 +303,19 @@
     [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y - 80) animated:YES];
    
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.text.length >= MAX_LENGTH && range.length == 0)
+    {
+        return NO; // return NO to not change text
+    }
+    else
+    {
+        return YES;
+    }
+}
+
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     

@@ -155,6 +155,18 @@
 
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.text.length >= MAX_LENGTH && range.length == 0)
+    {
+        return NO; // return NO to not change text
+    }
+    else
+    {
+        return YES;
+    }
+}
+
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
@@ -265,33 +277,33 @@
 {
     
     UIAlertView *alert;
-    if ([userEmail isEmpty])
+    if ([managerCategory isEmpty])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Category cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    if ([userName isEmpty])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    else if ([userEmail isEmpty])
     {
         alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
+    else if (![userEmail isValidEmail])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
     else
     {
-        if ([userEmail isValidEmail])
-        {
-            if ([userName isEmpty])
-            {
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                return NO;
-            }
-            else
-            {
-                return YES;
-            }
-        }
-        else
-        {
-            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-            return NO;
-        }
+        return YES;
     }
     
 }

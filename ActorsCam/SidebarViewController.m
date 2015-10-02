@@ -154,7 +154,9 @@
     }];
   //  imgView.image=profileImage;
     ProfileImgView.layer.cornerRadius = ProfileImgView.frame.size.width / 2;
+    ProfileImgView.layer.masksToBounds = YES;
     profileImageBackView.layer.cornerRadius = profileImageBackView.frame.size.width / 2;
+    profileImageBackView.layer.masksToBounds = YES;
     [profileImageBackView addSubview:ProfileImgView];
     
     [headerView addSubview:headerBg];
@@ -180,6 +182,7 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults removeObjectForKey:@"UserId"];
         [defaults removeObjectForKey:@"actorName"];
+        [defaults removeObjectForKey:@"EmailId"];
         [defaults synchronize];
         
     }

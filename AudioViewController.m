@@ -11,12 +11,20 @@
 #import <MessageUI/MessageUI.h>
 #import "BSKeyboardControls.h"
 #import "AddManagerViewController.h"
+#import "UITextField+Validations.h"
 
-@interface AudioViewController ()<MFMailComposeViewControllerDelegate,BSKeyboardControlsDelegate>{
+#import <AVFoundation/AVFoundation.h>
+
+@interface AudioViewController ()<MFMailComposeViewControllerDelegate,BSKeyboardControlsDelegate,AVAudioRecorderDelegate, AVAudioPlayerDelegate>{
     NSMutableArray *pickerArray, *managerListArray, *categoryList, *managerNameList;
     NSString *pickerChecker, *navTitle;
     NSDictionary *selectedData;
     int selectedCategoryIndex, selectedManagerIndex;
+    
+    AVAudioRecorder *recorder;
+    AVAudioPlayer *player;
+    NSTimer *myTimer;
+    int second, minute, hour, continousSecond;
 }
 
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
@@ -27,7 +35,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong, nonatomic) IBOutlet UIButton *playOutlet;
 @property (strong, nonatomic) IBOutlet UIButton *recordOulet;
-
 
 @property (strong, nonatomic) IBOutlet UIView *noManagerView;
 @property (weak, nonatomic) IBOutlet UILabel *noManager;
@@ -49,6 +56,7 @@
 
 @implementation AudioViewController
 @synthesize scrollView;
+@synthesize timeLabel,playOutlet,recordOulet;
 @synthesize noManagerView,noManager,addRepresentative;
 @synthesize selectManagerView,selectRepresentativeLabel,selectCategory,managerName,notesLabel,noteTextView,sendButton;
 @synthesize managerListPickerView,toolBar,toolBarDone;
@@ -56,21 +64,56 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     managerListPickerView.translatesAutoresizingMaskIntoConstraints=YES;
     toolBar.translatesAutoresizingMaskIntoConstraints=YES;
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[noteTextView]]];
     [self.keyboardControls setDelegate:self];
     
-    navTitle = @"Audio Record";
-   
-    
+    navTitle = @"Record Audio";
     // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self hidePickerWithAnimation];
+    
+    second = 0;
+    minute = 0;
+    hour = 0;
+    continousSecond = 0;
+    [playOutlet setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [playOutlet setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
+    [recordOulet setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
+    [recordOulet setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateSelected];
+    playOutlet.selected = NO;
+    recordOulet.selected = NO;
+
+    //    Create Audio file in nsdocument and outputUrl of audio file
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"MyAudioMemo.m4a"];
+    NSURL *outputFileURL = [NSURL URLWithString:filePath];
+    
+    //    Setup audio session
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    //    Define the recorder setting
+    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
+    
+    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
+    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
+    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
+    
+    //    Initiate and prepare the recorder
+    recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
+    recorder.delegate = self;
+    recorder.meteringEnabled = YES;
+    [recorder prepareToRecord];
+
+    playOutlet.enabled = NO;
     
     pickerChecker = @"";
     pickerArray = [NSMutableArray new];
@@ -90,6 +133,8 @@
     managerName.rightViewMode = UITextFieldViewModeAlways;
     
     [managerName setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [selectCategory setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
     noteTextView.layer.borderColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:190.0/255.0 alpha:1.0].CGColor;
     noteTextView.layer.borderWidth = 1;
     
@@ -113,7 +158,7 @@
     [notesLabel changeTextLanguage:@"Notes"];
     [sendButton changeTextLanguage:@"SUBMIT"];
     
-    [navTitle changeTextLanguage:@"Preview"];
+    [navTitle changeTextLanguage:@"Record Audio"];
 }
 #pragma mark - end
 
@@ -186,6 +231,20 @@
 #pragma mark - send Image Button Action
 - (IBAction)sendAction:(id)sender {
     [self hidePickerWithAnimation];
+    UIAlertView *alert;
+    if ([selectCategory isEmpty])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Category cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else if ([managerName isEmpty])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else{
     if (managerListArray.count != 0) {
         if ([MFMailComposeViewController canSendMail])
             
@@ -220,22 +279,24 @@
             //
             //
             //
-            //            //audio
-            //
-            //            //            NSString *mp3File = [NSTemporaryDirectory() stringByAppendingPathComponent: @"tmp.mp3"];
-            //            //
-            //            //            NSURL    *fileURL = [[NSURL alloc] initFileURLWithPath:mp3File];
-            //            //
-            //            //            NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
-            //            //
-            //            //            [mc addAttachmentData:soundFile mimeType:@"audio/mpeg" fileName:@"tmp.mp3"];
-            //
-            //
-            //
-            //        }
-            //
+//                        audio
+            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
             
+            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"MyAudioMemo.m4a"];
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+            if (fileExists) {
+                
+                NSURL    *fileURL = [NSURL URLWithString:filepath];
+                
+                NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
+                
+                [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"MyAudioMemo.m4a"];
+            }
+    
+            [mc setTitle:@"ac"];
+            mc.title = @"Actor's CAM";
             mc.navigationBar.tintColor = [UIColor whiteColor];
+//            mc.navigationBar.ti
             [mc setToRecipients:toRecipents];
             [self presentViewController:mc animated:YES completion:NULL];
             
@@ -260,6 +321,7 @@
             [alertView show];
             
         }
+    }
     }
 }
 
@@ -345,7 +407,6 @@
 
 #pragma mark - Toolbar Done Action
 - (IBAction)DoneAction:(UIBarButtonItem *)sender {
-   
     
     if (managerListArray.count != 0) {
         
@@ -390,31 +451,37 @@
 }
 #pragma mark - end
 
-
 #pragma mark - Manager Listing method
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
         NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
-        pickerChecker = @"category";
+        pickerChecker = @"manager";
         [managerListArray removeAllObjects];
-        //        categoryList = [responseObject objectForKey:@"category_type"];
-        [categoryList addObject:@"Agent"];
-        [categoryList addObject:@"manager"];
+        categoryList = [responseObject objectForKey:@"category_type"];
+//        [categoryList addObject:@"Agent"];
+//        [categoryList addObject:@"manager"];
         managerListArray = [responseObject objectForKey:@"managerList"];
         
         if(managerListArray.count != 0){
             selectCategory.text = [categoryList objectAtIndex:0];
             noManagerView.hidden = YES;
             selectManagerView.hidden = NO;
+            int managerNameIndex = 0;
             for (int i=0; i < managerListArray.count; i++) {
                 if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
-                    managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
-                    selectedData = [[managerListArray objectAtIndex:i] copy];
-                    break;
+                    if (managerNameIndex == 0) {
+                        managerNameIndex++;
+                        selectedData = [[managerListArray objectAtIndex:i] copy];
+                        managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
+                    }
+                    
+                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
                 }
+                
             }
+             [managerListPickerView reloadAllComponents];
         }
         else{
             self.mainView.translatesAutoresizingMaskIntoConstraints = YES;
@@ -480,7 +547,138 @@
     }
     
 }
+
+#pragma mark - Play Action
+- (IBAction)play:(UIButton *)sender {
+    
+    recordOulet.selected = NO;
+    
+    [myTimer invalidate];
+    myTimer = nil;
+    
+    [recorder stop];
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setActive:NO error:nil];
+    
+    if (!playOutlet.isSelected) {
+        continousSecond = 0;
+        timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+        
+        playOutlet.selected = YES;
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
+        [player setDelegate:self];
+        [player play];
+        myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                   target:self
+                                                 selector:@selector(targetMethod)
+                                                 userInfo:nil
+                                                  repeats:YES];
+    }
+    else{
+        playOutlet.selected = NO;
+        [player stop];
+    }
+   
+}
 #pragma mark - end
+
+#pragma mark - Record Action
+- (IBAction)record:(UIButton *)sender {
+    [myTimer invalidate];
+    myTimer = nil;
+    
+    playOutlet.enabled = YES;
+    playOutlet.selected = NO;
+    
+    if (player.playing) {
+        [player stop];
+    }
+    
+    if (!recorder.recording) {
+        recordOulet.selected = YES;
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setActive:YES error:nil];
+        
+        // Start recording
+        [recorder record];
+//        [recordPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+        continousSecond = 0;
+        timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+        myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                   target:self
+                                                 selector:@selector(targetMethod)
+                                                 userInfo:nil
+                                                  repeats:YES];
+        
+    } else {
+        recordOulet.selected = NO;
+//        [myTimer invalidate];
+//        myTimer = nil;
+        
+        [recorder stop];
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setActive:NO error:nil];
+        
+//        // Pause recording
+//        [recorder pause];
+//        [recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
+    }
+    
+//    [stopButton setEnabled:YES];
+//    [playButton setEnabled:NO];
+
+}
+#pragma mark - end
+
+-(void)targetMethod{
+    continousSecond++;
+    hour = (continousSecond / 3600)%24;
+    minute = (continousSecond /60) % 60;
+    second = (continousSecond  % 60);
+    timeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hour,minute,second];
+    
+    if (recordOulet.isSelected) {
+        unsigned long long size = [[NSFileManager defaultManager] attributesOfItemAtPath:[recorder.url path] error:nil].fileSize;
+        if (size >= (1024*1024*20)) {
+            [myTimer invalidate];
+            myTimer = nil;
+            [recorder stop];
+            AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+            [audioSession setActive:NO error:nil];
+        }
+    }
+
+//    NSLog(@"This is the file size of the recording in bytes: %llu", size);
+}
+#pragma mark - AVAudioRecorderDelegate
+
+- (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
+    
+//    NSLog(@"finish");
+//    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    
+//    NSString* filepath = [documentsPath stringByAppendingPathComponent:@"MyAudioMemo.m4a"];
+//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+//    if (fileExists) {
+//        playOutlet.enabled = YES;
+//    }
+//    else{
+//        playOutlet.enabled = NO;
+//    }
+    
+//    [recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
+//    [stopButton setEnabled:NO];
+//    [playButton setEnabled:YES];
+}
+
+#pragma mark - AVAudioPlayerDelegate
+
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    playOutlet.selected = NO;
+    [myTimer invalidate];
+    myTimer = nil;
+}
+
 /*
 #pragma mark - Navigation
 

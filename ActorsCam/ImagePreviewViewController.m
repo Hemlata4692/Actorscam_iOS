@@ -10,6 +10,7 @@
 #import "DashboardViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "BSKeyboardControls.h"
+#import "UITextField+Validations.h"
 #import "AddManagerViewController.h"
 
 #define kCellsPerRow 3
@@ -281,79 +282,77 @@
 
 #pragma mark - send Image Button Action
 - (IBAction)sendImageButtonAction:(id)sender {
-    if ([MFMailComposeViewController canSendMail])
-        
+    [self hidePickerWithAnimation];
+    UIAlertView *alert;
+    if ([selectCategory isEmpty])
     {
-        // Email Subject
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Category cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
         
-        NSString *emailTitle = @"Actor's CAM - New Images from  model";
+    }
+    else if ([managerName isEmpty])
+    {
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
         
-        NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
-        
-        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-        
-        mc.mailComposeDelegate = self;
-        
-        [mc setSubject:emailTitle];
-        
-        [mc setMessageBody:noteTextView.text isHTML:NO];
-        
-        for (UIImage *yourImage in imageArray )
+    }
+    else{
+        if (managerListArray.count != 0) {
+            if ([MFMailComposeViewController canSendMail])
+                
+            {
+                // Email Subject
+                
+                NSString *emailTitle = @"Actor's CAM - New Images from  model";
+                
+                NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
+                
+                MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                
+                mc.mailComposeDelegate = self;
+                
+                [mc setSubject:emailTitle];
+                
+                [mc setMessageBody:noteTextView.text isHTML:NO];
+                
+                for (UIImage *yourImage in imageArray )
+                    
+                {
+                    
+                    NSData *imgData = UIImagePNGRepresentation(yourImage);
+                    
+                    [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
+                    
+                }
+                
+                mc.navigationBar.tintColor = [UIColor whiteColor];
+                [mc setToRecipients:toRecipents];
+                [self presentViewController:mc animated:YES completion:NULL];
+                
+            }
             
-        {
-            
-            NSData *imgData = UIImagePNGRepresentation(yourImage);
-            
-            [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
-            
-            //movie path
-            
-            //           NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:moviePath];
-            
-            //            [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"defectVideo.MOV"];
-            
-            
-            
-            //audio
-            
-//            NSString *mp3File = [NSTemporaryDirectory() stringByAppendingPathComponent: @"tmp.mp3"];
-//            
-//            NSURL    *fileURL = [[NSURL alloc] initFileURLWithPath:mp3File];
-//            
-//            NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
-//            
-//            [mc addAttachmentData:soundFile mimeType:@"audio/mpeg" fileName:@"tmp.mp3"];
-            
-            
-            
+            else
+                
+            {
+                
+                UIAlertView *alertView = [[UIAlertView alloc]
+                                          
+                                          initWithTitle:nil
+                                          
+                                          message:@"Email account is not configured in your device."
+                                          
+                                          delegate:self
+                                          
+                                          cancelButtonTitle:@"OK"
+                                          
+                                          otherButtonTitles:nil];
+                
+                [alertView show];
+                
+            }
         }
-//
-        
-         mc.navigationBar.tintColor = [UIColor whiteColor];
-        [mc setToRecipients:toRecipents];      
-        [self presentViewController:mc animated:YES completion:NULL];
-        
     }
     
-    else
-        
-    {
-        
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  
-                                  initWithTitle:nil
-                                  
-                                  message:@"Email account is not configured in your device."
-                                  
-                                  delegate:self
-                                  
-                                  cancelButtonTitle:@"OK"
-                                  
-                                  otherButtonTitles:nil];
-        
-        [alertView show];
-        
-    }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller
@@ -569,24 +568,44 @@
     [[WebService sharedManager] managerListing:^(id responseObject) {
         NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
-        pickerChecker = @"category";
+        pickerChecker = @"manager";
         [managerListArray removeAllObjects];
-//        categoryList = [responseObject objectForKey:@"category_type"];
-        [categoryList addObject:@"Agent"];
-        [categoryList addObject:@"manager"];
+        categoryList = [responseObject objectForKey:@"category_type"];
+//        [categoryList addObject:@"Agent"];
+//        [categoryList addObject:@"manager"];
         managerListArray = [responseObject objectForKey:@"managerList"];
        
         if(managerListArray.count != 0){
             selectCategory.text = [categoryList objectAtIndex:0];
             noManagerView.hidden = YES;
             selectManagerView.hidden = NO;
+            
+            int managerNameIndex = 0;
             for (int i=0; i < managerListArray.count; i++) {
                 if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
-                    managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
-                    selectedData = [[managerListArray objectAtIndex:i] copy];
-                    break;
+                    if (managerNameIndex == 0) {
+                        managerNameIndex++;
+                        selectedData = [[managerListArray objectAtIndex:i] copy];
+                        managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
+                    }
+                    
+                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
                 }
+                
             }
+            
+//            NSString *categoryString = [categoryList objectAtIndex:index];
+//            selectCategory.text = [categoryString changeTextLanguage:categoryString];
+            //            [selectCategory changeTextLanguage:[categoryList objectAtIndex:index]];
+            [managerListPickerView reloadAllComponents];
+//            
+//            for (int i=0; i < managerListArray.count; i++) {
+//                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
+//                    managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
+//                    selectedData = [[managerListArray objectAtIndex:i] copy];
+//                    break;
+//                }
+//            }
         }
         else{
             self.mainView.translatesAutoresizingMaskIntoConstraints = YES;
