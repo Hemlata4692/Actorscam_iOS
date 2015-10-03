@@ -22,10 +22,12 @@
     NSDictionary *selectedData;
     int selectedCategoryIndex, selectedManagerIndex;
     MPMoviePlayerController *player;
+    UIImage *videoImage;
 }
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (strong, nonatomic) IBOutlet UIView *videoPlayer;
-
+@property (weak, nonatomic) IBOutlet UIImageView *intialVideoImage;
+@property (weak, nonatomic) IBOutlet UIButton *playOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 
@@ -38,6 +40,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *selectCategory;
 @property (weak, nonatomic) IBOutlet UITextField *managerName;
 @property (strong, nonatomic) IBOutlet UILabel *notesLabel;
+
 @property (strong, nonatomic) IBOutlet UITextView *noteTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
@@ -48,7 +51,7 @@
 @end
 
 @implementation VideoPreviewViewController
-@synthesize scrollView;
+@synthesize scrollView,playOutlet,intialVideoImage;
 @synthesize noManagerView,noManager,addRepresentative;
 @synthesize selectManagerView,selectRepresentativeLabel,selectCategory,managerName,notesLabel,noteTextView,sendButton;
 @synthesize managerListPickerView,toolBar,toolBarDone;
@@ -63,6 +66,29 @@
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[noteTextView]]];
     [self.keyboardControls setDelegate:self];
+    
+//    NSURL *urlString = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Untitled" ofType:@"mov"]];
+    
+//    player  = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:[urlString absoluteString]]];
+
+    NSURL *videoURl = [NSURL fileURLWithPath:[filePath absoluteString]];
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURl options:nil];
+    AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    generate.appliesPreferredTrackTransform = YES;
+    NSError *err = NULL;
+    CMTime time = CMTimeMake(1, 60);
+    CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+   
+    UIImage *img = [[UIImage alloc] initWithCGImage:imgRef];
+    [intialVideoImage setImage:img];
+    videoImage = img;
+    intialVideoImage.hidden = NO;
+    intialVideoImage.userInteractionEnabled = YES;
+//    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
+    [intialVideoImage addGestureRecognizer:singleTap];
+    
+//    [ setImage:img];
     
     navTitle = @"Preview";
     // Do any additional setup after loading the view.
@@ -98,43 +124,75 @@
     selectManagerView.hidden = NO;
     noManagerView.hidden = YES;
     
+    [playOutlet setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    playOutlet.selected = NO;
+    playOutlet.hidden = NO;
+    
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     self.navigationItem.title = navTitle;
     [self performSelector:@selector(addVideo) withObject:nil afterDelay:0.1];
     
-    //adding Pan Gesture
-//    UIPanGestureRecognizer *pan=[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panAction:)];
-//    pan.delegate=self;
-//    [self.mainView addGestureRecognizer:pan];
-    //setting view to Expanded state
-//    isExpandedMode=TRUE;
-//    
-//    self.btnDown.hidden=TRUE;
- 
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
+
+#pragma mark- Pan Gesture Selector Action
+
+-(void)panAction:(UITapGestureRecognizer *)recognizer
+{
+    
+//    if (playOutlet.isSelected) {
+        playOutlet.hidden = NO;
+//        playOutlet.selected = NO;
+    [intialVideoImage setImage:videoImage];
+        //        intialVideoImage.hidden = NO;
+        [player stop];
+//    }
+//    else{
+//        
+//        playOutlet.selected = YES;
+//        //        intialVideoImage.hidden = YES;
+//        [player play];
+//    }
+    
+}
+
+#pragma mark - Keyboard events
+
+- (IBAction)playAction:(UIButton *)sender {
+//    if (playOutlet.isSelected) {
+//        playOutlet.selected = NO;
+////        intialVideoImage.hidden = NO;
+//        [player stop];
+//    }
+//    else{
+        playOutlet.hidden = YES;
+         playOutlet.selected = YES;
+     intialVideoImage.image = [UIImage imageNamed:@""];
+//        intialVideoImage.hidden = YES;
+        [player play];
+//    }
 }
 
 #pragma mark- Add Video on View
 -(void)addVideo
 {
     
-//    NSURL *urlString = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"filePath" ofType:@"mov"]];
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSString *filePath1 = [documentsPath stringByAppendingPathComponent:@"movie.mov"];
-//      BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath1];
+//    NSURL *urlString = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Untitled" ofType:@"mov"]];
+
+//    player  = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:[urlString absoluteString]]];
     player  = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[filePath absoluteString]]];
     
     [player.view setFrame:videoPlayer.frame];
     player.controlStyle =  MPMovieControlStyleNone;
-    player.shouldAutoplay=YES;
+    player.shouldAutoplay=NO;
     player.repeatMode = NO;
     player.scalingMode = MPMovieScalingModeAspectFit;
     
     [videoPlayer addSubview:player.view];
     [player prepareToPlay];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerLoadStateDidChange:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+    [player stop];
 //    [self calculateFrames];
 }
 
@@ -285,9 +343,9 @@
                     //
 //                                movie path
                     
-//                    NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:filePath];
+                    NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:[filePath absoluteString]];
                     
-                    [mc addAttachmentData:[NSData dataWithContentsOfURL:filePath] mimeType:@"video/quicktime" fileName:@"defectVideo.MOV"];
+                    [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"ActorCamVideo.MOV"];
                     //
                     //
                     //

@@ -2,28 +2,28 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "filename" : "cameraButton.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "cameraButton.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "cameraButton-2.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "cameraButton@2x.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "cameraButton-1.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "cameraButton@3x.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "camera1x.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "cameraButtoniPad.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "camera.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "cameraButtoniPad@2x.png"
     }
   ],
   "info" : {

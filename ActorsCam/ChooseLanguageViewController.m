@@ -112,7 +112,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:@"fr" forKey:@"Language"];
     }
     else if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"DEUTSCH"]){
-        [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"zn" forKey:@"Language"];
     }
     
     [self willMoveToParentViewController:nil];

@@ -49,6 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     UIImage * tempImg =[UIImage imageNamed:@"bg.jpg"];
     backgroundImage.image = [UIImage imageNamed:[tempImg imageForDeviceWithName:@"bg"]];
     NSLog(@"%@",[tempImg imageForDeviceWithName:@"bg"]);
@@ -65,6 +66,16 @@
 }
 
 -(void)setLocalizedString{
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"en"]) {
+        [languageLabel setTitle:@"Eng" forState:UIControlStateNormal];
+    }
+    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"fr"]) {
+        [languageLabel setTitle:@"Fra" forState:UIControlStateNormal];
+    }
+    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"zn"]) {
+        [languageLabel setTitle:@"Deu" forState:UIControlStateNormal];
+    }
+    
     [loginBtn changeTextLanguage:@"Login"];
     [userEmail changeTextLanguage:@"Email"];
     [password changeTextLanguage:@"Password"];

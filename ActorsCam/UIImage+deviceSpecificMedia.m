@@ -58,10 +58,10 @@ thisDeviceClass currentDeviceClass() {
             break;
             
         case thisDeviceClass_iPad:
-            return @"~ipad.jpg";
+            return @"-ipad.jpg";
             break;
         case thisDeviceClass_iPadRetina:
-            return @"~ipad@2x.jpg";
+            return @"-ipad@2x.jpg";
             break;
             
         case thisDeviceClass_unknown:
@@ -104,10 +104,10 @@ thisDeviceClass currentDeviceClass() {
             break;
             
         case thisDeviceClass_iPad:
-            return @"~ipad.jpg";
+            return @"-ipad.jpg";
             break;
         case thisDeviceClass_iPadRetina:
-            return @"~ipad@2x.jpg";
+            return @"-ipad@2x.jpg";
             break;
             
         case thisDeviceClass_unknown:

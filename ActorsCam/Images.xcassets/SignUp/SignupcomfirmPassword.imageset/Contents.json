@@ -2,28 +2,28 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "filename" : "SignupcomfirmPassword.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "SignupcomfirmPassword.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "SignupcomfirmPassword-1.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "SignupcomfirmPassword@2x.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "SignupcomfirmPassword-2.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "SignupcomfirmPassword@3x.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "comfirmpassword1x.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "SignupcomfirmPasswordiPad.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "comfirmpassword.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "SignupcomfirmPasswordiPad@2x.png"
     }
   ],
   "info" : {

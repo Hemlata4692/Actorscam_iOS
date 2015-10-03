@@ -63,7 +63,7 @@
 {
     [super viewWillAppear:animated];
     self.title = navTitle;
-    if([[UIScreen mainScreen] bounds].size.height>550)
+    if([[UIScreen mainScreen] bounds].size.height > 570)
     {
         scrollView.scrollEnabled=NO;
     }
@@ -124,6 +124,7 @@
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        alert.tag = 1;
         [alert show];
         
     } failure:^(NSError *error) {
@@ -134,7 +135,9 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (alertView.tag == 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 #pragma mark - end
 
@@ -223,7 +226,19 @@
 - (BOOL)performValidationsForSignUp
 {
     UIAlertView *alert;
-    if ([name isEmpty] || (name.text.length == 0) || [name.text isEqualToString:@""]){
+    
+    UIImage* placeholderImage = [UIImage imageNamed:@"PlaceholderImage"];
+    NSData *placeholderImageData = UIImagePNGRepresentation(placeholderImage);
+    NSData *profileImageData = UIImagePNGRepresentation(profileImageView.image);
+    
+    if ([profileImageData isEqualToData:placeholderImageData])
+    {
+        
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please upload an image." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    else if ([name isEmpty] || (name.text.length == 0) || [name.text isEqualToString:@""]){
         alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;

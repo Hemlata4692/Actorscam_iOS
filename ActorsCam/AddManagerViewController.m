@@ -145,7 +145,7 @@
     [self.keyboardControls setActiveField:textField];
     [self hidePickerWithAnimation];
     
-    if([[UIScreen mainScreen] bounds].size.height < 550)
+    if([[UIScreen mainScreen] bounds].size.height < 500)
     {
         if (textField==userName || textField==userEmail)
         {

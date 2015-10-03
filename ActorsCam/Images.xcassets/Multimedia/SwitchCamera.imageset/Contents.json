@@ -2,28 +2,28 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "filename" : "SwitchCamera.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "SwitchCamera.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "SwitchCamera@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "SwitchCamera@2x.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "SwitchCamera@3x.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "SwitchCamera@3x.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "SwitchCameraiPad.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "SwitchCameraiPad.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "SwitchCameraiPad@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "SwitchCameraiPad@2x.png"
     }
   ],
   "info" : {

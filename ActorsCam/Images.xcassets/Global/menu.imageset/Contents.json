@@ -2,28 +2,28 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "filename" : "menu.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "menu.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "menu-1.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "menu@2x.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "menu-2.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "menu@3x.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "menu1x.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "menuiPad.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "menu-3.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "menuiPad@2x.png"
     }
   ],
   "info" : {

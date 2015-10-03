@@ -127,7 +127,6 @@
     [myDelegate ShowIndicator];
     [self performSelector:@selector(changeProfile) withObject:nil afterDelay:.1];
      }
-    
 }
 
 -(void)changeProfile
@@ -145,7 +144,6 @@
     } failure:^(NSError *error) {
         
     }] ;
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -156,7 +154,7 @@
     [self.navigationController pushViewController:dashboardView animated:YES];
 }
 #pragma mark - end
-//
+
 #pragma mark - Image Picker Action
 - (IBAction)imagePickerAction:(id)sender
 {
@@ -242,7 +240,19 @@
 - (BOOL)performValidationsForEditProfile
 {
     UIAlertView *alert;
-    if ([name isEmpty])
+    UIImage* placeholderImage = [UIImage imageNamed:@"sideBarPlaceholder"];
+    NSData *placeholderImageData = UIImagePNGRepresentation(placeholderImage);
+    NSData *profileImageData = UIImagePNGRepresentation(profileImageView.image);
+    
+    if ([profileImageData isEqualToData:placeholderImageData])
+    {
+        
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please upload an image." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+
+    else if ([name isEmpty])
     {
         alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];

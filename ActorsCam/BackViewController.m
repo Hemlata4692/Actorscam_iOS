@@ -38,9 +38,9 @@
 #pragma mark - Add back button add global side bar button
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage  {
   
-   CGRect framing = CGRectMake(0, 0, buttonImage.size.width, buttonImage.size.height);
+   CGRect framing = CGRectMake(0, 0, 30, 40);
     UIButton *button = [[UIButton alloc] initWithFrame:framing];
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button setImage:buttonImage forState:UIControlStateNormal];
     barButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     [button addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = barButton;

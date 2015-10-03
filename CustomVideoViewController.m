@@ -24,13 +24,14 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     NSTimer *myTimer;
     int second, minute, hour, continousSecond;
     BOOL disappearView;
+    UIButton *revertButton;
 }
 
 @property (nonatomic, retain) AVCaptureVideoPreviewLayer *prevLayer;
 
 @property (nonatomic, weak) IBOutlet PreviewView *previewView;
 
-@property (nonatomic, weak) IBOutlet UIButton *revertButton;
+//@property (nonatomic, weak) IBOutlet UIButton *revertButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneOutlet;
 @property (strong, nonatomic) IBOutlet UIButton *captureOutlet;
 
@@ -171,6 +172,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = NO;
+    CGRect framing = CGRectMake(0, 0, 30, 30);
+    revertButton = [[UIButton alloc] initWithFrame:framing];
+    [revertButton setBackgroundImage:[UIImage imageNamed:@"SwitchCamera"] forState:UIControlStateNormal];
+    UIBarButtonItem *barButton =[[UIBarButtonItem alloc] initWithCustomView:revertButton];
+    [revertButton addTarget:self action:@selector(revertCameraMethod:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = barButton;
+    
     disappearView = NO;
     
     self.title = navTitle;
@@ -236,13 +244,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         dispatch_async(dispatch_get_main_queue(), ^{
             if (isRecording)
             {
-                [[self revertButton] setEnabled:NO];
+                [revertButton setEnabled:NO];
 //                [[self recordButton] setTitle:NSLocalizedString(@"Stop", @"Recording button stop title") forState:UIControlStateNormal];
                 [[self captureOutlet] setEnabled:YES];
             }
             else
             {
-                [[self revertButton] setEnabled:YES];
+                [revertButton setEnabled:YES];
 //                [[self recordButton] setTitle:NSLocalizedString(@"Record", @"Recording button record title") forState:UIControlStateNormal];
                 [[self captureOutlet] setEnabled:YES];
             }
@@ -255,13 +263,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         dispatch_async(dispatch_get_main_queue(), ^{
             if (isRunning)
             {
-                [[self revertButton] setEnabled:YES];
+                [revertButton setEnabled:YES];
                 //                [[self recordButton] setEnabled:YES];
                 [[self captureOutlet] setEnabled:YES];
             }
             else
             {
-                [[self revertButton] setEnabled:NO];
+                [revertButton setEnabled:NO];
                 //                [[self recordButton] setEnabled:NO];
                 [[self captureOutlet] setEnabled:NO];
             }
@@ -276,7 +284,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 #pragma mark - Revert camera actions
 - (IBAction)revertCameraMethod:(id)sender
 {
-    [[self revertButton] setEnabled:NO];
+    [revertButton setEnabled:NO];
     //    [[self recordButton] setEnabled:NO];
     [[self captureOutlet] setEnabled:NO];
     [myTimer invalidate];
@@ -325,7 +333,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         [[self session] commitConfiguration];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[self revertButton] setEnabled:YES];
+            [revertButton setEnabled:YES];
             //            [[self recordButton] setEnabled:YES];
             [[self captureOutlet] setEnabled:YES];
         });
@@ -576,26 +584,26 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 #pragma mark - Done Action
 - (IBAction)doneMethod:(UIButton *)sender {
     
-    if ([[self movieFileOutput] isRecording])
-    {
-        [myTimer invalidate];
-        myTimer = nil;
-        continousSecond = 0;
-        disappearView = YES;
-        [[self movieFileOutput] stopRecording];
-    }
-    else{
-        if (videoFileUrl == nil) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else{
+//    if ([[self movieFileOutput] isRecording])
+//    {
+//        [myTimer invalidate];
+//        myTimer = nil;
+//        continousSecond = 0;
+//        disappearView = YES;
+//        [[self movieFileOutput] stopRecording];
+//    }
+//    else{
+//        if (videoFileUrl == nil) {
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }
+//        else{
             UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             VideoPreviewViewController *videoPreviewView =[storyboard instantiateViewControllerWithIdentifier:@"VideoPreviewView"];
             videoPreviewView.filePath = videoFileUrl;
             [self.navigationController pushViewController:videoPreviewView animated:YES];
-        }
+//        }
 
-    }
+//    }
    
 }
 #pragma mark - end

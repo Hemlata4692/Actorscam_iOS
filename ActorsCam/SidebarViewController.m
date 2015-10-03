@@ -37,10 +37,10 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    if([[UIScreen mainScreen] bounds].size.height>490)
-    {
+//    if([[UIScreen mainScreen] bounds].size.height>490)
+//    {
         self.tableView.scrollEnabled=NO;
-    }
+//    }
 
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
     [self.tableView reloadData];
@@ -72,17 +72,59 @@
     return menuItems.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if([[UIDevice currentDevice] userInterfaceIdiom] ==  UIUserInterfaceIdiomPad){
+        return 80.0;
+    }
+    else{
+        return 50.0;
+    }
+
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = [tableItem objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    UILabel *cellLabel = (UILabel *)[cell viewWithTag:2];
+    UIImageView *icon = (UIImageView *)[cell viewWithTag:1];
+
+    cell.translatesAutoresizingMaskIntoConstraints = YES;
+    cellLabel.translatesAutoresizingMaskIntoConstraints = YES;
+    icon.translatesAutoresizingMaskIntoConstraints = YES;
+    
+    if([[UIDevice currentDevice] userInterfaceIdiom] ==  UIUserInterfaceIdiomPad){
+        icon.frame = CGRectMake(15, 23, 54, 54);
+        cellLabel.frame = CGRectMake(86, 34, tableView.frame.size.width - 86 - 17, 34);
+        [cellLabel.font fontWithSize:20];
+    }
+    else{
+        icon.frame = CGRectMake(15, 15, 34, 34);
+        cellLabel.frame = CGRectMake(66, 19, tableView.frame.size.width - 66 - 17, 26);
+        [cellLabel.font fontWithSize:17];
+    }
     
     return cell;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 225.0;
+    
+    if([[UIDevice currentDevice] userInterfaceIdiom] ==  UIUserInterfaceIdiomPad){
+        float aspectHeight = 511.0/1024.0;
+        return ((tableView.bounds.size.height * aspectHeight) - 80);
+    }
+    else{
+        if([[UIScreen mainScreen] bounds].size.height > 570) {
+            float aspectHeight = 186.0/480.0;
+            return (tableView.bounds.size.height * aspectHeight - 40);
+        }
+        else{
+            return 186;
+        }
+    }
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -93,46 +135,46 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSLog(@"table size %f",tableView.bounds.size.width);
-    UIView *headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 225)];
+    float aspectHeight, profileViewHeight, welcomeFont,welcomeHeight, nameFont, nameHeight;
+    if([[UIDevice currentDevice] userInterfaceIdiom] ==  UIUserInterfaceIdiomPad){
+        aspectHeight = 511.0/1024.0;
+        aspectHeight = ((tableView.bounds.size.height * aspectHeight) - 80);
+        profileViewHeight = tableView.bounds.size.height * (114.0/480.0);
+        welcomeFont = 17.0;
+        nameFont = 25.0;
+        welcomeHeight = 32;
+        nameHeight = 40;
+        
+    }
+    else{
+        welcomeFont = 13.0;
+        nameFont = 17.0;
+        welcomeHeight = 16;
+        nameHeight = 23;
+        
+        aspectHeight = 186.0/480.0;
+        profileViewHeight = 114;
+        if([[UIScreen mainScreen] bounds].size.height > 570) {
+            aspectHeight = (tableView.bounds.size.height * aspectHeight - 40);
+        }
+        else{
+            aspectHeight = 186;
+        }
+    }
+    
+    UIView *headerView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, aspectHeight)];
     
     headerView.backgroundColor=[UIColor clearColor];
-    UIImageView *headerBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 225)] ;
+    UIImageView *headerBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, headerView.bounds.size.width, headerView.frame.size.height)] ;
     headerBg.image = [UIImage imageNamed:@"sideBarBg"];
-    UILabel * welcomeLabel;
-    welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-50, 150, 100, 22)];
-    welcomeLabel.backgroundColor = [UIColor clearColor];
-    welcomeLabel.textAlignment=NSTextAlignmentCenter;
-    welcomeLabel.textColor=[UIColor whiteColor];
-    welcomeLabel.font = [UIFont fontWithName:@"OpenSans" size:13];
-//    welcomeLabel.text = [@"Welcome" changeTextLanguage:@"Welcome"] ;// i.e. array element
-    [welcomeLabel changeTextLanguage:@"Welcome"];
+       // i.e. array element
     
-    UILabel *actorName;
-    actorName = [[UILabel alloc] initWithFrame:CGRectMake(20, welcomeLabel.frame.origin.y + 10, tableView.bounds.size.width - 40, 50)];
-    actorName.backgroundColor = [UIColor clearColor];
-    actorName.textAlignment=NSTextAlignmentCenter;
-    actorName.lineBreakMode = NSLineBreakByWordWrapping;
-    actorName.numberOfLines = 2;
-    actorName.textColor=[UIColor whiteColor];
-    actorName.font = [UIFont fontWithName:@"OpenSans-Semibold" size:17];
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"] isEqualToString:@""]) {
-        
-//        actorName.text = @"User" ;
-        [actorName changeTextLanguage:@"User"];
-    }
-    else
-    {
-        [actorName changeTextLanguage:[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"]];
-//        actorName.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"];
-    }
-    // i.e. array element
-    
-    UIView *profileImageBackView=[[UIView alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-57, 20, 114, 114)];
+    UIView *profileImageBackView=[[UIView alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-(profileViewHeight/2), 20, profileViewHeight, profileViewHeight)];
     profileImageBackView.backgroundColor = [UIColor clearColor];
     profileImageBackView.layer.borderWidth = 1.0;
     profileImageBackView.layer.borderColor = [UIColor colorWithRed:255.0/255.0 green:50.0/255.0 blue:50.0/255.0 alpha:1.0].CGColor;
 
-    UIImageView *ProfileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 7, 100, 100)] ;
+    UIImageView *ProfileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 7, profileViewHeight - 14, profileViewHeight - 14)] ;
     //imgView.contentMode=UIViewContentModeScaleAspectFill;
     ProfileImgView.contentMode = UIViewContentModeScaleAspectFill;
     ProfileImgView.clipsToBounds = YES;
@@ -158,6 +200,34 @@
     profileImageBackView.layer.cornerRadius = profileImageBackView.frame.size.width / 2;
     profileImageBackView.layer.masksToBounds = YES;
     [profileImageBackView addSubview:ProfileImgView];
+    
+    UILabel * welcomeLabel;
+    welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake((tableView.bounds.size.width/2)-50, profileImageBackView.frame.origin.y + profileImageBackView.frame.size.height + (welcomeHeight - 6), 100, welcomeHeight)];
+    welcomeLabel.backgroundColor = [UIColor clearColor];
+    welcomeLabel.textAlignment=NSTextAlignmentCenter;
+    welcomeLabel.textColor=[UIColor whiteColor];
+    welcomeLabel.font = [UIFont fontWithName:@"OpenSans" size:welcomeFont];
+    //    welcomeLabel.text = [@"Welcome" changeTextLanguage:@"Welcome"] ;// i.e. array element
+    [welcomeLabel changeTextLanguage:@"Welcome"];
+    
+    UILabel *actorName;
+    actorName = [[UILabel alloc] initWithFrame:CGRectMake(20, welcomeLabel.frame.origin.y + (nameHeight - 5), tableView.bounds.size.width - 40, nameHeight)];
+    actorName.backgroundColor = [UIColor clearColor];
+    actorName.textAlignment=NSTextAlignmentCenter;
+    actorName.lineBreakMode = NSLineBreakByWordWrapping;
+    actorName.numberOfLines = 1;
+    actorName.textColor=[UIColor whiteColor];
+    actorName.font = [UIFont fontWithName:@"OpenSans-Semibold" size:nameFont];
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"] isEqualToString:@""]) {
+        
+        //        actorName.text = @"User" ;
+        [actorName changeTextLanguage:@"User"];
+    }
+    else
+    {
+        [actorName changeTextLanguage:[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"]];
+        //        actorName.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"];
+    }
     
     [headerView addSubview:headerBg];
     [headerView addSubview:welcomeLabel];

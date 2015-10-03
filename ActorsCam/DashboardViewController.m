@@ -66,6 +66,15 @@
 }
 
 -(void)setLocalizedString{
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"en"]) {
+        [chooseLanguage setTitle:@"Eng" forState:UIControlStateNormal];
+    }
+    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"fr"]) {
+        [chooseLanguage setTitle:@"Fra" forState:UIControlStateNormal];
+    }
+    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"zn"]) {
+        [chooseLanguage setTitle:@"Deu" forState:UIControlStateNormal];
+    }
     
     [takePhoto changeTextLanguage:@"TAKE PHOTOS"];
     [recordVideo changeTextLanguage:@"RECORD VIDEO"];

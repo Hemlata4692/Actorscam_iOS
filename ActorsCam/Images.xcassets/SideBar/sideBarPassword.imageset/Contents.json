@@ -2,28 +2,28 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "filename" : "sideBarPassword.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "sideBarPassword.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "sideBarPassword-1.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "sideBarPassword@2x.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "sideBarPassword-2.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "sideBarPassword@3x.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "password1x.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "sideBarPasswordiPad.png"
     },
     {
       "idiom" : "ipad",
-      "filename" : "password.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "sideBarPasswordiPad@2x.png"
     }
   ],
   "info" : {

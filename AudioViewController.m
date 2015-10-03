@@ -235,6 +235,17 @@
 #pragma mark - send Image Button Action
 - (IBAction)sendAction:(id)sender {
     [self hidePickerWithAnimation];
+    [myTimer invalidate];
+    myTimer = nil;
+    
+    playOutlet.enabled = YES;
+    playOutlet.selected = NO;
+    recordOulet.selected = NO;
+    
+    if (player.playing) {
+        [player stop];
+    }
+
     UIAlertView *alert;
     if ([selectCategory isEmpty])
     {
@@ -249,89 +260,89 @@
         
     }
     else{
-    if (managerListArray.count != 0) {
-        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        
-        NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
-        if (fileExists) {
-        if ([MFMailComposeViewController canSendMail])
+        if (managerListArray.count != 0) {
+            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
             
-        {
-            // Email Subject
-            
-            NSString *emailTitle = @"Actor's CAM - New Audio from  model";
-            
-            NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
-            
-            MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-            
-            mc.mailComposeDelegate = self;
-            
-            [mc setSubject:emailTitle];
-            
-            [mc setMessageBody:noteTextView.text isHTML:NO];
-            
-            //        for (UIImage *yourImage in imageArray )
-            //
-            //        {
-            //
-            //            NSData *imgData = UIImagePNGRepresentation(yourImage);
-            //
-            //            [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
-            //
-            //            //movie path
-            //
-            //            //           NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:moviePath];
-            //
-            //            //            [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"defectVideo.MOV"];
-            //
-            //
-            //
-//                        audio
-//            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//            
-//            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
-//            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
-            
+            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+            if (fileExists) {
+                if ([MFMailComposeViewController canSendMail])
+                    
+                {
+                    // Email Subject
+                    
+                    NSString *emailTitle = @"Actor's CAM - New Audio from  model";
+                    
+                    NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
+                    
+                    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                    
+                    mc.mailComposeDelegate = self;
+                    
+                    [mc setSubject:emailTitle];
+                    
+                    [mc setMessageBody:noteTextView.text isHTML:NO];
+                    
+                    //        for (UIImage *yourImage in imageArray )
+                    //
+                    //        {
+                    //
+                    //            NSData *imgData = UIImagePNGRepresentation(yourImage);
+                    //
+                    //            [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
+                    //
+                    //            //movie path
+                    //
+                    //            //           NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:moviePath];
+                    //
+                    //            //            [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"defectVideo.MOV"];
+                    //
+                    //
+                    //
+                    //                        audio
+                    //            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                    //
+                    //            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
+                    //            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+                    
+                    
+                    NSURL    *fileURL = [NSURL URLWithString:filepath];
+                    
+                    NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
+                    
+                    [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"ActorCamAudio.m4a"];
+                    //            }
+                    
+                    [mc setTitle:@"ac"];
+                    mc.title = @"Actor's CAM";
+                    mc.navigationBar.tintColor = [UIColor whiteColor];
+                    //            mc.navigationBar.ti
+                    [mc setToRecipients:toRecipents];
+                    [self presentViewController:mc animated:YES completion:NULL];
+                    
+                }
                 
-                NSURL    *fileURL = [NSURL URLWithString:filepath];
-                
-                NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
-                
-                [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"ActorCamAudio.m4a"];
-//            }
-    
-            [mc setTitle:@"ac"];
-            mc.title = @"Actor's CAM";
-            mc.navigationBar.tintColor = [UIColor whiteColor];
-//            mc.navigationBar.ti
-            [mc setToRecipients:toRecipents];
-            [self presentViewController:mc animated:YES completion:NULL];
-            
+                else
+                    
+                {
+                    
+                    UIAlertView *alertView = [[UIAlertView alloc]
+                                              
+                                              initWithTitle:nil
+                                              
+                                              message:@"Email account is not configured in your device."
+                                              
+                                              delegate:self
+                                              
+                                              cancelButtonTitle:@"OK"
+                                              
+                                              otherButtonTitles:nil];
+                    
+                    [alertView show];
+                    
+                }
+            }
         }
-        
-        else
-            
-        {
-            
-            UIAlertView *alertView = [[UIAlertView alloc]
-                                      
-                                      initWithTitle:nil
-                                      
-                                      message:@"Email account is not configured in your device."
-                                      
-                                      delegate:self
-                                      
-                                      cancelButtonTitle:@"OK"
-                                      
-                                      otherButtonTitles:nil];
-            
-            [alertView show];
-            
-        }
-    }
-    }
     }
 }
 

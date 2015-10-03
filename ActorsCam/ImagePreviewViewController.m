@@ -548,9 +548,6 @@
             selectCategory.text = [categoryString changeTextLanguage:categoryString];
 //            [selectCategory changeTextLanguage:[categoryList objectAtIndex:index]];
             [managerListPickerView reloadAllComponents];
-            
-//            [myDelegate ShowIndicator];
-//            [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
         }
         else{
             selectedManagerIndex = (int)index;
@@ -571,8 +568,6 @@
         pickerChecker = @"manager";
         [managerListArray removeAllObjects];
         categoryList = [responseObject objectForKey:@"category_type"];
-//        [categoryList addObject:@"Agent"];
-//        [categoryList addObject:@"manager"];
         managerListArray = [responseObject objectForKey:@"managerList"];
        
         if(managerListArray.count != 0){
@@ -594,22 +589,11 @@
                 
             }
             
-//            NSString *categoryString = [categoryList objectAtIndex:index];
-//            selectCategory.text = [categoryString changeTextLanguage:categoryString];
-            //            [selectCategory changeTextLanguage:[categoryList objectAtIndex:index]];
             [managerListPickerView reloadAllComponents];
-//            
-//            for (int i=0; i < managerListArray.count; i++) {
-//                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
-//                    managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
-//                    selectedData = [[managerListArray objectAtIndex:i] copy];
-//                    break;
-//                }
-//            }
         }
         else{
             self.mainView.translatesAutoresizingMaskIntoConstraints = YES;
-            self.mainView.frame = CGRectMake(0, 0, self.view.frame.size.width, 472);
+            self.mainView.frame = CGRectMake(0, 0,self.view.frame.size.width, noManagerView.frame.origin.y + noManagerView.frame.size.height + 50);
             managerName.text=@"";
             selectCategory.text = @"";
             noManagerView.hidden = NO;
