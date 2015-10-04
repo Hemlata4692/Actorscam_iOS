@@ -313,12 +313,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoPreviewViewController.m"
-            timestampString = "465659312.990634"
+            timestampString = "465677078.033477"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "-MPMoviePlayerLoadStateDidChange:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CustomVideoViewController.m"
+            timestampString = "465677547.509294"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
+            landmarkName = "-doneMethod:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

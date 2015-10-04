@@ -180,6 +180,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     self.navigationItem.rightBarButtonItem = barButton;
     
     disappearView = NO;
+    videoFileUrl = nil;
+    captureOutlet.selected = NO;
     
     self.title = navTitle;
     continousSecond = 0;

@@ -27,9 +27,6 @@
     int second, minute, hour, continousSecond;
 }
 
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
-
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
@@ -48,10 +45,33 @@
 @property (strong, nonatomic) IBOutlet UITextView *noteTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
+
+//iPad
+@property (strong, nonatomic) IBOutlet UIView *ipad_mainView;
+
+@property (strong, nonatomic) IBOutlet UILabel *ipad_timeLabel;
+@property (strong, nonatomic) IBOutlet UIButton *ipad_playOutlet;
+@property (strong, nonatomic) IBOutlet UIButton *ipad_recordOulet;
+
+@property (strong, nonatomic) IBOutlet UIView *ipad_noManagerView;
+@property (weak, nonatomic) IBOutlet UILabel *ipad_noManager;
+@property (strong, nonatomic) IBOutlet UIButton *ipad_addRepresentative;
+
+@property (weak, nonatomic) IBOutlet UIView *ipad_selectManagerView;
+@property (weak, nonatomic) IBOutlet UILabel *ipad_selectRepresentativeLabel;
+@property (strong, nonatomic) IBOutlet UITextField *ipad_selectCategory;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_managerName;
+@property (strong, nonatomic) IBOutlet UILabel *ipad_notesLabel;
+@property (strong, nonatomic) IBOutlet UITextView *ipad_noteTextView;
+@property (weak, nonatomic) IBOutlet UIButton *ipad_sendButton;
+
+
+
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPickerView *managerListPickerView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolBarDone;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
-
 @end
 
 @implementation AudioViewController
@@ -59,12 +79,36 @@
 @synthesize timeLabel,playOutlet,recordOulet;
 @synthesize noManagerView,noManager,addRepresentative;
 @synthesize selectManagerView,selectRepresentativeLabel,selectCategory,managerName,notesLabel,noteTextView,sendButton;
+
+@synthesize ipad_timeLabel,ipad_playOutlet,ipad_recordOulet;
+@synthesize ipad_noManagerView,ipad_noManager,ipad_addRepresentative;
+@synthesize ipad_selectManagerView,ipad_selectRepresentativeLabel,ipad_selectCategory,ipad_managerName,ipad_notesLabel,ipad_noteTextView,ipad_sendButton;
 @synthesize managerListPickerView,toolBar,toolBarDone;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (iPad) {
+        self.mainView = self.ipad_mainView;
+        
+        timeLabel = ipad_timeLabel;
+        playOutlet = ipad_playOutlet;
+        recordOulet = ipad_recordOulet;
+        
+        noManagerView = ipad_noManagerView;
+        noManager = ipad_noManager;
+        addRepresentative = ipad_addRepresentative;
+        
+        selectManagerView = ipad_selectManagerView;
+        selectRepresentativeLabel = ipad_selectRepresentativeLabel;
+        selectCategory = ipad_selectCategory;
+        managerName = ipad_managerName;
+        notesLabel = ipad_notesLabel;
+        noteTextView = ipad_noteTextView;
+        sendButton = ipad_sendButton;
+    }
+
     managerListPickerView.translatesAutoresizingMaskIntoConstraints=YES;
     toolBar.translatesAutoresizingMaskIntoConstraints=YES;
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
@@ -129,8 +173,10 @@
     selectedCategoryIndex = 0;
     selectedManagerIndex = 0;
     
-    self.mainView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.mainView.frame = CGRectMake(0, 0, self.view.frame.size.width, 658);
+    if (!iPad) {
+        self.mainView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.mainView.frame = CGRectMake(0, 0, self.view.frame.size.width, 658);
+    }
     
     UIView *rightPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 0)];
     managerName.rightView = rightPadding;
@@ -171,7 +217,6 @@
 {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
-    //    [_sliderScrollView setContentOffset:CGPointMake(0, _sliderScrollView.frame.origin.y+100) animated:YES];
     
     managerListPickerView.backgroundColor=[UIColor whiteColor];
     
@@ -189,8 +234,8 @@
     [UIView setAnimationDuration:0.3];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
-    managerListPickerView.frame = CGRectMake(managerListPickerView.frame.origin.x, 1000, self.view.frame.size.width, managerListPickerView.frame.size.height);
-    toolBar.frame = CGRectMake(toolBar.frame.origin.x, 1000, self.view.frame.size.width, toolBar.frame.size.height);
+    managerListPickerView.frame = CGRectMake(managerListPickerView.frame.origin.x, 1500, self.view.frame.size.width, managerListPickerView.frame.size.height);
+    toolBar.frame = CGRectMake(toolBar.frame.origin.x, 1500, self.view.frame.size.width, toolBar.frame.size.height);
     [UIView commitAnimations];
 }
 #pragma mark - end
@@ -201,7 +246,13 @@
     [self hidePickerWithAnimation];
     
     [self.keyboardControls setActiveField:textView];
-    [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height + 200) animated:YES];
+    if (iPad) {
+        [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y) animated:YES];
+    }
+    else{
+        [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height + 200) animated:YES];
+    }
+    
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView
@@ -282,29 +333,6 @@
                     [mc setSubject:emailTitle];
                     
                     [mc setMessageBody:noteTextView.text isHTML:NO];
-                    
-                    //        for (UIImage *yourImage in imageArray )
-                    //
-                    //        {
-                    //
-                    //            NSData *imgData = UIImagePNGRepresentation(yourImage);
-                    //
-                    //            [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
-                    //
-                    //            //movie path
-                    //
-                    //            //           NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:moviePath];
-                    //
-                    //            //            [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"defectVideo.MOV"];
-                    //
-                    //
-                    //
-                    //                        audio
-                    //            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                    //
-                    //            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
-                    //            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
-                    
                     
                     NSURL    *fileURL = [NSURL URLWithString:filepath];
                     
@@ -420,7 +448,6 @@
         else if ([pickerChecker isEqualToString:@"category"]){
             NSString *categoryString = [pickerArray objectAtIndex:row];
             selectCategory.text = [categoryString changeTextLanguage:categoryString];
-            //        [selectCategory changeTextLanguage:[categoryString changeTextLanguage:categoryString]];
         }
     }
 }
@@ -432,7 +459,6 @@
     if (managerListArray.count != 0) {
         
         NSInteger index = [managerListPickerView selectedRowInComponent:0];
-        //    managerName.text=[pickerArray objectAtIndex:index];
         [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         
         if ([pickerChecker isEqualToString:@"category"]){
@@ -456,11 +482,8 @@
             
             NSString *categoryString = [categoryList objectAtIndex:index];
             selectCategory.text = [categoryString changeTextLanguage:categoryString];
-            //            [selectCategory changeTextLanguage:[categoryList objectAtIndex:index]];
             [managerListPickerView reloadAllComponents];
             
-            //            [myDelegate ShowIndicator];
-            //            [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
         }
         else{
             selectedManagerIndex = (int)index;
@@ -481,8 +504,6 @@
         pickerChecker = @"manager";
         [managerListArray removeAllObjects];
         categoryList = [responseObject objectForKey:@"category_type"];
-//        [categoryList addObject:@"Agent"];
-//        [categoryList addObject:@"manager"];
         managerListArray = [responseObject objectForKey:@"managerList"];
         
         if(managerListArray.count != 0){
@@ -505,8 +526,11 @@
              [managerListPickerView reloadAllComponents];
         }
         else{
-            self.mainView.translatesAutoresizingMaskIntoConstraints = YES;
+            if (!iPad) {
+                 self.mainView.translatesAutoresizingMaskIntoConstraints = YES;
             self.mainView.frame = CGRectMake(0, 0, self.view.frame.size.width,  noManagerView.frame.origin.y + noManagerView.frame.size.height + 50);
+            }
+           
             managerName.text=@"";
             selectCategory.text = @"";
             noManagerView.hidden = NO;
@@ -543,13 +567,13 @@
     [self showPickerWithAnimation];
     
     pickerChecker = @"manager";
-    //    [pickerArray removeAllObjects];
-    //    pickerArray = [managerListArray mutableCopy];
-    [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
+    }
+    
     if (managerListArray.count != 0) {
     [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
     }
-    //    [managerListPickerView reloadAllComponents];
 }
 #pragma mark - end
 
@@ -561,7 +585,10 @@
     
     pickerChecker = @"category";
     pickerArray = [categoryList mutableCopy];
-    [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
+    }
+    
     [managerListPickerView reloadAllComponents];
     if (managerListArray.count != 0) {
     [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
@@ -622,7 +649,6 @@
         
         // Start recording
         [recorder record];
-//        [recordPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
         continousSecond = 0;
         timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
         myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
@@ -633,21 +659,13 @@
         
     } else {
         recordOulet.selected = NO;
-//        [myTimer invalidate];
-//        myTimer = nil;
         
         [recorder stop];
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         [audioSession setActive:NO error:nil];
         
-//        // Pause recording
-//        [recorder pause];
-//        [recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
     }
     
-//    [stopButton setEnabled:YES];
-//    [playButton setEnabled:NO];
-
 }
 #pragma mark - end
 
@@ -676,20 +694,6 @@
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
     
 //    NSLog(@"finish");
-//    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    
-//    NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
-//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
-//    if (fileExists) {
-//        playOutlet.enabled = YES;
-//    }
-//    else{
-//        playOutlet.enabled = NO;
-//    }
-    
-//    [recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
-//    [stopButton setEnabled:NO];
-//    [playButton setEnabled:YES];
 }
 
 #pragma mark - AVAudioPlayerDelegate
