@@ -24,6 +24,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *save;
 @property (weak, nonatomic) IBOutlet UITextField *emailId;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+
+//iPad
+@property (weak, nonatomic) IBOutlet UITextField *ipad_name;
+@property (weak, nonatomic) IBOutlet UIButton *ipad_save;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_emailId;
+@property (weak, nonatomic) IBOutlet UIImageView *ipad_profileImageView;
+
 @property (nonatomic, strong) UIPopoverController *popover;
 
 @end
@@ -32,12 +39,25 @@
 @synthesize name,profileImageView,emailId,save;
 @synthesize popover;
 
+@synthesize ipad_name,ipad_profileImageView,ipad_emailId,ipad_save;
+
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //Remove swipe gesture for sidebar
+    
+    if (iPad) {
+        
+        name = ipad_name;
+        save = ipad_save;
+        emailId = ipad_emailId;
+        ipad_profileImageView.frame = CGRectMake(ipad_profileImageView.frame.origin.x, ipad_profileImageView.frame.origin.y, 200, 200);
+        profileImageView = ipad_profileImageView;
+        
+    }
+    
+    
     profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2;
-    profileImageView.layer.masksToBounds = YES;
+    profileImageView.clipsToBounds = YES;
     
     takePhoto = @"Take Photo";
     choosePhoto = @"Choose Existing Photo";
@@ -268,12 +288,14 @@
 #pragma mark - Textfield Delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    if (!iPad) {
     if([[UIScreen mainScreen] bounds].size.height < 490)
     {
         [UIView animateWithDuration:0.3 animations:^{
             self.view.frame=CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-38, self.view.frame.size.width, self.view.frame.size.height);
         }];
 
+    }
     }
 }
 
@@ -291,12 +313,14 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
+    if (!iPad) {
     if([[UIScreen mainScreen] bounds].size.height < 490)
     {
         [UIView animateWithDuration:0.3 animations:^{
             self.view.frame=CGRectMake(self.view.frame.origin.x, 64, self.view.frame.size.width, self.view.frame.size.height);
         }];
         
+    }
     }
 
 }

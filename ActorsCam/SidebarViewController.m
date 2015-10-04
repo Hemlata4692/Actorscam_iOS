@@ -112,8 +112,8 @@
 {
     
     if([[UIDevice currentDevice] userInterfaceIdiom] ==  UIUserInterfaceIdiomPad){
-        float aspectHeight = 511.0/1024.0;
-        return ((tableView.bounds.size.height * aspectHeight) - 80);
+        float aspectHeight = 448.0/1024.0;
+        return ((tableView.bounds.size.height * aspectHeight) - 20);
     }
     else{
         if([[UIScreen mainScreen] bounds].size.height > 570) {
@@ -137,8 +137,8 @@
     NSLog(@"table size %f",tableView.bounds.size.width);
     float aspectHeight, profileViewHeight, welcomeFont,welcomeHeight, nameFont, nameHeight;
     if([[UIDevice currentDevice] userInterfaceIdiom] ==  UIUserInterfaceIdiomPad){
-        aspectHeight = 511.0/1024.0;
-        aspectHeight = ((tableView.bounds.size.height * aspectHeight) - 80);
+        aspectHeight = 448/1024.0;
+        aspectHeight = ((tableView.bounds.size.height * aspectHeight) - 20);
         profileViewHeight = tableView.bounds.size.height * (114.0/480.0);
         welcomeFont = 17.0;
         nameFont = 25.0;

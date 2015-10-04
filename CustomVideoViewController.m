@@ -75,7 +75,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     navTitle = @"Record Video";
     
     [[self captureOutlet] setSelected:NO];
-    [captureOutlet setImage:[UIImage imageNamed:@"video1x"] forState:UIControlStateNormal];
+    [captureOutlet setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
     [captureOutlet setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateSelected];
     
     [_doneOutlet changeTextLanguage:@"DONE"];
@@ -584,26 +584,26 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 #pragma mark - Done Action
 - (IBAction)doneMethod:(UIButton *)sender {
     
-//    if ([[self movieFileOutput] isRecording])
-//    {
-//        [myTimer invalidate];
-//        myTimer = nil;
-//        continousSecond = 0;
-//        disappearView = YES;
-//        [[self movieFileOutput] stopRecording];
-//    }
-//    else{
-//        if (videoFileUrl == nil) {
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }
-//        else{
+    if ([[self movieFileOutput] isRecording])
+    {
+        [myTimer invalidate];
+        myTimer = nil;
+        continousSecond = 0;
+        disappearView = YES;
+        [[self movieFileOutput] stopRecording];
+    }
+    else{
+        if (videoFileUrl == nil) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else{
             UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             VideoPreviewViewController *videoPreviewView =[storyboard instantiateViewControllerWithIdentifier:@"VideoPreviewView"];
             videoPreviewView.filePath = videoFileUrl;
             [self.navigationController pushViewController:videoPreviewView animated:YES];
-//        }
+        }
 
-//    }
+    }
    
 }
 #pragma mark - end

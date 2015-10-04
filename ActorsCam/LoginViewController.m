@@ -36,22 +36,22 @@
 @property (strong, nonatomic) IBOutlet UILabel *forgotLabel;
 @property (strong, nonatomic) IBOutlet UILabel *forgotDescriptionLabel;
 
-//portrait
-@property (strong, nonatomic) IBOutlet UIImageView *portrait_backgroundImage;
-@property (weak, nonatomic) IBOutlet UITextField *portrait_userEmail;
-@property (weak, nonatomic) IBOutlet UITextField *portrait_password;
-@property (weak, nonatomic) IBOutlet UIButton *portrait_loginBtn;
-@property (weak, nonatomic) IBOutlet UIButton *portrait_forgotPasswordBtn;
-@property (weak, nonatomic) IBOutlet UIScrollView *portrait_scrollView;
-@property (weak, nonatomic) IBOutlet UIView *portrait_forgotPasswordView;
-@property (weak, nonatomic) IBOutlet UILabel *portrait_hereLabel;
-@property (weak, nonatomic) IBOutlet UITextField *portrait_forgotPasswordEmail;
-@property (weak, nonatomic) IBOutlet UIButton *portrait_sendLinkBtn;
-@property (weak, nonatomic) IBOutlet UIView *portrait_forgotPasswordPopUp;
-@property (strong, nonatomic) IBOutlet UILabel *portrait_signUpLabel;
-@property (weak, nonatomic) IBOutlet UIButton *portrait_languageLabel;
-@property (strong, nonatomic) IBOutlet UILabel *portrait_forgotLabel;
-@property (strong, nonatomic) IBOutlet UILabel *portrait_forgotDescriptionLabel;
+//iPhone
+@property (strong, nonatomic) IBOutlet UIImageView *iPhone_backgroundImage;
+@property (weak, nonatomic) IBOutlet UITextField *iPhone_userEmail;
+@property (weak, nonatomic) IBOutlet UITextField *iPhone_password;
+@property (weak, nonatomic) IBOutlet UIButton *iPhone_loginBtn;
+@property (weak, nonatomic) IBOutlet UIButton *iPhone_forgotPasswordBtn;
+@property (weak, nonatomic) IBOutlet UIScrollView *iPhone_scrollView;
+@property (weak, nonatomic) IBOutlet UIView *iPhone_forgotPasswordView;
+@property (weak, nonatomic) IBOutlet UILabel *iPhone_hereLabel;
+@property (weak, nonatomic) IBOutlet UITextField *iPhone_forgotPasswordEmail;
+@property (weak, nonatomic) IBOutlet UIButton *iPhone_sendLinkBtn;
+@property (weak, nonatomic) IBOutlet UIView *iPhone_forgotPasswordPopUp;
+@property (strong, nonatomic) IBOutlet UILabel *iPhone_signUpLabel;
+@property (weak, nonatomic) IBOutlet UIButton *iPhone_languageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *iPhone_forgotLabel;
+@property (strong, nonatomic) IBOutlet UILabel *iPhone_forgotDescriptionLabel;
 
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @end
@@ -62,16 +62,35 @@
 @synthesize signUpLabel,languageLabel,forgotLabel,forgotDescriptionLabel;
 @synthesize backgroundImage;
 
-@synthesize portrait_userEmail,portrait_password,portrait_loginBtn,portrait_forgotPasswordBtn,portrait_scrollView;
-@synthesize portrait_forgotPasswordEmail,portrait_forgotPasswordView,portrait_sendLinkBtn,portrait_forgotPasswordPopUp,portrait_hereLabel;
-@synthesize portrait_signUpLabel,portrait_languageLabel,portrait_forgotLabel,portrait_forgotDescriptionLabel;
-@synthesize portrait_backgroundImage;
+@synthesize iPhone_userEmail,iPhone_password,iPhone_loginBtn,iPhone_forgotPasswordBtn,iPhone_scrollView;
+@synthesize iPhone_forgotPasswordEmail,iPhone_forgotPasswordView,iPhone_sendLinkBtn,iPhone_forgotPasswordPopUp,iPhone_hereLabel;
+@synthesize iPhone_signUpLabel,iPhone_languageLabel,iPhone_forgotLabel,iPhone_forgotDescriptionLabel;
+@synthesize iPhone_backgroundImage;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    if (!iPad) {
+        userEmail = iPhone_userEmail;
+        password = iPhone_password;
+        loginBtn = iPhone_loginBtn;
+        backgroundImage = iPhone_backgroundImage;
+        scrollView = iPhone_scrollView;
+        hereLabel = iPhone_hereLabel;
+        signUpLabel = iPhone_signUpLabel;
+        languageLabel = iPhone_languageLabel;
+        
+        forgotDescriptionLabel = iPhone_forgotDescriptionLabel;
+        forgotLabel = iPhone_forgotLabel;
+        forgotPasswordBtn = iPhone_forgotPasswordBtn;
+        forgotPasswordEmail = iPhone_forgotPasswordEmail;
+        forgotPasswordPopUp = iPhone_forgotPasswordPopUp;
+        forgotPasswordView = iPhone_forgotPasswordView;
+        sendLinkBtn = iPhone_sendLinkBtn;
+    }
+
     UIImage * tempImg =[UIImage imageNamed:@"bg.jpg"];
     backgroundImage.image = [UIImage imageNamed:[tempImg imageForDeviceWithName:@"bg"]];
     NSLog(@"%@",[tempImg imageForDeviceWithName:@"bg"]);
@@ -80,16 +99,8 @@
     NSLog(@"test log!!!");
     forgotPasswordView.hidden=YES;
     //Adding textfield to array
-    
-    if (iPad) {
-        userEmail = portrait_userEmail;
-        password = portrait_password;
-    }
-//    else{
-//        userEmail = userEmail;
-//        password = password;
-//    }
-        //Keyboard toolbar action to display toolbar with keyboard to move next,previous
+ 
+    textFieldArray = @[userEmail,password];
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
     
@@ -240,8 +251,12 @@
         
         [myDelegate StopIndicator];
         forgotPasswordEmail.text = @"";
-        forgotPasswordView.hidden=YES;
+//        forgotPasswordView.hidden=YES;
           NSLog(@"forgot password response is %@",responseObject);
+        UIAlertView *alert;
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        
         forgotPasswordView.hidden=YES;
     } failure:^(NSError *error) {
         
@@ -351,19 +366,21 @@
 {
     
     [self.keyboardControls setActiveField:textField];
-    if (textField == userEmail) {
-        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y + textField.frame.size.height + 20) animated:YES];
-    }
-    else if (textField == password){
-     [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y + textField.frame.size.height - 20) animated:YES];
-    }
-    else if (textField == forgotPasswordEmail){
-        if([[UIScreen mainScreen] bounds].size.height < 490)
-        {
-            [UIView animateWithDuration:0.3 animations:^{
-                forgotPasswordPopUp.frame=CGRectMake(forgotPasswordPopUp.frame.origin.x, forgotPasswordPopUp.frame.origin.y - 20, forgotPasswordPopUp.frame.size.width, forgotPasswordPopUp.frame.size.height);
-            }];
-            
+    if (!iPad) {
+        if (textField == userEmail) {
+            [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y + textField.frame.size.height + 20) animated:YES];
+        }
+        else if (textField == password){
+            [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y + textField.frame.size.height - 20) animated:YES];
+        }
+        else if (textField == forgotPasswordEmail){
+            if([[UIScreen mainScreen] bounds].size.height < 490)
+            {
+                [UIView animateWithDuration:0.3 animations:^{
+                    forgotPasswordPopUp.frame=CGRectMake(forgotPasswordPopUp.frame.origin.x, forgotPasswordPopUp.frame.origin.y - 20, forgotPasswordPopUp.frame.size.width, forgotPasswordPopUp.frame.size.height);
+                }];
+                
+            }
         }
     }
     
@@ -372,12 +389,14 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    if([[UIScreen mainScreen] bounds].size.height < 490)
-    {
-        [UIView animateWithDuration:0.3 animations:^{
-            forgotPasswordPopUp.frame=CGRectMake(forgotPasswordPopUp.frame.origin.x, forgotPasswordPopUp.frame.origin.y + 20, forgotPasswordPopUp.frame.size.width, forgotPasswordPopUp.frame.size.height);
-        }];
-        
+    if (!iPad) {
+        if([[UIScreen mainScreen] bounds].size.height < 490)
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                forgotPasswordPopUp.frame=CGRectMake(forgotPasswordPopUp.frame.origin.x, forgotPasswordPopUp.frame.origin.y + 20, forgotPasswordPopUp.frame.size.width, forgotPasswordPopUp.frame.size.height);
+            }];
+            
+        }
     }
 }
 

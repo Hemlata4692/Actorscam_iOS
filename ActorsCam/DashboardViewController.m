@@ -18,21 +18,36 @@
 
 @interface DashboardViewController ()<SWRevealViewControllerDelegate>
 
-@property (strong, nonatomic) IBOutlet UIButton *menuBar;
-@property (weak, nonatomic) IBOutlet UIButton *chooseLanguage;
 @property (strong, nonatomic) IBOutlet UILabel *takePhoto;
 @property (strong, nonatomic) IBOutlet UILabel *recordAudio;
 @property (strong, nonatomic) IBOutlet UILabel *addRepresentative;
 @property (strong, nonatomic) IBOutlet UILabel *recordVideo;
 
+//iPad
+@property (strong, nonatomic) IBOutlet UILabel *ipad_takePhoto;
+@property (strong, nonatomic) IBOutlet UILabel *ipad_recordAudio;
+@property (strong, nonatomic) IBOutlet UILabel *ipad_addRepresentative;
+@property (strong, nonatomic) IBOutlet UILabel *ipad_recordVideo;
+
+@property (strong, nonatomic) IBOutlet UIButton *menuBar;
+@property (weak, nonatomic) IBOutlet UIButton *chooseLanguage;
 @end
 
 @implementation DashboardViewController
 @synthesize menuBar, chooseLanguage, takePhoto, recordAudio, recordVideo, addRepresentative;
+
+@synthesize ipad_takePhoto, ipad_recordAudio, ipad_recordVideo, ipad_addRepresentative;
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Remove swipe gesture for sidebar
+    if (iPad) {
+        takePhoto = ipad_takePhoto;
+        recordAudio = ipad_recordAudio;
+        addRepresentative = ipad_addRepresentative;
+        recordVideo = ipad_recordVideo;
+    }
+    
     SWRevealViewController *revealController = [self revealViewController];
     [revealController panGestureRecognizer];
     [revealController tapGestureRecognizer];

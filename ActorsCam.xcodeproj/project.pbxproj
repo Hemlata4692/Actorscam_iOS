@@ -66,8 +66,8 @@
 		B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0531B8310D500C54376 /* NullValueChecker.m */; };
 		B7FF11311B8754D700D1E54F /* ManagersListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FF11301B8754D700D1E54F /* ManagersListCell.m */; };
 		B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7FFA3A01B9E9520002B37D9 /* Localizable.strings */; };
-		BDC4AC3E1BC0FC63007ADAA1 /* bg-ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDC4AC3C1BC0FC63007ADAA1 /* bg-ipad.jpg */; settings = {ASSET_TAGS = (); }; };
-		BDC4AC3F1BC0FC63007ADAA1 /* bg-ipad@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDC4AC3D1BC0FC63007ADAA1 /* bg-ipad@2x.jpg */; settings = {ASSET_TAGS = (); }; };
+		BDC4AC3E1BC0FC63007ADAA1 /* bg-ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDC4AC3C1BC0FC63007ADAA1 /* bg-ipad.jpg */; };
+		BDC4AC3F1BC0FC63007ADAA1 /* bg-ipad@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDC4AC3D1BC0FC63007ADAA1 /* bg-ipad@2x.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

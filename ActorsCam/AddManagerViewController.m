@@ -17,16 +17,23 @@
     NSArray *textFieldArray, *pickerArrayItem;
 }
 
-
 @property (weak, nonatomic) IBOutlet UITextField *userEmail;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
 @property (strong, nonatomic) IBOutlet UITextField *managerCategory;
-@property (strong, nonatomic) IBOutlet UIButton *categoryPicker;
+@property (strong, nonatomic) IBOutlet UIButton *categoryPicker;;
+@property (weak, nonatomic) IBOutlet UIButton *addEditManager;
+
+//iPad
+@property (weak, nonatomic) IBOutlet UITextField *ipad_userEmail;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_userName;
+@property (strong, nonatomic) IBOutlet UITextField *ipad_managerCategory;
+@property (strong, nonatomic) IBOutlet UIButton *ipad_categoryPicker;
+@property (weak, nonatomic) IBOutlet UIButton *ipad_addEditManager;
+
+
 @property (strong, nonatomic) IBOutlet UIPickerView *categoryPickerView;
 @property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *toolbarDone;
-
-@property (weak, nonatomic) IBOutlet UIButton *addEditManager;
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @end
@@ -36,9 +43,24 @@
 @synthesize managerCategory,categoryPicker,categoryPickerView,toolBar,toolbarDone;
 @synthesize addEditManager,scrollView;
 
+@synthesize ipad_userEmail, ipad_userName;
+@synthesize ipad_managerCategory,ipad_categoryPicker;
+@synthesize ipad_addEditManager;
+
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (iPad) {
+        
+        userEmail = ipad_userEmail;
+        userName = ipad_userName;
+        managerCategory = ipad_managerCategory;
+        categoryPicker = ipad_categoryPicker;
+        addEditManager = ipad_addEditManager;
+        
+    }
+    
     categoryPickerView.translatesAutoresizingMaskIntoConstraints=YES;
     toolBar.translatesAutoresizingMaskIntoConstraints=YES;
     [self hidePickerWithAnimation];
@@ -109,8 +131,8 @@
     [UIView setAnimationDuration:0.3];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
-    categoryPickerView.frame = CGRectMake(categoryPickerView.frame.origin.x, 1000, self.view.frame.size.width, categoryPickerView.frame.size.height);
-    toolBar.frame = CGRectMake(toolBar.frame.origin.x, 1000, self.view.frame.size.width, toolBar.frame.size.height);
+    categoryPickerView.frame = CGRectMake(categoryPickerView.frame.origin.x, 1500, self.view.frame.size.width, categoryPickerView.frame.size.height);
+    toolBar.frame = CGRectMake(toolBar.frame.origin.x, 1500, self.view.frame.size.width, toolBar.frame.size.height);
     [UIView commitAnimations];
 }
 #pragma mark - end
@@ -145,6 +167,7 @@
     [self.keyboardControls setActiveField:textField];
     [self hidePickerWithAnimation];
     
+    if (!iPad) {
     if([[UIScreen mainScreen] bounds].size.height < 500)
     {
         if (textField==userName || textField==userEmail)
@@ -152,7 +175,7 @@
             [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y - 75) animated:YES];
         }
     }
-
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string

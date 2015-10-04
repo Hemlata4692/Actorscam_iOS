@@ -191,7 +191,9 @@
     
     [videoPlayer addSubview:player.view];
     [player prepareToPlay];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerLoadStateDidChange:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerLoadStateDidChange:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerLoadStateDidChange:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+    
     [player stop];
 //    [self calculateFrames];
 }
@@ -201,7 +203,16 @@
     
     if ((player.loadState & MPMovieLoadStatePlaythroughOK) == MPMovieLoadStatePlaythroughOK) {
         //add your code
-        NSLog(@"Playing OK");
+//        if(player.playbackState == MPMoviePlaybackStateInterrupted)
+//        {
+            playOutlet.hidden = NO;
+            //        playOutlet.selected = NO;
+            [intialVideoImage setImage:videoImage];
+            //        intialVideoImage.hidden = NO;
+            [player stop];
+            NSLog(@"Playing OK");
+//        }
+        
 //        self.btnDown.hidden=FALSE;
         
         //[self.btnDown bringSubviewToFront:self.player.view];

@@ -12,18 +12,32 @@
 
 -(void)addTextFieldPadding: (UITextField *)textfield color:(UIColor *)color
 {
-    UIView *leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
+    UIView *leftPadding;
+    if (iPad) {
+        leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    }
+    else{
+        leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
+    }
+    
     textfield.leftView = leftPadding;
     textfield.leftViewMode = UITextFieldViewModeAlways;
     [textfield setValue:color forKeyPath:@"_placeholderLabel.textColor"];
-
+    
 }
 
 -(void)addTextFieldPaddingWithoutImages: (UITextField *)textfield
 {
-    UIView *leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
+    UIView *leftPadding;
+    if (iPad) {
+        leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
+    }
+    else{
+        leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
+    }
+    
     textfield.leftView = leftPadding;
-    textfield.leftViewMode = UITextFieldViewModeAlways;    
+    textfield.leftViewMode = UITextFieldViewModeAlways;
 }
 
 @end

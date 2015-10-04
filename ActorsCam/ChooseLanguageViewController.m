@@ -21,6 +21,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancel;
 @property (weak, nonatomic) IBOutlet UIButton *done;
 
+//iPad
+@property (weak, nonatomic) IBOutlet UIView *ipad_popUpView;
+@property (weak, nonatomic) IBOutlet UILabel *ipad_chooseLanguagelabel;
+
+@property (weak, nonatomic) IBOutlet UITableView *ipad_chooseLanguageTableView;
+@property (weak, nonatomic) IBOutlet UIButton *ipad_cancel;
+@property (weak, nonatomic) IBOutlet UIButton *ipad_done;
+
 @end
 
 @implementation ChooseLanguageViewController
@@ -29,6 +37,16 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (iPad) {
+        
+        _popUpView = _ipad_popUpView;
+        _chooseLanguagelabel = _ipad_chooseLanguagelabel;
+        _chooseLanguageTableView = _ipad_chooseLanguageTableView;
+        _cancel = _ipad_cancel;
+        _done = _ipad_done;
+        
+    }
+    
     selectedIndex = -1;
     
     _popUpView.layer.cornerRadius = 10.0;
@@ -66,7 +84,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    if (iPad) {
+        return 60;
+    }
+    else{
+        return 50;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

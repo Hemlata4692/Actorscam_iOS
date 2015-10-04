@@ -21,24 +21,47 @@
 }
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *email;
-@property (weak, nonatomic) IBOutlet UITextField *userName;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+
+//iPad
+@property (weak, nonatomic) IBOutlet UITextField *ipad_name;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_email;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_password;
+@property (weak, nonatomic) IBOutlet UIButton *ipad_registerBtn;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_confirmPassword;
+@property (weak, nonatomic) IBOutlet UIImageView *ipad_profileImageView;
+
 @property (nonatomic, strong) UIPopoverController *popover;
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @end
 
 @implementation RegisterViewController
-@synthesize name,email,userName,password,scrollView,confirmPassword,profileImageView,registerBtn;
+@synthesize name,email,password,scrollView,confirmPassword,profileImageView,registerBtn;
 @synthesize popover;
+
+@synthesize ipad_name,ipad_email,ipad_password,ipad_confirmPassword,ipad_profileImageView,ipad_registerBtn;
+
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (iPad) {
+        
+        name = ipad_name;
+        email = ipad_email;
+        password = ipad_password;
+        confirmPassword = ipad_confirmPassword;
+        registerBtn = ipad_registerBtn;
+        ipad_profileImageView.frame = CGRectMake(ipad_profileImageView.frame.origin.x, ipad_profileImageView.frame.origin.y, 200, 200);
+        profileImageView = ipad_profileImageView;
+        
+    }
+    
     profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2;
     profileImageView.layer.masksToBounds = YES;
     
@@ -95,7 +118,6 @@
 {
     [name addTextFieldPadding:name color:[UIColor lightGrayColor]];
     [email addTextFieldPadding:email color:[UIColor lightGrayColor]];
-    [userName addTextFieldPadding:userName color:[UIColor lightGrayColor]];
     [password addTextFieldPadding:password color:[UIColor lightGrayColor]];
     [confirmPassword addTextFieldPadding:confirmPassword color:[UIColor lightGrayColor]];
 }
@@ -149,7 +171,7 @@
     
     if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad) {
         
-            [profileImageAction showFromRect:CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y+154, 320, 120) inView:self.view animated:YES];
+            [profileImageAction showFromRect:CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y + 75, 320, 120) inView:self.view animated:YES];
       }
     else{
         // In this case the device is an iPhone/iPod Touch.
@@ -192,7 +214,7 @@
         imgPicker.allowsEditing = YES;
         imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
-        [self presentViewController:imgPicker animated:YES completion:NULL];
+        [self presentViewController:imgPicker animated:YES completion:nil];
         }
     }
     else if(buttonIndex==1)
@@ -205,16 +227,17 @@
         
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
+            
             self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
             self.popover.delegate = self;
             
-            [self.popover presentPopoverFromRect:CGRectMake(600, 400, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO];
+            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
             [self.popover setPopoverContentSize:CGSizeMake(330, 515)];
 
         }
         else
         {
-             [self presentViewController:imgPicker animated:YES completion:NULL];
+             [self presentViewController:imgPicker animated:YES completion:nil];
         }
        
     }
@@ -315,8 +338,9 @@
     
     [self.keyboardControls setActiveField:textField];
     
-    [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y - 80) animated:YES];
-   
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y - 80) animated:YES];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string

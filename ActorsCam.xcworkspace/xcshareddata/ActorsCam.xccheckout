@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>1D4C2D6F-B045-444E-BBF9-B253356E23DD</string>
+	<string>4081C4CA-EBB3-43E1-8BBF-C6A9506A0851</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ActorsCam</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>FA8785309E43C8694CC43C320AF10C78E2566E3E</string>
 			<key>IDESourceControlWCCName</key>
-			<string>actorscam_iOS</string>
+			<string>ActorCam</string>
 		</dict>
 	</array>
 </dict>

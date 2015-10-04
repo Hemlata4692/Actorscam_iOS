@@ -23,15 +23,35 @@
 @property (weak, nonatomic) IBOutlet UITableView *managerListTableView;
 @property (weak, nonatomic) IBOutlet UIButton *addManagerBtn;
 
+//iPad
+@property (weak, nonatomic) IBOutlet UILabel *ipad_noManagerAddedLbl;
+@property (weak, nonatomic) IBOutlet UIView *ipad_addManagerView;
+@property (weak, nonatomic) IBOutlet UIImageView *ipad_addManagerImage;
+@property (weak, nonatomic) IBOutlet UITableView *ipad_managerListTableView;
+@property (weak, nonatomic) IBOutlet UIButton *ipad_addManagerBtn;
+
 @end
 
 @implementation ManagerListViewController
 @synthesize managerListTableView,noManagerAddedLbl;
 @synthesize addManagerBtn,addManagerImage,addManagerView;
 
+@synthesize ipad_managerListTableView,ipad_noManagerAddedLbl;
+@synthesize ipad_addManagerBtn,ipad_addManagerImage,ipad_addManagerView;
+
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (iPad) {
+        
+        noManagerAddedLbl = ipad_noManagerAddedLbl;
+        addManagerView = ipad_addManagerView;
+        addManagerImage = ipad_addManagerImage;
+        managerListTableView = ipad_managerListTableView;
+        addManagerBtn = ipad_addManagerBtn;
+    
+    }
     navTitle = @"Representative";
     managerListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     

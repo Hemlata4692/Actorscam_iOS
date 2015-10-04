@@ -20,19 +20,36 @@
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
 @property (weak, nonatomic) IBOutlet UITextField *changePassword;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (strong, nonatomic) IBOutlet UIButton *submitBtn;
+
+//iPad
+@property (weak, nonatomic) IBOutlet UITextField *ipad_currentPassword;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_confirmPassword;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_changePassword;
+@property (strong, nonatomic) IBOutlet UIButton *ipad_submitBtn;
+
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
 @end
 
 @implementation ChangePasswordViewController
 @synthesize currentPassword,confirmPassword,changePassword,scrollView,submitBtn;
+@synthesize ipad_currentPassword,ipad_confirmPassword,ipad_changePassword,ipad_submitBtn;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     navTitle = @"Change Password";
+    
+    if (iPad) {
+        
+        currentPassword = ipad_currentPassword;
+        confirmPassword = ipad_confirmPassword;
+        changePassword = ipad_changePassword;
+        submitBtn = ipad_submitBtn;
+        
+    }
     
     [self addTextFieldPadding];
     [self setLocalizedString];
@@ -203,14 +220,15 @@
     
     [self.keyboardControls setActiveField:textField];
 
-    if([[UIScreen mainScreen] bounds].size.height<490)
-    {
-        if (textField==confirmPassword)
+    if (!iPad) {
+        if([[UIScreen mainScreen] bounds].size.height<490)
         {
-            [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-115) animated:YES];
+            if (textField==confirmPassword)
+            {
+                [scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-115) animated:YES];
+            }
         }
     }
-
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
