@@ -14,6 +14,7 @@
 #import "UIView+Toast.h"
 
 #import <ImageIO/ImageIO.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 // The amount of bits per pixel, in this case we are doing RGBA so 4 byte = 32 bits
 #define BITS_PER_PIXEL 32
@@ -99,7 +100,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 //    self.previewView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
 
     self.prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
-    _prevLayer.frame = CGRectMake(0, 0, _previewView.frame.size.width, self.previewView.frame.size.height);
+    _prevLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-78-64);
     
     self.prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.previewView.layer addSublayer:self.prevLayer];
@@ -134,8 +135,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
         
         AVCaptureDevice *audioDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
+//        [audioDevice sete]
         AVCaptureDeviceInput *audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:&error];
-        
         if (error)
         {
             NSLog(@"%@", error);
@@ -165,6 +166,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [self setStillImageOutput:stillImageOutput];
         }
     });
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -214,11 +216,16 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                                              userInfo:nil
                                               repeats:YES];
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    [myTimer invalidate];
+    myTimer = nil;
+}
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [myTimer invalidate];
-    myTimer = nil;
+//    [myTimer invalidate];
+//    myTimer = nil;
     
     dispatch_async([self sessionQueue], ^{
         [[self session] stopRunning];
@@ -244,6 +251,20 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 
 -(void)stillImageOutputView{
+
+    MPVolumeView* volumeView = [[MPVolumeView alloc] init];
+    //find the volumeSlider
+    UISlider* volumeViewSlider = nil;
+    for (UIView *view in [volumeView subviews]){
+        if ([view.class.description isEqualToString:@"MPVolumeSlider"]){
+            volumeViewSlider = (UISlider*)view;
+            break;
+        }
+    }
+//    [volumeView hideToastActivity];
+    [volumeViewSlider setValue:0.0f animated:NO];
+    [volumeViewSlider sendActionsForControlEvents:UIControlEventTouchUpInside];
+
     AVCaptureConnection *videoConnection = nil;
     for (AVCaptureConnection *connection in _stillImageOutput.connections)
     {
@@ -257,10 +278,27 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
         if (videoConnection) { break; }
     }
-    
+//            AVCaptureConnection* audioConnection ;//= [fileOutput connectionWithMediaType:AVMediaTypeAudio];
+//    //        [audioConnection audioChannels.vo]
+//    //        [videoConnection audioChannels.volumeView];
+//            AVCaptureAudioChannel *a;
+//    //        AVCaptureAudioChannel.vo
+//            if(audioConnection)
+//            {
+//                for(AVCaptureAudioChannel* audioChannel in [audioConnection audioChannels])
+//                {
+//                    audioChannel.volume = 0.5;
+//                }
+//            }
+
+//    videoConnection.audioChannel.v
+//    _stillImageOutput.conn.
+//    _stillImageOutput.
+//    videoConnection.a
     [_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection
                                                    completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *__strong error) {
                                                        CFDictionaryRef exifAttachments = CMGetAttachment( imageDataSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+                                                       
                                                        if (exifAttachments)
                                                        {
                                                            // Do something with the attachments.
@@ -284,6 +322,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                                                        totalLuminance /= 255.0;
                                                        _checkLightEffect.text = [NSString stringWithFormat:@"%f",totalLuminance];
                                                        NSLog(@"Image.png = %f",totalLuminance);
+//                                                       videoConnection.enabled = NO;
                                                    }];
 }
 
@@ -326,11 +365,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         
         if (isCapturingStillImage)
         {
-            if ([self captureButton].isSelected) {
-                self.captureButton.selected = NO;
                [self runStillImageCaptureAnimation];
-            }
-
         }
     }
     else if (context == SessionRunningAndDeviceAuthorizedContext)
@@ -432,7 +467,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     }
     else{
     self.captureButton.selected = YES;
-        
+        [myTimer invalidate];
+        myTimer = nil;
     dispatch_async([self sessionQueue], ^{
         // Update the orientation on the still image output video connection before capturing.
         [[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
@@ -466,7 +502,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                     count = count+1;
                     _imageCount.text = [NSString stringWithFormat:@"%d", count];
                 }
-               
+                myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                           target:self
+                                                         selector:@selector(stillImageOutputView)
+                                                         userInfo:nil
+                                                          repeats:YES];
 //                [[[ALAssetsLibrary alloc] init] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:nil];
             }
         }];
@@ -579,12 +619,17 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 #pragma mark - UI
 - (void)runStillImageCaptureAnimation
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[[self previewView] layer] setOpacity:0.0];
-        [UIView animateWithDuration:.25 animations:^{
-            [[[self previewView] layer] setOpacity:1.0];
-        }];
-    });
+    if ([self captureButton].isSelected) {
+        self.captureButton.selected = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[[self previewView] layer] setOpacity:0.0];
+            
+            [UIView animateWithDuration:.25 animations:^{
+                [[[self previewView] layer] setOpacity:1.0];
+            }];
+        });
+    }
 }
 
 - (void)checkDeviceAuthorizationStatus
@@ -640,10 +685,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 #pragma mark - Preview image action
 - (IBAction)previewImageButton:(UIButton *)sender {
     if (imageArray.count==0) {
-        sender.enabled = NO;
+//        sender.enabled = NO;
     }
     else{
-        sender.enabled = YES;
+//        sender.enabled = YES;
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ImagePreviewViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"ImagePreviewViewController"];
         previewView.imageArray = [imageArray mutableCopy];

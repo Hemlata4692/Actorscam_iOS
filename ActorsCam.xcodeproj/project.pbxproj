@@ -68,7 +68,6 @@
 		B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0531B8310D500C54376 /* NullValueChecker.m */; };
 		B7FF11311B8754D700D1E54F /* ManagersListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FF11301B8754D700D1E54F /* ManagersListCell.m */; };
 		B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7FFA3A01B9E9520002B37D9 /* Localizable.strings */; };
-		BD2A8AC31BBFFC6A00E53310 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = BD2A8AC21BBFFC6A00E53310 /* 0.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,7 +185,6 @@
 		B7FF112F1B8754D700D1E54F /* ManagersListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManagersListCell.h; path = ActorsCam/ManagersListCell.h; sourceTree = "<group>"; };
 		B7FF11301B8754D700D1E54F /* ManagersListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManagersListCell.m; path = ActorsCam/ManagersListCell.m; sourceTree = "<group>"; };
 		BC5833CD0E39D9EEAA9DBA37 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD2A8AC21BBFFC6A00E53310 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,7 +309,6 @@
 		B767DDA91B8C694400C721C9 /* CameraView */ = {
 			isa = PBXGroup;
 			children = (
-				BD2A8AC21BBFFC6A00E53310 /* 0.png */,
 				B767DDA51B8C68FC00C721C9 /* PreviewView.h */,
 				B767DDA61B8C68FC00C721C9 /* PreviewView.m */,
 				B767DDAA1B8C697400C721C9 /* CustomCameraViewController.h */,
@@ -825,7 +822,6 @@
 				B7BAFE5A1BB95BDE00BE13E8 /* modal1.jpeg in Resources */,
 				B7E5D7021BBCF24F00280C6A /* bg.jpg in Resources */,
 				B77937AB1BB3B5220041510D /* OpenSans-Semibold.ttf in Resources */,
-				BD2A8AC31BBFFC6A00E53310 /* 0.png in Resources */,
 				B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */,
 				B77937AD1BB3B56C0041510D /* OpenSans-Italic.ttf in Resources */,
 				B77937AA1BB3B5220041510D /* OpenSans-Regular.ttf in Resources */,
