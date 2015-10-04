@@ -18,5 +18,6 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #define myDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define MAX_LENGTH 25
+#define iPad [[UIDevice currentDevice] userInterfaceIdiom] ==  UIUserInterfaceIdiomPad
 
 #endif

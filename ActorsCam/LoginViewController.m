@@ -36,6 +36,23 @@
 @property (strong, nonatomic) IBOutlet UILabel *forgotLabel;
 @property (strong, nonatomic) IBOutlet UILabel *forgotDescriptionLabel;
 
+//portrait
+@property (strong, nonatomic) IBOutlet UIImageView *portrait_backgroundImage;
+@property (weak, nonatomic) IBOutlet UITextField *portrait_userEmail;
+@property (weak, nonatomic) IBOutlet UITextField *portrait_password;
+@property (weak, nonatomic) IBOutlet UIButton *portrait_loginBtn;
+@property (weak, nonatomic) IBOutlet UIButton *portrait_forgotPasswordBtn;
+@property (weak, nonatomic) IBOutlet UIScrollView *portrait_scrollView;
+@property (weak, nonatomic) IBOutlet UIView *portrait_forgotPasswordView;
+@property (weak, nonatomic) IBOutlet UILabel *portrait_hereLabel;
+@property (weak, nonatomic) IBOutlet UITextField *portrait_forgotPasswordEmail;
+@property (weak, nonatomic) IBOutlet UIButton *portrait_sendLinkBtn;
+@property (weak, nonatomic) IBOutlet UIView *portrait_forgotPasswordPopUp;
+@property (strong, nonatomic) IBOutlet UILabel *portrait_signUpLabel;
+@property (weak, nonatomic) IBOutlet UIButton *portrait_languageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *portrait_forgotLabel;
+@property (strong, nonatomic) IBOutlet UILabel *portrait_forgotDescriptionLabel;
+
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @end
 
@@ -44,6 +61,11 @@
 @synthesize forgotPasswordEmail,forgotPasswordView,sendLinkBtn,forgotPasswordPopUp,hereLabel;
 @synthesize signUpLabel,languageLabel,forgotLabel,forgotDescriptionLabel;
 @synthesize backgroundImage;
+
+@synthesize portrait_userEmail,portrait_password,portrait_loginBtn,portrait_forgotPasswordBtn,portrait_scrollView;
+@synthesize portrait_forgotPasswordEmail,portrait_forgotPasswordView,portrait_sendLinkBtn,portrait_forgotPasswordPopUp,portrait_hereLabel;
+@synthesize portrait_signUpLabel,portrait_languageLabel,portrait_forgotLabel,portrait_forgotDescriptionLabel;
+@synthesize portrait_backgroundImage;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad
@@ -58,8 +80,16 @@
     NSLog(@"test log!!!");
     forgotPasswordView.hidden=YES;
     //Adding textfield to array
-    textFieldArray = @[userEmail,password];
-    //Keyboard toolbar action to display toolbar with keyboard to move next,previous
+    
+    if (iPad) {
+        userEmail = portrait_userEmail;
+        password = portrait_password;
+    }
+//    else{
+//        userEmail = userEmail;
+//        password = password;
+//    }
+        //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
     

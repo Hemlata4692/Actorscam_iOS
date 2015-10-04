@@ -17,8 +17,6 @@
 		B700344E1B84AED700263CAD /* SidebarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B700344D1B84AED700263CAD /* SidebarViewController.m */; };
 		B70A59A81B8592B800E1D793 /* GlobalMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59A71B8592B800E1D793 /* GlobalMenuViewController.m */; };
 		B70A59AB1B8592D800E1D793 /* BackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B70A59AA1B8592D800E1D793 /* BackViewController.m */; };
-		B74AABB61BBCFD4B00D1FE54 /* bg-ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B74AABB41BBCFD4B00D1FE54 /* bg-ipad.jpg */; };
-		B74AABB71BBCFD4B00D1FE54 /* bg-ipad@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B74AABB51BBCFD4B00D1FE54 /* bg-ipad@2x.jpg */; };
 		B75B30DF1BB41A9400F981C8 /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = B75B30DE1BB41A9400F981C8 /* cross.png */; };
 		B75DCCBF1B9EF25000A61D60 /* LocalizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DCCBC1B9EF25000A61D60 /* LocalizedObject.m */; };
 		B75DCCC01B9EF25000A61D60 /* UILabel+LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DCCBE1B9EF25000A61D60 /* UILabel+LocalizedString.m */; };
@@ -68,6 +66,8 @@
 		B7F5B0541B8310D500C54376 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F5B0531B8310D500C54376 /* NullValueChecker.m */; };
 		B7FF11311B8754D700D1E54F /* ManagersListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FF11301B8754D700D1E54F /* ManagersListCell.m */; };
 		B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B7FFA3A01B9E9520002B37D9 /* Localizable.strings */; };
+		BDC4AC3E1BC0FC63007ADAA1 /* bg-ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDC4AC3C1BC0FC63007ADAA1 /* bg-ipad.jpg */; settings = {ASSET_TAGS = (); }; };
+		BDC4AC3F1BC0FC63007ADAA1 /* bg-ipad@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BDC4AC3D1BC0FC63007ADAA1 /* bg-ipad@2x.jpg */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,8 +104,6 @@
 		B70A59AA1B8592D800E1D793 /* BackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackViewController.m; path = ActorsCam/BackViewController.m; sourceTree = "<group>"; };
 		B73C2EF31B9E956700093384 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B73C2EF41B9E957000093384 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		B74AABB41BBCFD4B00D1FE54 /* bg-ipad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-ipad.jpg"; sourceTree = "<group>"; };
-		B74AABB51BBCFD4B00D1FE54 /* bg-ipad@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-ipad@2x.jpg"; sourceTree = "<group>"; };
 		B75B30DE1BB41A9400F981C8 /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
 		B75DCCBB1B9EF25000A61D60 /* LocalizedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedObject.h; sourceTree = "<group>"; };
 		B75DCCBC1B9EF25000A61D60 /* LocalizedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedObject.m; sourceTree = "<group>"; };
@@ -185,6 +183,8 @@
 		B7FF112F1B8754D700D1E54F /* ManagersListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManagersListCell.h; path = ActorsCam/ManagersListCell.h; sourceTree = "<group>"; };
 		B7FF11301B8754D700D1E54F /* ManagersListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManagersListCell.m; path = ActorsCam/ManagersListCell.m; sourceTree = "<group>"; };
 		BC5833CD0E39D9EEAA9DBA37 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDC4AC3C1BC0FC63007ADAA1 /* bg-ipad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-ipad.jpg"; sourceTree = "<group>"; };
+		BDC4AC3D1BC0FC63007ADAA1 /* bg-ipad@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-ipad@2x.jpg"; sourceTree = "<group>"; };
 		EC6CF4BD5D0C98E96698D211 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -621,8 +621,8 @@
 				B7E5D6FC1BBCF24F00280C6A /* bg-667h@2x.jpg */,
 				B7E5D6FD1BBCF24F00280C6A /* bg-736h@3x.jpg */,
 				B7E5D6FE1BBCF24F00280C6A /* bg.jpg */,
-				B74AABB41BBCFD4B00D1FE54 /* bg-ipad.jpg */,
-				B74AABB51BBCFD4B00D1FE54 /* bg-ipad@2x.jpg */,
+				BDC4AC3C1BC0FC63007ADAA1 /* bg-ipad.jpg */,
+				BDC4AC3D1BC0FC63007ADAA1 /* bg-ipad@2x.jpg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -812,20 +812,20 @@
 				B7BAFE541BB95BC600BE13E8 /* modal5.jpeg in Resources */,
 				B7BAFE521BB95BC600BE13E8 /* modal7.jpeg in Resources */,
 				B7BAFE531BB95BC600BE13E8 /* modal6.jpeg in Resources */,
-				B74AABB61BBCFD4B00D1FE54 /* bg-ipad.jpg in Resources */,
 				B7E5D7011BBCF24F00280C6A /* bg-736h@3x.jpg in Resources */,
 				B75B30DF1BB41A9400F981C8 /* cross.png in Resources */,
 				B7BAFE561BB95BC600BE13E8 /* modal3.jpeg in Resources */,
 				B77937AF1BB3B58F0041510D /* OpenSans-Bold.ttf in Resources */,
 				B7E5D7001BBCF24F00280C6A /* bg-667h@2x.jpg in Resources */,
 				B7E5D6FF1BBCF24F00280C6A /* bg-568h@2x.jpg in Resources */,
+				BDC4AC3F1BC0FC63007ADAA1 /* bg-ipad@2x.jpg in Resources */,
 				B7BAFE5A1BB95BDE00BE13E8 /* modal1.jpeg in Resources */,
 				B7E5D7021BBCF24F00280C6A /* bg.jpg in Resources */,
 				B77937AB1BB3B5220041510D /* OpenSans-Semibold.ttf in Resources */,
+				BDC4AC3E1BC0FC63007ADAA1 /* bg-ipad.jpg in Resources */,
 				B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */,
 				B77937AD1BB3B56C0041510D /* OpenSans-Italic.ttf in Resources */,
 				B77937AA1BB3B5220041510D /* OpenSans-Regular.ttf in Resources */,
-				B74AABB71BBCFD4B00D1FE54 /* bg-ipad@2x.jpg in Resources */,
 				B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */,
 				B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */,
 				B7BAFE511BB95BC600BE13E8 /* modal2.jpeg in Resources */,
