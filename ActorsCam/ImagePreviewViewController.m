@@ -21,9 +21,7 @@
     NSString *pickerChecker, *navTitle;
     NSDictionary *selectedData;
 }
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imagePreviewView;
@@ -41,6 +39,28 @@
 @property (strong, nonatomic) IBOutlet UITextView *noteTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendImageButton;
 
+
+//iPad
+@property (strong, nonatomic) IBOutlet UIView *ipad_mainView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *ipad_imagePreviewView;
+@property (weak, nonatomic) IBOutlet UICollectionView *ipad_previewCollectionView;
+
+@property (strong, nonatomic) IBOutlet UIView *ipad_noManagerView;
+@property (weak, nonatomic) IBOutlet UILabel *ipad_noManager;
+@property (strong, nonatomic) IBOutlet UIButton *ipad_addRepresentative;
+
+@property (weak, nonatomic) IBOutlet UIView *ipad_selectManagerView;
+@property (weak, nonatomic) IBOutlet UILabel *ipad_selectRepresentativeLabel;
+@property (strong, nonatomic) IBOutlet UITextField *ipad_selectCategory;
+@property (weak, nonatomic) IBOutlet UITextField *ipad_managerName;
+@property (strong, nonatomic) IBOutlet UILabel *ipad_notesLabel;
+@property (strong, nonatomic) IBOutlet UITextView *ipad_noteTextView;
+@property (weak, nonatomic) IBOutlet UIButton *ipad_sendImageButton;
+
+
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPickerView *managerListPickerView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolBarDone;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
@@ -56,9 +76,33 @@
 
 @synthesize imageArray,customCameraVC;
 
+@synthesize ipad_imagePreviewView,ipad_previewCollectionView;
+@synthesize ipad_noManagerView,ipad_noManager,ipad_addRepresentative;
+@synthesize ipad_selectManagerView,ipad_selectRepresentativeLabel,ipad_selectCategory,ipad_managerName,ipad_notesLabel,ipad_noteTextView,ipad_sendImageButton;
+
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (iPad) {
+        self.mainView = self.ipad_mainView;
+        
+        imagePreviewView = ipad_imagePreviewView;
+        previewCollectionView = ipad_previewCollectionView;
+        
+        noManagerView = ipad_noManagerView;
+        noManager = ipad_noManager;
+        addRepresentative = ipad_addRepresentative;
+        
+        selectManagerView = ipad_selectManagerView;
+        selectRepresentativeLabel = ipad_selectRepresentativeLabel;
+        selectCategory = ipad_selectCategory;
+        managerName = ipad_managerName;
+        notesLabel = ipad_notesLabel;
+        noteTextView = ipad_noteTextView;
+        sendImageButton = ipad_sendImageButton;
+    }
+
     managerListPickerView.translatesAutoresizingMaskIntoConstraints=YES;
     toolBar.translatesAutoresizingMaskIntoConstraints=YES;
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
@@ -77,11 +121,13 @@
 //    imagePreviewView.image = [imageArray objectAtIndex:selectedImage];
     imagePreviewView.userInteractionEnabled = YES;
     
-    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout*)self.previewCollectionView.collectionViewLayout;
-    CGFloat availableWidthForCells = CGRectGetWidth(self.view.frame) - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * (kCellsPerRow -1)-5;
-    CGFloat cellWidth = (availableWidthForCells / kCellsPerRow);
-    flowLayout.itemSize = CGSizeMake(cellWidth, flowLayout.itemSize.height);
-    
+    if (!iPad) {
+        UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout*)self.previewCollectionView.collectionViewLayout;
+        CGFloat availableWidthForCells = CGRectGetWidth(self.view.frame) - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * (kCellsPerRow -1)-5;
+        CGFloat cellWidth = (availableWidthForCells / kCellsPerRow);
+        flowLayout.itemSize = CGSizeMake(cellWidth, flowLayout.itemSize.height);
+
+    }
     
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRecognizer:)];
@@ -114,8 +160,10 @@
     selectedCategoryIndex = 0;
     selectedManagerIndex = 0;
     
-    self.mainView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.mainView.frame = CGRectMake(0, 0, self.view.frame.size.width, 658);
+    if (!iPad) {
+        self.mainView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.mainView.frame = CGRectMake(0, 0, self.view.frame.size.width, 658);
+    }
     
     UIView *rightPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 0)];
     managerName.rightView = rightPadding;
@@ -128,6 +176,14 @@
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     self.navigationItem.title = navTitle;
     
+    UIBarButtonItem *barButton;
+    CGRect framing = CGRectMake(0, 0, 30, 40);
+    UIButton *button = [[UIButton alloc] initWithFrame:framing];
+    [button setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    barButton =[[UIBarButtonItem alloc] initWithCustomView:button];
+    [button addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = barButton;
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
@@ -170,8 +226,8 @@
     [UIView setAnimationDuration:0.3];
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
-    managerListPickerView.frame = CGRectMake(managerListPickerView.frame.origin.x, 1000, self.view.frame.size.width, managerListPickerView.frame.size.height);
-    toolBar.frame = CGRectMake(toolBar.frame.origin.x, 1000, self.view.frame.size.width, toolBar.frame.size.height);
+    managerListPickerView.frame = CGRectMake(managerListPickerView.frame.origin.x, 1500, self.view.frame.size.width, managerListPickerView.frame.size.height);
+    toolBar.frame = CGRectMake(toolBar.frame.origin.x, 1500, self.view.frame.size.width, toolBar.frame.size.height);
     [UIView commitAnimations];
 }
 #pragma mark - end
@@ -182,7 +238,13 @@
     [self hidePickerWithAnimation];
     
     [self.keyboardControls setActiveField:textView];
-    [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height + 200) animated:YES];
+    if (iPad) {
+        [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height) animated:YES];
+    }
+    else{
+        [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height + 200) animated:YES];
+    }
+    
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView
@@ -592,8 +654,11 @@
             [managerListPickerView reloadAllComponents];
         }
         else{
-            self.mainView.translatesAutoresizingMaskIntoConstraints = YES;
+            if (!iPad) {
+                 self.mainView.translatesAutoresizingMaskIntoConstraints = YES;
             self.mainView.frame = CGRectMake(0, 0,self.view.frame.size.width, noManagerView.frame.origin.y + noManagerView.frame.size.height + 50);
+            }
+           
             managerName.text=@"";
             selectCategory.text = @"";
             noManagerView.hidden = NO;
@@ -652,11 +717,11 @@
     [self showPickerWithAnimation];
     
     pickerChecker = @"manager";
-//    [pickerArray removeAllObjects];
-//    pickerArray = [managerListArray mutableCopy];
-    [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
+    if (!iPad) {
+         [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
+    }
+   
     [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
-//    [managerListPickerView reloadAllComponents];
 }
 #pragma mark - end
 
@@ -668,7 +733,9 @@
     
     pickerChecker = @"category";
     pickerArray = [categoryList mutableCopy];
-    [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
+    }
     [managerListPickerView reloadAllComponents];
     [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
 }

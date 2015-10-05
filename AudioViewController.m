@@ -247,7 +247,7 @@
     
     [self.keyboardControls setActiveField:textView];
     if (iPad) {
-        [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y) animated:YES];
+        [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height) animated:YES];
     }
     else{
         [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height + 200) animated:YES];

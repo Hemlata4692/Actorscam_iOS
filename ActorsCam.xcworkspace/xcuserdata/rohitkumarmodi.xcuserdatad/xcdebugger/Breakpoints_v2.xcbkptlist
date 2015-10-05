@@ -313,11 +313,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoPreviewViewController.m"
-            timestampString = "465677078.033477"
+            timestampString = "465706691.347638"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
             landmarkName = "-MPMoviePlayerLoadStateDidChange:"
             landmarkType = "5">
          </BreakpointContent>

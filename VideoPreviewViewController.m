@@ -179,6 +179,16 @@
     
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     self.navigationItem.title = navTitle;
+    
+    UIBarButtonItem *barButton;
+    CGRect framing = CGRectMake(0, 0, 30, 40);
+    UIButton *button = [[UIButton alloc] initWithFrame:framing];
+    [button setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    barButton =[[UIBarButtonItem alloc] initWithCustomView:button];
+    [button addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = barButton;
+    
     [self performSelector:@selector(addVideo) withObject:nil afterDelay:0.1];
     
     [myDelegate ShowIndicator];
@@ -292,7 +302,7 @@
     
     [self.keyboardControls setActiveField:textView];
     if (iPad) {
-        [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y) animated:YES];
+        [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height) animated:YES];
     }
     else{
         [scrollView setContentOffset:CGPointMake(0, textView.frame.origin.y + textView.frame.size.height + 200) animated:YES];
