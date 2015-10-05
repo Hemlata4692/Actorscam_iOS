@@ -16,7 +16,6 @@
 @interface RegisterViewController ()<BSKeyboardControlsDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate>
 {
     NSArray *textFieldArray;
-    UIImagePickerController *imgPicker;
     NSString *takePhoto, *choosePhoto, *cancel, *navTitle;
 }
 @property (weak, nonatomic) IBOutlet UITextField *name;
@@ -71,8 +70,6 @@
     navTitle = @"Sign Up";
     
     [self addTextFieldPadding];
-  
-    imgPicker = [[UIImagePickerController alloc] init];
     
     //Adding textfield to array
     textFieldArray = @[name,email,password,confirmPassword];
@@ -183,7 +180,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
 {
     profileImageView.image = image;
-    [imgPicker dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 }
@@ -192,56 +189,99 @@
 #pragma mark - Actionsheet
 //Action sheet for setting image from camera or gallery
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(buttonIndex==0)
-    {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            
-            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                  message:@"Device has no camera."
-                                                                 delegate:nil
-                                                        cancelButtonTitle:@"OK"
-                                                        otherButtonTitles: nil];
-            
-            [myAlertView show];
-            
-        }
-        else
-        {
-        //Setting image from camera
-        [imgPicker setAllowsEditing:YES];
-        imgPicker = [[UIImagePickerController alloc] init];
-        imgPicker.delegate = self;
-        imgPicker.allowsEditing = YES;
-        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
-        [self presentViewController:imgPicker animated:YES completion:nil];
-        }
-    }
-    else if(buttonIndex==1)
-    {
-        //Setting image from gallery
-        imgPicker.delegate = self;
-        imgPicker.allowsEditing = YES;
-        imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        imgPicker.navigationBar.tintColor = [UIColor whiteColor];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         
-        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            
-            self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
-            self.popover.delegate = self;
-            
-            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            [self.popover setPopoverContentSize:CGSizeMake(330, 515)];
-
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        [imagePickerController setAllowsEditing:YES];
+        if (buttonIndex==1) {
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         }
-        else
-        {
-             [self presentViewController:imgPicker animated:YES completion:nil];
+        else{
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
         }
-       
+        imagePickerController.delegate = (id)self;
+        
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
     }
     
+    else  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+        UIImagePickerController *pickerImg = [[UIImagePickerController alloc] init];
+        if (buttonIndex==1) {
+            pickerImg.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            pickerImg.delegate = (id)self;
+            pickerImg.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+            popover = [[UIPopoverController alloc] initWithContentViewController:pickerImg];
+            popover.delegate = self;
+            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
+        }
+        else {
+            if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Device has no camera." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else{
+                pickerImg.sourceType = UIImagePickerControllerSourceTypeCamera;
+            }
+        }
+    }
+//    
+//    
+//    
+//    
+//    
+//    
+//    if(buttonIndex==0)
+//    {
+//        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//            
+//            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
+//                                                                  message:@"Device has no camera."
+//                                                                 delegate:nil
+//                                                        cancelButtonTitle:@"OK"
+//                                                        otherButtonTitles: nil];
+//            
+//            [myAlertView show];
+//            
+//        }
+//        else
+//        {
+//            //Setting image from camera
+//            [imgPicker setAllowsEditing:YES];
+//            imgPicker = [[UIImagePickerController alloc] init];
+//            imgPicker.delegate = self;
+//            imgPicker.allowsEditing = YES;
+//            imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+//            [self presentViewController:imgPicker animated:YES completion:nil];
+//        }
+//    }
+//    else if(buttonIndex==1)
+//    {
+//        //Setting image from gallery
+//        imgPicker.delegate = self;
+//        imgPicker.allowsEditing = YES;
+//        imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//        imgPicker.navigationBar.tintColor = [UIColor whiteColor];
+//        
+//        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+//        {
+//            
+//            self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
+//            self.popover.delegate = self;
+//            
+//            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//            [self.popover setPopoverContentSize:CGSizeMake(330, 515)];
+//            
+//        }
+//        else
+//        {
+//            [self presentViewController:imgPicker animated:YES completion:nil];
+//        }
+//        
+//    }
+
 }
 #pragma mark - end
 

@@ -199,11 +199,16 @@
 
 -(void)panAction:(UITapGestureRecognizer *)recognizer
 {
+    if(player.playbackState == MPMoviePlaybackStatePaused){
+        NSLog(@"Yes Playing");
+        [player play];
+    }
     
-    playOutlet.hidden = NO;
-    [intialVideoImage setImage:videoImage];
-    [player stop];
-    
+    else{
+        playOutlet.hidden = NO;
+        [intialVideoImage setImage:videoImage];
+        [player pause];
+    }
 }
 
 #pragma mark - Keyboard events

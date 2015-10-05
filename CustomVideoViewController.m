@@ -12,6 +12,7 @@
 #import "PreviewView.h"
 #import "UIView+Toast.h"
 #import "VideoPreviewViewController.h"
+#import "DashboardViewController.h"
 
 static void * CapturingStillImageContext = &CapturingStillImageContext;
 static void * RecordingContext = &RecordingContext;
@@ -171,6 +172,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
     self.navigationController.navigationBarHidden = NO;
     CGRect framing = CGRectMake(0, 0, 30, 30);
     revertButton = [[UIButton alloc] initWithFrame:framing];
@@ -208,11 +211,19 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     //    intialView.hidden = YES;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
     [myTimer invalidate];
     myTimer = nil;
     continousSecond = 0;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+//    [myTimer invalidate];
+//    myTimer = nil;
+    
 //    [[self movieFileOutput] stopRecording];
     
     dispatch_async([self sessionQueue], ^{
@@ -596,7 +607,16 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     }
     else{
         if (videoFileUrl == nil) {
-            [self.navigationController popViewControllerAnimated:YES];
+//            [self.navigationController popViewControllerAnimated:YES];
+            
+            for (id controller in [self.navigationController viewControllers])
+            {
+                if ([controller isKindOfClass:[DashboardViewController class]])
+                {
+                    [self.navigationController popToViewController:controller animated:YES];
+                    break;
+                }
+            }
         }
         else{
             UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

@@ -123,7 +123,7 @@
     [super viewWillAppear:YES];
     [self hidePickerWithAnimation];
     
-    [self removeAudioFile];
+//    [self removeAudioFile];
     
     second = 0;
     minute = 0;
