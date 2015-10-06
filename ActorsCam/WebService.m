@@ -48,6 +48,8 @@
     if ([internet start])
     {
         [myDelegate StopIndicator];
+        NSError *error = nil;
+        failure(error);
     }
     else
     {
@@ -76,6 +78,8 @@
     if ([internet start])
     {
         [myDelegate StopIndicator];
+        NSError *error = nil;
+        failure(error);
     }
     else
     {

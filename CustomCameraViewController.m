@@ -664,6 +664,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 #pragma mark - Done Action
 - (IBAction)doneMethod:(UIButton *)sender {
+//    [imageArray addObject:[UIImage imageNamed:@"1.png"]];
     [imageArray addObject:[UIImage imageNamed:@"1.png"]];
     if (imageArray.count==0) {
         for (id controller in [self.navigationController viewControllers])

@@ -152,10 +152,17 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [session setSessionPreset: AVCaptureSessionPresetMedium];
             [session addOutput:movieFileOutput];
             AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
-//            connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
             
-            if ([connection isVideoStabilizationSupported])
-                [connection setEnablesVideoStabilizationWhenAvailable:YES];
+//            if ([connection isVideoStabilizationSupported])
+//                [connection setEnablesVideoStabilizationWhenAvailable:YES];
+            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8) {
+                if ([connection isVideoStabilizationSupported])
+                    [connection setEnablesVideoStabilizationWhenAvailable:YES];
+            } else {
+                [connection setPreferredVideoStabilizationMode:AVCaptureVideoStabilizationModeAuto];
+            }
+            
             [self setMovieFileOutput:movieFileOutput];
         }
         

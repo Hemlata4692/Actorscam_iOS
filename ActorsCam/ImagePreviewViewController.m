@@ -136,7 +136,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self.previewCollectionView reloadData];
+//    [self.previewCollectionView reloadData];
     [self hidePickerWithAnimation];
     
     pickerChecker = @"";
@@ -652,8 +652,9 @@
             noManagerView.hidden = NO;
             selectManagerView.hidden = YES;
         }
+        [self.previewCollectionView reloadData];
     } failure:^(NSError *error) {
-        
+        [self.previewCollectionView reloadData];
     }] ;
     
 }
