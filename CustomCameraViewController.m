@@ -142,16 +142,35 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [session addInput:audioDeviceInput];
         }
         
+        
         AVCaptureMovieFileOutput *movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
         if ([session canAddOutput:movieFileOutput])
         {
             [session addOutput:movieFileOutput];
             AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
-            if ([connection isVideoStabilizationSupported])
-                [connection setPreferredVideoStabilizationMode:YES];
-//                [connection setEnablesVideoStabilizationWhenAvailable:YES];
+            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8) {
+                if ([connection isVideoStabilizationSupported])
+                    [connection setEnablesVideoStabilizationWhenAvailable:YES];
+            } else {
+                [connection setPreferredVideoStabilizationMode:AVCaptureVideoStabilizationModeAuto];
+            }
+            
+            //[connection setPreferredVideoStabilizationMode:YES];
+            //                [connection setEnablesVideoStabilizationWhenAvailable:YES];
             [self setMovieFileOutput:movieFileOutput];
         }
+        
+//        AVCaptureMovieFileOutput *movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
+//        if ([session canAddOutput:movieFileOutput])
+//        {
+//            [session addOutput:movieFileOutput];
+//            AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+//            if ([connection isVideoStabilizationSupported])
+//                [connection setPreferredVideoStabilizationMode:YES];
+////                [connection setEnablesVideoStabilizationWhenAvailable:YES];
+//            [self setMovieFileOutput:movieFileOutput];
+//        }
         
         AVCaptureStillImageOutput *stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
         if ([session canAddOutput:stillImageOutput])
