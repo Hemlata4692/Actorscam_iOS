@@ -112,7 +112,6 @@
 {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
-    //    [_sliderScrollView setContentOffset:CGPointMake(0, _sliderScrollView.frame.origin.y+100) animated:YES];
     
     categoryPickerView.backgroundColor=[UIColor whiteColor];
     
@@ -274,7 +273,7 @@
             NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
              NSDictionary *dict = (NSDictionary *)responseObject;
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
               alert.tag = 1;
              [alert show];
 

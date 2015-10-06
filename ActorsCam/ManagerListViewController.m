@@ -69,7 +69,6 @@
     // Do any additional setup after loading the view.
     managerListTableView.hidden = YES;
     addManagerView.hidden=YES;
-//    [addManagerBtn setCornerRadius:5.0f];
     managerListArray = [NSMutableArray new];
     [managerListTableView reloadData];
     

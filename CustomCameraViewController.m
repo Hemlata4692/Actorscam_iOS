@@ -81,25 +81,18 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     [super viewDidLoad];
     navTitle = @"Take Photos";
-//    _checkLightEffect.hidden = NO;
     _checkLightEffect.layer.borderColor = [UIColor colorWithRed:255.0/255.0 green:62.0/255.0 blue:37.0/255.0 alpha:1.0].CGColor;
     _checkLightEffect.layer.borderWidth = 2.0;
     _checkLightEffect.layer.cornerRadius = 10;
     _checkLightEffect.layer.masksToBounds = YES;
     
-    [_doneOutlet changeTextLanguage:@"DONE"];
     [navTitle changeTextLanguage:navTitle];
-    [_doneOutlet changeTextLanguage:@"DONE"];
+//    [_doneOutlet changeTextLanguage:@"DONE"];
 
-//    imageArray = [NSMutableArray new];
-//    imageSize = 0;
-//    _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
     
     // Create the AVCaptureSession
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
     [self setSession:session];
-//    _previewView.translatesAutoresizingMaskIntoConstraints = YES;
-//    self.previewView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
 
     self.prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
     _prevLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-78-64);
@@ -173,8 +166,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-    invalidateChecker = YES;
+//    [UIApplication sharedApplication].idleTimerDisabled = YES;
+//    invalidateChecker = YES;
     
     self.navigationController.navigationBarHidden = NO;
     CGRect framing = CGRectMake(0, 0, 30, 30);
@@ -188,13 +181,18 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     
     self.title = navTitle;
     
-//    imageSize = 0;
-//    imageArray = nil;
     shouldCapture = true;
     imageArray = [NSMutableArray new];
     imageSize = 0;
     _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
     self.imagePreview.image = nil;
+    if (imageArray.count == 0) {
+        [_doneOutlet changeTextLanguage:@"CANCEL"];
+    }
+    else{
+        [_doneOutlet changeTextLanguage:@"DONE"];
+    }
+    
 //    _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
 //    for (int i=0; i<imageArray.count; i++) {
 //        UIImage *yourImage = [imageArray objectAtIndex:i];
@@ -221,32 +219,20 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         [[self session] startRunning];
         
     });
-//    invalidateChecker = NO;
-//    luminosityTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-//                                               target:self
-//                                             selector:@selector(stillImageOutputView)
-//                                             userInfo:nil
-//                                              repeats:YES];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
     [UIApplication sharedApplication].idleTimerDisabled = NO;
-//    invalidateChecker = YES;
-//    [luminosityTimer invalidate];
-//    luminosityTimer = nil;
-    [myTimer invalidate];
-    myTimer = nil;
+//    [myTimer invalidate];
+//    myTimer = nil;
 
 }
 
 -(void)didReceiveMemoryWarning{
-//    _stillImageOutput = nil;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-//    [myTimer invalidate];
-//    myTimer = nil;
     
     dispatch_async([self sessionQueue], ^{
         [[self session] stopRunning];
@@ -273,19 +259,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 -(void)stillImageOutputView{
 
-//    MPVolumeView* volumeView = [[MPVolumeView alloc] init];
-//    //find the volumeSlider
-//    UISlider* volumeViewSlider = nil;
-//    for (UIView *view in [volumeView subviews]){
-//        if ([view.class.description isEqualToString:@"MPVolumeSlider"]){
-//            volumeViewSlider = (UISlider*)view;
-//            break;
-//        }
-//    }
-//    [volumeView hideToastActivity];
-//    [volumeViewSlider setValue:0.0f animated:NO];
-//    [volumeViewSlider sendActionsForControlEvents:UIControlEventTouchUpInside];
-
     AVCaptureConnection *videoConnection = nil;
     for (AVCaptureConnection *connection in _stillImageOutput.connections)
     {
@@ -299,28 +272,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
         if (videoConnection) { break; }
     }
-//            AVCaptureConnection* audioConnection ;//= [fileOutput connectionWithMediaType:AVMediaTypeAudio];
-//    //        [audioConnection audioChannels.vo]
-//    //        [videoConnection audioChannels.volumeView];
-//            AVCaptureAudioChannel *a;
-//    //        AVCaptureAudioChannel.vo
-//            if(audioConnection)
-//            {
-//                for(AVCaptureAudioChannel* audioChannel in [audioConnection audioChannels])
-//                {
-//                    audioChannel.volume = 0.5;
-//                }
-//            }
-
-//    videoConnection.audioChannel.v
-//    _stillImageOutput.conn.
-//    _stillImageOutput.
-//    videoConnection.a
-      if (!invalidateChecker) {
+//    if (!invalidateChecker) {
     [_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection
                                                    completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *__strong error) {
                                                        CFDictionaryRef exifAttachments = CMGetAttachment( imageDataSampleBuffer, kCGImagePropertyExifDictionary, NULL);
-                                                       if (!invalidateChecker) {
+//                                                       if (!invalidateChecker) {
                                                            if (exifAttachments)
                                                            {
                                                                // Do something with the attachments.
@@ -346,89 +302,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                                                            _checkLightEffect.text = [NSString stringWithFormat:@"%f",totalLuminance];
                                                            NSLog(@"Image.png = %f",totalLuminance);
                                                            
-                                                           //                                                       videoConnection.enabled = NO;
-                                                           //                                                       image = [self screenshot];
-                                                           //
-                                                           //                                                       scale.height=image.size.height/2;
-                                                           //                                                       scale.width=image.size.width/2;
-                                                           //                                                       image = [self imageWithImage:image scaledToSize:scale];
-                                                           //                                                       pixels = [self rgbaPixels:image];
-                                                           //                                                       totalLuminance = 0.0;
-                                                           //                                                       for(int p=0;p<image.size.width*image.size.height;p+=4) {
-                                                           //                                                           totalLuminance += pixels[p]*0.299 + pixels[p+1]*0.587 + pixels[p+2]*0.114;
-                                                           //                                                       }
-                                                           //                                                       totalLuminance /= (image.size.width*image.size.height);
-                                                           //                                                       totalLuminance /= 255.0;
-                                                           //                                                       _checkLightEffect.text = [NSString stringWithFormat:@"%f",totalLuminance];
-                                                           //                                                       NSLog(@"Image.png = %f",totalLuminance);
-                                                       }
+//                                                       }
                                                    }];
-      }
+//      }
 }
-
-//- (UIImage*)screenshot
-//{
-//    // Create a graphics context with the target size
-//    // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
-//    // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
-//    CGSize imageSize = [[UIScreen mainScreen] bounds].size;
-//    if (NULL != &UIGraphicsBeginImageContextWithOptions)
-//        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
-//    else
-//        UIGraphicsBeginImageContext(imageSize);
-//    
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    
-//    // Iterate over every window from back to front
-//    for (UIWindow *window in [[UIApplication sharedApplication] windows])
-//    {
-//        if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen])
-//        {
-//            // -renderInContext: renders in the coordinate space of the layer,
-//            // so we must first apply the layer's geometry to the graphics context
-//            CGContextSaveGState(context);
-//            // Center the context around the window's anchor point
-//            CGContextTranslateCTM(context, [window center].x, [window center].y);
-//            // Apply the window's transform about the anchor point
-//            CGContextConcatCTM(context, [self.previewView transform]);
-//            // Offset by the portion of the bounds left of and above the anchor point
-//            CGContextTranslateCTM(context,
-//                                  -[window bounds].size.width * [[window layer] anchorPoint].x,
-//                                  -[window bounds].size.height * [[window layer] anchorPoint].y);
-//            
-//            // Render the layer hierarchy to the current context
-//            [[self.previewView layer] renderInContext:context];
-//            
-//            // Restore the context
-//            CGContextRestoreGState(context);
-//        }
-//    }
-//    
-//    // Retrieve the screenshot image
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    
-//    UIGraphicsEndImageContext();
-//    
-//    return image;
-//}
-//
-//- (UIImage *)captureView:(UIView *)view {
-//    CGRect screenRect = self.prevLayer.frame;
-//    
-//    UIGraphicsBeginImageContext(screenRect.size);
-//    
-//    CGContextRef ctx = UIGraphicsGetCurrentContext();
-//    [[UIColor blackColor] set];
-//    CGContextFillRect(ctx, screenRect);
-//    
-//    [view.layer renderInContext:ctx];
-//    
-//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-//    
-//    UIGraphicsEndImageContext();
-//    
-//    return newImage;
-//}
 
 -(unsigned char*) rgbaPixels:(UIImage*)image
 {
@@ -501,13 +378,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (IBAction)revertCameraMethod:(id)sender
 {
     [[self revertButton] setEnabled:NO];
-    //    [[self recordButton] setEnabled:NO];
     [[self captureButton] setEnabled:NO];
-    invalidateChecker = YES;
-//    [luminosityTimer invalidate];
-//    luminosityTimer = nil;
-    [myTimer invalidate];
-    myTimer = nil;
+//    invalidateChecker = YES;
+//    [myTimer invalidate];
+//    myTimer = nil;
     
     dispatch_async([self sessionQueue], ^{
         AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
@@ -552,20 +426,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[self revertButton] setEnabled:YES];
-            //            [[self recordButton] setEnabled:YES];
             [[self captureButton] setEnabled:YES];
-//            invalidateChecker = NO;
-//            luminosityTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-//                                                               target:self
-//                                                             selector:@selector(stillImageOutputView)
-//                                                             userInfo:nil
-//                                                              repeats:YES];
             
-            myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                       target:self
-                                                     selector:@selector(stillImageOutputView)
-                                                     userInfo:nil
-                                                      repeats:YES];
+//            myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+//                                                       target:self
+//                                                     selector:@selector(stillImageOutputView)
+//                                                     userInfo:nil
+//                                                      repeats:YES];
             
         });
     });
@@ -577,20 +444,12 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     if ((imageSize > 20*1024*1024) || !shouldCapture) {
         //set toast
-//        invalidateChecker = YES;
-//        [myTimer invalidate];
-//        myTimer = nil;
-//        [luminosityTimer invalidate];
-//        luminosityTimer = nil;
        [self.view makeToast:@"File size cannot exceed 20 MB."];
     }
     else{
     self.captureButton.selected = YES;
-//        invalidateChecker = YES;
-        [myTimer invalidate];
-        myTimer = nil;
-//        [luminosityTimer invalidate];
-//        luminosityTimer = nil;
+//        [myTimer invalidate];
+//        myTimer = nil;
         
     dispatch_async([self sessionQueue], ^{
         // Update the orientation on the still image output video connection before capturing.
@@ -619,26 +478,21 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                    [self.view makeToast:@"File size cannot exceed 20 MB."];
                 }
                 else{
+                    [_doneOutlet changeTextLanguage:@"DONE"];
+                    
+                    
                     [imageArray addObject:image];
                    imageSize = imageSize + imgData1.length;
                     _imagePreview.image = image;
                     int count = [_imageCount.text intValue];
                     count = count+1;
                     _imageCount.text = [NSString stringWithFormat:@"%d", count];
-//                    invalidateChecker = NO;
-//                    luminosityTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-//                                                                       target:self
-//                                                                     selector:@selector(stillImageOutputView)
-//                                                                     userInfo:nil
-//                                                                      repeats:YES];
-                    myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                               target:self
-                                                             selector:@selector(stillImageOutputView)
-                                                             userInfo:nil
-                                                              repeats:YES];
+//                    myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+//                                                               target:self
+//                                                             selector:@selector(stillImageOutputView)
+//                                                             userInfo:nil
+//                                                              repeats:YES];
                 }
-                
-//                [[[ALAssetsLibrary alloc] init] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:nil];
             }
         }];
     });
@@ -791,15 +645,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 #pragma mark - Done Action
 - (IBAction)doneMethod:(UIButton *)sender {
-//    [imageArray addObject:[UIImage imageNamed:@"0.png"]];
-//    [imageArray addObject:[UIImage imageNamed:@"modal2.jpeg"]];
-//    [imageArray addObject:[UIImage imageNamed:@"modal3.jpeg"]];
-//    [imageArray addObject:[UIImage imageNamed:@"modal4.jpeg"]];
-//    [imageArray addObject:[UIImage imageNamed:@"modal5.jpeg"]];
-//    [imageArray addObject:[UIImage imageNamed:@"modal6.jpeg"]];
-//    [imageArray addObject:[UIImage imageNamed:@"modal7.jpeg"]];
-//    [imageArray addObject:[UIImage imageNamed:@"modal8.jpeg"]];
-    
     if (imageArray.count==0) {
         for (id controller in [self.navigationController viewControllers])
         {
@@ -809,8 +654,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 break;
             }
         }
-
-//        [self.navigationController popViewControllerAnimated:YES];
     }
     else{
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -824,11 +667,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 #pragma mark - Preview image action
 - (IBAction)previewImageButton:(UIButton *)sender {
-    if (imageArray.count==0) {
-//        sender.enabled = NO;
-    }
-    else{
-//        sender.enabled = YES;
+    if (imageArray.count > 0) {
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ImagePreviewViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"ImagePreviewViewController"];
         previewView.imageArray = [imageArray mutableCopy];

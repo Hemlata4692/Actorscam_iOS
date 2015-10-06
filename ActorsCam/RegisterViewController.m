@@ -62,7 +62,7 @@
     }
     
     profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2;
-    profileImageView.layer.masksToBounds = YES;
+    profileImageView.clipsToBounds= YES;
     
     takePhoto = @"Take Photo";
     choosePhoto = @"Choose Existing Photo";
@@ -142,7 +142,7 @@
         
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         alert.tag = 1;
         [alert show];
         
@@ -168,7 +168,7 @@
     
     if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad) {
         
-            [profileImageAction showFromRect:CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y + 75, 320, 120) inView:self.view animated:YES];
+            [profileImageAction showFromRect:CGRectMake(profileImageView.frame.origin.x-60, profileImageView.frame.origin.y + 82, 320, 120) inView:self.view animated:YES];
       }
     else{
         // In this case the device is an iPhone/iPod Touch.
@@ -211,10 +211,16 @@
         if (buttonIndex==1) {
             pickerImg.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             pickerImg.delegate = (id)self;
+            pickerImg.navigationBar.tintColor = [UIColor whiteColor];
             pickerImg.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
             popover = [[UIPopoverController alloc] initWithContentViewController:pickerImg];
             popover.delegate = self;
-            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                // Place image picker on the screen
+                [self.popover presentPopoverFromRect:CGRectMake(50,-430, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
+            }];
+            
+//            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
         }
         else {
             if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
@@ -222,66 +228,15 @@
                 [alert show];
             }
             else{
-                pickerImg.sourceType = UIImagePickerControllerSourceTypeCamera;
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    // Place image picker on the screen
+                    pickerImg.delegate = self;
+                    pickerImg.sourceType=UIImagePickerControllerSourceTypeCamera;
+                    [self presentViewController:pickerImg animated:YES completion:NULL];
+                }];
             }
         }
     }
-//    
-//    
-//    
-//    
-//    
-//    
-//    if(buttonIndex==0)
-//    {
-//        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//            
-//            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
-//                                                                  message:@"Device has no camera."
-//                                                                 delegate:nil
-//                                                        cancelButtonTitle:@"OK"
-//                                                        otherButtonTitles: nil];
-//            
-//            [myAlertView show];
-//            
-//        }
-//        else
-//        {
-//            //Setting image from camera
-//            [imgPicker setAllowsEditing:YES];
-//            imgPicker = [[UIImagePickerController alloc] init];
-//            imgPicker.delegate = self;
-//            imgPicker.allowsEditing = YES;
-//            imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
-//            [self presentViewController:imgPicker animated:YES completion:nil];
-//        }
-//    }
-//    else if(buttonIndex==1)
-//    {
-//        //Setting image from gallery
-//        imgPicker.delegate = self;
-//        imgPicker.allowsEditing = YES;
-//        imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//        imgPicker.navigationBar.tintColor = [UIColor whiteColor];
-//        
-//        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-//        {
-//            
-//            self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
-//            self.popover.delegate = self;
-//            
-//            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-//            [self.popover setPopoverContentSize:CGSizeMake(330, 515)];
-//            
-//        }
-//        else
-//        {
-//            [self presentViewController:imgPicker animated:YES completion:nil];
-//        }
-//        
-//    }
-
 }
 #pragma mark - end
 

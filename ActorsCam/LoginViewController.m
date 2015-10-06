@@ -142,12 +142,6 @@
     languageLabel.layer.borderColor = [UIColor whiteColor].CGColor;
     languageLabel.layer.borderWidth = 2;
     [self setLocalizedString];
-    
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
-//    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
-//    statusBarView.backgroundColor = [UIColor colorWithRed:83.0/255.0 green:24.0/255.0 blue:152.0/255.0 alpha:1.0];
-//    [self.view addSubview:statusBarView];
 
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
@@ -169,8 +163,6 @@
 -(void)addCornerRadius
 {
     
-//    [loginBtn setCornerRadius:5.0f];
-//    [sendLinkBtn setCornerRadius:5.0f];
     [forgotPasswordPopUp setCornerRadius:10.0f];
     
 }
@@ -251,7 +243,6 @@
         
         [myDelegate StopIndicator];
         forgotPasswordEmail.text = @"";
-//        forgotPasswordView.hidden=YES;
           NSLog(@"forgot password response is %@",responseObject);
         UIAlertView *alert;
         alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

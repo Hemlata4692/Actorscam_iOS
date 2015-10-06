@@ -12,6 +12,7 @@
 #import "BSKeyboardControls.h"
 #import "AddManagerViewController.h"
 #import "UITextField+Validations.h"
+#import "UIView+Toast.h"
 
 #import <AVFoundation/AVFoundation.h>
 
@@ -116,6 +117,8 @@
     [self.keyboardControls setDelegate:self];
     
     navTitle = @"Record Audio";
+    
+   
     // Do any additional setup after loading the view.
 }
 
@@ -124,6 +127,8 @@
     [self hidePickerWithAnimation];
     
 //    [self removeAudioFile];
+    playOutlet.enabled = NO;
+    sendButton.enabled = NO;
     
     second = 0;
     minute = 0;
@@ -144,6 +149,13 @@
     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
     NSURL *outputFileURL = [NSURL URLWithString:filePath];
     
+//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+//    if (fileExists) {
+//        sendButton.enabled = YES;
+//    }
+//    else{
+//        sendButton.enabled = NO;
+//    }
     //    Setup audio session
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
@@ -160,8 +172,6 @@
     recorder.delegate = self;
     recorder.meteringEnabled = YES;
     [recorder prepareToRecord];
-
-    playOutlet.enabled = NO;
     
     pickerChecker = @"";
     pickerArray = [NSMutableArray new];
@@ -322,7 +332,7 @@
                 {
                     // Email Subject
                     
-                    NSString *emailTitle = @"Actor's CAM - New Audio from  model";
+                    NSString *emailTitle = @"Actor's CAM - New Audio from model";
                     
                     NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
                     
@@ -334,9 +344,15 @@
                     
                     [mc setMessageBody:noteTextView.text isHTML:NO];
                     
-                    NSURL    *fileURL = [NSURL URLWithString:filepath];
+//                    NSURL    *fileURL = [NSURL URLWithString:filepath];
                     
-                    NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
+                    timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+
+                    continousSecond = 0;
+                    playOutlet.selected = NO;
+                    recordOulet.selected = NO;
+
+                    NSData *soundFile = [[NSData alloc] initWithContentsOfFile:filepath];
                     
                     [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"ActorCamAudio.m4a"];
                     //            }
@@ -378,6 +394,7 @@
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error
 {
+    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
@@ -638,6 +655,8 @@
     playOutlet.enabled = YES;
     playOutlet.selected = NO;
     
+    sendButton.enabled = YES;
+    
     if (player.playing) {
         [player stop];
     }
@@ -679,6 +698,7 @@
     if (recordOulet.isSelected) {
         unsigned long long size = [[NSFileManager defaultManager] attributesOfItemAtPath:[recorder.url path] error:nil].fileSize;
         if (size >= (1024*1024*20)) {
+            [self.view makeToast:@"File size cannot exceed 20 MB."];
             [myTimer invalidate];
             myTimer = nil;
             [recorder stop];

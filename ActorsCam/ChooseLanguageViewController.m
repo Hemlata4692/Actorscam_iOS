@@ -59,6 +59,7 @@
     _done.layer.borderColor = [UIColor lightGrayColor].CGColor;
 
     languageArray = @[@"ENGLISH", @"FRANCAIS", @"DEUTSCH"];
+//     languageArray = @[@"ENGLISH"];
     [_chooseLanguageTableView reloadData];
     
     // Do any additional setup after loading the view.

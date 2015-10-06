@@ -126,7 +126,7 @@
             
         case 2:
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             alert.tag=2;
             [alert show];
 

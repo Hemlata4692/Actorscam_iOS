@@ -113,11 +113,8 @@
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[noteTextView]]];
     [self.keyboardControls setDelegate:self];
-    
-//    NSURL *urlString = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Untitled" ofType:@"mov"]];
-    
-//    player  = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:[urlString absoluteString]]];
 
+    //set image at imageview during stop video time
     NSURL *videoURl = [NSURL fileURLWithPath:[filePath absoluteString]];
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURl options:nil];
     AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
@@ -134,8 +131,6 @@
 //    
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
     [intialVideoImage addGestureRecognizer:singleTap];
-    
-//    [ setImage:img];
     
     navTitle = @"Preview";
     // Do any additional setup after loading the view.
@@ -241,7 +236,6 @@
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MPMoviePlayerLoadStateDidChange:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     
     [player stop];
-//    [self calculateFrames];
 }
 
 #pragma mark- MPMoviePlayerLoadStateDidChange Notification
@@ -254,8 +248,6 @@
             NSLog(@"Playing OK");
     }
     NSLog(@"loadState=%lu",(unsigned long)player.loadState);
-    //[self.btnDown bringSubviewToFront:self.player.view];
-    
 }
 
 -(void)setLocalizedString{
@@ -346,6 +338,10 @@
 #pragma mark - send Image Button Action
 - (IBAction)sendAction:(id)sender {
     [self hidePickerWithAnimation];
+    playOutlet.hidden = NO;
+    [intialVideoImage setImage:videoImage];
+    [player stop];
+
     UIAlertView *alert;
     if ([selectCategory isEmpty])
     {
@@ -361,9 +357,7 @@
     }
     else{
         if (managerListArray.count != 0) {
-//            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
             
-//            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
             BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[filePath absoluteString]];
             if (fileExists) {
                 if ([MFMailComposeViewController canSendMail])
@@ -371,7 +365,7 @@
                 {
                     // Email Subject
                     
-                    NSString *emailTitle = @"Actor's CAM - New Video from  model";
+                    NSString *emailTitle = @"Actor's CAM - New Video from model";
                     
                     NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
                     
@@ -383,35 +377,9 @@
                     
                     [mc setMessageBody:noteTextView.text isHTML:NO];
                     
-                    //        for (UIImage *yourImage in imageArray )
-                    //
-                    //        {
-                    //
-                    //            NSData *imgData = UIImagePNGRepresentation(yourImage);
-                    //
-                    //            [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
-                    //
-//                                movie path
-                    
                     NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:[filePath absoluteString]];
                     
                     [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"ActorCamVideo.MOV"];
-                    //
-                    //
-                    //
-                    //                        audio
-                    //            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                    //
-                    //            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
-                    //            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
-                    
-                    
-//                    NSURL    *fileURL = [NSURL URLWithString:filepath];
-//                    
-//                    NSData *soundFile = [[NSData alloc] initWithContentsOfURL:fileURL];
-//                    
-//                    [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"ActorCamAudio.m4a"];
-                    //            }
                     
                     mc.navigationBar.tintColor = [UIColor whiteColor];
                     //            mc.navigationBar.ti
@@ -518,7 +486,6 @@
         else if ([pickerChecker isEqualToString:@"category"]){
             NSString *categoryString = [pickerArray objectAtIndex:row];
             selectCategory.text = [categoryString changeTextLanguage:categoryString];
-            //        [selectCategory changeTextLanguage:[categoryString changeTextLanguage:categoryString]];
         }
     }
 }
@@ -530,7 +497,6 @@
     if (managerListArray.count != 0) {
         
         NSInteger index = [managerListPickerView selectedRowInComponent:0];
-        //    managerName.text=[pickerArray objectAtIndex:index];
         [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         
         if ([pickerChecker isEqualToString:@"category"]){
@@ -645,7 +611,6 @@
     if (managerListArray.count != 0) {
         [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
     }
-    //    [managerListPickerView reloadAllComponents];
 }
 #pragma mark - end
 

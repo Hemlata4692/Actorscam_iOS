@@ -76,12 +76,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     navTitle = @"Record Video";
     
     [[self captureOutlet] setSelected:NO];
+    //set image at capture button
     [captureOutlet setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
     [captureOutlet setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateSelected];
     
-    [_doneOutlet changeTextLanguage:@"DONE"];
     [navTitle changeTextLanguage:navTitle];
-    [_doneOutlet changeTextLanguage:@"DONE"];
     
     imageArray = [NSMutableArray new];
     imageSize = 0;
@@ -175,6 +174,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     self.navigationController.navigationBarHidden = NO;
+    //right bar button of navigaion bar
     CGRect framing = CGRectMake(0, 0, 30, 30);
     revertButton = [[UIButton alloc] initWithFrame:framing];
     [revertButton setBackgroundImage:[UIImage imageNamed:@"SwitchCamera"] forState:UIControlStateNormal];
@@ -190,6 +190,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     continousSecond = 0;
     _timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
     [self removeVideoFile];
+    
+    if (imageArray.count == 0) {
+        [_doneOutlet changeTextLanguage:@"CANCEL"];
+    }
+    else{
+        [_doneOutlet changeTextLanguage:@"DONE"];
+    }
     
     dispatch_async([self sessionQueue], ^{
         [self addObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:SessionRunningAndDeviceAuthorizedContext];
@@ -258,13 +265,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             if (isRecording)
             {
                 [revertButton setEnabled:NO];
-//                [[self recordButton] setTitle:NSLocalizedString(@"Stop", @"Recording button stop title") forState:UIControlStateNormal];
                 [[self captureOutlet] setEnabled:YES];
             }
             else
             {
                 [revertButton setEnabled:YES];
-//                [[self recordButton] setTitle:NSLocalizedString(@"Record", @"Recording button record title") forState:UIControlStateNormal];
                 [[self captureOutlet] setEnabled:YES];
             }
         });
@@ -277,13 +282,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             if (isRunning)
             {
                 [revertButton setEnabled:YES];
-                //                [[self recordButton] setEnabled:YES];
                 [[self captureOutlet] setEnabled:YES];
             }
             else
             {
                 [revertButton setEnabled:NO];
-                //                [[self recordButton] setEnabled:NO];
                 [[self captureOutlet] setEnabled:NO];
             }
         });
@@ -303,6 +306,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [myTimer invalidate];
     myTimer = nil;
     continousSecond = 0;
+    captureOutlet.selected = NO;
     
     dispatch_async([self sessionQueue], ^{
         AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
@@ -359,7 +363,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     [myTimer invalidate];
     myTimer = nil;
-
+    
+     [_doneOutlet changeTextLanguage:@"DONE"];
 //        [[self captureButton] setEnabled:NO];
     if (captureOutlet.isSelected) {
         captureOutlet.selected = NO;
@@ -398,6 +403,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                 
                 NSString *filePath = [documentsPath stringByAppendingPathComponent:@"movie.mov"];
+               
+                
                 
 //                NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
                 [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:filePath] recordingDelegate:self];
@@ -441,16 +448,21 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     //	if (error)
     //		NSLog(@"%@", error);
+    captureOutlet.selected = NO;
     [myTimer invalidate];
     myTimer = nil;
-    
+    int sizeExceed;
+    sizeExceed = 0;
     if (error) {
         NSLog(@"%@", error);
         NSLog(@"Caught Error");
         if ([error code] == AVErrorDiskFull) {
             NSLog(@"Caught disk full error");
+            sizeExceed = 1;
         } else if ([error code] == AVErrorMaximumFileSizeReached) {
+            sizeExceed = YES;
             NSLog(@"Caught max file size error");
+            sizeExceed = 2;
         } else if ([error code] == AVErrorMaximumDurationReached) {
             NSLog(@"Caught max duration error");
         } else {
@@ -480,6 +492,12 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     
         if (backgroundRecordingID != UIBackgroundTaskInvalid)
             [[UIApplication sharedApplication] endBackgroundTask:backgroundRecordingID];
+    if (sizeExceed == 1) {
+        [self.view makeToast:@"Your device storage is full."];
+    }
+    else if (sizeExceed == 2){
+        [self.view makeToast:@"File size cannot exceed 20 MB."];
+    }
 //    }];
     if (disappearView) {
         if (videoFileUrl == nil) {

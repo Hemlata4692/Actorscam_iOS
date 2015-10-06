@@ -17,7 +17,6 @@
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate>
 {
 //    NSArray *textFieldArray;
-    UIImagePickerController *imgPicker;
     NSString *takePhoto, *choosePhoto, *cancel, *navTitle;
 }
 @property (weak, nonatomic) IBOutlet UITextField *name;
@@ -69,7 +68,6 @@
         [self.view removeGestureRecognizer:recognizer];
     }
     [self addTextFieldPadding];
-    imgPicker = [[UIImagePickerController alloc] init];
     
     // Do any additional setup after loading the view.
     [myDelegate ShowIndicator];
@@ -120,7 +118,7 @@
                                                   timeoutInterval:60];
         
         [profileImageView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"sideBarPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-            weakRef.contentMode = UIViewContentModeScaleAspectFit;
+            weakRef.contentMode = UIViewContentModeScaleAspectFill;
             weakRef.clipsToBounds = YES;
             weakRef.image = image;
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
@@ -158,7 +156,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"image"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] setObject:name.text forKey:@"actorName"];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         
     } failure:^(NSError *error) {
@@ -178,15 +176,15 @@
 #pragma mark - Image Picker Action
 - (IBAction)imagePickerAction:(id)sender
 {
-    UIActionSheet * share=[[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:takePhoto,choosePhoto, nil];
+    UIActionSheet * profileImageAction=[[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:takePhoto, choosePhoto, nil];
     
     if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad) {
         
-        [share showFromRect:CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y+154, 320, 120) inView:self.view animated:YES];
+        [profileImageAction showFromRect:CGRectMake(profileImageView.frame.origin.x-60, profileImageView.frame.origin.y + 82, 320, 120) inView:self.view animated:YES];
     }
     else{
         // In this case the device is an iPhone/iPod Touch.
-        [share showInView:[UIApplication sharedApplication].keyWindow];
+        [profileImageAction showInView:[UIApplication sharedApplication].keyWindow];
     }
 }
 #pragma mark - end
@@ -195,7 +193,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
 {
     profileImageView.image = image;
-    [imgPicker dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 }
@@ -205,54 +203,55 @@
 #pragma mark - Actionsheet delegate
 //Action sheet for setting image from camera or gallery
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(buttonIndex==0)
-    {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            
-            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                  message:@"Device has no camera."
-                                                                 delegate:nil
-                                                        cancelButtonTitle:@"OK"
-                                                        otherButtonTitles: nil];
-            
-            [myAlertView show];
-            
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        [imagePickerController setAllowsEditing:YES];
+        if (buttonIndex==1) {
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         }
-        else
-        {
-            //Setting image from camera
-            [imgPicker setAllowsEditing:YES];
-            imgPicker = [[UIImagePickerController alloc] init];
-            imgPicker.delegate = self;
-            imgPicker.allowsEditing = YES;
-            imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
-            [self presentViewController:imgPicker animated:YES completion:NULL];
+        else{
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
         }
-    }
-    else if(buttonIndex==1)
-    {
-        //Setting image from gallery
-        imgPicker.delegate = self;
-        imgPicker.allowsEditing = YES;
-        imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        imgPicker.navigationBar.tintColor = [UIColor whiteColor];
-        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            self.popover = [[UIPopoverController alloc] initWithContentViewController:imgPicker];
-            self.popover.delegate = self;
-            
-            [self.popover presentPopoverFromRect:CGRectMake(600, 400, 311, 350) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO];
-            [self.popover setPopoverContentSize:CGSizeMake(330, 515)];
-            
-        }
-        else
-        {
-            [self presentViewController:imgPicker animated:YES completion:NULL];
-        }
+        imagePickerController.delegate = (id)self;
+        
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+        [self presentViewController:imagePickerController animated:YES completion:nil];
         
     }
     
+    else  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+        UIImagePickerController *pickerImg = [[UIImagePickerController alloc] init];
+        if (buttonIndex==1) {
+            pickerImg.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            pickerImg.delegate = (id)self;
+            pickerImg.navigationBar.tintColor = [UIColor whiteColor];
+            pickerImg.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+            popover = [[UIPopoverController alloc] initWithContentViewController:pickerImg];
+            popover.delegate = self;
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                // Place image picker on the screen
+                [self.popover presentPopoverFromRect:CGRectMake(50,-430, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
+            }];
+            
+            //            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
+        }
+        else {
+            if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Device has no camera." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else{
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    // Place image picker on the screen
+                    pickerImg.delegate = self;
+                    pickerImg.sourceType=UIImagePickerControllerSourceTypeCamera;
+                    [self presentViewController:pickerImg animated:YES completion:NULL];
+                }];
+
+            }
+        }
+    }
 }
 #pragma mark - end
 

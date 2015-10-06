@@ -139,7 +139,8 @@
     if([[UIDevice currentDevice] userInterfaceIdiom] ==  UIUserInterfaceIdiomPad){
         aspectHeight = 448/1024.0;
         aspectHeight = ((tableView.bounds.size.height * aspectHeight) - 20);
-        profileViewHeight = tableView.bounds.size.height * (114.0/480.0);
+//        profileViewHeight = 164;
+         profileViewHeight = tableView.bounds.size.height * (114.0/480.0);
         welcomeFont = 17.0;
         nameFont = 25.0;
         welcomeHeight = 32;
@@ -175,7 +176,6 @@
     profileImageBackView.layer.borderColor = [UIColor colorWithRed:255.0/255.0 green:50.0/255.0 blue:50.0/255.0 alpha:1.0].CGColor;
 
     UIImageView *ProfileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 7, profileViewHeight - 14, profileViewHeight - 14)] ;
-    //imgView.contentMode=UIViewContentModeScaleAspectFill;
     ProfileImgView.contentMode = UIViewContentModeScaleAspectFill;
     ProfileImgView.clipsToBounds = YES;
     ProfileImgView.backgroundColor=[UIColor clearColor];
@@ -188,7 +188,7 @@
                                               timeoutInterval:60];
     
     [ProfileImgView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"sideBarPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        weakRef.contentMode = UIViewContentModeScaleAspectFit;
+        weakRef.contentMode = UIViewContentModeScaleAspectFill;
         weakRef.clipsToBounds = YES;
         weakRef.image = image;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
@@ -207,7 +207,6 @@
     welcomeLabel.textAlignment=NSTextAlignmentCenter;
     welcomeLabel.textColor=[UIColor whiteColor];
     welcomeLabel.font = [UIFont fontWithName:@"OpenSans" size:welcomeFont];
-    //    welcomeLabel.text = [@"Welcome" changeTextLanguage:@"Welcome"] ;// i.e. array element
     [welcomeLabel changeTextLanguage:@"Welcome"];
     
     UILabel *actorName;
@@ -220,13 +219,11 @@
     actorName.font = [UIFont fontWithName:@"OpenSans-Semibold" size:nameFont];
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"] isEqualToString:@""]) {
         
-        //        actorName.text = @"User" ;
         [actorName changeTextLanguage:@"User"];
     }
     else
     {
         [actorName changeTextLanguage:[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"]];
-        //        actorName.text =[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"];
     }
     
     [headerView addSubview:headerBg];

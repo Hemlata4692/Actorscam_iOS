@@ -110,15 +110,6 @@
     [self.keyboardControls setDelegate:self];
     
     navTitle = @"Preview";
-//    pickerChecker = @"";
-//    pickerArray = [NSMutableArray new];
-//    managerListArray = [NSMutableArray new];
-//    categoryList = [NSMutableArray new];
-//    noManagerView.hidden = YES;
-//    selectManagerView.hidden = NO;
-//    
-//    selectedImage = 0;
-//    imagePreviewView.image = [imageArray objectAtIndex:selectedImage];
     imagePreviewView.userInteractionEnabled = YES;
     
     if (!iPad) {
@@ -207,7 +198,6 @@
 {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
-//    [_sliderScrollView setContentOffset:CGPointMake(0, _sliderScrollView.frame.origin.y+100) animated:YES];
     
     managerListPickerView.backgroundColor=[UIColor whiteColor];
     
@@ -365,7 +355,7 @@
             {
                 // Email Subject
                 
-                NSString *emailTitle = @"Actor's CAM - New Images from  model";
+                NSString *emailTitle = @"Actor's CAM - New Images from model";
                 
                 NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
                 
@@ -464,7 +454,6 @@
         selectedImage++;
         if(selectedImage<imageArray.count){
             
-//            NSArray* cv = [self.previewCollectionView visibleCells];
             BOOL flag = NO;
             for (UICollectionViewCell *cell in [self.previewCollectionView visibleCells]) {
                 NSIndexPath *indexPath = [self.previewCollectionView indexPathForCell:cell];
@@ -572,7 +561,6 @@
     else if ([pickerChecker isEqualToString:@"category"]){
         NSString *categoryString = [pickerArray objectAtIndex:row];
         selectCategory.text = [categoryString changeTextLanguage:categoryString];
-//        [selectCategory changeTextLanguage:[categoryString changeTextLanguage:categoryString]];
     }
 }
 #pragma mark - end
@@ -584,7 +572,6 @@
     if (managerListArray.count != 0) {
         
         NSInteger index = [managerListPickerView selectedRowInComponent:0];
-        //    managerName.text=[pickerArray objectAtIndex:index];
         [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         
         if ([pickerChecker isEqualToString:@"category"]){
