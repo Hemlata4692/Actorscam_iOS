@@ -201,7 +201,8 @@
     
     else{
         playOutlet.hidden = NO;
-        [intialVideoImage setImage:videoImage];
+        intialVideoImage.image = nil;
+        //        [intialVideoImage setImage:videoImage];
         [player pause];
     }
 }
@@ -211,7 +212,7 @@
 - (IBAction)playAction:(UIButton *)sender {
     playOutlet.hidden = YES;
     playOutlet.selected = YES;
-    intialVideoImage.image = [UIImage imageNamed:@""];
+    intialVideoImage.image = nil;
     [player play];
 }
 
@@ -428,27 +429,16 @@
 #pragma mark - Pickerview Delegate Methods
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    if (managerListArray.count != 0) {
-        return 1;
-    }
-    else{
-        return 0;
-    }
+   return 1;
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    if (managerListArray.count != 0) {
-        if ([pickerChecker isEqualToString:@"manager"]) {
-            return pickerArray.count;
-        }
-        else if ([pickerChecker isEqualToString:@"category"]){
-            return categoryList.count;
-        }
-        else{
-            return 1;
-        }
-        
+    if ([pickerChecker isEqualToString:@"manager"]) {
+        return pickerArray.count;
+    }
+    else if ([pickerChecker isEqualToString:@"category"]){
+        return categoryList.count;
     }
     else{
         return 0;
@@ -458,22 +448,22 @@
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    if (managerListArray.count != 0) {
-        if ([pickerChecker isEqualToString:@"manager"]) {
-            return [[pickerArray objectAtIndex:row] objectForKey:@"managerName"];
-        }
-        else if ([pickerChecker isEqualToString:@"category"]){
-            NSString *categoryString = [pickerArray objectAtIndex:row];
-            return [categoryString changeTextLanguage:categoryString];
-        }
-        else{
-            return @"";
-        }
-        
+    //    if (managerListArray.count != 0) {
+    if ([pickerChecker isEqualToString:@"manager"]) {
+        return [[pickerArray objectAtIndex:row] objectForKey:@"managerName"];
+    }
+    else if ([pickerChecker isEqualToString:@"category"]){
+        NSString *categoryString = [pickerArray objectAtIndex:row];
+        return [categoryString changeTextLanguage:categoryString];
     }
     else{
-        return 0;
+        return @"";
     }
+    
+    //    }
+    //    else{
+    //        return 0;
+    //    }
     
 }
 
@@ -490,6 +480,7 @@
     }
 }
 #pragma mark - end
+
 
 #pragma mark - Toolbar Done Action
 - (IBAction)DoneAction:(UIBarButtonItem *)sender {

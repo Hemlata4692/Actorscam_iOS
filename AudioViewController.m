@@ -407,12 +407,12 @@
 #pragma mark - Pickerview Delegate Methods
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    if (managerListArray.count != 0) {
+//    if (managerListArray.count != 0) {
     return 1;
-    }
-    else{
-    return 0;
-    }
+//    }
+//    else{
+//    return 0;
+//    }
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
@@ -451,7 +451,7 @@
 
     }
     else{
-        return 0;
+        return @"";
     }
     
 }

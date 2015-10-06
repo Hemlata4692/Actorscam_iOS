@@ -136,6 +136,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    [self.previewCollectionView reloadData];
     [self hidePickerWithAnimation];
     
     pickerChecker = @"";

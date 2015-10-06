@@ -24,6 +24,7 @@
 		B767DDAC1B8C697400C721C9 /* CustomCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */; };
 		B76A68671BBE367000AF03CF /* CustomVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76A68661BBE367000AF03CF /* CustomVideoViewController.m */; };
 		B76A686C1BBE36A100AF03CF /* VideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76A686B1BBE36A100AF03CF /* VideoPreviewViewController.m */; };
+		B76B76B41BC3E6130045C107 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = B76B76B31BC3E6130045C107 /* 1.png */; settings = {ASSET_TAGS = (); }; };
 		B77937A71BB3B4D20041510D /* TCCustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B77937A61BB3B4D20041510D /* TCCustomFont.m */; };
 		B77937AA1BB3B5220041510D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B77937A81BB3B5220041510D /* OpenSans-Regular.ttf */; };
 		B77937AB1BB3B5220041510D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B77937A91BB3B5220041510D /* OpenSans-Semibold.ttf */; };
@@ -117,6 +118,7 @@
 		B76A68661BBE367000AF03CF /* CustomVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomVideoViewController.m; sourceTree = "<group>"; };
 		B76A686A1BBE36A100AF03CF /* VideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPreviewViewController.h; sourceTree = "<group>"; };
 		B76A686B1BBE36A100AF03CF /* VideoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPreviewViewController.m; sourceTree = "<group>"; };
+		B76B76B31BC3E6130045C107 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		B77937A61BB3B4D20041510D /* TCCustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCustomFont.m; sourceTree = "<group>"; };
 		B77937A81BB3B5220041510D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		B77937A91BB3B5220041510D /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 			children = (
 				B767DDA91B8C694400C721C9 /* CameraView */,
 				B767DDA81B8C693B00C721C9 /* ImagePreview */,
+				B76B76B31BC3E6130045C107 /* 1.png */,
 			);
 			name = TakePhotoView;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */,
 				B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */,
 				B7BAFE511BB95BC600BE13E8 /* modal2.jpeg in Resources */,
+				B76B76B41BC3E6130045C107 /* 1.png in Resources */,
 				B7BAFE551BB95BC600BE13E8 /* modal4.jpeg in Resources */,
 				B7BAFE581BB95BCD00BE13E8 /* modal8.jpeg in Resources */,
 			);
