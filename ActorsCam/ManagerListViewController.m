@@ -30,11 +30,14 @@
 @property (weak, nonatomic) IBOutlet UITableView *ipad_managerListTableView;
 @property (weak, nonatomic) IBOutlet UIButton *ipad_addManagerBtn;
 
+
+@property (strong, nonatomic) IBOutlet UIButton *addOutlet;
+
 @end
 
 @implementation ManagerListViewController
 @synthesize managerListTableView,noManagerAddedLbl;
-@synthesize addManagerBtn,addManagerImage,addManagerView;
+@synthesize addManagerBtn,addManagerImage,addManagerView,addOutlet;
 
 @synthesize ipad_managerListTableView,ipad_noManagerAddedLbl;
 @synthesize ipad_addManagerBtn,ipad_addManagerImage,ipad_addManagerView;
@@ -65,6 +68,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     self.title = navTitle;
+    
+    addOutlet.hidden = NO;
     indexpathRow = -1;
     // Do any additional setup after loading the view.
     managerListTableView.hidden = YES;
@@ -209,10 +214,12 @@
         if (managerListArray.count==0) {
             addManagerView.hidden=NO;
             managerListTableView.hidden = YES;
+            addOutlet.hidden = YES;
         }
         else{
             addManagerView.hidden=YES;
             managerListTableView.hidden = NO;
+            addOutlet.hidden = NO;
         }
         indexpathRow = -1;
         [managerListTableView reloadData];
@@ -231,12 +238,14 @@
         [myDelegate StopIndicator];
          managerListArray = [responseObject objectForKey:@"managerList"];
         if (managerListArray.count==0) {
-            addManagerView.hidden=NO;
+            addManagerView.hidden = NO;
             managerListTableView.hidden = YES;
+            addOutlet.hidden = YES;
         }
         else{
-            addManagerView.hidden=YES;
+            addManagerView.hidden = YES;
             managerListTableView.hidden = NO;
+            addOutlet.hidden = NO;
         }
         [managerListTableView reloadData];
     } failure:^(NSError *error) {

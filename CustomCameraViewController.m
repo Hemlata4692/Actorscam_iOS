@@ -185,9 +185,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (void)viewWillAppear:(BOOL)animated
 {
-//    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
 //    invalidateChecker = YES;
-    
     self.navigationController.navigationBarHidden = NO;
     CGRect framing = CGRectMake(0, 0, 30, 30);
     UIButton *button = [[UIButton alloc] initWithFrame:framing];
@@ -466,7 +465,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
        [self.view makeToast:@"File size cannot exceed 20 MB."];
     }
     else{
-    self.captureButton.selected = YES;
+        self.captureButton.selected = YES;
+        self.captureButton.enabled = NO;
 //        [myTimer invalidate];
 //        myTimer = nil;
         
@@ -485,8 +485,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
 //                NSLog(@"%llu",(unsigned long long)imageData.length);
                 UIImage *image = [[UIImage alloc] initWithData:imageData];
-                NSData *imgData1 = UIImageJPEGRepresentation(image, 1.0f);
-                imageSize = imgData1.length + imageSize;
+//                NSData *imgData1 = UIImageJPEGRepresentation(image, 1.0f);
+                 NSData *imgData1 = UIImagePNGRepresentation(image);
+//                imageSize = imgData1.length + imageSize;
                 NSLog(@"%llu",(unsigned long long)imgData1.length);
                  NSLog(@"%llu",(unsigned long long)imageData.length);
                 unsigned long long tempSize = imageSize + imgData1.length;
@@ -495,17 +496,26 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                     //set toast
                     shouldCapture = false;
                    [self.view makeToast:@"File size cannot exceed 20 MB."];
+                     self.captureButton.enabled = NO;
                 }
                 else{
                     [_doneOutlet changeTextLanguage:@"DONE"];
                     
                     
                     [imageArray addObject:image];
-                   imageSize = imageSize + imgData1.length;
+                   imageSize = tempSize;
                     _imagePreview.image = image;
                     int count = [_imageCount.text intValue];
                     count = count+1;
                     _imageCount.text = [NSString stringWithFormat:@"%d", count];
+//                    NSLog(@"----------set in cache---------------");
+//                    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//                    
+//                    NSString * timestamp = [NSString stringWithFormat:@"%f.png",[[NSDate date] timeIntervalSince1970] * 1000];
+//                    NSString *filePath = [documentsPath stringByAppendingPathComponent:timestamp];
+//                     NSLog(@"%@",filePath);
+//                    [imgData1 writeToFile:filePath atomically:YES];
+                     self.captureButton.enabled = YES;
 //                    myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
 //                                                               target:self
 //                                                             selector:@selector(stillImageOutputView)
@@ -664,8 +674,16 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 #pragma mark - Done Action
 - (IBAction)doneMethod:(UIButton *)sender {
+//    [imageArray addObject:[UIImage imageNamed:@"1.png"]];modal1.jpeg
 //    [imageArray addObject:[UIImage imageNamed:@"1.png"]];
-    [imageArray addObject:[UIImage imageNamed:@"1.png"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal1.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal2.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal3.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal4.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal5.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal6.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal7.jpeg"]];
+//    [imageArray addObject:[UIImage imageNamed:@"modal8.jpeg"]];
     if (imageArray.count==0) {
         for (id controller in [self.navigationController viewControllers])
         {

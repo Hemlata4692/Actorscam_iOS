@@ -34,7 +34,7 @@ static const BOOL    CSToastDisplayShadow       = YES;
 
 // display duration and position
 static const NSString * CSToastDefaultPosition  = @"bottom";
-static const NSTimeInterval CSToastDefaultDuration  = 3.0;
+static const NSTimeInterval CSToastDefaultDuration  = 10.0;
 
 // image view size
 static const CGFloat CSToastImageViewWidth      = 80.0;
@@ -46,7 +46,7 @@ static const CGFloat CSToastActivityHeight      = 100.0;
 static const NSString * CSToastActivityDefaultPosition = @"center";
 
 // interaction
-static const BOOL CSToastHidesOnTap             = YES;     // excludes activity views
+static const BOOL CSToastHidesOnTap             = NO;     // excludes activity views
 
 // associative reference keys
 static const NSString * CSToastTimerKey         = @"CSToastTimerKey";

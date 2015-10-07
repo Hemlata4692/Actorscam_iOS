@@ -26,6 +26,8 @@
     AVAudioPlayer *player;
     NSTimer *myTimer;
     int second, minute, hour, continousSecond;
+    
+    UIBarButtonItem *retakeBarButton,*refreshBarButton;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *mainView;
@@ -204,6 +206,20 @@
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     self.navigationItem.title = navTitle;
     
+    self.navigationItem.rightBarButtonItem = nil;
+     CGRect framing = CGRectMake(0, 0, 30, 30);
+    UIButton *refresh = [[UIButton alloc] initWithFrame:framing];
+    [refresh setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+    refreshBarButton =[[UIBarButtonItem alloc] initWithCustomView:refresh];
+    [refresh addTarget:self action:@selector(refreshButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = refreshBarButton;
+
+    
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
+
+-(void)refreshButtonAction{
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
@@ -310,7 +326,7 @@
     UIAlertView *alert;
     if ([selectCategory isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Category cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         
     }
@@ -394,7 +410,25 @@
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error
 {
-    
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            break;
+        case MFMailComposeResultFailed:
+            [self.view makeToast:@"Your email was not sent."];
+            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            break;
+        default:
+            NSLog(@"Mail not sent.");
+            break;
+    }
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end

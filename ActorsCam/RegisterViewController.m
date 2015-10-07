@@ -262,7 +262,7 @@
         return NO;
     }
     else if ([email isEmpty] || (email.text.length == 0) || [email.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -287,7 +287,7 @@
         
     }
     else if ([confirmPassword isEmpty] || (confirmPassword.text.length == 0) || [confirmPassword.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Confirm Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Confirm password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -340,12 +340,18 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField.text.length >= MAX_LENGTH && range.length == 0)
-    {
-        return NO; // return NO to not change text
+    if (textField == name) {
+        
+        if (textField.text.length >= MAX_LENGTH && range.length == 0)
+        {
+            return NO; // return NO to not change text
+        }
+        else
+        {
+            return YES;
+        }
     }
-    else
-    {
+    else{
         return YES;
     }
 }

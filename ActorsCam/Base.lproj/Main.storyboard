@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rya-KB-wLH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rya-KB-wLH">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -216,7 +216,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w7o-AF-Mw3">
                                                 <rect key="frame" x="12" y="198" width="296" height="114"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FEJ-Pm-ZsM">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FEJ-Pm-ZsM">
                                                         <rect key="frame" x="0.0" y="8" width="296" height="41"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -453,7 +453,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nUc-11-AdB">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nUc-11-AdB">
                                                 <rect key="frame" x="30" y="93" width="240" height="41"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -576,7 +576,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yzy-n4-WbU">
                                                 <rect key="frame" x="12" y="198" width="296" height="114"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5PF-hz-kuy">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5PF-hz-kuy">
                                                         <rect key="frame" x="0.0" y="8" width="296" height="41"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1135,7 +1135,7 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N3B-rK-LDs">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N3B-rK-LDs">
                                                 <rect key="frame" x="30" y="93" width="240" height="41"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1810,7 +1810,7 @@
                                                     <outlet property="delegate" destination="pfb-l8-wP7" id="kbN-S4-kat"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-Kn-3lW">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-Kn-3lW">
                                                 <rect key="frame" x="12" y="236" width="744" height="41"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1838,7 +1838,7 @@
                                                     <outlet property="delegate" destination="pfb-l8-wP7" id="xVq-gx-yVB"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BRl-Gk-MOw">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BRl-Gk-MOw">
                                                 <rect key="frame" x="12" y="377" width="744" height="41"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2038,7 +2038,7 @@
                                                     <outlet property="delegate" destination="pfb-l8-wP7" id="3Yr-Rv-sjj"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0BV-oc-E1i">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0BV-oc-E1i">
                                                 <rect key="frame" x="12" y="236" width="296" height="41"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2092,7 +2092,7 @@
                                                     <outlet property="delegate" destination="pfb-l8-wP7" id="Mqs-Rk-mg0"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rfv-6L-540">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rfv-6L-540">
                                                 <rect key="frame" x="12" y="377" width="296" height="41"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2958,7 +2958,8 @@
                                                         <exclude reference="HL0-VA-1YF"/>
                                                     </mask>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=regular">
+                                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                    <rect key="frame" x="72" y="50" width="23" height="23"/>
                                                     <mask key="constraints">
                                                         <include reference="AVV-gS-huv"/>
                                                         <include reference="HL0-VA-1YF"/>
@@ -3175,7 +3176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RYl-Rh-IwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4310.625" y="202.5"/>
+            <point key="canvasLocation" x="4285" y="454"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RGf-hm-ugi">
@@ -4795,10 +4796,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="93" height="93"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                            <rect key="frame" x="0.0" y="0.0" width="93" height="93"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HlL-ZK-SJR">
+                                                                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HlL-ZK-SJR">
                                                                     <rect key="frame" x="0.0" y="0.0" width="93" height="93"/>
                                                                     <animations/>
                                                                 </imageView>
@@ -4917,7 +4918,8 @@
                                                                 <exclude reference="xTO-5w-efX"/>
                                                             </mask>
                                                         </variation>
-                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                            <rect key="frame" x="266" y="59" width="15" height="9"/>
                                                             <mask key="constraints">
                                                                 <include reference="w33-Q8-wrQ"/>
                                                                 <include reference="xTO-5w-efX"/>
@@ -5501,19 +5503,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="rn6-FH-DX0">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="ADH-SS-QnY">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e3x-8y-Ofa">
-                                <rect key="frame" x="282" y="11" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <state key="normal" image="previewCamera"/>
-                                <connections>
-                                    <action selector="cameraButton:" destination="R9z-85-AAk" eventType="touchUpInside" id="w7w-7w-LSA"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="rn6-FH-DX0"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
@@ -6404,7 +6394,8 @@
                                                                 <exclude reference="J4V-St-uai"/>
                                                             </mask>
                                                         </variation>
-                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                            <rect key="frame" x="266" y="59" width="15" height="9"/>
                                                             <mask key="constraints">
                                                                 <include reference="FYd-iE-LIG"/>
                                                                 <include reference="J4V-St-uai"/>
@@ -7182,7 +7173,8 @@
                                                                 <exclude reference="JxO-z8-bmD"/>
                                                             </mask>
                                                         </variation>
-                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                            <rect key="frame" x="266" y="59" width="15" height="9"/>
                                                             <mask key="constraints">
                                                                 <include reference="DiY-MC-cI9"/>
                                                                 <include reference="JxO-z8-bmD"/>
@@ -7781,7 +7773,7 @@
                                                     <outlet property="delegate" destination="R8V-R0-vbQ" id="aDc-6v-RX5"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JoE-hk-ovi">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JoE-hk-ovi">
                                                 <rect key="frame" x="12" y="174" width="744" height="41"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -7981,7 +7973,7 @@
                                                     <outlet property="delegate" destination="R8V-R0-vbQ" id="BAM-co-53n"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="icd-By-SDf">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="icd-By-SDf">
                                                 <rect key="frame" x="12" y="174" width="296" height="41"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -8162,7 +8154,8 @@
                                                         <exclude reference="x1F-cj-5mX"/>
                                                     </mask>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=regular">
+                                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                    <rect key="frame" x="676" y="57" width="15" height="9"/>
                                                     <mask key="constraints">
                                                         <include reference="pu7-rM-4WE"/>
                                                         <include reference="x1F-cj-5mX"/>
@@ -8834,10 +8827,31 @@
                                     <outlet property="delegate" destination="OtE-YK-Jv9" id="tfl-pc-kLc"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D77-f7-keo">
+                                <rect key="frame" x="250" y="363" width="62" height="62"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="D77-f7-keo" secondAttribute="height" multiplier="4:3" id="0Hj-P7-aCH"/>
+                                </constraints>
+                                <state key="normal" image="add"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0Hj-P7-aCH"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="0Hj-P7-aCH"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="addManagerButtonAction:" destination="OtE-YK-Jv9" eventType="touchUpInside" id="1Cb-QW-0ji"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="D77-f7-keo" secondAttribute="trailing" constant="-8" id="1d2-WH-rrh"/>
                             <constraint firstItem="nw2-qK-nRV" firstAttribute="top" secondItem="HrR-74-UWh" secondAttribute="bottom" id="2Q0-wO-rdE"/>
                             <constraint firstItem="nw2-qK-nRV" firstAttribute="top" secondItem="K7h-Tc-i0J" secondAttribute="bottom" id="7V9-3I-TGb"/>
                             <constraint firstAttribute="trailing" secondItem="K7h-Tc-i0J" secondAttribute="trailing" id="8rX-FF-grs"/>
@@ -8847,9 +8861,11 @@
                             <constraint firstItem="7hv-58-V0D" firstAttribute="top" secondItem="nvj-y5-WpQ" secondAttribute="bottom" id="Rji-Q9-y2T"/>
                             <constraint firstItem="HrR-74-UWh" firstAttribute="leading" secondItem="TAg-4N-0CK" secondAttribute="leading" id="VbN-7w-uMW"/>
                             <constraint firstAttribute="trailing" secondItem="gcu-0d-hXM" secondAttribute="trailing" id="WfM-xm-G6n"/>
+                            <constraint firstItem="D77-f7-keo" firstAttribute="centerX" secondItem="TAg-4N-0CK" secondAttribute="centerX" constant="117" id="ZsK-KE-lDJ"/>
                             <constraint firstItem="gcu-0d-hXM" firstAttribute="leading" secondItem="TAg-4N-0CK" secondAttribute="leading" id="eGy-1A-IC3"/>
                             <constraint firstAttribute="trailing" secondItem="7hv-58-V0D" secondAttribute="trailing" id="f1G-8Y-DMR"/>
                             <constraint firstItem="gcu-0d-hXM" firstAttribute="top" secondItem="nvj-y5-WpQ" secondAttribute="bottom" id="i9g-bu-JFi"/>
+                            <constraint firstItem="nw2-qK-nRV" firstAttribute="top" secondItem="D77-f7-keo" secondAttribute="bottom" constant="11" id="nPr-ha-pUT"/>
                             <constraint firstItem="HrR-74-UWh" firstAttribute="top" secondItem="nvj-y5-WpQ" secondAttribute="bottom" id="w4C-aQ-ojd"/>
                             <constraint firstItem="K7h-Tc-i0J" firstAttribute="top" secondItem="nvj-y5-WpQ" secondAttribute="bottom" id="wSM-Rl-nZc"/>
                             <constraint firstItem="K7h-Tc-i0J" firstAttribute="leading" secondItem="TAg-4N-0CK" secondAttribute="leading" id="xfN-DJ-ikz"/>
@@ -8861,14 +8877,15 @@
                                 <exclude reference="7hv-58-V0D"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="7V9-3I-TGb"/>
-                                <exclude reference="Opa-VC-R4w"/>
                                 <exclude reference="Nzd-xu-Okb"/>
                                 <exclude reference="Rji-Q9-y2T"/>
                                 <exclude reference="f1G-8Y-DMR"/>
                                 <exclude reference="8rX-FF-grs"/>
                                 <exclude reference="wSM-Rl-nZc"/>
                                 <exclude reference="xfN-DJ-ikz"/>
+                                <exclude reference="7V9-3I-TGb"/>
+                                <exclude reference="Opa-VC-R4w"/>
+                                <exclude reference="ZsK-KE-lDJ"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
@@ -8879,14 +8896,14 @@
                                 <include reference="7hv-58-V0D"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="7V9-3I-TGb"/>
-                                <include reference="Opa-VC-R4w"/>
                                 <include reference="Nzd-xu-Okb"/>
                                 <include reference="Rji-Q9-y2T"/>
                                 <include reference="f1G-8Y-DMR"/>
                                 <include reference="8rX-FF-grs"/>
                                 <include reference="wSM-Rl-nZc"/>
                                 <include reference="xfN-DJ-ikz"/>
+                                <include reference="7V9-3I-TGb"/>
+                                <include reference="Opa-VC-R4w"/>
                             </mask>
                         </variation>
                     </view>
@@ -8898,6 +8915,7 @@
                         <outlet property="addManagerBtn" destination="jJr-0N-6VH" id="ZzN-hI-BwS"/>
                         <outlet property="addManagerImage" destination="n0Z-0n-wCV" id="yqj-9i-YOF"/>
                         <outlet property="addManagerView" destination="HrR-74-UWh" id="JA0-5b-wwb"/>
+                        <outlet property="addOutlet" destination="D77-f7-keo" id="6ii-su-Kxg"/>
                         <outlet property="ipad_addManagerBtn" destination="oAZ-ic-Cxp" id="hr1-e1-hdb"/>
                         <outlet property="ipad_addManagerImage" destination="Wk5-zf-T3b" id="wjb-V2-kBN"/>
                         <outlet property="ipad_addManagerView" destination="K7h-Tc-i0J" id="WHr-DF-aQu"/>
@@ -8985,7 +9003,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gCr-Ao-Krq">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gCr-Ao-Krq">
                                 <rect key="frame" x="18" y="228" width="732" height="41"/>
                                 <animations/>
                                 <constraints>
@@ -9073,7 +9091,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EKr-vS-GdR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EKr-vS-GdR">
                                 <rect key="frame" x="18" y="228" width="284" height="41"/>
                                 <animations/>
                                 <constraints>
@@ -9404,6 +9422,7 @@
         <image name="PlaceholderImage" width="104" height="104"/>
         <image name="SignupPassword" width="11" height="14"/>
         <image name="SignupcomfirmPassword" width="11" height="14"/>
+        <image name="add" width="62" height="62"/>
         <image name="addRepresatative" width="68" height="68"/>
         <image name="audio" width="68" height="68"/>
         <image name="bg-ipad.jpg" width="768" height="1024"/>
@@ -9423,7 +9442,6 @@
         <image name="menu" width="15" height="11"/>
         <image name="mic@1x" width="70" height="126"/>
         <image name="play" width="60" height="60"/>
-        <image name="previewCamera" width="22" height="20"/>
         <image name="previewDelete" width="17" height="19"/>
         <image name="previewVideo" width="22" height="22"/>
         <image name="radio" width="25" height="25"/>

@@ -24,7 +24,6 @@
 		B767DDAC1B8C697400C721C9 /* CustomCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B767DDAB1B8C697400C721C9 /* CustomCameraViewController.m */; };
 		B76A68671BBE367000AF03CF /* CustomVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76A68661BBE367000AF03CF /* CustomVideoViewController.m */; };
 		B76A686C1BBE36A100AF03CF /* VideoPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76A686B1BBE36A100AF03CF /* VideoPreviewViewController.m */; };
-		B76B76B41BC3E6130045C107 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = B76B76B31BC3E6130045C107 /* 1.png */; settings = {ASSET_TAGS = (); }; };
 		B77937A71BB3B4D20041510D /* TCCustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B77937A61BB3B4D20041510D /* TCCustomFont.m */; };
 		B77937AA1BB3B5220041510D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B77937A81BB3B5220041510D /* OpenSans-Regular.ttf */; };
 		B77937AB1BB3B5220041510D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B77937A91BB3B5220041510D /* OpenSans-Semibold.ttf */; };
@@ -41,17 +40,10 @@
 		B789AD851B82103B00C1C0AB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD841B82103B00C1C0AB /* RegisterViewController.m */; };
 		B789AD891B82105300C1C0AB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD881B82105300C1C0AB /* LoginViewController.m */; };
 		B789AD8D1B8212E700C1C0AB /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */; };
+		B78A23121BC526A9008F9B8E /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = B78A23111BC526A8008F9B8E /* refresh.png */; settings = {ASSET_TAGS = (); }; };
 		B793FEF21BBBBFE900DF6E50 /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B793FEF11BBBBFE900DF6E50 /* AudioViewController.m */; };
 		B79FC7111B941FD200D9EA79 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = B79FC7101B941FD200D9EA79 /* UIView+Toast.m */; };
 		B7AD47461B8726B800D12F33 /* ManagerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AD47451B8726B800D12F33 /* ManagerListViewController.m */; };
-		B7BAFE511BB95BC600BE13E8 /* modal2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE4B1BB95BC600BE13E8 /* modal2.jpeg */; };
-		B7BAFE521BB95BC600BE13E8 /* modal7.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE4C1BB95BC600BE13E8 /* modal7.jpeg */; };
-		B7BAFE531BB95BC600BE13E8 /* modal6.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE4D1BB95BC600BE13E8 /* modal6.jpeg */; };
-		B7BAFE541BB95BC600BE13E8 /* modal5.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE4E1BB95BC600BE13E8 /* modal5.jpeg */; };
-		B7BAFE551BB95BC600BE13E8 /* modal4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE4F1BB95BC600BE13E8 /* modal4.jpeg */; };
-		B7BAFE561BB95BC600BE13E8 /* modal3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE501BB95BC600BE13E8 /* modal3.jpeg */; };
-		B7BAFE581BB95BCD00BE13E8 /* modal8.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE571BB95BCD00BE13E8 /* modal8.jpeg */; };
-		B7BAFE5A1BB95BDE00BE13E8 /* modal1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B7BAFE591BB95BDE00BE13E8 /* modal1.jpeg */; };
 		B7C06A181B9FE5D900C2E616 /* ChooseLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C06A171B9FE5D900C2E616 /* ChooseLanguageCell.m */; };
 		B7D32C2B1B8AE32A000DE939 /* ChooseLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D32C2A1B8AE32A000DE939 /* ChooseLanguageViewController.m */; };
 		B7D32C3C1B8B36B1000DE939 /* ImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D32C3B1B8B36B1000DE939 /* ImagePreviewViewController.m */; };
@@ -118,7 +110,6 @@
 		B76A68661BBE367000AF03CF /* CustomVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomVideoViewController.m; sourceTree = "<group>"; };
 		B76A686A1BBE36A100AF03CF /* VideoPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPreviewViewController.h; sourceTree = "<group>"; };
 		B76A686B1BBE36A100AF03CF /* VideoPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPreviewViewController.m; sourceTree = "<group>"; };
-		B76B76B31BC3E6130045C107 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		B77937A61BB3B4D20041510D /* TCCustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCustomFont.m; sourceTree = "<group>"; };
 		B77937A81BB3B5220041510D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		B77937A91BB3B5220041510D /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
@@ -146,20 +137,13 @@
 		B789AD881B82105300C1C0AB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ActorsCam/LoginViewController.m; sourceTree = "<group>"; };
 		B789AD8B1B8212E700C1C0AB /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangePasswordViewController.h; path = ActorsCam/ChangePasswordViewController.h; sourceTree = "<group>"; };
 		B789AD8C1B8212E700C1C0AB /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangePasswordViewController.m; path = ActorsCam/ChangePasswordViewController.m; sourceTree = "<group>"; };
+		B78A23111BC526A8008F9B8E /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refresh.png; path = ../refresh.png; sourceTree = "<group>"; };
 		B793FEF01BBBBFE900DF6E50 /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
 		B793FEF11BBBBFE900DF6E50 /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
 		B79FC70F1B941FD200D9EA79 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		B79FC7101B941FD200D9EA79 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		B7AD47441B8726B800D12F33 /* ManagerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManagerListViewController.h; path = ActorsCam/ManagerListViewController.h; sourceTree = "<group>"; };
 		B7AD47451B8726B800D12F33 /* ManagerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManagerListViewController.m; path = ActorsCam/ManagerListViewController.m; sourceTree = "<group>"; };
-		B7BAFE4B1BB95BC600BE13E8 /* modal2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal2.jpeg; sourceTree = "<group>"; };
-		B7BAFE4C1BB95BC600BE13E8 /* modal7.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal7.jpeg; sourceTree = "<group>"; };
-		B7BAFE4D1BB95BC600BE13E8 /* modal6.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal6.jpeg; sourceTree = "<group>"; };
-		B7BAFE4E1BB95BC600BE13E8 /* modal5.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal5.jpeg; sourceTree = "<group>"; };
-		B7BAFE4F1BB95BC600BE13E8 /* modal4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal4.jpeg; sourceTree = "<group>"; };
-		B7BAFE501BB95BC600BE13E8 /* modal3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal3.jpeg; sourceTree = "<group>"; };
-		B7BAFE571BB95BCD00BE13E8 /* modal8.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal8.jpeg; sourceTree = "<group>"; };
-		B7BAFE591BB95BDE00BE13E8 /* modal1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = modal1.jpeg; sourceTree = "<group>"; };
 		B7C06A161B9FE5D900C2E616 /* ChooseLanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseLanguageCell.h; sourceTree = "<group>"; };
 		B7C06A171B9FE5D900C2E616 /* ChooseLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseLanguageCell.m; sourceTree = "<group>"; };
 		B7D32C291B8AE32A000DE939 /* ChooseLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChooseLanguageViewController.h; path = ActorsCam/ChooseLanguageViewController.h; sourceTree = "<group>"; };
@@ -412,7 +396,6 @@
 		B789AD5A1B820F3B00C1C0AB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B7BAFE4A1BB95BAE00BE13E8 /* Modal_Images */,
 				B7DF6DA31BB3B47300351333 /* Fonts */,
 				B7DF6D9A1BB3B18100351333 /* Images */,
 				B7FFA3A01B9E9520002B37D9 /* Localizable.strings */,
@@ -545,21 +528,6 @@
 			name = ManagersListCell;
 			sourceTree = "<group>";
 		};
-		B7BAFE4A1BB95BAE00BE13E8 /* Modal_Images */ = {
-			isa = PBXGroup;
-			children = (
-				B7BAFE591BB95BDE00BE13E8 /* modal1.jpeg */,
-				B7BAFE571BB95BCD00BE13E8 /* modal8.jpeg */,
-				B7BAFE4B1BB95BC600BE13E8 /* modal2.jpeg */,
-				B7BAFE4C1BB95BC600BE13E8 /* modal7.jpeg */,
-				B7BAFE4D1BB95BC600BE13E8 /* modal6.jpeg */,
-				B7BAFE4E1BB95BC600BE13E8 /* modal5.jpeg */,
-				B7BAFE4F1BB95BC600BE13E8 /* modal4.jpeg */,
-				B7BAFE501BB95BC600BE13E8 /* modal3.jpeg */,
-			);
-			name = Modal_Images;
-			sourceTree = "<group>";
-		};
 		B7C06A191B9FE5E200C2E616 /* ChooseLanguage */ = {
 			isa = PBXGroup;
 			children = (
@@ -611,7 +579,6 @@
 			children = (
 				B767DDA91B8C694400C721C9 /* CameraView */,
 				B767DDA81B8C693B00C721C9 /* ImagePreview */,
-				B76B76B31BC3E6130045C107 /* 1.png */,
 			);
 			name = TakePhotoView;
 			sourceTree = "<group>";
@@ -619,6 +586,7 @@
 		B7DF6D9A1BB3B18100351333 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B78A23111BC526A8008F9B8E /* refresh.png */,
 				B75B30DE1BB41A9400F981C8 /* cross.png */,
 				B7E5D6FB1BBCF24F00280C6A /* bg-568h@2x.jpg */,
 				B7E5D6FC1BBCF24F00280C6A /* bg-667h@2x.jpg */,
@@ -812,29 +780,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7BAFE541BB95BC600BE13E8 /* modal5.jpeg in Resources */,
-				B7BAFE521BB95BC600BE13E8 /* modal7.jpeg in Resources */,
-				B7BAFE531BB95BC600BE13E8 /* modal6.jpeg in Resources */,
 				B7E5D7011BBCF24F00280C6A /* bg-736h@3x.jpg in Resources */,
 				B75B30DF1BB41A9400F981C8 /* cross.png in Resources */,
-				B7BAFE561BB95BC600BE13E8 /* modal3.jpeg in Resources */,
 				B77937AF1BB3B58F0041510D /* OpenSans-Bold.ttf in Resources */,
 				B7E5D7001BBCF24F00280C6A /* bg-667h@2x.jpg in Resources */,
 				B7E5D6FF1BBCF24F00280C6A /* bg-568h@2x.jpg in Resources */,
 				BDC4AC3F1BC0FC63007ADAA1 /* bg-ipad@2x.jpg in Resources */,
-				B7BAFE5A1BB95BDE00BE13E8 /* modal1.jpeg in Resources */,
 				B7E5D7021BBCF24F00280C6A /* bg.jpg in Resources */,
 				B77937AB1BB3B5220041510D /* OpenSans-Semibold.ttf in Resources */,
+				B78A23121BC526A9008F9B8E /* refresh.png in Resources */,
 				BDC4AC3E1BC0FC63007ADAA1 /* bg-ipad.jpg in Resources */,
 				B7FFA39E1B9E9520002B37D9 /* Localizable.strings in Resources */,
 				B77937AD1BB3B56C0041510D /* OpenSans-Italic.ttf in Resources */,
 				B77937AA1BB3B5220041510D /* OpenSans-Regular.ttf in Resources */,
 				B789AD661B820F3B00C1C0AB /* Main.storyboard in Resources */,
 				B789AD681B820F3B00C1C0AB /* Images.xcassets in Resources */,
-				B7BAFE511BB95BC600BE13E8 /* modal2.jpeg in Resources */,
-				B76B76B41BC3E6130045C107 /* 1.png in Resources */,
-				B7BAFE551BB95BC600BE13E8 /* modal4.jpeg in Resources */,
-				B7BAFE581BB95BCD00BE13E8 /* modal8.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

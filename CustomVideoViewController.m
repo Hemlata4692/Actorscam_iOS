@@ -343,7 +343,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         {
             [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:currentVideoDevice];
 
-            [CustomVideoViewController setFlashMode:AVCaptureFlashModeAuto forDevice:videoDevice];
+            [CustomVideoViewController setFlashMode:AVCaptureFlashModeOff forDevice:videoDevice];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:videoDevice];
 
             [[self session] addInput:videoDeviceInput];
@@ -402,7 +402,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 [[[self movieFileOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:AVCaptureVideoOrientationPortrait];
                 
                 // Turning OFF flash for video recording
-                [CustomVideoViewController setFlashMode:AVCaptureFlashModeAuto forDevice:[[self videoDeviceInput] device]];
+                [CustomVideoViewController setFlashMode:AVCaptureFlashModeOff forDevice:[[self videoDeviceInput] device]];
                 
                 // Start recording to a temporary file.
                 NSLog(@"%lld",_movieFileOutput.recordedFileSize);

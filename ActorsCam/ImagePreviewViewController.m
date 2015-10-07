@@ -12,6 +12,9 @@
 #import "BSKeyboardControls.h"
 #import "UITextField+Validations.h"
 #import "AddManagerViewController.h"
+#import "UIView+Toast.h"
+
+#import "UIView+Toast.h"
 
 #define kCellsPerRow 3
 
@@ -20,6 +23,8 @@
     int selectedImage, selectedCategoryIndex, selectedManagerIndex;
     NSString *pickerChecker, *navTitle;
     NSDictionary *selectedData;
+    UIBarButtonItem *retakeBarButton,*refreshBarButton;
+    BOOL reloadDataChecker;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *mainView;
@@ -103,6 +108,7 @@
         sendImageButton = ipad_sendImageButton;
     }
 
+    reloadDataChecker = NO;
     managerListPickerView.translatesAutoresizingMaskIntoConstraints=YES;
     toolBar.translatesAutoresizingMaskIntoConstraints=YES;
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
@@ -174,8 +180,26 @@
     [button setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     barButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     [button addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
-    
     self.navigationItem.leftBarButtonItem = barButton;
+    
+    self.navigationItem.rightBarButtonItem = nil;
+    framing = CGRectMake(0, 0, 30, 30);
+    UIButton *retake = [[UIButton alloc] initWithFrame:framing];
+    [retake setImage:[UIImage imageNamed:@"previewCamera"] forState:UIControlStateNormal];
+    retakeBarButton =[[UIBarButtonItem alloc] initWithCustomView:retake];
+    [retake addTarget:self action:@selector(cameraButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    framing = CGRectMake(0, 0, 30, 30);
+    UIButton *refresh = [[UIButton alloc] initWithFrame:framing];
+    [refresh setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+    refreshBarButton =[[UIBarButtonItem alloc] initWithCustomView:refresh];
+    [refresh addTarget:self action:@selector(refreshButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItems=[NSArray arrayWithObjects:retakeBarButton,refreshBarButton, nil];
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
+
+-(void)refreshButtonAction{
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
@@ -278,10 +302,22 @@
     UICollectionViewCell *myCell = [collectionView1
                                     dequeueReusableCellWithReuseIdentifier:@"myCell"
                                     forIndexPath:indexPath];
-    
-    UIImageView *image = (UIImageView*)[myCell viewWithTag:1];
-    image.image = [imageArray objectAtIndex:indexPath.row];
-    
+    UIImageView *image;
+    if(collectionView1 == ipad_previewCollectionView){
+//        NSLog(@"ipad");
+        image = (UIImageView*)[myCell viewWithTag:2];
+        if ((indexPath.row == 3) && (image !=nil) ) {
+            reloadDataChecker = NO;
+        }
+    }
+    else if (collectionView1 == previewCollectionView){
+//        NSLog(@"iphone");
+        image = (UIImageView*)[myCell viewWithTag:1];
+    }
+//    UIImageView *image = (UIImageView*)[myCell viewWithTag:1];
+//    image.image = [imageArray objectAtIndex:indexPath.row];
+    UIImage *img = [imageArray objectAtIndex:indexPath.row];
+    image.image = img;
     if (selectedImage == indexPath.row) {
         image.layer.borderColor = [UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0].CGColor;
         image.layer.borderWidth = 2;
@@ -292,6 +328,24 @@
     }
     return myCell;
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+   
+    if (iPad) {
+        if (reloadDataChecker) {
+             NSLog(@"checker");
+            [previewCollectionView reloadData];
+        }
+        
+    }
+    
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView1
+{
+    if ((scrollView1.contentOffset.x > 2) && iPad) {
+        reloadDataChecker = NO;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -339,7 +393,7 @@
     UIAlertView *alert;
     if ([selectCategory isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Category cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         
     }
@@ -373,8 +427,16 @@
                 {
                     
                     NSData *imgData = UIImagePNGRepresentation(yourImage);
+//                    NSLog(@"----------get in cache---------------");
+//                    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//                    NSString * timestamp = [NSString stringWithFormat:@"%f.png",[[NSDate date] timeIntervalSince1970] * 1000];
+//                    NSString *filePath = [documentsPath stringByAppendingPathComponent:timestamp];
+//                    NSLog(@"%@",filePath);
+////                    NSData *imageData = UIImagePNGRepresentation(yourImage);
+//                    [imgData writeToFile:filePath atomically:YES];
+
                     
-                    [mc addAttachmentData:imgData mimeType:@"image/png" fileName:[NSString stringWithFormat:@"a.png"]];
+                    [mc addAttachmentData:imgData mimeType:@"image/png" fileName:@"ActorImages"];
                     
                 }
                 
@@ -412,6 +474,26 @@
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error
 {
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            break;
+        case MFMailComposeResultFailed:
+            [self.view makeToast:@"Your email was not sent."];
+            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            break;
+        default:
+            NSLog(@"Mail not sent.");
+            break;
+    }
+    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
@@ -653,8 +735,10 @@
             selectManagerView.hidden = YES;
         }
         [self.previewCollectionView reloadData];
+         reloadDataChecker = YES;
     } failure:^(NSError *error) {
         [self.previewCollectionView reloadData];
+         reloadDataChecker = YES;
     }] ;
     
 }

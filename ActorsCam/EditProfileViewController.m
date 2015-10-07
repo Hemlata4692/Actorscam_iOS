@@ -300,9 +300,15 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField.text.length >= MAX_LENGTH && range.length == 0)
-    {
-        return NO; // return NO to not change text
+    if (textField == name) {
+        if (textField.text.length >= MAX_LENGTH && range.length == 0)
+        {
+            return NO; // return NO to not change text
+        }
+        else
+        {
+            return YES;
+        }
     }
     else
     {

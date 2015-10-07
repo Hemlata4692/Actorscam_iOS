@@ -264,7 +264,7 @@
     UIAlertView *alert;
     if ([userEmail isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -307,7 +307,7 @@
     UIAlertView *alert;
     if ([forgotPasswordEmail isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }

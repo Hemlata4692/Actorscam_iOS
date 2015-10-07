@@ -12,6 +12,7 @@
 #import "BSKeyboardControls.h"
 #import "AddManagerViewController.h"
 #import "UITextField+Validations.h"
+#import "UIView+Toast.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -23,6 +24,7 @@
     int selectedCategoryIndex, selectedManagerIndex;
     MPMoviePlayerController *player;
     UIImage *videoImage;
+    UIBarButtonItem *retakeBarButton,*refreshBarButton;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *mainView;
@@ -181,11 +183,29 @@
     [button setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     barButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     [button addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
-    
     self.navigationItem.leftBarButtonItem = barButton;
+    
+    self.navigationItem.rightBarButtonItem = nil;
+    framing = CGRectMake(0, 0, 30, 30);
+    UIButton *retake = [[UIButton alloc] initWithFrame:framing];
+    [retake setImage:[UIImage imageNamed:@"previewCamera"] forState:UIControlStateNormal];
+    retakeBarButton =[[UIBarButtonItem alloc] initWithCustomView:retake];
+    [retake addTarget:self action:@selector(cameraButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    framing = CGRectMake(0, 0, 30, 30);
+    UIButton *refresh = [[UIButton alloc] initWithFrame:framing];
+    [refresh setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+    refreshBarButton =[[UIBarButtonItem alloc] initWithCustomView:refresh];
+    [refresh addTarget:self action:@selector(refreshButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItems=[NSArray arrayWithObjects:retakeBarButton,refreshBarButton, nil];
     
     [self performSelector:@selector(addVideo) withObject:nil afterDelay:0.1];
     
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
+
+-(void)refreshButtonAction{
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
@@ -346,7 +366,7 @@
     UIAlertView *alert;
     if ([selectCategory isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Category cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         
     }
@@ -417,6 +437,25 @@
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error
 {
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            break;
+        case MFMailComposeResultFailed:
+            [self.view makeToast:@"Your email was not sent."];
+            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            break;
+        default:
+            NSLog(@"Mail not sent.");
+            break;
+    }
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
