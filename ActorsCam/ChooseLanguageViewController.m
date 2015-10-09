@@ -119,7 +119,7 @@
 
 #pragma mark - Cancel action
 - (IBAction)cancelAction:(id)sender {
-    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"]);
+   // NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"]);
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];

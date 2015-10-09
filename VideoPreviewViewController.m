@@ -268,7 +268,7 @@
             [player stop];
             NSLog(@"Playing OK");
     }
-    NSLog(@"loadState=%lu",(unsigned long)player.loadState);
+   // NSLog(@"loadState=%lu",(unsigned long)player.loadState);
 }
 
 -(void)setLocalizedString{
@@ -358,6 +358,9 @@
 
 #pragma mark - send Image Button Action
 - (IBAction)sendAction:(id)sender {
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(videoAttachment) withObject:nil afterDelay:.1];
+   /*
     [self hidePickerWithAnimation];
     playOutlet.hidden = NO;
     [intialVideoImage setImage:videoImage];
@@ -386,7 +389,7 @@
                 {
                     // Email Subject
                     
-                    NSString *emailTitle = @"Actor's CAM - New Video from model";
+                    NSString *emailTitle = @"Actor CAM - New Video from model";
                     
                     NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
                     
@@ -413,6 +416,86 @@
                     
                 {
                     
+                    UIAlertView *alertView = [[UIAlertView alloc]
+                                              
+                                              initWithTitle:nil
+                                              
+                                              message:@"Email account is not configured in your device."
+                                              
+                                              delegate:self
+                                              
+                                              cancelButtonTitle:@"OK"
+                                              
+                                              otherButtonTitles:nil];
+                    
+                    [alertView show];
+                    
+                }
+            }
+        }
+    }
+    */
+}
+
+-(void)videoAttachment{
+    [self hidePickerWithAnimation];
+    playOutlet.hidden = NO;
+    [intialVideoImage setImage:videoImage];
+    [player stop];
+    
+    UIAlertView *alert;
+    if ([selectCategory isEmpty])
+    {
+        [myDelegate StopIndicator];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else if ([managerName isEmpty])
+    {
+        [myDelegate StopIndicator];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else{
+        if (managerListArray.count != 0) {
+            
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[filePath absoluteString]];
+            if (fileExists) {
+                if ([MFMailComposeViewController canSendMail])
+                    
+                {
+                    // Email Subject
+                    
+                    NSString *emailTitle = @"Actor CAM - New Video from model";
+                    
+                    NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
+                    
+                    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                    
+                    mc.mailComposeDelegate = self;
+                    
+                    [mc setSubject:emailTitle];
+                    
+                    [mc setMessageBody:noteTextView.text isHTML:NO];
+                    
+                    NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:[filePath absoluteString]];
+                    
+                    [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"ActorCamVideo.MOV"];
+                    
+                    mc.navigationBar.tintColor = [UIColor whiteColor];
+                    //            mc.navigationBar.ti
+                    [mc setToRecipients:toRecipents];
+                    [myDelegate StopIndicator];
+                    [self presentViewController:mc animated:YES completion:NULL];
+                    
+                }
+                
+                else
+                    
+                {
+                    [myDelegate StopIndicator];
                     UIAlertView *alertView = [[UIAlertView alloc]
                                               
                                               initWithTitle:nil
@@ -566,7 +649,7 @@
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
-        NSLog(@"response is %@",responseObject);
+      //  NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
         pickerChecker = @"manager";
         [managerListArray removeAllObjects];

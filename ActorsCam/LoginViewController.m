@@ -93,7 +93,7 @@
 
     UIImage * tempImg =[UIImage imageNamed:@"bg.jpg"];
     backgroundImage.image = [UIImage imageNamed:[tempImg imageForDeviceWithName:@"bg"]];
-    NSLog(@"%@",[tempImg imageForDeviceWithName:@"bg"]);
+   // NSLog(@"%@",[tempImg imageForDeviceWithName:@"bg"]);
     [self addTextFieldPadding];
     [self addCornerRadius];
     NSLog(@"test log!!!");
@@ -118,10 +118,10 @@
     }
     
     [loginBtn changeTextLanguage:@"Login"];
-    [userEmail changeTextLanguage:@"Email"];
+    [userEmail changeTextLanguage:@"Email address"];
     [password changeTextLanguage:@"Password"];
     [forgotPasswordBtn changeTextLanguage:@"Forgot Password?"];
-    [forgotPasswordEmail changeTextLanguage:@"Email"];
+    [forgotPasswordEmail changeTextLanguage:@"Email address"];
     [signUpLabel changeTextLanguage:@"Sign Up"];
     
     [hereLabel changeTextLanguage:@"New here?"];
@@ -186,7 +186,7 @@
 -(void)loginUser
 {
     [[WebService sharedManager] userLogin:userEmail.text Password:password.text success:^(id responseObject) {
-        NSLog(@"response is %@",responseObject);
+        //NSLog(@"response is %@",responseObject);
        
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -243,7 +243,7 @@
         
         [myDelegate StopIndicator];
         forgotPasswordEmail.text = @"";
-          NSLog(@"forgot password response is %@",responseObject);
+      //    NSLog(@"forgot password response is %@",responseObject);
         UIAlertView *alert;
         alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];

@@ -38,7 +38,7 @@
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@""] || ([[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] == NULL)){
         [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];
     }
-    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"]);
+  //  NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"]);
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0]];
      

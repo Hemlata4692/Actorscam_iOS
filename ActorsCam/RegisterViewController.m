@@ -95,7 +95,7 @@
 -(void)setLocalizedString{
     
     [name changeTextLanguage:@"Name"];
-    [email changeTextLanguage:@"Email"];
+    [email changeTextLanguage:@"Email address"];
     [password changeTextLanguage:@"Password"];
     [confirmPassword changeTextLanguage:@"Confirm Password"];
     [takePhoto changeTextLanguage:takePhoto];
@@ -262,7 +262,7 @@
         return NO;
     }
     else if ([email isEmpty] || (email.text.length == 0) || [email.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }

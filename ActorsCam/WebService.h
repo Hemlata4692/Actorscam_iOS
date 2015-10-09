@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 
-//testing link
+//clients link
 #define BASE_URL                              @"http://ranosys.net/client/actorscam/api"
 
+//testing link
+//#define BASE_URL                              @"http://ranosys.net/client/actorscam/beta/api/"
 
 @interface WebService : NSObject
 

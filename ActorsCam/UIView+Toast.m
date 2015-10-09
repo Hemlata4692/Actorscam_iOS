@@ -34,7 +34,7 @@ static const BOOL    CSToastDisplayShadow       = YES;
 
 // display duration and position
 static const NSString * CSToastDefaultPosition  = @"bottom";
-static const NSTimeInterval CSToastDefaultDuration  = 10.0;
+static const NSTimeInterval CSToastDefaultDuration  = 5.0;
 
 // image view size
 static const CGFloat CSToastImageViewWidth      = 80.0;

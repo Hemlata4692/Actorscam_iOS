@@ -195,6 +195,7 @@
     refreshBarButton =[[UIBarButtonItem alloc] initWithCustomView:refresh];
     [refresh addTarget:self action:@selector(refreshButtonAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItems=[NSArray arrayWithObjects:retakeBarButton,refreshBarButton, nil];
+    
     [myDelegate ShowIndicator];
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
@@ -304,20 +305,16 @@
                                     forIndexPath:indexPath];
     UIImageView *image;
     if(collectionView1 == ipad_previewCollectionView){
-//        NSLog(@"ipad");
-        image = (UIImageView*)[myCell viewWithTag:2];
+        image = (UIImageView*)[myCell viewWithTag:1];
         if ((indexPath.row == 3) && (image !=nil) ) {
             reloadDataChecker = NO;
         }
     }
-    else if (collectionView1 == previewCollectionView){
-//        NSLog(@"iphone");
+    else{
         image = (UIImageView*)[myCell viewWithTag:1];
     }
-//    UIImageView *image = (UIImageView*)[myCell viewWithTag:1];
-//    image.image = [imageArray objectAtIndex:indexPath.row];
-    UIImage *img = [imageArray objectAtIndex:indexPath.row];
-    image.image = img;
+//    UIImage *i = [imageArray objectAtIndex:indexPath.row];
+    image.image = [imageArray objectAtIndex:indexPath.row];
     if (selectedImage == indexPath.row) {
         image.layer.borderColor = [UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0].CGColor;
         image.layer.borderWidth = 2;
@@ -341,6 +338,7 @@
     }
     
 }
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView1
 {
     if ((scrollView1.contentOffset.x > 2) && iPad) {
@@ -381,6 +379,7 @@
         [previewCollectionView reloadData];
     }
     else{
+        self.customCameraVC.imageArray = [imageArray mutableCopy];
         [self.navigationController popViewControllerAnimated:YES];
     }
     
@@ -389,6 +388,9 @@
 
 #pragma mark - send Image Button Action
 - (IBAction)sendImageButtonAction:(id)sender {
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(imageAttachment) withObject:nil afterDelay:.1];
+   /*
     [self hidePickerWithAnimation];
     UIAlertView *alert;
     if ([selectCategory isEmpty])
@@ -410,7 +412,7 @@
             {
                 // Email Subject
                 
-                NSString *emailTitle = @"Actor's CAM - New Images from model";
+                NSString *emailTitle = @"Actor CAM - New Images from model";
                 
                 NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
                 
@@ -425,18 +427,25 @@
                 for (UIImage *yourImage in imageArray )
                     
                 {
+                    NSData *imgData;
+                    if([[UIScreen mainScreen] bounds].size.height < 490) {
+                        imgData = UIImageJPEGRepresentation(yourImage, 0.9f);
+                    }
+                    else{
+                        imgData = UIImageJPEGRepresentation(yourImage, 1.00f);
+                    }
                     
-                    NSData *imgData = UIImagePNGRepresentation(yourImage);
 //                    NSLog(@"----------get in cache---------------");
 //                    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//                    NSString * timestamp = [NSString stringWithFormat:@"%f.png",[[NSDate date] timeIntervalSince1970] * 1000];
+////                    documentsPath = [NSString stringWithFormat:@"%@/after",documentsPath];
+//                    NSString * timestamp = [NSString stringWithFormat:@"%f.jpeg",[[NSDate date] timeIntervalSince1970] * 1000];
 //                    NSString *filePath = [documentsPath stringByAppendingPathComponent:timestamp];
 //                    NSLog(@"%@",filePath);
 ////                    NSData *imageData = UIImagePNGRepresentation(yourImage);
 //                    [imgData writeToFile:filePath atomically:YES];
 
                     
-                    [mc addAttachmentData:imgData mimeType:@"image/png" fileName:@"ActorImages"];
+                    [mc addAttachmentData:imgData mimeType:@"image/jpeg" fileName:@"ActorImages.jpeg"];
                     
                 }
                 
@@ -467,7 +476,99 @@
             }
         }
     }
+    */
     
+}
+
+-(void)imageAttachment{
+    [self hidePickerWithAnimation];
+    UIAlertView *alert;
+    if ([selectCategory isEmpty])
+    {
+        [myDelegate StopIndicator];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else if ([managerName isEmpty])
+    {
+        [myDelegate StopIndicator];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else{
+        if (managerListArray.count != 0) {
+            if ([MFMailComposeViewController canSendMail])
+                
+            {
+                // Email Subject
+                
+                NSString *emailTitle = @"Actor CAM - New Images from model";
+                
+                NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
+                
+                MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                
+                mc.mailComposeDelegate = self;
+                
+                [mc setSubject:emailTitle];
+                
+                [mc setMessageBody:noteTextView.text isHTML:NO];
+                
+                for (UIImage *yourImage in imageArray )
+                    
+                {
+                    NSData *imgData;
+                    if([[UIScreen mainScreen] bounds].size.height < 490) {
+                        imgData = UIImageJPEGRepresentation(yourImage, 0.9f);
+                    }
+                    else{
+                        imgData = UIImageJPEGRepresentation(yourImage, 1.00f);
+                    }
+                    
+                    //                    NSLog(@"----------get in cache---------------");
+                    //                    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                    ////                    documentsPath = [NSString stringWithFormat:@"%@/after",documentsPath];
+                    //                    NSString * timestamp = [NSString stringWithFormat:@"%f.jpeg",[[NSDate date] timeIntervalSince1970] * 1000];
+                    //                    NSString *filePath = [documentsPath stringByAppendingPathComponent:timestamp];
+                    //                    NSLog(@"%@",filePath);
+                    ////                    NSData *imageData = UIImagePNGRepresentation(yourImage);
+                    //                    [imgData writeToFile:filePath atomically:YES];
+                    
+                    
+                    [mc addAttachmentData:imgData mimeType:@"image/jpeg" fileName:@"ActorImages.jpeg"];
+                    
+                }
+                
+                mc.navigationBar.tintColor = [UIColor whiteColor];
+                [mc setToRecipients:toRecipents];
+                [myDelegate StopIndicator];
+                [self presentViewController:mc animated:YES completion:NULL];
+                
+            }
+            
+            else
+                
+            {
+                [myDelegate StopIndicator];
+                UIAlertView *alertView = [[UIAlertView alloc]
+                                          
+                                          initWithTitle:nil
+                                          
+                                          message:@"Email account is not configured in your device."
+                                          
+                                          delegate:self
+                                          
+                                          cancelButtonTitle:@"OK"
+                                          
+                                          otherButtonTitles:nil];
+                
+                [alertView show];
+                
+            }
+        }
+    }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller
@@ -695,7 +796,7 @@
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
-        NSLog(@"response is %@",responseObject);
+      //  NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
         pickerChecker = @"manager";
         [managerListArray removeAllObjects];
@@ -760,14 +861,16 @@
 
 - (IBAction)cameraButton:(UIButton *)sender {
     [self hidePickerWithAnimation];
-    
+    self.customCameraVC.imageArray = [imageArray mutableCopy];
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - end
 
+
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
-     customCameraVC.imageArray = [imageArray mutableCopy];
+    customCameraVC.imageArray = [imageArray mutableCopy];
 }
 
 #pragma mark - Add Representation Action

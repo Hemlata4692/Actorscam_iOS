@@ -4799,7 +4799,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HlL-ZK-SJR">
+                                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HlL-ZK-SJR">
                                                                     <rect key="frame" x="0.0" y="0.0" width="93" height="93"/>
                                                                     <animations/>
                                                                 </imageView>
@@ -5472,7 +5472,7 @@
                                 </variation>
                             </scrollView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RIE-gd-9zP">
-                                <rect key="frame" x="0.0" y="1000" width="320" height="155"/>
+                                <rect key="frame" x="0.0" y="1000" width="320" height="162"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>

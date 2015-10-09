@@ -145,7 +145,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         
         AVCaptureMovieFileOutput *movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
         movieFileOutput.maxRecordedFileSize = 1024 *1024 * 20;
-        NSLog(@"%lld",_movieFileOutput.recordedFileSize);
+       // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
         
         if ([session canAddOutput:movieFileOutput])
         {
@@ -405,7 +405,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 [CustomVideoViewController setFlashMode:AVCaptureFlashModeOff forDevice:[[self videoDeviceInput] device]];
                 
                 // Start recording to a temporary file.
-                NSLog(@"%lld",_movieFileOutput.recordedFileSize);
+               // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
                 
                 NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                 
@@ -477,14 +477,14 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
     }
     
-    NSLog(@"%lld",_movieFileOutput.recordedFileSize);
+   // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
     
     [self setLockInterfaceRotation:NO];
     
     // Note the backgroundRecordingID for use in the ALAssetsLibrary completion handler to end the background task associated with this recording. This allows a new recording to be started, associated with a new UIBackgroundTaskIdentifier, once the movie file output's -isRecording is back to NO — which happens sometime after this method returns.
     UIBackgroundTaskIdentifier backgroundRecordingID = [self backgroundRecordingID];
     [self setBackgroundRecordingID:UIBackgroundTaskInvalid];
-    NSLog(@"%lld",_movieFileOutput.recordedFileSize);
+   // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
     
 //    [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error) {
 //        if (error)
@@ -494,7 +494,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"movie.mov"];
      outputFileURL = [NSURL URLWithString:filePath];
     videoFileUrl = [NSURL URLWithString:filePath];
-        NSLog(@"%lld",_movieFileOutput.recordedFileSize);
+       // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
 //        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
     
         if (backgroundRecordingID != UIBackgroundTaskInvalid)

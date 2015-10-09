@@ -78,7 +78,7 @@
 {
     [super viewWillAppear:animated];
     self.title = navTitle;
-    NSLog(@"%f , %f",self.view.frame.origin.y,self.view.frame.size.height);
+  //  NSLog(@"%f , %f",self.view.frame.origin.y,self.view.frame.size.height);
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
 
 }

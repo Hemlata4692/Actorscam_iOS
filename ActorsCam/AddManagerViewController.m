@@ -89,7 +89,7 @@
 -(void)setLocalizedString{
     
     [userName changeTextLanguage:@"Name"];
-    [userEmail changeTextLanguage:@"Email"];
+    [userEmail changeTextLanguage:@"Email address"];
     [managerCategory changeTextLanguage:@"Category"];
     [addEditManager changeTextLanguage:@"SAVE"];
     [toolbarDone.title changeTextLanguage:toolbarDone.title];
@@ -261,7 +261,7 @@
     if ([emailId isEqualToString:@""] || emailId.length == 0) {
         //Add manager
         [[WebService sharedManager] addManager:userName.text managerEmail:userEmail.text category:(NSString *)managerCategory.text success:^(id responseObject) {
-            NSLog(@"response is %@",responseObject);
+           // NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
             NSDictionary *dict = (NSDictionary *)responseObject;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -276,7 +276,7 @@
     else{
         //edit manager
          [[WebService sharedManager] updateManager:userName.text managerEmail:userEmail.text managerId:managerId category:(NSString *)managerCategory.text success:^(id responseObject) {
-            NSLog(@"response is %@",responseObject);
+           // NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
              NSDictionary *dict = (NSDictionary *)responseObject;
              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

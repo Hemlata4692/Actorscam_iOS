@@ -399,7 +399,6 @@
 				B7DF6DA31BB3B47300351333 /* Fonts */,
 				B7DF6D9A1BB3B18100351333 /* Images */,
 				B7FFA3A01B9E9520002B37D9 /* Localizable.strings */,
-				B7D32C241B8AE04C000DE939 /* tempImages */,
 				B70034361B849AB400263CAD /* ActorsCam-Prefix.pch */,
 				B789AD5B1B820F3B00C1C0AB /* Info.plist */,
 				B789AD5C1B820F3B00C1C0AB /* main.m */,
@@ -555,13 +554,6 @@
 				B75DCCBE1B9EF25000A61D60 /* UILabel+LocalizedString.m */,
 			);
 			name = LocalizedString;
-			sourceTree = "<group>";
-		};
-		B7D32C241B8AE04C000DE939 /* tempImages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = tempImages;
 			sourceTree = "<group>";
 		};
 		B7D32C2C1B8AE339000DE939 /* ChooseLanguageView */ = {
@@ -748,7 +740,7 @@
 				TargetAttributes = {
 					B789AD561B820F3B00C1C0AB = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = T7GN63HCDX;
+						DevelopmentTeam = 6S3AL87NGN;
 					};
 					B789AD6F1B820F3B00C1C0AB = {
 						CreatedOnToolsVersion = 6.4;
@@ -942,8 +934,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rameshwar Vyas (7K7JRCWTUM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rameshwar Vyas (7K7JRCWTUM)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Technopreneur's Resource Centre Private Limited";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Technopreneur's Resource Centre Private Limited";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -966,7 +958,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "1c165ab6-3fcc-474e-9fea-9b23f0b7dfa6";
+				PROVISIONING_PROFILE = "72c75ee6-04d0-4563-bb36-4c07ac53b0ab";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -989,8 +981,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rameshwar Vyas (7K7JRCWTUM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rameshwar Vyas (7K7JRCWTUM)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Technopreneur's Resource Centre Private Limited";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Technopreneur's Resource Centre Private Limited";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1006,7 +998,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "1c165ab6-3fcc-474e-9fea-9b23f0b7dfa6";
+				PROVISIONING_PROFILE = "72c75ee6-04d0-4563-bb36-4c07ac53b0ab";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1019,7 +1011,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rameshwar Vyas (7K7JRCWTUM)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Technopreneur's Resource Centre Private Limited";
 				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				INFOPLIST_FILE = ActorsCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -1028,9 +1020,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.priceTagEnhancement;
+				PRODUCT_BUNDLE_IDENTIFIER = com.speechWizard.Actorcam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1c165ab6-3fcc-474e-9fea-9b23f0b7dfa6";
+				PROVISIONING_PROFILE = "72c75ee6-04d0-4563-bb36-4c07ac53b0ab";
 			};
 			name = Debug;
 		};
@@ -1040,7 +1032,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rameshwar Vyas (7K7JRCWTUM)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Technopreneur's Resource Centre Private Limited";
 				GCC_PREFIX_HEADER = "ActorsCam/ActorsCam-Prefix.pch";
 				INFOPLIST_FILE = ActorsCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -1049,9 +1041,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.priceTagEnhancement;
+				PRODUCT_BUNDLE_IDENTIFIER = com.speechWizard.Actorcam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1c165ab6-3fcc-474e-9fea-9b23f0b7dfa6";
+				PROVISIONING_PROFILE = "72c75ee6-04d0-4563-bb36-4c07ac53b0ab";
 			};
 			name = Release;
 		};

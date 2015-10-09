@@ -208,7 +208,7 @@
 {
     NSDictionary *data = [managerListArray objectAtIndex:indexpathRow];
     [[WebService sharedManager] deleteManager:[data objectForKey:@"managerId"] managerEmail:[data objectForKey:@"managerEmail"] success:^(id responseObject) {
-            NSLog(@"response is %@",responseObject);
+           // NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
         [managerListArray removeObjectAtIndex:indexpathRow];
         if (managerListArray.count==0) {
@@ -234,7 +234,7 @@
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
-        NSLog(@"response is %@",responseObject);
+     //   NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
          managerListArray = [responseObject objectForKey:@"managerList"];
         if (managerListArray.count==0) {

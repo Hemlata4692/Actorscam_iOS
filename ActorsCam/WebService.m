@@ -67,8 +67,15 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          [myDelegate StopIndicator];
         failure(error);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        [alert show];
+        if ([error.localizedDescription isEqualToString:@"The request timed out."]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
     }];
     }
 }
@@ -85,7 +92,7 @@
     {
 
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"path: %@, %@", path, parameters);
+  //  NSLog(@"path: %@, %@", path, parameters);
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
@@ -157,6 +164,11 @@
         [myDelegate.window setRootViewController:objReveal];
         [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
         [myDelegate.window makeKeyAndVisible];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults removeObjectForKey:@"UserId"];
+        [defaults removeObjectForKey:@"actorName"];
+        [defaults removeObjectForKey:@"EmailId"];
+        [defaults synchronize];
         
     }
 
@@ -200,7 +212,7 @@
            [self postImage:kUrlRegister parameters:requestDict image:image success:^(id responseObject)
          {
              responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
-             NSLog(@"Register User Response%@", responseObject);
+           //  NSLog(@"Register User Response%@", responseObject);
              
              if([self isStatusOK:responseObject])
              {
@@ -419,7 +431,7 @@
     [self postImage:kUrlUpdateprofile parameters:requestDict image:image success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
-         NSLog(@"Update profile User Response%@", responseObject);
+      //   NSLog(@"Update profile User Response%@", responseObject);
          
          if([self isStatusOK:responseObject])
          {

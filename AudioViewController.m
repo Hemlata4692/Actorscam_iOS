@@ -120,15 +120,11 @@
     
     navTitle = @"Record Audio";
     
-   
+    [self recordAudioFile];
     // Do any additional setup after loading the view.
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    [self hidePickerWithAnimation];
-    
-//    [self removeAudioFile];
+-(void)recordAudioFile{
     playOutlet.enabled = NO;
     sendButton.enabled = NO;
     
@@ -144,20 +140,20 @@
     recordOulet.selected = NO;
     
     timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
-
+    
     //    Create Audio file in nsdocument and outputUrl of audio file
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
     NSURL *outputFileURL = [NSURL URLWithString:filePath];
     
-//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-//    if (fileExists) {
-//        sendButton.enabled = YES;
-//    }
-//    else{
-//        sendButton.enabled = NO;
-//    }
+    //    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+    //    if (fileExists) {
+    //        sendButton.enabled = YES;
+    //    }
+    //    else{
+    //        sendButton.enabled = NO;
+    //    }
     //    Setup audio session
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
@@ -174,6 +170,14 @@
     recorder.delegate = self;
     recorder.meteringEnabled = YES;
     [recorder prepareToRecord];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self hidePickerWithAnimation];
+    
+//    [self removeAudioFile];
+    
     
     pickerChecker = @"";
     pickerArray = [NSMutableArray new];
@@ -311,6 +315,9 @@
 
 #pragma mark - send Image Button Action
 - (IBAction)sendAction:(id)sender {
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(audioAttachment) withObject:nil afterDelay:.1];
+    /*
     [self hidePickerWithAnimation];
     [myTimer invalidate];
     myTimer = nil;
@@ -348,7 +355,7 @@
                 {
                     // Email Subject
                     
-                    NSString *emailTitle = @"Actor's CAM - New Audio from model";
+                    NSString *emailTitle = @"Actor CAM - New Audio from model";
                     
                     NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
                     
@@ -373,8 +380,6 @@
                     [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"ActorCamAudio.m4a"];
                     //            }
                     
-                    [mc setTitle:@"ac"];
-                    mc.title = @"Actor's CAM";
                     mc.navigationBar.tintColor = [UIColor whiteColor];
                     //            mc.navigationBar.ti
                     [mc setToRecipients:toRecipents];
@@ -386,6 +391,104 @@
                     
                 {
                     
+                    UIAlertView *alertView = [[UIAlertView alloc]
+                                              
+                                              initWithTitle:nil
+                                              
+                                              message:@"Email account is not configured in your device."
+                                              
+                                              delegate:self
+                                              
+                                              cancelButtonTitle:@"OK"
+                                              
+                                              otherButtonTitles:nil];
+                    
+                    [alertView show];
+                    
+                }
+            }
+        }
+    }
+    */
+}
+
+-(void)audioAttachment{
+    [self hidePickerWithAnimation];
+    [myTimer invalidate];
+    myTimer = nil;
+    
+    playOutlet.enabled = YES;
+    playOutlet.selected = NO;
+    recordOulet.selected = NO;
+    
+    if (player.playing) {
+        [player stop];
+    }
+    
+    UIAlertView *alert;
+    if ([selectCategory isEmpty])
+    {
+        [myDelegate StopIndicator];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else if ([managerName isEmpty])
+    {
+        [myDelegate StopIndicator];
+        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else{
+        if (managerListArray.count != 0) {
+            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            
+            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
+            if (fileExists) {
+                if ([MFMailComposeViewController canSendMail])
+                    
+                {
+                    // Email Subject
+                    
+                    NSString *emailTitle = @"Actor CAM - New Audio from model";
+                    
+                    NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
+                    
+                    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                    
+                    mc.mailComposeDelegate = self;
+                    
+                    [mc setSubject:emailTitle];
+                    
+                    [mc setMessageBody:noteTextView.text isHTML:NO];
+                    
+                    //                    NSURL    *fileURL = [NSURL URLWithString:filepath];
+                    
+                    timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+                    
+                    continousSecond = 0;
+                    playOutlet.selected = NO;
+                    recordOulet.selected = NO;
+                    
+                    NSData *soundFile = [[NSData alloc] initWithContentsOfFile:filepath];
+                    
+                    [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"ActorCamAudio.m4a"];
+                    //            }
+                    
+                    mc.navigationBar.tintColor = [UIColor whiteColor];
+                    //            mc.navigationBar.ti
+                    [mc setToRecipients:toRecipents];
+                    [myDelegate StopIndicator];
+                    [self presentViewController:mc animated:YES completion:NULL];
+                    
+                }
+                
+                else
+                    
+                {
+                    [myDelegate StopIndicator];
                     UIAlertView *alertView = [[UIAlertView alloc]
                                               
                                               initWithTitle:nil
@@ -550,7 +653,7 @@
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
-        NSLog(@"response is %@",responseObject);
+       // NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
         pickerChecker = @"manager";
         [managerListArray removeAllObjects];
@@ -743,17 +846,19 @@
 
 //    NSLog(@"This is the file size of the recording in bytes: %llu", size);
 }
+
 #pragma mark - AVAudioRecorderDelegate
 
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
     
-//    NSLog(@"finish");
+    NSLog(@"finish");
 }
 
 #pragma mark - AVAudioPlayerDelegate
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     playOutlet.selected = NO;
+    timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
     [myTimer invalidate];
     myTimer = nil;
 }
