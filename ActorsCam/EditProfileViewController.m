@@ -78,7 +78,6 @@
 {
     [super viewWillAppear:animated];
     self.title = navTitle;
-  //  NSLog(@"%f , %f",self.view.frame.origin.y,self.view.frame.size.height);
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
 
 }
@@ -156,7 +155,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"image"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] setObject:name.text forKey:@"actorName"];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         
     } failure:^(NSError *error) {
@@ -173,7 +172,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Image Picker Action
+#pragma mark - Image picker action
 - (IBAction)imagePickerAction:(id)sender
 {
     UIActionSheet * profileImageAction=[[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:takePhoto, choosePhoto, nil];
@@ -189,7 +188,7 @@
 }
 #pragma mark - end
 
-#pragma mark - imagePickerController Delegate
+#pragma mark - ImagePickerController delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
 {
     profileImageView.image = image;
@@ -234,7 +233,6 @@
                 [self.popover presentPopoverFromRect:CGRectMake(50,-430, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
             }];
             
-            //            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
         }
         else {
             if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
@@ -255,7 +253,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield Validation
+#pragma mark - Textfield validation
 - (BOOL)performValidationsForEditProfile
 {
     UIAlertView *alert;
@@ -284,7 +282,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield Delegates
+#pragma mark - Textfield delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (!iPad) {
@@ -319,15 +317,15 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
     if (!iPad) {
-    if([[UIScreen mainScreen] bounds].size.height < 490)
-    {
-        [UIView animateWithDuration:0.3 animations:^{
-            self.view.frame=CGRectMake(self.view.frame.origin.x, 64, self.view.frame.size.width, self.view.frame.size.height);
-        }];
-        
+        if([[UIScreen mainScreen] bounds].size.height < 490)
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.view.frame=CGRectMake(self.view.frame.origin.x, 64, self.view.frame.size.width, self.view.frame.size.height);
+            }];
+            
+        }
     }
-    }
-
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

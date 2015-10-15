@@ -87,7 +87,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Add Manager Action
+#pragma mark - Add manager action
 - (IBAction)addManagerButtonAction:(id)sender
 {
     AddManagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
@@ -100,7 +100,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Table View Datasource/Delegates
+#pragma mark - Table view datasource/delegates
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     return managerListArray.count;
@@ -203,12 +203,11 @@
 }
 #pragma mark - end
 
-#pragma mark - Delete Manager method
+#pragma mark - Delete manager method
 -(void)deleteManager
 {
     NSDictionary *data = [managerListArray objectAtIndex:indexpathRow];
     [[WebService sharedManager] deleteManager:[data objectForKey:@"managerId"] managerEmail:[data objectForKey:@"managerEmail"] success:^(id responseObject) {
-           // NSLog(@"response is %@",responseObject);
             [myDelegate StopIndicator];
         [managerListArray removeObjectAtIndex:indexpathRow];
         if (managerListArray.count==0) {
@@ -230,11 +229,10 @@
 }
 #pragma mark - end
 
-#pragma mark - Manager Listing method
+#pragma mark - Manager listing method
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
-     //   NSLog(@"response is %@",responseObject);
         [myDelegate StopIndicator];
          managerListArray = [responseObject objectForKey:@"managerList"];
         if (managerListArray.count==0) {

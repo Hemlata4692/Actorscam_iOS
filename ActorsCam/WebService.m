@@ -112,8 +112,14 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [myDelegate StopIndicator];
         failure(error);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+        if ([error.localizedDescription isEqualToString:@"The request timed out."]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
     }];
     }
     
@@ -203,7 +209,7 @@
 #pragma mark - end
 
 
-#pragma mark - Register Method
+#pragma mark - Register method
 //Register
 -(void)registerUser:(NSString *)mailId password:(NSString *)password name:(NSString*)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
@@ -232,7 +238,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Forgot Password Method
+#pragma mark - Forgot password method
 //Forgot Password
 -(void)forgotPassword:(NSString *)mailId success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
@@ -259,7 +265,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Change Password Method
+#pragma mark - Change password method
 //Change Password
 -(void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
@@ -286,7 +292,7 @@
 }
 #pragma mark - end
 
-#pragma mark- Add manager Method
+#pragma mark - Add manager Method
 //Add manager
 - (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail category:(NSString *)category  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -313,7 +319,7 @@
 }
 #pragma mark - end
 
-#pragma mark- Manager Listing Method
+#pragma mark - Manager Listing Method
 //Manager Listing
 - (void)managerListing:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -340,7 +346,7 @@
 }
 #pragma mark - end
 
-#pragma mark- Update Manager Method
+#pragma mark - Update Manager Method
 //Update Manager
 - (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId category:(NSString *)category success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -368,7 +374,7 @@
 }
 #pragma mark - end
 
-#pragma mark- Delete Manager Method
+#pragma mark - Delete Manager Method
 //Delete Manager
 - (void)deleteManager:(NSString *)managerId managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -395,7 +401,7 @@
 }
 #pragma mark - end
 
-#pragma mark- Delete Manager Method
+#pragma mark - Delete Manager Method
 //Get Profile
 - (void)getprofile:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -431,7 +437,6 @@
     [self postImage:kUrlUpdateprofile parameters:requestDict image:image success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
-      //   NSLog(@"Update profile User Response%@", responseObject);
          
          if([self isStatusOK:responseObject])
          {

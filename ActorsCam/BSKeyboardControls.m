@@ -95,7 +95,7 @@
 }
 
 #pragma mark - end
-#pragma mark - Public Methods
+#pragma mark - Public methods
 
 - (void)setActiveField:(id)activeField
 {

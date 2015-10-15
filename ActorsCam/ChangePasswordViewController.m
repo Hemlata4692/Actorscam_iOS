@@ -101,7 +101,7 @@
 
 #pragma mark - end
 
-#pragma mark - Change Password
+#pragma mark - Change password
 - (IBAction)changePasswordButtonAction:(id)sender
 {
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -120,7 +120,7 @@
     [[WebService sharedManager] changePassword:currentPassword.text newPassword:changePassword.text success:^(id responseObject) {
         
         [myDelegate StopIndicator];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Success" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
        
         [alert show];
          alert.tag=1;
@@ -143,7 +143,7 @@
 
 #pragma mark - end
 
-#pragma mark - Textfield Validation
+#pragma mark - Textfield validation
 - (BOOL)performValidationsForChangePassword
 {
     UIAlertView *alert;
@@ -194,7 +194,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Keyboard Controls Delegate
+#pragma mark - Keyboard controls delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
     UIView *view;
@@ -214,7 +214,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield Delegates
+#pragma mark - Textfield delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     

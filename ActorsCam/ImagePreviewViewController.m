@@ -12,7 +12,6 @@
 #import "BSKeyboardControls.h"
 #import "UITextField+Validations.h"
 #import "AddManagerViewController.h"
-#import "UIView+Toast.h"
 
 #import "UIView+Toast.h"
 
@@ -142,7 +141,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-//    [self.previewCollectionView reloadData];
     [self hidePickerWithAnimation];
     
     pickerChecker = @"";
@@ -248,7 +246,7 @@
 }
 #pragma mark - end
 
-#pragma mark - TextView Delegate
+#pragma mark - TextView delegate
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self hidePickerWithAnimation];
@@ -269,7 +267,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Keyboard Controls Delegate
+#pragma mark - Keyboard controls delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
     
@@ -313,7 +311,6 @@
     else{
         image = (UIImageView*)[myCell viewWithTag:1];
     }
-//    UIImage *i = [imageArray objectAtIndex:indexPath.row];
     image.image = [imageArray objectAtIndex:indexPath.row];
     if (selectedImage == indexPath.row) {
         image.layer.borderColor = [UIColor colorWithRed:253.0/255.0 green:138.0/255.0 blue:43.0/255.0 alpha:1.0].CGColor;
@@ -367,7 +364,7 @@
 }
 #pragma mark - end
 
-#pragma mark - delete Image Action
+#pragma mark - Delete Image Action
 - (IBAction)deleteImageAction:(UIButton *)sender {
     [self hidePickerWithAnimation];
     [imageArray removeObjectAtIndex:selectedImage];
@@ -386,97 +383,11 @@
 }
 #pragma mark - end
 
-#pragma mark - send Image Button Action
+#pragma mark - Send Image button action
 - (IBAction)sendImageButtonAction:(id)sender {
+    
     [myDelegate ShowIndicator];
     [self performSelector:@selector(imageAttachment) withObject:nil afterDelay:.1];
-   /*
-    [self hidePickerWithAnimation];
-    UIAlertView *alert;
-    if ([selectCategory isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        
-    }
-    else if ([managerName isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        
-    }
-    else{
-        if (managerListArray.count != 0) {
-            if ([MFMailComposeViewController canSendMail])
-                
-            {
-                // Email Subject
-                
-                NSString *emailTitle = @"Actor CAM - New Images from model";
-                
-                NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
-                
-                MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-                
-                mc.mailComposeDelegate = self;
-                
-                [mc setSubject:emailTitle];
-                
-                [mc setMessageBody:noteTextView.text isHTML:NO];
-                
-                for (UIImage *yourImage in imageArray )
-                    
-                {
-                    NSData *imgData;
-                    if([[UIScreen mainScreen] bounds].size.height < 490) {
-                        imgData = UIImageJPEGRepresentation(yourImage, 0.9f);
-                    }
-                    else{
-                        imgData = UIImageJPEGRepresentation(yourImage, 1.00f);
-                    }
-                    
-//                    NSLog(@"----------get in cache---------------");
-//                    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-////                    documentsPath = [NSString stringWithFormat:@"%@/after",documentsPath];
-//                    NSString * timestamp = [NSString stringWithFormat:@"%f.jpeg",[[NSDate date] timeIntervalSince1970] * 1000];
-//                    NSString *filePath = [documentsPath stringByAppendingPathComponent:timestamp];
-//                    NSLog(@"%@",filePath);
-////                    NSData *imageData = UIImagePNGRepresentation(yourImage);
-//                    [imgData writeToFile:filePath atomically:YES];
-
-                    
-                    [mc addAttachmentData:imgData mimeType:@"image/jpeg" fileName:@"ActorImages.jpeg"];
-                    
-                }
-                
-                mc.navigationBar.tintColor = [UIColor whiteColor];
-                [mc setToRecipients:toRecipents];
-                [self presentViewController:mc animated:YES completion:NULL];
-                
-            }
-            
-            else
-                
-            {
-                
-                UIAlertView *alertView = [[UIAlertView alloc]
-                                          
-                                          initWithTitle:nil
-                                          
-                                          message:@"Email account is not configured in your device."
-                                          
-                                          delegate:self
-                                          
-                                          cancelButtonTitle:@"OK"
-                                          
-                                          otherButtonTitles:nil];
-                
-                [alertView show];
-                
-            }
-        }
-    }
-    */
     
 }
 
@@ -526,16 +437,6 @@
                     else{
                         imgData = UIImageJPEGRepresentation(yourImage, 1.00f);
                     }
-                    
-                    //                    NSLog(@"----------get in cache---------------");
-                    //                    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                    ////                    documentsPath = [NSString stringWithFormat:@"%@/after",documentsPath];
-                    //                    NSString * timestamp = [NSString stringWithFormat:@"%f.jpeg",[[NSDate date] timeIntervalSince1970] * 1000];
-                    //                    NSString *filePath = [documentsPath stringByAppendingPathComponent:timestamp];
-                    //                    NSLog(@"%@",filePath);
-                    ////                    NSData *imageData = UIImagePNGRepresentation(yourImage);
-                    //                    [imgData writeToFile:filePath atomically:YES];
-                    
                     
                     [mc addAttachmentData:imgData mimeType:@"image/jpeg" fileName:@"ActorImages.jpeg"];
                     
@@ -702,7 +603,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Pickerview Delegate Methods
+#pragma mark - Pickerview delegate methods
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
@@ -749,7 +650,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Toolbar Done Action
+#pragma mark - Toolbar done action
 - (IBAction)DoneAction:(UIBarButtonItem *)sender {
     [self hidePickerWithAnimation];
     
@@ -779,7 +680,6 @@
             
             NSString *categoryString = [categoryList objectAtIndex:index];
             selectCategory.text = [categoryString changeTextLanguage:categoryString];
-//            [selectCategory changeTextLanguage:[categoryList objectAtIndex:index]];
             [managerListPickerView reloadAllComponents];
         }
         else{
@@ -792,7 +692,7 @@
 #pragma mark - end
 
 
-#pragma mark - Manager Listing method
+#pragma mark - Manager listing method
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
@@ -845,7 +745,7 @@
 }
 #pragma mark - end
 
-#pragma mark - back/camera Button
+#pragma mark - Back/Camera button
 - (IBAction)backButton:(UIButton *)sender {
     [self hidePickerWithAnimation];
     
@@ -866,14 +766,12 @@
 }
 #pragma mark - end
 
-
-
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
     customCameraVC.imageArray = [imageArray mutableCopy];
 }
 
-#pragma mark - Add Representation Action
+#pragma mark - Add representation action
 - (IBAction)addRepresentativeAction:(UIButton *)sender {
     [self hidePickerWithAnimation];
     
@@ -888,7 +786,7 @@
 }
 #pragma mark - end
 
-#pragma mark - select Manager Action
+#pragma mark - Select manager action
 - (IBAction)selectManagerAction:(UIButton *)sender {
     [self showPickerWithAnimation];
     

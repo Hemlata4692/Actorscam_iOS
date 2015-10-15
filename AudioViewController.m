@@ -68,8 +68,6 @@
 @property (strong, nonatomic) IBOutlet UITextView *ipad_noteTextView;
 @property (weak, nonatomic) IBOutlet UIButton *ipad_sendButton;
 
-
-
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPickerView *managerListPickerView;
@@ -124,6 +122,7 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - Allocation of audio file
 -(void)recordAudioFile{
     playOutlet.enabled = NO;
     sendButton.enabled = NO;
@@ -147,14 +146,6 @@
     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
     NSURL *outputFileURL = [NSURL URLWithString:filePath];
     
-    //    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-    //    if (fileExists) {
-    //        sendButton.enabled = YES;
-    //    }
-    //    else{
-    //        sendButton.enabled = NO;
-    //    }
-    //    Setup audio session
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     
@@ -175,9 +166,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self hidePickerWithAnimation];
-    
-//    [self removeAudioFile];
-    
     
     pickerChecker = @"";
     pickerArray = [NSMutableArray new];
@@ -270,7 +258,7 @@
 }
 #pragma mark - end
 
-#pragma mark - TextView Delegate
+#pragma mark - TextView delegate
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self hidePickerWithAnimation];
@@ -291,7 +279,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Keyboard Controls Delegate
+#pragma mark - Keyboard controls delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
     
@@ -313,106 +301,16 @@
 }
 #pragma mark - end
 
-#pragma mark - send Image Button Action
+#pragma mark - Send image action
 - (IBAction)sendAction:(id)sender {
+    
     [myDelegate ShowIndicator];
     [self performSelector:@selector(audioAttachment) withObject:nil afterDelay:.1];
-    /*
-    [self hidePickerWithAnimation];
-    [myTimer invalidate];
-    myTimer = nil;
     
-    playOutlet.enabled = YES;
-    playOutlet.selected = NO;
-    recordOulet.selected = NO;
-    
-    if (player.playing) {
-        [player stop];
-    }
-
-    UIAlertView *alert;
-    if ([selectCategory isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        
-    }
-    else if ([managerName isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        
-    }
-    else{
-        if (managerListArray.count != 0) {
-            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            
-            NSString* filepath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
-            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filepath];
-            if (fileExists) {
-                if ([MFMailComposeViewController canSendMail])
-                    
-                {
-                    // Email Subject
-                    
-                    NSString *emailTitle = @"Actor CAM - New Audio from model";
-                    
-                    NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
-                    
-                    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-                    
-                    mc.mailComposeDelegate = self;
-                    
-                    [mc setSubject:emailTitle];
-                    
-                    [mc setMessageBody:noteTextView.text isHTML:NO];
-                    
-//                    NSURL    *fileURL = [NSURL URLWithString:filepath];
-                    
-                    timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
-
-                    continousSecond = 0;
-                    playOutlet.selected = NO;
-                    recordOulet.selected = NO;
-
-                    NSData *soundFile = [[NSData alloc] initWithContentsOfFile:filepath];
-                    
-                    [mc addAttachmentData:soundFile mimeType:@"audio/mp4" fileName:@"ActorCamAudio.m4a"];
-                    //            }
-                    
-                    mc.navigationBar.tintColor = [UIColor whiteColor];
-                    //            mc.navigationBar.ti
-                    [mc setToRecipients:toRecipents];
-                    [self presentViewController:mc animated:YES completion:NULL];
-                    
-                }
-                
-                else
-                    
-                {
-                    
-                    UIAlertView *alertView = [[UIAlertView alloc]
-                                              
-                                              initWithTitle:nil
-                                              
-                                              message:@"Email account is not configured in your device."
-                                              
-                                              delegate:self
-                                              
-                                              cancelButtonTitle:@"OK"
-                                              
-                                              otherButtonTitles:nil];
-                    
-                    [alertView show];
-                    
-                }
-            }
-        }
-    }
-    */
 }
 
 -(void)audioAttachment{
+    
     [self hidePickerWithAnimation];
     [myTimer invalidate];
     myTimer = nil;
@@ -463,8 +361,6 @@
                     [mc setSubject:emailTitle];
                     
                     [mc setMessageBody:noteTextView.text isHTML:NO];
-                    
-                    //                    NSURL    *fileURL = [NSURL URLWithString:filepath];
                     
                     timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
                     
@@ -541,15 +437,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Pickerview Delegate Methods
+#pragma mark - Pickerview delegate methods
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-//    if (managerListArray.count != 0) {
     return 1;
-//    }
-//    else{
-//    return 0;
-//    }
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
@@ -607,7 +498,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Toolbar Done Action
+#pragma mark - Toolbar done action
 - (IBAction)DoneAction:(UIBarButtonItem *)sender {
     
     if (managerListArray.count != 0) {
@@ -649,7 +540,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Manager Listing method
+#pragma mark - Manager listing method
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
@@ -701,7 +592,7 @@
     [super viewWillDisappear:YES];
 }
 
-#pragma mark - Add Representation Action
+#pragma mark - Add representation action
 - (IBAction)addRepresentativeAction:(UIButton *)sender {
     [self hidePickerWithAnimation];
     
@@ -716,7 +607,7 @@
 }
 #pragma mark - end
 
-#pragma mark - select Manager Action
+#pragma mark - Select manager action
 - (IBAction)selectManagerAction:(UIButton *)sender {
     [self showPickerWithAnimation];
     
@@ -750,7 +641,7 @@
     
 }
 
-#pragma mark - Play Action
+#pragma mark - Play action
 - (IBAction)play:(UIButton *)sender {
     
     recordOulet.selected = NO;
@@ -784,7 +675,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Record Action
+#pragma mark - Record action
 - (IBAction)record:(UIButton *)sender {
     [myTimer invalidate];
     myTimer = nil;
@@ -825,6 +716,7 @@
 }
 #pragma mark - end
 
+#pragma mark - Set timer
 -(void)targetMethod{
     continousSecond++;
     hour = (continousSecond / 3600)%24;
@@ -846,6 +738,7 @@
 
 //    NSLog(@"This is the file size of the recording in bytes: %llu", size);
 }
+#pragma mark - end
 
 #pragma mark - AVAudioRecorderDelegate
 
@@ -862,19 +755,7 @@
     [myTimer invalidate];
     myTimer = nil;
 }
-
-- (void)removeAudioFile
-{
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-    if (fileExists) {
-        [fileManager removeItemAtPath:filePath error:nil];
-    }
-
-}
+#pragma mark - end
 
 /*
 #pragma mark - Navigation

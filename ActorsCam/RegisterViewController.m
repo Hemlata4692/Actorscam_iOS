@@ -121,10 +121,10 @@
 
 #pragma mark - end
 
-#pragma mark - Register User
+#pragma mark - Register user
 - (IBAction)signUpButtonAction:(id)sender
 {
-//    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
     [self.keyboardControls.activeField resignFirstResponder];
     if([self performValidationsForSignUp])
     {
@@ -142,7 +142,7 @@
         
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         alert.tag = 1;
         [alert show];
         
@@ -160,7 +160,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Image Picker
+#pragma mark - Image picker
 - (IBAction)imagePickerAction:(id)sender
 {
     
@@ -220,7 +220,6 @@
                 [self.popover presentPopoverFromRect:CGRectMake(50,-430, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
             }];
             
-//            [self.popover presentPopoverFromRect:CGRectMake(100, 100, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
         }
         else {
             if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
@@ -240,7 +239,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield Validation
+#pragma mark - Textfield validation
 - (BOOL)performValidationsForSignUp
 {
     UIAlertView *alert;
@@ -306,7 +305,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Keyboard Controls Delegate
+#pragma mark - Keyboard controls delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
     UIView *view;
@@ -327,7 +326,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield Delegates
+#pragma mark - Textfield delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     

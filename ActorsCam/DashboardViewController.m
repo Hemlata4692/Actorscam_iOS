@@ -103,7 +103,7 @@
 }
 #pragma mark - end
 
-#pragma mark - choose Language Action
+#pragma mark - Choose language action
 - (IBAction)chooseLanguageAction:(UIButton *)sender {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ChooseLanguageViewController *chooseLangView =[storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageView"];
@@ -115,7 +115,7 @@
 }
 #pragma mark - end
 
-#pragma mark - take Photos Action
+#pragma mark - Take photos action
 - (IBAction)takePhotosAction:(UIButton *)sender {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     CustomCameraViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"CustomCameraView"];
@@ -123,7 +123,7 @@
 }
 #pragma mark - end
 
-#pragma mark - add Manager Action
+#pragma mark - Add manager action
 - (IBAction)addManagerAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -137,7 +137,7 @@
 }
 #pragma mark - end
 
-#pragma mark - add audio Action
+#pragma mark - Add audio action
 - (IBAction)addAudioAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -146,7 +146,7 @@
 }
 #pragma mark - end
 
-#pragma mark - add video Action
+#pragma mark - Add video action
 - (IBAction)addVideoAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

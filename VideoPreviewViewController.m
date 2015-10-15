@@ -222,7 +222,6 @@
     else{
         playOutlet.hidden = NO;
         intialVideoImage.image = nil;
-        //        [intialVideoImage setImage:videoImage];
         [player pause];
     }
 }
@@ -240,9 +239,6 @@
 -(void)addVideo
 {
     
-//    NSURL *urlString = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Untitled" ofType:@"mov"]];
-
-//    player  = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:[urlString absoluteString]]];
     player  = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[filePath absoluteString]]];
     
     [player.view setFrame:videoPlayer.frame];
@@ -268,7 +264,6 @@
             [player stop];
             NSLog(@"Playing OK");
     }
-   // NSLog(@"loadState=%lu",(unsigned long)player.loadState);
 }
 
 -(void)setLocalizedString{
@@ -313,7 +308,7 @@
 }
 #pragma mark - end
 
-#pragma mark - TextView Delegate
+#pragma mark - TextView delegate
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self hidePickerWithAnimation];
@@ -334,7 +329,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Keyboard Controls Delegate
+#pragma mark - Keyboard controls delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
     
@@ -356,88 +351,16 @@
 }
 #pragma mark - end
 
-#pragma mark - send Image Button Action
+#pragma mark - Send image button action
 - (IBAction)sendAction:(id)sender {
+    
     [myDelegate ShowIndicator];
     [self performSelector:@selector(videoAttachment) withObject:nil afterDelay:.1];
-   /*
-    [self hidePickerWithAnimation];
-    playOutlet.hidden = NO;
-    [intialVideoImage setImage:videoImage];
-    [player stop];
-
-    UIAlertView *alert;
-    if ([selectCategory isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        
-    }
-    else if ([managerName isEmpty])
-    {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        
-    }
-    else{
-        if (managerListArray.count != 0) {
-            
-            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[filePath absoluteString]];
-            if (fileExists) {
-                if ([MFMailComposeViewController canSendMail])
-                    
-                {
-                    // Email Subject
-                    
-                    NSString *emailTitle = @"Actor CAM - New Video from model";
-                    
-                    NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
-                    
-                    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-                    
-                    mc.mailComposeDelegate = self;
-                    
-                    [mc setSubject:emailTitle];
-                    
-                    [mc setMessageBody:noteTextView.text isHTML:NO];
-                    
-                    NSURL * videoURL = [[NSURL alloc] initFileURLWithPath:[filePath absoluteString]];
-                    
-                    [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"ActorCamVideo.MOV"];
-                    
-                    mc.navigationBar.tintColor = [UIColor whiteColor];
-                    //            mc.navigationBar.ti
-                    [mc setToRecipients:toRecipents];
-                    [self presentViewController:mc animated:YES completion:NULL];
-                    
-                }
-                
-                else
-                    
-                {
-                    
-                    UIAlertView *alertView = [[UIAlertView alloc]
-                                              
-                                              initWithTitle:nil
-                                              
-                                              message:@"Email account is not configured in your device."
-                                              
-                                              delegate:self
-                                              
-                                              cancelButtonTitle:@"OK"
-                                              
-                                              otherButtonTitles:nil];
-                    
-                    [alertView show];
-                    
-                }
-            }
-        }
-    }
-    */
+    
 }
 
 -(void)videoAttachment{
+    
     [self hidePickerWithAnimation];
     playOutlet.hidden = NO;
     [intialVideoImage setImage:videoImage];
@@ -485,7 +408,6 @@
                     [mc addAttachmentData:[NSData dataWithContentsOfURL:videoURL] mimeType:@"video/quicktime" fileName:@"ActorCamVideo.MOV"];
                     
                     mc.navigationBar.tintColor = [UIColor whiteColor];
-                    //            mc.navigationBar.ti
                     [mc setToRecipients:toRecipents];
                     [myDelegate StopIndicator];
                     [self presentViewController:mc animated:YES completion:NULL];
@@ -520,6 +442,7 @@
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error
 {
+    
     switch (result)
     {
         case MFMailComposeResultCancelled:
@@ -540,6 +463,7 @@
             break;
     }
     [self dismissViewControllerAnimated:YES completion:NULL];
+    
 }
 #pragma mark - end
 
@@ -548,7 +472,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Pickerview Delegate Methods
+#pragma mark - Pickerview delegate methods
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
    return 1;
@@ -570,7 +494,7 @@
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    //    if (managerListArray.count != 0) {
+    
     if ([pickerChecker isEqualToString:@"manager"]) {
         return [[pickerArray objectAtIndex:row] objectForKey:@"managerName"];
     }
@@ -582,15 +506,11 @@
         return @"";
     }
     
-    //    }
-    //    else{
-    //        return 0;
-    //    }
-    
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    
     if (managerListArray.count != 0) {
         if ([pickerChecker isEqualToString:@"manager"]) {
             managerName.text = [[pickerArray objectAtIndex:row] objectForKey:@"managerName"];
@@ -600,11 +520,11 @@
             selectCategory.text = [categoryString changeTextLanguage:categoryString];
         }
     }
+    
 }
 #pragma mark - end
 
-
-#pragma mark - Toolbar Done Action
+#pragma mark - Toolbar done action
 - (IBAction)DoneAction:(UIBarButtonItem *)sender {
     
     if (managerListArray.count != 0) {
@@ -642,10 +562,11 @@
         }
     }
     [self hidePickerWithAnimation];
+    
 }
 #pragma mark - end
 
-#pragma mark - Manager Listing method
+#pragma mark - Manager listing method
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
@@ -697,7 +618,7 @@
     [super viewWillDisappear:YES];
 }
 
-#pragma mark - Add Representation Action
+#pragma mark - Add representation action
 - (IBAction)addRepresentativeAction:(UIButton *)sender {
     [self hidePickerWithAnimation];
     
@@ -712,7 +633,7 @@
 }
 #pragma mark - end
 
-#pragma mark - select Manager Action
+#pragma mark - Select manager action
 - (IBAction)selectManagerAction:(UIButton *)sender {
     [self showPickerWithAnimation];
     
@@ -727,7 +648,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Select category textfield
+#pragma mark - Select category textfield action
 - (IBAction)selectCategoryAction:(UIButton *)sender {
     [self showPickerWithAnimation];
     
@@ -745,8 +666,9 @@
     }
     
 }
+#pragma mark - end
 
-#pragma mark - back/camera Button
+#pragma mark - Back action
 - (IBAction)backButton:(UIButton *)sender {
     [self hidePickerWithAnimation];
     
@@ -759,7 +681,9 @@
         }
     }
 }
+#pragma mark - end
 
+#pragma mark - Navigation camera action
 - (IBAction)cameraButton:(UIButton *)sender {
     [self hidePickerWithAnimation];
     

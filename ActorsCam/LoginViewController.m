@@ -93,13 +93,12 @@
 
     UIImage * tempImg =[UIImage imageNamed:@"bg.jpg"];
     backgroundImage.image = [UIImage imageNamed:[tempImg imageForDeviceWithName:@"bg"]];
-   // NSLog(@"%@",[tempImg imageForDeviceWithName:@"bg"]);
     [self addTextFieldPadding];
     [self addCornerRadius];
     NSLog(@"test log!!!");
     forgotPasswordView.hidden=YES;
+    
     //Adding textfield to array
- 
     textFieldArray = @[userEmail,password];
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
@@ -129,7 +128,6 @@
     [forgotDescriptionLabel changeTextLanguage:@"We will send you an email with a new password."];
     [sendLinkBtn changeTextLanguage:@"SUBMIT"];
     
-//    [languageLabel changeTextLanguage:@"Button"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -186,7 +184,6 @@
 -(void)loginUser
 {
     [[WebService sharedManager] userLogin:userEmail.text Password:password.text success:^(id responseObject) {
-        //NSLog(@"response is %@",responseObject);
        
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -206,7 +203,7 @@
 }
 #pragma mark - end
 
-#pragma mark - signUp
+#pragma mark - SignUp
 - (IBAction)signUpAction:(UIButton *)sender {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -216,7 +213,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Forgot Password
+#pragma mark - Forgot password
 - (IBAction)forgotPasswordButtonAction:(id)sender
 {
     [self.view endEditing:YES];
@@ -243,9 +240,8 @@
         
         [myDelegate StopIndicator];
         forgotPasswordEmail.text = @"";
-      //    NSLog(@"forgot password response is %@",responseObject);
         UIAlertView *alert;
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"Success" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         
         forgotPasswordView.hidden=YES;
@@ -257,7 +253,7 @@
 
 #pragma mark - end
 
-#pragma mark - Textfield Validation
+#pragma mark - Textfield validation
 - (BOOL)performValidationsForLogin
 {
     
@@ -328,7 +324,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Keyboard Controls Delegate
+#pragma mark - Keyboard controls delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
     
@@ -352,7 +348,7 @@
 
 #pragma mark - end
 
-#pragma mark - Textfield Delegates
+#pragma mark - Textfield delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
@@ -400,7 +396,7 @@
 }
 #pragma mark - end
 
-#pragma mark - choose Language Action
+#pragma mark - Choose language action
 - (IBAction)chooseLanguageAction:(UIButton *)sender {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ChooseLanguageViewController *chooseLangView =[storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageView"];

@@ -87,7 +87,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     _checkLightEffect.layer.masksToBounds = YES;
     
     [navTitle changeTextLanguage:navTitle];
-//    [_doneOutlet changeTextLanguage:@"DONE"];
 
     self.captureButton.selected = NO;
     shouldCapture = true;
@@ -142,7 +141,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
         
         AVCaptureDevice *audioDevice = [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] firstObject];
-//        [audioDevice sete]
         AVCaptureDeviceInput *audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:&error];
         if (error)
         {
@@ -168,21 +166,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 [connection setPreferredVideoStabilizationMode:AVCaptureVideoStabilizationModeAuto];
             }
             
-            //[connection setPreferredVideoStabilizationMode:YES];
-            //                [connection setEnablesVideoStabilizationWhenAvailable:YES];
             [self setMovieFileOutput:movieFileOutput];
         }
         
-//        AVCaptureMovieFileOutput *movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
-//        if ([session canAddOutput:movieFileOutput])
-//        {
-//            [session addOutput:movieFileOutput];
-//            AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
-//            if ([connection isVideoStabilizationSupported])
-//                [connection setPreferredVideoStabilizationMode:YES];
-////                [connection setEnablesVideoStabilizationWhenAvailable:YES];
-//            [self setMovieFileOutput:movieFileOutput];
-//        }
         
         AVCaptureStillImageOutput *stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
         if ([session canAddOutput:stillImageOutput])
@@ -226,14 +212,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [_doneOutlet changeTextLanguage:@"DONE"];
         }
     }
-//    _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)imageArray.count];
-//    for (int i=0; i<imageArray.count; i++) {
-//        UIImage *yourImage = [imageArray objectAtIndex:i];
-//        NSData *imgData = UIImageJPEGRepresentation(yourImage, 1.0f);
-//        imageSize = imgData.length + imageSize;
-//        NSLog(@"%llu",(unsigned long long)imgData.length);
-//    }
-//     NSLog(@"image size %llu",imageSize/1024/1024);
 
     dispatch_async([self sessionQueue], ^{
         [self addObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:SessionRunningAndDeviceAuthorizedContext];
@@ -256,8 +234,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
     [UIApplication sharedApplication].idleTimerDisabled = NO;
-//    [myTimer invalidate];
-//    myTimer = nil;
 
 }
 
@@ -268,9 +244,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         UIImage *yourImage = [myImageArray objectAtIndex:i];
         NSData *imgData = UIImageJPEGRepresentation(yourImage, 1.0f);
         imageSize  = imgData.length + imageSize;
-     //   NSLog(@"%llu",(unsigned long long)imgData.length);
     }
-    //NSLog(@"image size %llu",imageSize/1024/1024);
     return imageSize;
 }
 
@@ -293,97 +267,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
-//Action for rescaling image to avoid memory pressure
--(UIImage *)imageWithImage:(UIImage *)image1 scaledToSize:(CGSize)newSize
-{
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image1 drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
--(void)stillImageOutputView{
-
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in _stillImageOutput.connections)
-    {
-        for (AVCaptureInputPort *port in [connection inputPorts])
-        {
-            if ([[port mediaType] isEqual:AVMediaTypeVideo] )
-            {
-                videoConnection = connection;
-                break;
-            }
-        }
-        if (videoConnection) { break; }
-    }
-//    if (!invalidateChecker) {
-    [_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection
-                                                   completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *__strong error) {
-                                                       CFDictionaryRef exifAttachments = CMGetAttachment( imageDataSampleBuffer, kCGImagePropertyExifDictionary, NULL);
-//                                                       if (!invalidateChecker) {
-                                                           if (exifAttachments)
-                                                           {
-                                                               // Do something with the attachments.
-                                                               NSLog(@"attachements: %@", exifAttachments);
-                                                           }
-                                                           else
-                                                               NSLog(@"no attachments");
-                                                           
-                                                           
-                                                           NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                                                           UIImage *image = [[UIImage alloc] initWithData:imageData];
-                                                           CGSize scale;
-                                                           scale.height=image.size.height/2;
-                                                           scale.width=image.size.width/2;
-                                                           image = [self imageWithImage:image scaledToSize:scale];
-                                                           unsigned char* pixels = [self rgbaPixels:image];
-                                                           double totalLuminance = 0.0;
-                                                           for(int p=0;p<image.size.width*image.size.height;p+=4) {
-                                                               totalLuminance += pixels[p]*0.299 + pixels[p+1]*0.587 + pixels[p+2]*0.114;
-                                                           }
-                                                           totalLuminance /= (image.size.width*image.size.height);
-                                                           totalLuminance /= 255.0;
-                                                           _checkLightEffect.text = [NSString stringWithFormat:@"%f",totalLuminance];
-                                                           NSLog(@"Image.png = %f",totalLuminance);
-                                                           
-//                                                       }
-                                                   }];
-//      }
-}
-
--(unsigned char*) rgbaPixels:(UIImage*)image
-{
-    
-    // Define the colour space (in this case it's gray)
-    CGColorSpaceRef colourSpace = CGColorSpaceCreateDeviceRGB();
-    
-    // Find out the number of bytes per row (it's just the width times the number of bytes per pixel)
-    size_t bytesPerRow = image.size.width * BYTES_PER_PIXEL;
-    // Allocate the appropriate amount of memory to hold the bitmap context
-    unsigned char* bitmapData = (unsigned char*) malloc(bytesPerRow*image.size.height);
-    
-    // Create the bitmap context, we set the alpha to none here to tell the bitmap we don't care about alpha values
-    CGContextRef context = CGBitmapContextCreate(bitmapData,image.size.width,image.size.height,BITS_PER_COMPONENT,bytesPerRow,colourSpace,kCGImageAlphaPremultipliedLast|kCGBitmapByteOrder32Big);
-    
-    // We are done with the colour space now so no point in keeping it around
-    CGColorSpaceRelease(colourSpace);
-    
-    // Create a CGRect to define the amount of pixels we want
-    CGRect rect = CGRectMake(0.0,0.0,image.size.width,image.size.height);
-    // Draw the bitmap context using the rectangle we just created as a bounds and the Core Graphics Image as the image source
-    CGContextDrawImage(context,rect,image.CGImage);
-    // Obtain the pixel data from the bitmap context
-    unsigned char* pixelData = (unsigned char*)CGBitmapContextGetData(context);
-    
-    // Release the bitmap context because we are done using it
-    CGContextRelease(context);
-    return pixelData;
-#undef BITS_PER_PIXEL
-#undef BITS_PER_COMPONENT
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == CapturingStillImageContext)
@@ -403,13 +286,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             if (isRunning)
             {
                 [[self revertButton] setEnabled:YES];
-                //                [[self recordButton] setEnabled:YES];
                 [[self captureButton] setEnabled:YES];
             }
             else
             {
                 [[self revertButton] setEnabled:NO];
-                //                [[self recordButton] setEnabled:NO];
                 [[self captureButton] setEnabled:NO];
             }
         });
@@ -425,9 +306,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     [[self revertButton] setEnabled:NO];
     [[self captureButton] setEnabled:NO];
-//    invalidateChecker = YES;
-//    [myTimer invalidate];
-//    myTimer = nil;
     
     dispatch_async([self sessionQueue], ^{
         AVCaptureDevice *currentVideoDevice = [[self videoDeviceInput] device];
@@ -474,12 +352,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [[self revertButton] setEnabled:YES];
             [[self captureButton] setEnabled:YES];
             
-//            myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-//                                                       target:self
-//                                                     selector:@selector(stillImageOutputView)
-//                                                     userInfo:nil
-//                                                      repeats:YES];
-            
         });
     });
 }
@@ -495,8 +367,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     else{
         self.captureButton.selected = YES;
         self.captureButton.enabled = NO;
-//        [myTimer invalidate];
-//        myTimer = nil;
         
     dispatch_async([self sessionQueue], ^{
         // Update the orientation on the still image output video connection before capturing.
@@ -511,16 +381,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             if (imageDataSampleBuffer)
             {
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-//                NSLog(@"%llu",(unsigned long long)imageData.length);
                 UIImage *image = [[UIImage alloc] initWithData:imageData];
                 NSData *imgData1 = UIImageJPEGRepresentation(image, 1.0f);
-//                 NSData *imgData1 = UIImagePNGRepresentation(image);
-//                imageSize = imgData1.length + imageSize;
-               
-             //   NSLog(@"%llu",(unsigned long long)imgData1.length);
-            //     NSLog(@"%llu",(unsigned long long)imageData.length);
+                
                 unsigned long long tempSize = imageSize + imgData1.length;
-            //     NSLog(@"%llu",(unsigned long long)imgData1.length);
                 if (tempSize >= 20*1024*1024) {
                     //set toast
                     shouldCapture = false;
@@ -537,20 +401,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                     int count = [_imageCount.text intValue];
                     count = count+1;
                     _imageCount.text = [NSString stringWithFormat:@"%d", count];
-//                    NSLog(@"----------set in cache---------------");
-//                    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-////                    documentsPath = [NSString stringWithFormat:@"%@/befor",documentsPath];
-//                    NSString * timestamp = [NSString stringWithFormat:@"%f.jpeg",[[NSDate date] timeIntervalSince1970] * 1000];
-//                    NSString *filePath = [documentsPath stringByAppendingPathComponent:timestamp];
-//                     NSLog(@"%@",filePath);
-//                    [imgData1 writeToFile:filePath atomically:YES];
                      self.captureButton.enabled = YES;
-                                    
-//                    myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-//                                                               target:self
-//                                                             selector:@selector(stillImageOutputView)
-//                                                             userInfo:nil
-//                                                              repeats:YES];
+            
                 }
             }
         }];
@@ -559,7 +411,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
-#pragma mark - focusAndExposeTap gesture action
+#pragma mark - FocusAndExposeTap gesture action
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint devicePoint = [(AVCaptureVideoPreviewLayer *)[[self previewView] layer] captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:[gestureRecognizer view]]];
@@ -597,7 +449,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
-#pragma mark - Device Configuration
+#pragma mark - Device configuration
 - (void)focusWithMode:(AVCaptureFocusMode)focusMode exposeWithMode:(AVCaptureExposureMode)exposureMode atDevicePoint:(CGPoint)point monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 {
     dispatch_async([self sessionQueue], ^{
@@ -702,9 +554,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
-#pragma mark - Done Action
+#pragma mark - Done action
 - (IBAction)doneMethod:(UIButton *)sender {
-//    [imageArray addObject:[UIImage imageNamed:@"refresh"]];
 
     if (imageArray.count==0) {
         for (id controller in [self.navigationController viewControllers])

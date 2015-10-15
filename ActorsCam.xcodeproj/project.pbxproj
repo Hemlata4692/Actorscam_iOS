@@ -121,7 +121,7 @@
 		B77E98621BB2C3B200368C03 /* Internet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Internet.m; sourceTree = "<group>"; };
 		B77E98631BB2C3B200368C03 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		B77E98641BB2C3B200368C03 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		B789AD571B820F3B00C1C0AB /* ActorsCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActorsCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B789AD571B820F3B00C1C0AB /* Actor CAM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Actor CAM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B789AD5B1B820F3B00C1C0AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B789AD5C1B820F3B00C1C0AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B789AD5E1B820F3B00C1C0AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -372,7 +372,7 @@
 		B789AD581B820F3B00C1C0AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B789AD571B820F3B00C1C0AB /* ActorsCam.app */,
+				B789AD571B820F3B00C1C0AB /* Actor CAM.app */,
 				B789AD701B820F3B00C1C0AB /* ActorsCamTests.xctest */,
 			);
 			name = Products;
@@ -708,7 +708,7 @@
 			);
 			name = ActorsCam;
 			productName = ActorsCam;
-			productReference = B789AD571B820F3B00C1C0AB /* ActorsCam.app */;
+			productReference = B789AD571B820F3B00C1C0AB /* Actor CAM.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B789AD6F1B820F3B00C1C0AB /* ActorsCamTests */ = {
@@ -1021,7 +1021,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.speechWizard.Actorcam;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Actor CAM";
 				PROVISIONING_PROFILE = "72c75ee6-04d0-4563-bb36-4c07ac53b0ab";
 			};
 			name = Debug;
@@ -1042,7 +1042,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.speechWizard.Actorcam;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Actor CAM";
 				PROVISIONING_PROFILE = "72c75ee6-04d0-4563-bb36-4c07ac53b0ab";
 			};
 			name = Release;

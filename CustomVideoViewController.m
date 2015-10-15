@@ -145,16 +145,12 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         
         AVCaptureMovieFileOutput *movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
         movieFileOutput.maxRecordedFileSize = 1024 *1024 * 20;
-       // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
         
         if ([session canAddOutput:movieFileOutput])
         {
             [session setSessionPreset: AVCaptureSessionPresetMedium];
             [session addOutput:movieFileOutput];
             AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
-            
-//            if ([connection isVideoStabilizationSupported])
-//                [connection setEnablesVideoStabilizationWhenAvailable:YES];
             
             if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8) {
                 if ([connection isVideoStabilizationSupported])
@@ -222,7 +218,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         [[self session] startRunning];
         
     });
-    //    intialView.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -235,10 +230,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-//    [myTimer invalidate];
-//    myTimer = nil;
-    
-//    [[self movieFileOutput] stopRecording];
     
     dispatch_async([self sessionQueue], ^{
         [[self session] stopRunning];
@@ -308,7 +299,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 - (IBAction)revertCameraMethod:(id)sender
 {
     [revertButton setEnabled:NO];
-    //    [[self recordButton] setEnabled:NO];
     [[self captureOutlet] setEnabled:NO];
     [myTimer invalidate];
     myTimer = nil;
@@ -358,7 +348,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [revertButton setEnabled:YES];
-            //            [[self recordButton] setEnabled:YES];
             [[self captureOutlet] setEnabled:YES];
         });
     });
@@ -372,7 +361,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     myTimer = nil;
     
      [_doneOutlet changeTextLanguage:@"DONE"];
-//        [[self captureButton] setEnabled:NO];
     if (captureOutlet.isSelected) {
         captureOutlet.selected = NO;
     }
@@ -405,18 +393,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 [CustomVideoViewController setFlashMode:AVCaptureFlashModeOff forDevice:[[self videoDeviceInput] device]];
                 
                 // Start recording to a temporary file.
-               // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
                 
                 NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                 
                 NSString *filePath = [documentsPath stringByAppendingPathComponent:@"movie.mov"];
                
-                
-                
-//                NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
                 [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:filePath] recordingDelegate:self];
                 
-              
             }
             else
             {
@@ -435,7 +418,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     _timeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hour,minute,second];
 }
 
-#pragma mark - focusAndExposeTap gesture action
+#pragma mark - FocusAndExposeTap gesture action
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint devicePoint = [(AVCaptureVideoPreviewLayer *)[[self previewView] layer] captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:[gestureRecognizer view]]];
@@ -449,7 +432,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
-#pragma mark File Output Delegate
+#pragma mark - File output delegate
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
@@ -477,8 +460,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
     }
     
-   // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
-    
     [self setLockInterfaceRotation:NO];
     
     // Note the backgroundRecordingID for use in the ALAssetsLibrary completion handler to end the background task associated with this recording. This allows a new recording to be started, associated with a new UIBackgroundTaskIdentifier, once the movie file output's -isRecording is back to NO — which happens sometime after this method returns.
@@ -486,16 +467,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self setBackgroundRecordingID:UIBackgroundTaskInvalid];
    // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
     
-//    [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error) {
-//        if (error)
-//            NSLog(@"%@", error);
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"movie.mov"];
      outputFileURL = [NSURL URLWithString:filePath];
     videoFileUrl = [NSURL URLWithString:filePath];
-       // NSLog(@"%lld",_movieFileOutput.recordedFileSize);
-//        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
     
         if (backgroundRecordingID != UIBackgroundTaskInvalid)
             [[UIApplication sharedApplication] endBackgroundTask:backgroundRecordingID];
@@ -619,7 +595,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
-#pragma mark - Done Action
+#pragma mark - Done action
 - (IBAction)doneMethod:(UIButton *)sender {
     
     if ([[self movieFileOutput] isRecording])
