@@ -103,7 +103,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Choose language action
+#pragma mark - View IB actions
 - (IBAction)chooseLanguageAction:(UIButton *)sender {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ChooseLanguageViewController *chooseLangView =[storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageView"];
@@ -113,17 +113,13 @@
     [self.view addSubview:chooseLangView.view];
     [chooseLangView didMoveToParentViewController:self];
 }
-#pragma mark - end
 
-#pragma mark - Take photos action
 - (IBAction)takePhotosAction:(UIButton *)sender {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     CustomCameraViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"CustomCameraView"];
     [self.navigationController pushViewController:previewView animated:YES];
 }
-#pragma mark - end
 
-#pragma mark - Add manager action
 - (IBAction)addManagerAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -135,18 +131,14 @@
     addManagerView.category = @"";
     [self.navigationController pushViewController:addManagerView animated:YES];
 }
-#pragma mark - end
 
-#pragma mark - Add audio action
 - (IBAction)addAudioAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AudioViewController *audioView =[storyboard instantiateViewControllerWithIdentifier:@"AudioView"];
     [self.navigationController pushViewController:audioView animated:YES];
 }
-#pragma mark - end
 
-#pragma mark - Add video action
 - (IBAction)addVideoAction:(UIButton *)sender {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -154,6 +146,8 @@
     [self.navigationController pushViewController:videoView animated:YES];
 }
 #pragma mark - end
+
+
 /*
 #pragma mark - Navigation
 

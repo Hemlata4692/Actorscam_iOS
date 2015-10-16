@@ -117,16 +117,14 @@
 }
 #pragma mark - end
 
-#pragma mark - Cancel action
+#pragma mark - View IB actions
 - (IBAction)cancelAction:(id)sender {
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
     NSLog(@"checker");
 }
-#pragma mark - end
 
-#pragma mark - Done action
 - (IBAction)doneAction:(UIButton *)sender {
     if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"ENGLISH"]) {
         [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];

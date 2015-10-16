@@ -97,7 +97,6 @@
     [category changeTextLanguage:category];
 }
 
-
 -(void)addTextFieldPadding
 {
     [managerCategory addTextFieldPadding:managerCategory color:[UIColor lightGrayColor]];
@@ -122,7 +121,6 @@
     [UIView commitAnimations];
     
 }
-
 
 -(void)hidePickerWithAnimation
 {
@@ -207,6 +205,7 @@
     
 }
 #pragma mark - end
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

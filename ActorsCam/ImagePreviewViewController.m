@@ -233,7 +233,6 @@
 
 }
 
-
 -(void)hidePickerWithAnimation
 {
     [UIView beginAnimations:nil context:NULL];
@@ -290,7 +289,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Collection View
+#pragma mark - Collection view
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return imageArray.count;
@@ -364,7 +363,46 @@
 }
 #pragma mark - end
 
-#pragma mark - Delete Image Action
+#pragma mark - View IB actions
+- (IBAction)DoneAction:(UIBarButtonItem *)sender {
+    [self hidePickerWithAnimation];
+    
+    if (managerListArray.count != 0) {
+        
+        NSInteger index = [managerListPickerView selectedRowInComponent:0];
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        
+        if ([pickerChecker isEqualToString:@"category"]){
+            selectedCategoryIndex = (int)index;
+            selectedManagerIndex = 0;
+            pickerChecker = @"manager";
+            [pickerArray removeAllObjects];
+            int managerNameIndex = 0;
+            for (int i=0; i < managerListArray.count; i++) {
+                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
+                    if (managerNameIndex == 0) {
+                        managerNameIndex++;
+                        selectedData = [[managerListArray objectAtIndex:i] copy];
+                        managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
+                    }
+                    
+                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
+                }
+                
+            }
+            
+            NSString *categoryString = [categoryList objectAtIndex:index];
+            selectCategory.text = [categoryString changeTextLanguage:categoryString];
+            [managerListPickerView reloadAllComponents];
+        }
+        else{
+            selectedManagerIndex = (int)index;
+            selectedData = [[pickerArray objectAtIndex:index] copy];
+            managerName.text=[[pickerArray objectAtIndex:index] objectForKey:@"managerName"];
+        }
+    }
+}
+
 - (IBAction)deleteImageAction:(UIButton *)sender {
     [self hidePickerWithAnimation];
     [imageArray removeObjectAtIndex:selectedImage];
@@ -381,9 +419,7 @@
     }
     
 }
-#pragma mark - end
 
-#pragma mark - Send Image button action
 - (IBAction)sendImageButtonAction:(id)sender {
     
     [myDelegate ShowIndicator];
@@ -497,6 +533,19 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)addRepresentativeAction:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+    addManagerView.navTitle = @"Add Representative";
+    addManagerView.emailId = @"";
+    addManagerView.name = @"";
+    addManagerView.managerId = @"";
+    addManagerView.category = @"";
+    [self.navigationController pushViewController:addManagerView animated:YES];
 }
 #pragma mark - end
 
@@ -650,48 +699,6 @@
 }
 #pragma mark - end
 
-#pragma mark - Toolbar done action
-- (IBAction)DoneAction:(UIBarButtonItem *)sender {
-    [self hidePickerWithAnimation];
-    
-    if (managerListArray.count != 0) {
-        
-        NSInteger index = [managerListPickerView selectedRowInComponent:0];
-        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-        
-        if ([pickerChecker isEqualToString:@"category"]){
-            selectedCategoryIndex = (int)index;
-            selectedManagerIndex = 0;
-            pickerChecker = @"manager";
-            [pickerArray removeAllObjects];
-            int managerNameIndex = 0;
-            for (int i=0; i < managerListArray.count; i++) {
-                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
-                    if (managerNameIndex == 0) {
-                        managerNameIndex++;
-                        selectedData = [[managerListArray objectAtIndex:i] copy];
-                         managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
-                    }
-                   
-                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
-                }
-                
-            }
-            
-            NSString *categoryString = [categoryList objectAtIndex:index];
-            selectCategory.text = [categoryString changeTextLanguage:categoryString];
-            [managerListPickerView reloadAllComponents];
-        }
-        else{
-            selectedManagerIndex = (int)index;
-            selectedData = [[pickerArray objectAtIndex:index] copy];
-            managerName.text=[[pickerArray objectAtIndex:index] objectForKey:@"managerName"];
-        }
-    }
-}
-#pragma mark - end
-
-
 #pragma mark - Manager listing method
 -(void)managerListing
 {
@@ -771,22 +778,7 @@
     customCameraVC.imageArray = [imageArray mutableCopy];
 }
 
-#pragma mark - Add representation action
-- (IBAction)addRepresentativeAction:(UIButton *)sender {
-    [self hidePickerWithAnimation];
-    
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    addManagerView.navTitle = @"Add Representative";
-    addManagerView.emailId = @"";
-    addManagerView.name = @"";
-    addManagerView.managerId = @"";
-    addManagerView.category = @"";
-    [self.navigationController pushViewController:addManagerView animated:YES];
-}
-#pragma mark - end
-
-#pragma mark - Select manager action
+#pragma mark - Select manager
 - (IBAction)selectManagerAction:(UIButton *)sender {
     [self showPickerWithAnimation];
     

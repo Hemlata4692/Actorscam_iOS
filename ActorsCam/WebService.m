@@ -181,7 +181,7 @@
 }
 #pragma mark - end
 
-#pragma mark- Login Method
+#pragma mark- Login Module
 //Login
 - (void)userLogin:(NSString *)email Password:(NSString *)password success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -206,39 +206,34 @@
      }];
     
 }
-#pragma mark - end
 
-
-#pragma mark - Register method
 //Register
 -(void)registerUser:(NSString *)mailId password:(NSString *)password name:(NSString*)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
     NSDictionary *requestDict = @{@"email":mailId,@"password":password,@"username":name};
     
-           [self postImage:kUrlRegister parameters:requestDict image:image success:^(id responseObject)
+    [self postImage:kUrlRegister parameters:requestDict image:image success:^(id responseObject)
+     {
+         responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
+         //  NSLog(@"Register User Response%@", responseObject);
+         
+         if([self isStatusOK:responseObject])
          {
-             responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
-           //  NSLog(@"Register User Response%@", responseObject);
-             
-             if([self isStatusOK:responseObject])
-             {
-                 success(responseObject);
-             }
-             else
-             {
-                 [myDelegate StopIndicator];
-                 failure(nil);
-             }
-         } failure:^(NSError *error)
+             success(responseObject);
+         }
+         else
          {
              [myDelegate StopIndicator];
-             failure(error);
-         }];
+             failure(nil);
+         }
+     } failure:^(NSError *error)
+     {
+         [myDelegate StopIndicator];
+         failure(error);
+     }];
     
 }
-#pragma mark - end
 
-#pragma mark - Forgot password method
 //Forgot Password
 -(void)forgotPassword:(NSString *)mailId success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
@@ -263,9 +258,7 @@
      }];
     
 }
-#pragma mark - end
 
-#pragma mark - Change password method
 //Change Password
 -(void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
@@ -292,7 +285,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Add manager Method
+#pragma mark - Manager module
 //Add manager
 - (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail category:(NSString *)category  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -317,9 +310,7 @@
      }];
     
 }
-#pragma mark - end
 
-#pragma mark - Manager Listing Method
 //Manager Listing
 - (void)managerListing:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -344,13 +335,11 @@
      }];
     
 }
-#pragma mark - end
 
-#pragma mark - Update Manager Method
 //Update Manager
 - (void)updateManager:(NSString *)name managerEmail:(NSString *)managerEmail managerId:(NSString *)managerId category:(NSString *)category success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
-   
+    
     NSDictionary *requestDict = @{@"managerName":name,@"managerEmail":managerEmail,@"managerId":managerId,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"category":category};
     
     [self post:kUrlUpdateManager parameters:requestDict success:^(id responseObject)
@@ -372,9 +361,7 @@
      }];
     
 }
-#pragma mark - end
 
-#pragma mark - Delete Manager Method
 //Delete Manager
 - (void)deleteManager:(NSString *)managerId managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -401,7 +388,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Delete Manager Method
+#pragma mark - Profile Module
 //Get Profile
 - (void)getprofile:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
@@ -426,9 +413,7 @@
      }];
     
 }
-#pragma mark - end
 
-#pragma mark - Update profile Method
 //update profile
 -(void)updateprofile:(NSString *)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {

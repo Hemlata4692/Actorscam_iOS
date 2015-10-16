@@ -50,8 +50,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundRecordingID;
 @property (nonatomic, getter = isDeviceAuthorized) BOOL deviceAuthorized;
 @property (nonatomic, readonly, getter = isSessionRunningAndDeviceAuthorized) BOOL sessionRunningAndDeviceAuthorized;
-@property (nonatomic) BOOL lockInterfaceRotation;
 @property (nonatomic) id runtimeErrorHandlingObserver;
+@property (nonatomic) BOOL lockInterfaceRotation;
 
 @end
 
@@ -86,6 +86,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     imageSize = 0;
     
     // Create the AVCaptureSession
+    [self avCaptureSessionMethod];
+}
+
+-(void)avCaptureSessionMethod{
+    
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
     [self setSession:session];
     
@@ -170,6 +175,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [self setStillImageOutput:stillImageOutput];
         }
     });
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -295,7 +301,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     }
 }
 
-#pragma mark - Revert camera actions
+#pragma mark - View IB actions
 - (IBAction)revertCameraMethod:(id)sender
 {
     [revertButton setEnabled:NO];
@@ -352,15 +358,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         });
     });
 }
-#pragma mark - end
 
-#pragma mark - Capture Image Method
 - (IBAction)captureMethod:(id)sender
 {
     [myTimer invalidate];
     myTimer = nil;
     
-     [_doneOutlet changeTextLanguage:@"DONE"];
+    [_doneOutlet changeTextLanguage:@"DONE"];
     if (captureOutlet.isSelected) {
         captureOutlet.selected = NO;
     }
@@ -375,37 +379,71 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                                                   repeats:YES];
     }
     
-        dispatch_async([self sessionQueue], ^{
-            if (![[self movieFileOutput] isRecording])
+    dispatch_async([self sessionQueue], ^{
+        if (![[self movieFileOutput] isRecording])
+        {
+            [self setLockInterfaceRotation:YES];
+            
+            if ([[UIDevice currentDevice] isMultitaskingSupported])
             {
-                [self setLockInterfaceRotation:YES];
-               
-                if ([[UIDevice currentDevice] isMultitaskingSupported])
+                // Setup background task. This is needed because the captureOutput:didFinishRecordingToOutputFileAtURL: callback is not received until AVCam returns to the foreground unless you request background execution time. This also ensures that there will be time to write the file to the assets library when AVCam is backgrounded. To conclude this background execution, -endBackgroundTask is called in -recorder:recordingDidFinishToOutputFileURL:error: after the recorded file has been saved.
+                [self setBackgroundRecordingID:[[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil]];
+            }
+            
+            // Update the orientation on the movie file output video connection before starting recording.
+            [[[self movieFileOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:AVCaptureVideoOrientationPortrait];
+            
+            // Turning OFF flash for video recording
+            [CustomVideoViewController setFlashMode:AVCaptureFlashModeOff forDevice:[[self videoDeviceInput] device]];
+            
+            // Start recording to a temporary file.
+            
+            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            
+            NSString *filePath = [documentsPath stringByAppendingPathComponent:@"movie.mov"];
+            
+            [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:filePath] recordingDelegate:self];
+            
+        }
+        else
+        {
+            [[self movieFileOutput] stopRecording];
+        }
+    });
+    
+}
+
+- (IBAction)doneMethod:(UIButton *)sender {
+    
+    if ([[self movieFileOutput] isRecording])
+    {
+        [myTimer invalidate];
+        myTimer = nil;
+        continousSecond = 0;
+        disappearView = YES;
+        [[self movieFileOutput] stopRecording];
+    }
+    else{
+        if (videoFileUrl == nil) {
+            //            [self.navigationController popViewControllerAnimated:YES];
+            
+            for (id controller in [self.navigationController viewControllers])
+            {
+                if ([controller isKindOfClass:[DashboardViewController class]])
                 {
-                    // Setup background task. This is needed because the captureOutput:didFinishRecordingToOutputFileAtURL: callback is not received until AVCam returns to the foreground unless you request background execution time. This also ensures that there will be time to write the file to the assets library when AVCam is backgrounded. To conclude this background execution, -endBackgroundTask is called in -recorder:recordingDidFinishToOutputFileURL:error: after the recorded file has been saved.
-                    [self setBackgroundRecordingID:[[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil]];
+                    [self.navigationController popToViewController:controller animated:YES];
+                    break;
                 }
-                
-                // Update the orientation on the movie file output video connection before starting recording.
-                [[[self movieFileOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:AVCaptureVideoOrientationPortrait];
-                
-                // Turning OFF flash for video recording
-                [CustomVideoViewController setFlashMode:AVCaptureFlashModeOff forDevice:[[self videoDeviceInput] device]];
-                
-                // Start recording to a temporary file.
-                
-                NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                
-                NSString *filePath = [documentsPath stringByAppendingPathComponent:@"movie.mov"];
-               
-                [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:filePath] recordingDelegate:self];
-                
             }
-            else
-            {
-                [[self movieFileOutput] stopRecording];
-            }
-        });
+        }
+        else{
+            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            VideoPreviewViewController *videoPreviewView =[storyboard instantiateViewControllerWithIdentifier:@"VideoPreviewView"];
+            videoPreviewView.filePath = videoFileUrl;
+            [self.navigationController pushViewController:videoPreviewView animated:YES];
+        }
+        
+    }
     
 }
 #pragma mark - end
@@ -418,7 +456,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     _timeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hour,minute,second];
 }
 
-#pragma mark - FocusAndExposeTap gesture action
+#pragma mark - FocusAndExposeTap gesture
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint devicePoint = [(AVCaptureVideoPreviewLayer *)[[self previewView] layer] captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:[gestureRecognizer view]]];
@@ -592,42 +630,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             });
         }
     }];
-}
-#pragma mark - end
-
-#pragma mark - Done action
-- (IBAction)doneMethod:(UIButton *)sender {
-    
-    if ([[self movieFileOutput] isRecording])
-    {
-        [myTimer invalidate];
-        myTimer = nil;
-        continousSecond = 0;
-        disappearView = YES;
-        [[self movieFileOutput] stopRecording];
-    }
-    else{
-        if (videoFileUrl == nil) {
-//            [self.navigationController popViewControllerAnimated:YES];
-            
-            for (id controller in [self.navigationController viewControllers])
-            {
-                if ([controller isKindOfClass:[DashboardViewController class]])
-                {
-                    [self.navigationController popToViewController:controller animated:YES];
-                    break;
-                }
-            }
-        }
-        else{
-            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            VideoPreviewViewController *videoPreviewView =[storyboard instantiateViewControllerWithIdentifier:@"VideoPreviewView"];
-            videoPreviewView.filePath = videoFileUrl;
-            [self.navigationController pushViewController:videoPreviewView animated:YES];
-        }
-
-    }
-   
 }
 #pragma mark - end
 

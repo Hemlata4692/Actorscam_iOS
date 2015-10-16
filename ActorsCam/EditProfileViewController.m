@@ -54,7 +54,6 @@
         
     }
     
-    
     profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2;
     profileImageView.clipsToBounds = YES;
     
@@ -172,7 +171,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Image picker action
+#pragma mark - Image picker
 - (IBAction)imagePickerAction:(id)sender
 {
     UIActionSheet * profileImageAction=[[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:takePhoto, choosePhoto, nil];

@@ -219,7 +219,7 @@
 }
 
 #pragma mark - end
-#pragma mark - Private Methods
+#pragma mark - Private methods
 
 - (void)segmentedControlValueChanged:(id)sender
 {

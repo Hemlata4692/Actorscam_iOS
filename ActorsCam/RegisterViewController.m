@@ -121,7 +121,7 @@
 
 #pragma mark - end
 
-#pragma mark - Register user
+#pragma mark - View IB actions
 - (IBAction)signUpButtonAction:(id)sender
 {
     
@@ -158,9 +158,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
-#pragma mark - end
 
-#pragma mark - Image picker
 - (IBAction)imagePickerAction:(id)sender
 {
     
@@ -168,14 +166,18 @@
     
     if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad) {
         
-            [profileImageAction showFromRect:CGRectMake(profileImageView.frame.origin.x-60, profileImageView.frame.origin.y + 82, 320, 120) inView:self.view animated:YES];
-      }
+        [profileImageAction showFromRect:CGRectMake(profileImageView.frame.origin.x-60, profileImageView.frame.origin.y + 82, 320, 120) inView:self.view animated:YES];
+    }
     else{
         // In this case the device is an iPhone/iPod Touch.
-         [profileImageAction showInView:[UIApplication sharedApplication].keyWindow];
+        [profileImageAction showInView:[UIApplication sharedApplication].keyWindow];
     }
-
+    
 }
+
+#pragma mark - end
+
+#pragma mark - Image picker
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
 {

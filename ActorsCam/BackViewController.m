@@ -32,7 +32,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Add back button add global side bar button
+#pragma mark - Add back button and global side bar button
 - (void)addLeftBarButtonWithImage:(UIImage *)buttonImage  {
   
    CGRect framing = CGRectMake(0, 0, 30, 40);

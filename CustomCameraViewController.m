@@ -17,13 +17,6 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "DashboardViewController.h"
 
-// The amount of bits per pixel, in this case we are doing RGBA so 4 byte = 32 bits
-#define BITS_PER_PIXEL 32
-// The amount of bits per component, in this it is the same as the bitsPerPixel divided by 4 because each component (such as Red) is only 8 bits
-#define BITS_PER_COMPONENT (BITS_PER_PIXEL/4)
-// The amount of bytes per pixel, in this case a pixel is made up of Red, Green, Blue and Alpha so it will be 4
-#define BYTES_PER_PIXEL (BITS_PER_PIXEL/BITS_PER_COMPONENT)
-
 static void * CapturingStillImageContext = &CapturingStillImageContext;
 static void * RecordingContext = &RecordingContext;
 static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDeviceAuthorizedContext;
@@ -31,7 +24,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 @interface CustomCameraViewController ()<AVCaptureFileOutputRecordingDelegate>{
     unsigned long long imageSize;
     NSString *navTitle;
-    NSTimer *myTimer,*luminosityTimer;
     BOOL invalidateChecker, shouldCapture;
 }
 
@@ -81,10 +73,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     [super viewDidLoad];
     navTitle = @"Take Photos";
-    _checkLightEffect.layer.borderColor = [UIColor colorWithRed:255.0/255.0 green:62.0/255.0 blue:37.0/255.0 alpha:1.0].CGColor;
-    _checkLightEffect.layer.borderWidth = 2.0;
-    _checkLightEffect.layer.cornerRadius = 10;
-    _checkLightEffect.layer.masksToBounds = YES;
     
     [navTitle changeTextLanguage:navTitle];
 
@@ -248,9 +236,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     return imageSize;
 }
 
--(void)didReceiveMemoryWarning{
-}
-
 - (void)viewDidDisappear:(BOOL)animated
 {
     
@@ -301,7 +286,38 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     }
 }
 
-#pragma mark - Revert camera actions
+#pragma mark - View IB actions
+- (IBAction)doneMethod:(UIButton *)sender {
+    
+    if (imageArray.count==0) {
+        for (id controller in [self.navigationController viewControllers])
+        {
+            if ([controller isKindOfClass:[DashboardViewController class]])
+            {
+                [self.navigationController popToViewController:controller animated:YES];
+                break;
+            }
+        }
+    }
+    else{
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ImagePreviewViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"ImagePreviewViewController"];
+        previewView.imageArray = [imageArray mutableCopy];
+        previewView.customCameraVC = self;
+        [self.navigationController pushViewController:previewView animated:YES];
+    }
+}
+
+- (IBAction)previewImageButton:(UIButton *)sender {
+    if (imageArray.count > 0) {
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ImagePreviewViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"ImagePreviewViewController"];
+        previewView.imageArray = [imageArray mutableCopy];
+        previewView.customCameraVC = self;
+        [self.navigationController pushViewController:previewView animated:YES];
+    }
+}
+
 - (IBAction)revertCameraMethod:(id)sender
 {
     [[self revertButton] setEnabled:NO];
@@ -355,9 +371,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         });
     });
 }
-#pragma mark - end
 
-#pragma mark - Capture Image Method
 - (IBAction)captureImageMethod:(id)sender
 {
     if ((imageSize >= 20*1024*1024) || !shouldCapture) {
@@ -411,7 +425,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
-#pragma mark - FocusAndExposeTap gesture action
+#pragma mark - FocusAndExposeTap gesture
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint devicePoint = [(AVCaptureVideoPreviewLayer *)[[self previewView] layer] captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:[gestureRecognizer view]]];
@@ -554,40 +568,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
-#pragma mark - Done action
-- (IBAction)doneMethod:(UIButton *)sender {
-
-    if (imageArray.count==0) {
-        for (id controller in [self.navigationController viewControllers])
-        {
-            if ([controller isKindOfClass:[DashboardViewController class]])
-            {
-                [self.navigationController popToViewController:controller animated:YES];
-                break;
-            }
-        }
-    }
-    else{
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ImagePreviewViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"ImagePreviewViewController"];
-        previewView.imageArray = [imageArray mutableCopy];
-        previewView.customCameraVC = self;
-        [self.navigationController pushViewController:previewView animated:YES];
-    }
-}
-#pragma mark - end
-
-#pragma mark - Preview image action
-- (IBAction)previewImageButton:(UIButton *)sender {
-    if (imageArray.count > 0) {
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ImagePreviewViewController *previewView =[storyboard instantiateViewControllerWithIdentifier:@"ImagePreviewViewController"];
-        previewView.imageArray = [imageArray mutableCopy];
-        previewView.customCameraVC = self;
-        [self.navigationController pushViewController:previewView animated:YES];
-    }
-}
-#pragma mark - end
 /*
 #pragma mark - Navigation
 

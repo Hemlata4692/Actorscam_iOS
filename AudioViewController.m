@@ -122,7 +122,6 @@
     // Do any additional setup after loading the view.
 }
 
-#pragma mark - Allocation of audio file
 -(void)recordAudioFile{
     playOutlet.enabled = NO;
     sendButton.enabled = NO;
@@ -301,7 +300,131 @@
 }
 #pragma mark - end
 
-#pragma mark - Send image action
+#pragma mark - View IB actions
+- (IBAction)play:(UIButton *)sender {
+    
+    recordOulet.selected = NO;
+    
+    [myTimer invalidate];
+    myTimer = nil;
+    
+    [recorder stop];
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setActive:NO error:nil];
+    
+    if (!playOutlet.isSelected) {
+        continousSecond = 0;
+        timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+        
+        playOutlet.selected = YES;
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
+        [player setDelegate:self];
+        [player play];
+        myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                   target:self
+                                                 selector:@selector(targetMethod)
+                                                 userInfo:nil
+                                                  repeats:YES];
+    }
+    else{
+        playOutlet.selected = NO;
+        [player stop];
+    }
+    
+}
+
+- (IBAction)record:(UIButton *)sender {
+    [myTimer invalidate];
+    myTimer = nil;
+    
+    playOutlet.enabled = YES;
+    playOutlet.selected = NO;
+    
+    sendButton.enabled = YES;
+    
+    if (player.playing) {
+        [player stop];
+    }
+    
+    if (!recorder.recording) {
+        recordOulet.selected = YES;
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setActive:YES error:nil];
+        
+        // Start recording
+        [recorder record];
+        continousSecond = 0;
+        timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+        myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                   target:self
+                                                 selector:@selector(targetMethod)
+                                                 userInfo:nil
+                                                  repeats:YES];
+        
+    } else {
+        recordOulet.selected = NO;
+        
+        [recorder stop];
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setActive:NO error:nil];
+        
+    }
+    
+}
+
+- (IBAction)addRepresentativeAction:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+    addManagerView.navTitle = @"Add Representative";
+    addManagerView.emailId = @"";
+    addManagerView.name = @"";
+    addManagerView.managerId = @"";
+    addManagerView.category = @"";
+    [self.navigationController pushViewController:addManagerView animated:YES];
+}
+
+- (IBAction)DoneAction:(UIBarButtonItem *)sender {
+    
+    if (managerListArray.count != 0) {
+        
+        NSInteger index = [managerListPickerView selectedRowInComponent:0];
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        
+        if ([pickerChecker isEqualToString:@"category"]){
+            selectedCategoryIndex = (int)index;
+            selectedManagerIndex = 0;
+            pickerChecker = @"manager";
+            [pickerArray removeAllObjects];
+            int managerNameIndex = 0;
+            for (int i=0; i < managerListArray.count; i++) {
+                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
+                    if (managerNameIndex == 0) {
+                        managerNameIndex++;
+                        selectedData = [[managerListArray objectAtIndex:i] copy];
+                        managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
+                    }
+                    
+                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
+                }
+                
+            }
+            
+            NSString *categoryString = [categoryList objectAtIndex:index];
+            selectCategory.text = [categoryString changeTextLanguage:categoryString];
+            [managerListPickerView reloadAllComponents];
+            
+        }
+        else{
+            selectedManagerIndex = (int)index;
+            selectedData = [[pickerArray objectAtIndex:index] copy];
+            managerName.text=[[pickerArray objectAtIndex:index] objectForKey:@"managerName"];
+        }
+    }
+    [self hidePickerWithAnimation];
+}
+
 - (IBAction)sendAction:(id)sender {
     
     [myDelegate ShowIndicator];
@@ -498,47 +621,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Toolbar done action
-- (IBAction)DoneAction:(UIBarButtonItem *)sender {
-    
-    if (managerListArray.count != 0) {
-        
-        NSInteger index = [managerListPickerView selectedRowInComponent:0];
-        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-        
-        if ([pickerChecker isEqualToString:@"category"]){
-            selectedCategoryIndex = (int)index;
-            selectedManagerIndex = 0;
-            pickerChecker = @"manager";
-            [pickerArray removeAllObjects];
-            int managerNameIndex = 0;
-            for (int i=0; i < managerListArray.count; i++) {
-                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
-                    if (managerNameIndex == 0) {
-                        managerNameIndex++;
-                        selectedData = [[managerListArray objectAtIndex:i] copy];
-                        managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
-                    }
-                    
-                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
-                }
-                
-            }
-            
-            NSString *categoryString = [categoryList objectAtIndex:index];
-            selectCategory.text = [categoryString changeTextLanguage:categoryString];
-            [managerListPickerView reloadAllComponents];
-            
-        }
-        else{
-            selectedManagerIndex = (int)index;
-            selectedData = [[pickerArray objectAtIndex:index] copy];
-            managerName.text=[[pickerArray objectAtIndex:index] objectForKey:@"managerName"];
-        }
-    }
-     [self hidePickerWithAnimation];
-}
-#pragma mark - end
+
 
 #pragma mark - Manager listing method
 -(void)managerListing
@@ -592,22 +675,9 @@
     [super viewWillDisappear:YES];
 }
 
-#pragma mark - Add representation action
-- (IBAction)addRepresentativeAction:(UIButton *)sender {
-    [self hidePickerWithAnimation];
-    
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    addManagerView.navTitle = @"Add Representative";
-    addManagerView.emailId = @"";
-    addManagerView.name = @"";
-    addManagerView.managerId = @"";
-    addManagerView.category = @"";
-    [self.navigationController pushViewController:addManagerView animated:YES];
-}
 #pragma mark - end
 
-#pragma mark - Select manager action
+#pragma mark - Select manager
 - (IBAction)selectManagerAction:(UIButton *)sender {
     [self showPickerWithAnimation];
     
@@ -640,81 +710,6 @@
     }
     
 }
-
-#pragma mark - Play action
-- (IBAction)play:(UIButton *)sender {
-    
-    recordOulet.selected = NO;
-    
-    [myTimer invalidate];
-    myTimer = nil;
-    
-    [recorder stop];
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setActive:NO error:nil];
-    
-    if (!playOutlet.isSelected) {
-        continousSecond = 0;
-        timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
-        
-        playOutlet.selected = YES;
-        player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
-        [player setDelegate:self];
-        [player play];
-        myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                   target:self
-                                                 selector:@selector(targetMethod)
-                                                 userInfo:nil
-                                                  repeats:YES];
-    }
-    else{
-        playOutlet.selected = NO;
-        [player stop];
-    }
-   
-}
-#pragma mark - end
-
-#pragma mark - Record action
-- (IBAction)record:(UIButton *)sender {
-    [myTimer invalidate];
-    myTimer = nil;
-    
-    playOutlet.enabled = YES;
-    playOutlet.selected = NO;
-    
-    sendButton.enabled = YES;
-    
-    if (player.playing) {
-        [player stop];
-    }
-    
-    if (!recorder.recording) {
-        recordOulet.selected = YES;
-        AVAudioSession *session = [AVAudioSession sharedInstance];
-        [session setActive:YES error:nil];
-        
-        // Start recording
-        [recorder record];
-        continousSecond = 0;
-        timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
-        myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                   target:self
-                                                 selector:@selector(targetMethod)
-                                                 userInfo:nil
-                                                  repeats:YES];
-        
-    } else {
-        recordOulet.selected = NO;
-        
-        [recorder stop];
-        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-        [audioSession setActive:NO error:nil];
-        
-    }
-    
-}
-#pragma mark - end
 
 #pragma mark - Set timer
 -(void)targetMethod{

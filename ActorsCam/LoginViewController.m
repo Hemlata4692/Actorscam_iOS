@@ -166,7 +166,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Login
+#pragma mark - View IB actions
 - (IBAction)loginButtonAction:(id)sender
 {
     
@@ -201,9 +201,7 @@
     }] ;
     
 }
-#pragma mark - end
 
-#pragma mark - SignUp
 - (IBAction)signUpAction:(UIButton *)sender {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -211,9 +209,7 @@
     [self.navigationController pushViewController:signUpView animated:YES];
     
 }
-#pragma mark - end
 
-#pragma mark - Forgot password
 - (IBAction)forgotPasswordButtonAction:(id)sender
 {
     [self.view endEditing:YES];
@@ -234,6 +230,26 @@
     
 }
 
+- (IBAction)chooseLanguageAction:(UIButton *)sender {
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ChooseLanguageViewController *chooseLangView =[storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageView"];
+    chooseLangView.myVC = (LoginViewController*)self;
+    //    [self.view ]
+    [self addChildViewController:chooseLangView];
+    [self.view addSubview:chooseLangView.view];
+    [chooseLangView didMoveToParentViewController:self];
+}
+
+- (IBAction)crossAction:(UIButton *)sender {
+    
+    [self.view endEditing:YES];
+    forgotPasswordEmail.text = @"";
+    forgotPasswordView.hidden=YES;
+    
+}
+#pragma mark - end
+
+#pragma mark - Forgot password
 -(void)forgotPassword
 {
     [[WebService sharedManager] forgotPassword:forgotPasswordEmail.text success:^(id responseObject){
@@ -250,7 +266,6 @@
     }] ;
     
 }
-
 #pragma mark - end
 
 #pragma mark - Textfield validation
@@ -345,13 +360,11 @@
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
 }
-
 #pragma mark - end
 
 #pragma mark - Textfield delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
     [self.keyboardControls setActiveField:textField];
     if (!iPad) {
         if (textField == userEmail) {
@@ -395,25 +408,5 @@
     
 }
 #pragma mark - end
-
-#pragma mark - Choose language action
-- (IBAction)chooseLanguageAction:(UIButton *)sender {
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ChooseLanguageViewController *chooseLangView =[storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageView"];
-    chooseLangView.myVC = (LoginViewController*)self;
-//    [self.view ]
-    [self addChildViewController:chooseLangView];
-    [self.view addSubview:chooseLangView.view];
-    [chooseLangView didMoveToParentViewController:self];
-}
-#pragma mark - end
-
-- (IBAction)crossAction:(UIButton *)sender {
-    
-    [self.view endEditing:YES];
-    forgotPasswordEmail.text = @"";
-    forgotPasswordView.hidden=YES;
-    
-}
 
 @end

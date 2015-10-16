@@ -14,7 +14,7 @@
 @property(nonatomic,retain) UINavigationController *navigationController;
 
 // Methos for show indicator
-- (void) ShowIndicator;
+- (void)ShowIndicator;
 //Method for stop indicator
 - (void)StopIndicator;
 

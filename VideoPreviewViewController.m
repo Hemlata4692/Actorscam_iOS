@@ -210,8 +210,7 @@
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
 
-#pragma mark- Pan Gesture Selector Action
-
+#pragma mark - Pan gesture selector
 -(void)panAction:(UITapGestureRecognizer *)recognizer
 {
     if(player.playbackState == MPMoviePlaybackStatePaused){
@@ -226,19 +225,10 @@
     }
 }
 
-#pragma mark - Keyboard events
-
-- (IBAction)playAction:(UIButton *)sender {
-    playOutlet.hidden = YES;
-    playOutlet.selected = YES;
-    intialVideoImage.image = nil;
-    [player play];
-}
 
 #pragma mark- Add Video on View
 -(void)addVideo
 {
-    
     player  = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[filePath absoluteString]]];
     
     [player.view setFrame:videoPlayer.frame];
@@ -279,6 +269,8 @@
     [navTitle changeTextLanguage:@"Preview"];
 }
 #pragma mark - end
+
+
 
 #pragma mark - Picker view animation
 -(void)showPickerWithAnimation
@@ -351,7 +343,67 @@
 }
 #pragma mark - end
 
-#pragma mark - Send image button action
+#pragma mark - View IB actions
+- (IBAction)addRepresentativeAction:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+    addManagerView.navTitle = @"Add Representative";
+    addManagerView.emailId = @"";
+    addManagerView.name = @"";
+    addManagerView.managerId = @"";
+    addManagerView.category = @"";
+    [self.navigationController pushViewController:addManagerView animated:YES];
+}
+
+- (IBAction)DoneAction:(UIBarButtonItem *)sender {
+    
+    if (managerListArray.count != 0) {
+        
+        NSInteger index = [managerListPickerView selectedRowInComponent:0];
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        
+        if ([pickerChecker isEqualToString:@"category"]){
+            selectedCategoryIndex = (int)index;
+            selectedManagerIndex = 0;
+            pickerChecker = @"manager";
+            [pickerArray removeAllObjects];
+            int managerNameIndex = 0;
+            for (int i=0; i < managerListArray.count; i++) {
+                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
+                    if (managerNameIndex == 0) {
+                        managerNameIndex++;
+                        selectedData = [[managerListArray objectAtIndex:i] copy];
+                        managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
+                    }
+                    
+                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
+                }
+                
+            }
+            
+            NSString *categoryString = [categoryList objectAtIndex:index];
+            selectCategory.text = [categoryString changeTextLanguage:categoryString];
+            [managerListPickerView reloadAllComponents];
+        }
+        else{
+            selectedManagerIndex = (int)index;
+            selectedData = [[pickerArray objectAtIndex:index] copy];
+            managerName.text=[[pickerArray objectAtIndex:index] objectForKey:@"managerName"];
+        }
+    }
+    [self hidePickerWithAnimation];
+    
+}
+
+- (IBAction)playAction:(UIButton *)sender {
+    playOutlet.hidden = YES;
+    playOutlet.selected = YES;
+    intialVideoImage.image = nil;
+    [player play];
+}
+
 - (IBAction)sendAction:(id)sender {
     
     [myDelegate ShowIndicator];
@@ -524,48 +576,6 @@
 }
 #pragma mark - end
 
-#pragma mark - Toolbar done action
-- (IBAction)DoneAction:(UIBarButtonItem *)sender {
-    
-    if (managerListArray.count != 0) {
-        
-        NSInteger index = [managerListPickerView selectedRowInComponent:0];
-        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-        
-        if ([pickerChecker isEqualToString:@"category"]){
-            selectedCategoryIndex = (int)index;
-            selectedManagerIndex = 0;
-            pickerChecker = @"manager";
-            [pickerArray removeAllObjects];
-            int managerNameIndex = 0;
-            for (int i=0; i < managerListArray.count; i++) {
-                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
-                    if (managerNameIndex == 0) {
-                        managerNameIndex++;
-                        selectedData = [[managerListArray objectAtIndex:i] copy];
-                        managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
-                    }
-                    
-                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
-                }
-                
-            }
-            
-            NSString *categoryString = [categoryList objectAtIndex:index];
-            selectCategory.text = [categoryString changeTextLanguage:categoryString];
-            [managerListPickerView reloadAllComponents];
-        }
-        else{
-            selectedManagerIndex = (int)index;
-            selectedData = [[pickerArray objectAtIndex:index] copy];
-            managerName.text=[[pickerArray objectAtIndex:index] objectForKey:@"managerName"];
-        }
-    }
-    [self hidePickerWithAnimation];
-    
-}
-#pragma mark - end
-
 #pragma mark - Manager listing method
 -(void)managerListing
 {
@@ -618,22 +628,7 @@
     [super viewWillDisappear:YES];
 }
 
-#pragma mark - Add representation action
-- (IBAction)addRepresentativeAction:(UIButton *)sender {
-    [self hidePickerWithAnimation];
-    
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    addManagerView.navTitle = @"Add Representative";
-    addManagerView.emailId = @"";
-    addManagerView.name = @"";
-    addManagerView.managerId = @"";
-    addManagerView.category = @"";
-    [self.navigationController pushViewController:addManagerView animated:YES];
-}
-#pragma mark - end
-
-#pragma mark - Select manager action
+#pragma mark - Select manager textfield
 - (IBAction)selectManagerAction:(UIButton *)sender {
     [self showPickerWithAnimation];
     
@@ -648,7 +643,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Select category textfield action
+#pragma mark - Select category textfield
 - (IBAction)selectCategoryAction:(UIButton *)sender {
     [self showPickerWithAnimation];
     
