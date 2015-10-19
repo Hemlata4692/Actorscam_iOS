@@ -122,46 +122,6 @@
     // Do any additional setup after loading the view.
 }
 
--(void)recordAudioFile{
-    playOutlet.enabled = NO;
-    sendButton.enabled = NO;
-    
-    second = 0;
-    minute = 0;
-    hour = 0;
-    continousSecond = 0;
-    [playOutlet setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
-    [playOutlet setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
-    [recordOulet setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
-    [recordOulet setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateSelected];
-    playOutlet.selected = NO;
-    recordOulet.selected = NO;
-    
-    timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
-    
-    //    Create Audio file in nsdocument and outputUrl of audio file
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
-    NSURL *outputFileURL = [NSURL URLWithString:filePath];
-    
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    
-    //    Define the recorder setting
-    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
-    
-    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
-    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
-    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
-    
-    //    Initiate and prepare the recorder
-    recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
-    recorder.delegate = self;
-    recorder.meteringEnabled = YES;
-    [recorder prepareToRecord];
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self hidePickerWithAnimation];
@@ -210,9 +170,13 @@
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
 
--(void)refreshButtonAction{
-    [myDelegate ShowIndicator];
-    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
 }
 
 -(void)setLocalizedString{
@@ -226,6 +190,46 @@
     [sendButton changeTextLanguage:@"SUBMIT"];
     
     [navTitle changeTextLanguage:@"Record Audio"];
+}
+
+-(void)recordAudioFile{
+    playOutlet.enabled = NO;
+    sendButton.enabled = NO;
+    
+    second = 0;
+    minute = 0;
+    hour = 0;
+    continousSecond = 0;
+    [playOutlet setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [playOutlet setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
+    [recordOulet setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
+    [recordOulet setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateSelected];
+    playOutlet.selected = NO;
+    recordOulet.selected = NO;
+    
+    timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+    
+    //    Create Audio file in nsdocument and outputUrl of audio file
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"ActorCamAudio.m4a"];
+    NSURL *outputFileURL = [NSURL URLWithString:filePath];
+    
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    //    Define the recorder setting
+    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
+    
+    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
+    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
+    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
+    
+    //    Initiate and prepare the recorder
+    recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
+    recorder.delegate = self;
+    recorder.meteringEnabled = YES;
+    [recorder prepareToRecord];
 }
 #pragma mark - end
 
@@ -301,6 +305,45 @@
 #pragma mark - end
 
 #pragma mark - View IB actions
+
+//Select manager drop-down
+- (IBAction)selectManagerAction:(UIButton *)sender {
+    [self showPickerWithAnimation];
+    
+    pickerChecker = @"manager";
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
+    }
+    
+    if (managerListArray.count != 0) {
+        [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
+    }
+}
+
+//Select category drop-down
+- (IBAction)selectCategoryAction:(UIButton *)sender {
+    [self showPickerWithAnimation];
+    
+    [pickerArray removeAllObjects];
+    
+    pickerChecker = @"category";
+    pickerArray = [categoryList mutableCopy];
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
+    }
+    
+    [managerListPickerView reloadAllComponents];
+    if (managerListArray.count != 0) {
+        [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
+    }
+    
+}
+
+-(void)refreshButtonAction{
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
+
 - (IBAction)play:(UIButton *)sender {
     
     recordOulet.selected = NO;
@@ -555,11 +598,6 @@
 }
 #pragma mark - end
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Pickerview delegate methods
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
@@ -623,7 +661,7 @@
 
 
 
-#pragma mark - Manager listing method
+#pragma mark - Manager listing web-service
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
@@ -670,46 +708,6 @@
     
 }
 #pragma mark - end
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:YES];
-}
-
-#pragma mark - end
-
-#pragma mark - Select manager
-- (IBAction)selectManagerAction:(UIButton *)sender {
-    [self showPickerWithAnimation];
-    
-    pickerChecker = @"manager";
-    if (!iPad) {
-        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
-    }
-    
-    if (managerListArray.count != 0) {
-    [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
-    }
-}
-#pragma mark - end
-
-#pragma mark - Select category textfield
-- (IBAction)selectCategoryAction:(UIButton *)sender {
-    [self showPickerWithAnimation];
-    
-    [pickerArray removeAllObjects];
-    
-    pickerChecker = @"category";
-    pickerArray = [categoryList mutableCopy];
-    if (!iPad) {
-        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
-    }
-    
-    [managerListPickerView reloadAllComponents];
-    if (managerListArray.count != 0) {
-    [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
-    }
-    
-}
 
 #pragma mark - Set timer
 -(void)targetMethod{

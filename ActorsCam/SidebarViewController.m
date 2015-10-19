@@ -47,6 +47,11 @@
     
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     
@@ -54,14 +59,9 @@
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:YES];
     
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 #pragma mark - end
 
-#pragma mark - Table view data source
+#pragma mark - Table view delegate/data-source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;

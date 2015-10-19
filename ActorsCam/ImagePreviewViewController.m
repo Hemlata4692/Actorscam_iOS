@@ -198,9 +198,14 @@
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
 
--(void)refreshButtonAction{
-    [myDelegate ShowIndicator];
-    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    customCameraVC.imageArray = [imageArray mutableCopy];
 }
 
 -(void)setLocalizedString{
@@ -364,6 +369,57 @@
 #pragma mark - end
 
 #pragma mark - View IB actions
+- (IBAction)backButton:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
+    for (id controller in [self.navigationController viewControllers])
+    {
+        if ([controller isKindOfClass:[DashboardViewController class]])
+        {
+            [self.navigationController popToViewController:controller animated:YES];
+            break;
+        }
+    }
+}
+
+- (IBAction)cameraButton:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    self.customCameraVC.imageArray = [imageArray mutableCopy];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+//Select manager drop-down
+- (IBAction)selectManagerAction:(UIButton *)sender {
+    [self showPickerWithAnimation];
+    
+    pickerChecker = @"manager";
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
+    }
+    
+    [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
+}
+
+//Select category drop-down
+- (IBAction)selectCategoryAction:(UIButton *)sender {
+    [self showPickerWithAnimation];
+    
+    [pickerArray removeAllObjects];
+    
+    pickerChecker = @"category";
+    pickerArray = [categoryList mutableCopy];
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
+    }
+    [managerListPickerView reloadAllComponents];
+    [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
+}
+
+-(void)refreshButtonAction{
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
+
 - (IBAction)DoneAction:(UIBarButtonItem *)sender {
     [self hidePickerWithAnimation];
     
@@ -549,11 +605,6 @@
 }
 #pragma mark - end
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - UISwipeGesture handler
 - (void)addAnimationPresentToView:(UIView *)viewTobeAnimated
 {
@@ -699,7 +750,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Manager listing method
+#pragma mark - Manager listing web-service
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
@@ -752,60 +803,6 @@
 }
 #pragma mark - end
 
-#pragma mark - Back/Camera button
-- (IBAction)backButton:(UIButton *)sender {
-    [self hidePickerWithAnimation];
-    
-    for (id controller in [self.navigationController viewControllers])
-    {
-        if ([controller isKindOfClass:[DashboardViewController class]])
-        {
-            [self.navigationController popToViewController:controller animated:YES];
-            break;
-        }
-    }
-}
-
-- (IBAction)cameraButton:(UIButton *)sender {
-    [self hidePickerWithAnimation];
-    self.customCameraVC.imageArray = [imageArray mutableCopy];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-#pragma mark - end
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:YES];
-    customCameraVC.imageArray = [imageArray mutableCopy];
-}
-
-#pragma mark - Select manager
-- (IBAction)selectManagerAction:(UIButton *)sender {
-    [self showPickerWithAnimation];
-    
-    pickerChecker = @"manager";
-    if (!iPad) {
-         [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
-    }
-   
-    [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
-}
-#pragma mark - end
-
-#pragma mark - Select category textfield
-- (IBAction)selectCategoryAction:(UIButton *)sender {
-    [self showPickerWithAnimation];
-    
-    [pickerArray removeAllObjects];
-    
-    pickerChecker = @"category";
-    pickerArray = [categoryList mutableCopy];
-    if (!iPad) {
-        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
-    }
-    [managerListPickerView reloadAllComponents];
-    [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
-}
-#pragma mark - end
 /*
 #pragma mark - Navigation
 

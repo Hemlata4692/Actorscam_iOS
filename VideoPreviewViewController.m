@@ -205,10 +205,28 @@
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
 
--(void)refreshButtonAction{
-    [myDelegate ShowIndicator];
-    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void)setLocalizedString{
+    [noManager changeTextLanguage:@"You don't have any representative added yet!"];
+    [addRepresentative changeTextLanguage:@"ADD REPRESENTATIVE"];
+    
+    [selectRepresentativeLabel changeTextLanguage:@"Select Representative"];
+    [selectCategory changeTextLanguage:@"Category"];
+    [managerName changeTextLanguage:@"Name"];
+    [notesLabel changeTextLanguage:@"Notes"];
+    [sendButton changeTextLanguage:@"SUBMIT"];
+    
+    [navTitle changeTextLanguage:@"Preview"];
+}
+#pragma mark - end
 
 #pragma mark - Pan gesture selector
 -(void)panAction:(UITapGestureRecognizer *)recognizer
@@ -224,7 +242,7 @@
         [player pause];
     }
 }
-
+#pragma mark - end
 
 #pragma mark- Add Video on View
 -(void)addVideo
@@ -244,6 +262,7 @@
     
     [player stop];
 }
+#pragma mark - end
 
 #pragma mark- MPMoviePlayerLoadStateDidChange Notification
 - (void)MPMoviePlayerLoadStateDidChange:(NSNotification *)notification {
@@ -256,21 +275,7 @@
     }
 }
 
--(void)setLocalizedString{
-    [noManager changeTextLanguage:@"You don't have any representative added yet!"];
-    [addRepresentative changeTextLanguage:@"ADD REPRESENTATIVE"];
-    
-    [selectRepresentativeLabel changeTextLanguage:@"Select Representative"];
-    [selectCategory changeTextLanguage:@"Category"];
-    [managerName changeTextLanguage:@"Name"];
-    [notesLabel changeTextLanguage:@"Notes"];
-    [sendButton changeTextLanguage:@"SUBMIT"];
-    
-    [navTitle changeTextLanguage:@"Preview"];
-}
 #pragma mark - end
-
-
 
 #pragma mark - Picker view animation
 -(void)showPickerWithAnimation
@@ -344,6 +349,63 @@
 #pragma mark - end
 
 #pragma mark - View IB actions
+- (IBAction)backButton:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
+    for (id controller in [self.navigationController viewControllers])
+    {
+        if ([controller isKindOfClass:[DashboardViewController class]])
+        {
+            [self.navigationController popToViewController:controller animated:YES];
+            break;
+        }
+    }
+}
+
+- (IBAction)cameraButton:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+//Select manager drop-down
+- (IBAction)selectManagerAction:(UIButton *)sender {
+    [self showPickerWithAnimation];
+    
+    pickerChecker = @"manager";
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
+    }
+    
+    if (managerListArray.count != 0) {
+        [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
+    }
+}
+
+//Select category drop-down
+- (IBAction)selectCategoryAction:(UIButton *)sender {
+    [self showPickerWithAnimation];
+    
+    [pickerArray removeAllObjects];
+    
+    pickerChecker = @"category";
+    pickerArray = [categoryList mutableCopy];
+    if (!iPad) {
+        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
+    }
+    
+    [managerListPickerView reloadAllComponents];
+    if (managerListArray.count != 0) {
+        [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
+    }
+    
+}
+
+-(void)refreshButtonAction{
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
+}
+
 - (IBAction)addRepresentativeAction:(UIButton *)sender {
     [self hidePickerWithAnimation];
     
@@ -519,11 +581,6 @@
 }
 #pragma mark - end
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Pickerview delegate methods
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
@@ -576,7 +633,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Manager listing method
+#pragma mark - Manager listing web-service
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {
@@ -621,68 +678,6 @@
         
     }] ;
     
-}
-#pragma mark - end
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:YES];
-}
-
-#pragma mark - Select manager textfield
-- (IBAction)selectManagerAction:(UIButton *)sender {
-    [self showPickerWithAnimation];
-    
-    pickerChecker = @"manager";
-    if (!iPad) {
-        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 145) animated:YES];
-    }
-    
-    if (managerListArray.count != 0) {
-        [managerListPickerView selectRow:selectedManagerIndex inComponent:0 animated:NO];
-    }
-}
-#pragma mark - end
-
-#pragma mark - Select category textfield
-- (IBAction)selectCategoryAction:(UIButton *)sender {
-    [self showPickerWithAnimation];
-    
-    [pickerArray removeAllObjects];
-    
-    pickerChecker = @"category";
-    pickerArray = [categoryList mutableCopy];
-    if (!iPad) {
-        [scrollView setContentOffset:CGPointMake(0, managerName.frame.origin.y + 80) animated:YES];
-    }
-    
-    [managerListPickerView reloadAllComponents];
-    if (managerListArray.count != 0) {
-        [managerListPickerView selectRow:selectedCategoryIndex inComponent:0 animated:NO];
-    }
-    
-}
-#pragma mark - end
-
-#pragma mark - Back action
-- (IBAction)backButton:(UIButton *)sender {
-    [self hidePickerWithAnimation];
-    
-    for (id controller in [self.navigationController viewControllers])
-    {
-        if ([controller isKindOfClass:[DashboardViewController class]])
-        {
-            [self.navigationController popToViewController:controller animated:YES];
-            break;
-        }
-    }
-}
-#pragma mark - end
-
-#pragma mark - Navigation camera action
-- (IBAction)cameraButton:(UIButton *)sender {
-    [self hidePickerWithAnimation];
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - end
 

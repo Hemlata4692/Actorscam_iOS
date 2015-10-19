@@ -86,6 +86,11 @@
     
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 -(void)setLocalizedString{
     
     [userName changeTextLanguage:@"Name"];
@@ -206,22 +211,6 @@
 }
 #pragma mark - end
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-- (IBAction)doneAction:(UIBarButtonItem *)sender {
-    NSInteger index = [categoryPickerView selectedRowInComponent:0];
-    managerCategory.text=[pickerArrayItem objectAtIndex:index];
-
-    [self hidePickerWithAnimation];
-}
-
-- (IBAction)pickerViewAction:(UIButton *)sender {
-    [self.view endEditing:YES];
-    [self showPickerWithAnimation];;
-}
-
 #pragma mark - Pickerview delegate methods
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
@@ -244,7 +233,20 @@
 }
 #pragma mark - end
 
-#pragma mark - Add/Edit manager
+#pragma mark - View IB actions
+- (IBAction)doneAction:(UIBarButtonItem *)sender {
+    NSInteger index = [categoryPickerView selectedRowInComponent:0];
+    managerCategory.text=[pickerArrayItem objectAtIndex:index];
+    
+    [self hidePickerWithAnimation];
+}
+
+//Select category drop-down
+- (IBAction)pickerViewAction:(UIButton *)sender {
+    [self.view endEditing:YES];
+    [self showPickerWithAnimation];;
+}
+
 - (IBAction)addEditManagerAction:(UIButton *)sender {
     
     [self.view endEditing:YES];
@@ -287,7 +289,9 @@
     }
     
 }
+#pragma mark - end
 
+#pragma mark - UIAlertView delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == 1) {
@@ -297,7 +301,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield validation
+#pragma mark - Email validation
 - (BOOL)performValidationsForManageData
 {
     

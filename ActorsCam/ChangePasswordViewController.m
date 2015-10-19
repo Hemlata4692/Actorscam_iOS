@@ -101,7 +101,7 @@
 
 #pragma mark - end
 
-#pragma mark - Change password
+#pragma mark - View IB actions
 - (IBAction)changePasswordButtonAction:(id)sender
 {
     [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -113,7 +113,9 @@
     }
 
 }
+#pragma mark - end
 
+#pragma mark - Change password web-service
 -(void)changePasswordMethod
 {
     
@@ -131,6 +133,9 @@
     }] ;
     
 }
+#pragma mark - end
+
+#pragma mark - UIAlertView delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag==1 && buttonIndex==0)
@@ -140,10 +145,9 @@
         [self.navigationController pushViewController:dashboard animated:YES];
     }
 }
-
 #pragma mark - end
 
-#pragma mark - Textfield validation
+#pragma mark - Email validation
 - (BOOL)performValidationsForChangePassword
 {
     UIAlertView *alert;

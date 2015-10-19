@@ -99,7 +99,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Call getProfile web-service
+#pragma mark - Web-services
 -(void)getprofile
 {
     [[WebService sharedManager] getprofile:^(id responseObject) {
@@ -132,18 +132,6 @@
     }] ;
 
 }
-#pragma mark - end
-
-#pragma mark - Edit profile
-- (IBAction)SaveButtonAction:(id)sender
-{
-    [self.view endEditing:YES];
-    if([self performValidationsForEditProfile])
-        {
-    [myDelegate ShowIndicator];
-    [self performSelector:@selector(changeProfile) withObject:nil afterDelay:.1];
-     }
-}
 
 -(void)changeProfile
 {
@@ -161,17 +149,19 @@
         
     }] ;
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    DashboardViewController *dashboardView =[storyboard instantiateViewControllerWithIdentifier:@"DashboardView"];
-    
-    [self.navigationController pushViewController:dashboardView animated:YES];
-}
 #pragma mark - end
 
-#pragma mark - Image picker
+#pragma mark - View IB actions
+- (IBAction)SaveButtonAction:(id)sender
+{
+    [self.view endEditing:YES];
+    if([self performValidationsForEditProfile])
+        {
+    [myDelegate ShowIndicator];
+    [self performSelector:@selector(changeProfile) withObject:nil afterDelay:.1];
+     }
+}
+
 - (IBAction)imagePickerAction:(id)sender
 {
     UIActionSheet * profileImageAction=[[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:nil otherButtonTitles:takePhoto, choosePhoto, nil];
@@ -184,6 +174,16 @@
         // In this case the device is an iPhone/iPod Touch.
         [profileImageAction showInView:[UIApplication sharedApplication].keyWindow];
     }
+}
+#pragma mark - end
+
+#pragma mark - UIAlertView delegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    DashboardViewController *dashboardView =[storyboard instantiateViewControllerWithIdentifier:@"DashboardView"];
+    
+    [self.navigationController pushViewController:dashboardView animated:YES];
 }
 #pragma mark - end
 
@@ -252,7 +252,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield validation
+#pragma mark - Email validation
 - (BOOL)performValidationsForEditProfile
 {
     UIAlertView *alert;

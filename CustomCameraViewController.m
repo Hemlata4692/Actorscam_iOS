@@ -225,17 +225,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 }
 
--(unsigned long long)getImageSize:(NSMutableArray*)myImageArray{
-    imageSize = 0;
-    _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)myImageArray.count];
-    for (int i=0; i<myImageArray.count; i++) {
-        UIImage *yourImage = [myImageArray objectAtIndex:i];
-        NSData *imgData = UIImageJPEGRepresentation(yourImage, 1.0f);
-        imageSize  = imgData.length + imageSize;
-    }
-    return imageSize;
-}
-
 - (void)viewDidDisappear:(BOOL)animated
 {
     
@@ -249,6 +238,17 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         [self removeObserver:self forKeyPath:@"stillImageOutput.capturingStillImage" context:CapturingStillImageContext];
         [self removeObserver:self forKeyPath:@"movieFileOutput.recording" context:RecordingContext];
     });
+}
+
+-(unsigned long long)getImageSize:(NSMutableArray*)myImageArray{
+    imageSize = 0;
+    _imageCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)myImageArray.count];
+    for (int i=0; i<myImageArray.count; i++) {
+        UIImage *yourImage = [myImageArray objectAtIndex:i];
+        NSData *imgData = UIImageJPEGRepresentation(yourImage, 1.0f);
+        imageSize  = imgData.length + imageSize;
+    }
+    return imageSize;
 }
 #pragma mark - end
 

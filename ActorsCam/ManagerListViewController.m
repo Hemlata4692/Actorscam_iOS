@@ -87,7 +87,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Add manager
+#pragma mark - View IB actions
 - (IBAction)addManagerButtonAction:(id)sender
 {
     AddManagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
@@ -182,7 +182,7 @@
 }
 #pragma mark - end
 
-#pragma mark - AlertView delegate
+#pragma mark - UIAlertView delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex==1)
@@ -197,7 +197,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Delete manager method
+#pragma mark - Web-services
 -(void)deleteManager
 {
     NSDictionary *data = [managerListArray objectAtIndex:indexpathRow];
@@ -221,9 +221,7 @@
         }] ;
 
 }
-#pragma mark - end
 
-#pragma mark - Manager listing method
 -(void)managerListing
 {
     [[WebService sharedManager] managerListing:^(id responseObject) {

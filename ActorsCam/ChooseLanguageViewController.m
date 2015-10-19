@@ -72,7 +72,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Table view methods
+#pragma mark - Table view datasource/delegates
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;

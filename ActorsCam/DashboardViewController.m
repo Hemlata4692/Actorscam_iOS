@@ -80,6 +80,11 @@
     
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 -(void)setLocalizedString{
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"en"]) {
         [chooseLanguage setTitle:@"Eng" forState:UIControlStateNormal];
@@ -95,11 +100,6 @@
     [recordVideo changeTextLanguage:@"RECORD VIDEO"];
     [recordAudio changeTextLanguage:@"RECORD AUDIO"];
     [addRepresentative changeTextLanguage:@"ADD REPRESENTATIVE"];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 #pragma mark - end
 

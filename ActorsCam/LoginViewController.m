@@ -105,31 +105,6 @@
     
 }
 
--(void)setLocalizedString{
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"en"]) {
-        [languageLabel setTitle:@"Eng" forState:UIControlStateNormal];
-    }
-    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"fr"]) {
-        [languageLabel setTitle:@"Fra" forState:UIControlStateNormal];
-    }
-    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"zn"]) {
-        [languageLabel setTitle:@"Deu" forState:UIControlStateNormal];
-    }
-    
-    [loginBtn changeTextLanguage:@"Login"];
-    [userEmail changeTextLanguage:@"Email address"];
-    [password changeTextLanguage:@"Password"];
-    [forgotPasswordBtn changeTextLanguage:@"Forgot Password?"];
-    [forgotPasswordEmail changeTextLanguage:@"Email address"];
-    [signUpLabel changeTextLanguage:@"Sign Up"];
-    
-    [hereLabel changeTextLanguage:@"New here?"];
-    [forgotLabel changeTextLanguage:@"Forgot Password"];
-    [forgotDescriptionLabel changeTextLanguage:@"We will send you an email with a new password."];
-    [sendLinkBtn changeTextLanguage:@"SUBMIT"];
-    
-}
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -162,6 +137,31 @@
 {
     
     [forgotPasswordPopUp setCornerRadius:10.0f];
+    
+}
+
+-(void)setLocalizedString{
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"en"]) {
+        [languageLabel setTitle:@"Eng" forState:UIControlStateNormal];
+    }
+    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"fr"]) {
+        [languageLabel setTitle:@"Fra" forState:UIControlStateNormal];
+    }
+    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"zn"]) {
+        [languageLabel setTitle:@"Deu" forState:UIControlStateNormal];
+    }
+    
+    [loginBtn changeTextLanguage:@"Login"];
+    [userEmail changeTextLanguage:@"Email address"];
+    [password changeTextLanguage:@"Password"];
+    [forgotPasswordBtn changeTextLanguage:@"Forgot Password?"];
+    [forgotPasswordEmail changeTextLanguage:@"Email address"];
+    [signUpLabel changeTextLanguage:@"Sign Up"];
+    
+    [hereLabel changeTextLanguage:@"New here?"];
+    [forgotLabel changeTextLanguage:@"Forgot Password"];
+    [forgotDescriptionLabel changeTextLanguage:@"We will send you an email with a new password."];
+    [sendLinkBtn changeTextLanguage:@"SUBMIT"];
     
 }
 #pragma mark - end
@@ -247,9 +247,7 @@
     forgotPasswordView.hidden=YES;
     
 }
-#pragma mark - end
 
-#pragma mark - Forgot password
 -(void)forgotPassword
 {
     [[WebService sharedManager] forgotPassword:forgotPasswordEmail.text success:^(id responseObject){
@@ -258,7 +256,7 @@
         forgotPasswordEmail.text = @"";
         UIAlertView *alert;
         alert = [[UIAlertView alloc]initWithTitle:@"Success" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
+        [alert show];
         
         forgotPasswordView.hidden=YES;
     } failure:^(NSError *error) {
@@ -268,7 +266,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield validation
+#pragma mark - Email validation
 - (BOOL)performValidationsForLogin
 {
     

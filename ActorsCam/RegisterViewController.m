@@ -92,19 +92,6 @@
     
 }
 
--(void)setLocalizedString{
-    
-    [name changeTextLanguage:@"Name"];
-    [email changeTextLanguage:@"Email address"];
-    [password changeTextLanguage:@"Password"];
-    [confirmPassword changeTextLanguage:@"Confirm Password"];
-    [takePhoto changeTextLanguage:takePhoto];
-    [choosePhoto changeTextLanguage:choosePhoto];
-    [cancel changeTextLanguage:cancel];
-    [registerBtn changeTextLanguage:@"SIGN UP"];
-    [navTitle changeTextLanguage:@"Sign Up"];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -119,6 +106,18 @@
     [confirmPassword addTextFieldPadding:confirmPassword color:[UIColor lightGrayColor]];
 }
 
+-(void)setLocalizedString{
+    
+    [name changeTextLanguage:@"Name"];
+    [email changeTextLanguage:@"Email address"];
+    [password changeTextLanguage:@"Password"];
+    [confirmPassword changeTextLanguage:@"Confirm Password"];
+    [takePhoto changeTextLanguage:takePhoto];
+    [choosePhoto changeTextLanguage:choosePhoto];
+    [cancel changeTextLanguage:cancel];
+    [registerBtn changeTextLanguage:@"SIGN UP"];
+    [navTitle changeTextLanguage:@"Sign Up"];
+}
 #pragma mark - end
 
 #pragma mark - View IB actions
@@ -152,13 +151,6 @@
     
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag == 1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
 - (IBAction)imagePickerAction:(id)sender
 {
     
@@ -175,6 +167,15 @@
     
 }
 
+#pragma mark - end
+
+#pragma mark - UIAlertView delegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 #pragma mark - end
 
 #pragma mark - Image picker
@@ -241,7 +242,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Textfield validation
+#pragma mark - Email validation
 - (BOOL)performValidationsForSignUp
 {
     UIAlertView *alert;

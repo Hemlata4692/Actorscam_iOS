@@ -89,6 +89,79 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self avCaptureSessionMethod];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
+    self.navigationController.navigationBarHidden = NO;
+    //right bar button of navigaion bar
+    CGRect framing = CGRectMake(0, 0, 30, 30);
+    revertButton = [[UIButton alloc] initWithFrame:framing];
+    [revertButton setBackgroundImage:[UIImage imageNamed:@"SwitchCamera"] forState:UIControlStateNormal];
+    UIBarButtonItem *barButton =[[UIBarButtonItem alloc] initWithCustomView:revertButton];
+    [revertButton addTarget:self action:@selector(revertCameraMethod:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = barButton;
+    
+    disappearView = NO;
+    videoFileUrl = nil;
+    captureOutlet.selected = NO;
+    
+    self.title = navTitle;
+    continousSecond = 0;
+    _timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+    [self removeVideoFile];
+    
+    if (imageArray.count == 0) {
+        [_doneOutlet changeTextLanguage:@"CANCEL"];
+    }
+    else{
+        [_doneOutlet changeTextLanguage:@"DONE"];
+    }
+    
+    dispatch_async([self sessionQueue], ^{
+        [self addObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:SessionRunningAndDeviceAuthorizedContext];
+        [self addObserver:self forKeyPath:@"stillImageOutput.capturingStillImage" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:CapturingStillImageContext];
+        [self addObserver:self forKeyPath:@"movieFileOutput.recording" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:RecordingContext];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[[self videoDeviceInput] device]];
+        
+        __weak CustomVideoViewController *weakSelf = self;
+        [self setRuntimeErrorHandlingObserver:[[NSNotificationCenter defaultCenter] addObserverForName:AVCaptureSessionRuntimeErrorNotification object:[self session] queue:nil usingBlock:^(NSNotification *note) {
+            CustomVideoViewController *strongSelf = weakSelf;
+            dispatch_async([strongSelf sessionQueue], ^{
+                // Manually restarting the session since it must have been stopped due to an error.
+                [[strongSelf session] startRunning];
+            });
+        }]];
+        [[self session] startRunning];
+        
+    });
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    [myTimer invalidate];
+    myTimer = nil;
+    continousSecond = 0;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    
+    dispatch_async([self sessionQueue], ^{
+        [[self session] stopRunning];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[[self videoDeviceInput] device]];
+        [[NSNotificationCenter defaultCenter] removeObserver:[self runtimeErrorHandlingObserver]];
+        
+        [self removeObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" context:SessionRunningAndDeviceAuthorizedContext];
+        [self removeObserver:self forKeyPath:@"stillImageOutput.capturingStillImage" context:CapturingStillImageContext];
+        [self removeObserver:self forKeyPath:@"movieFileOutput.recording" context:RecordingContext];
+    });
+}
+#pragma mark - end
+
+#pragma mark - Create the AVCaptureSession
 -(void)avCaptureSessionMethod{
     
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
@@ -176,77 +249,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         }
     });
     
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-    
-    self.navigationController.navigationBarHidden = NO;
-    //right bar button of navigaion bar
-    CGRect framing = CGRectMake(0, 0, 30, 30);
-    revertButton = [[UIButton alloc] initWithFrame:framing];
-    [revertButton setBackgroundImage:[UIImage imageNamed:@"SwitchCamera"] forState:UIControlStateNormal];
-    UIBarButtonItem *barButton =[[UIBarButtonItem alloc] initWithCustomView:revertButton];
-    [revertButton addTarget:self action:@selector(revertCameraMethod:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = barButton;
-    
-    disappearView = NO;
-    videoFileUrl = nil;
-    captureOutlet.selected = NO;
-    
-    self.title = navTitle;
-    continousSecond = 0;
-    _timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
-    [self removeVideoFile];
-    
-    if (imageArray.count == 0) {
-        [_doneOutlet changeTextLanguage:@"CANCEL"];
-    }
-    else{
-        [_doneOutlet changeTextLanguage:@"DONE"];
-    }
-    
-    dispatch_async([self sessionQueue], ^{
-        [self addObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:SessionRunningAndDeviceAuthorizedContext];
-        [self addObserver:self forKeyPath:@"stillImageOutput.capturingStillImage" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:CapturingStillImageContext];
-        [self addObserver:self forKeyPath:@"movieFileOutput.recording" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:RecordingContext];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[[self videoDeviceInput] device]];
-        
-        __weak CustomVideoViewController *weakSelf = self;
-        [self setRuntimeErrorHandlingObserver:[[NSNotificationCenter defaultCenter] addObserverForName:AVCaptureSessionRuntimeErrorNotification object:[self session] queue:nil usingBlock:^(NSNotification *note) {
-            CustomVideoViewController *strongSelf = weakSelf;
-            dispatch_async([strongSelf sessionQueue], ^{
-                // Manually restarting the session since it must have been stopped due to an error.
-                [[strongSelf session] startRunning];
-            });
-        }]];
-        [[self session] startRunning];
-        
-    });
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:YES];
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
-    [myTimer invalidate];
-    myTimer = nil;
-    continousSecond = 0;
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    
-    dispatch_async([self sessionQueue], ^{
-        [[self session] stopRunning];
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[[self videoDeviceInput] device]];
-        [[NSNotificationCenter defaultCenter] removeObserver:[self runtimeErrorHandlingObserver]];
-        
-        [self removeObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" context:SessionRunningAndDeviceAuthorizedContext];
-        [self removeObserver:self forKeyPath:@"stillImageOutput.capturingStillImage" context:CapturingStillImageContext];
-        [self removeObserver:self forKeyPath:@"movieFileOutput.recording" context:RecordingContext];
-    });
 }
 #pragma mark - end
 
@@ -448,6 +450,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 #pragma mark - end
 
+#pragma mark - Set timer
 -(void)targetMethod{
     continousSecond++;
     hour = (continousSecond / 3600)%24;
@@ -455,7 +458,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     second = (continousSecond  % 60);
     _timeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hour,minute,second];
 }
-
+#pragma mark - end
 #pragma mark - FocusAndExposeTap gesture
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
 {
