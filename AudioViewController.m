@@ -365,7 +365,7 @@
         [player play];
         myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                    target:self
-                                                 selector:@selector(targetMethod)
+                                                 selector:@selector(startRecordTimer)
                                                  userInfo:nil
                                                   repeats:YES];
     }
@@ -400,7 +400,7 @@
         timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
         myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                    target:self
-                                                 selector:@selector(targetMethod)
+                                                 selector:@selector(startRecordTimer)
                                                  userInfo:nil
                                                   repeats:YES];
         
@@ -428,7 +428,7 @@
     [self.navigationController pushViewController:addManagerView animated:YES];
 }
 
-- (IBAction)DoneAction:(UIBarButtonItem *)sender {
+- (IBAction)doneAction:(UIBarButtonItem *)sender {
     
     if (managerListArray.count != 0) {
         
@@ -570,7 +570,9 @@
         }
     }
 }
+#pragma mark - end
 
+#pragma mark - MFMailComposeViewController delegate
 - (void)mailComposeController:(MFMailComposeViewController*)controller
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error
@@ -710,7 +712,7 @@
 #pragma mark - end
 
 #pragma mark - Set timer
--(void)targetMethod{
+-(void)startRecordTimer{
     continousSecond++;
     hour = (continousSecond / 3600)%24;
     minute = (continousSecond /60) % 60;

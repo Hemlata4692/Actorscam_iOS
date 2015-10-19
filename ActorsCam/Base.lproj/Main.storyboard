@@ -5476,7 +5476,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="TLo-oN-Cm7"/>
                                     <barButtonItem title="Done" id="7a9-Py-1pH">
                                         <connections>
-                                            <action selector="DoneAction:" destination="R9z-85-AAk" id="N9e-O2-W5F"/>
+                                            <action selector="doneAction:" destination="R9z-85-AAk" id="c70-rO-ecw"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -6621,7 +6621,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="VK4-4T-2jA"/>
                                     <barButtonItem title="Done" id="7ez-UU-RZp">
                                         <connections>
-                                            <action selector="DoneAction:" destination="J8k-Zp-h7R" id="tSi-9a-SxQ"/>
+                                            <action selector="doneAction:" destination="J8k-Zp-h7R" id="48Q-Ri-zdG"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -7643,7 +7643,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="UQT-7I-8WO"/>
                                     <barButtonItem title="Done" id="2wk-kL-8gP">
                                         <connections>
-                                            <action selector="DoneAction:" destination="k50-kZ-Ah4" id="eNh-b2-4Ya"/>
+                                            <action selector="doneAction:" destination="k50-kZ-Ah4" id="rKO-H8-BTb"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

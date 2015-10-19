@@ -244,7 +244,7 @@
 }
 #pragma mark - end
 
-#pragma mark- Add Video on View
+#pragma mark- Add video on view
 -(void)addVideo
 {
     player  = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[filePath absoluteString]]];
@@ -419,7 +419,7 @@
     [self.navigationController pushViewController:addManagerView animated:YES];
 }
 
-- (IBAction)DoneAction:(UIBarButtonItem *)sender {
+- (IBAction)doneAction:(UIBarButtonItem *)sender {
     
     if (managerListArray.count != 0) {
         
@@ -551,7 +551,9 @@
         }
     }
 }
+#pragma mark - end
 
+#pragma mark - MFMailComposeViewController delegate
 - (void)mailComposeController:(MFMailComposeViewController*)controller
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error

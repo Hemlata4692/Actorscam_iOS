@@ -420,7 +420,7 @@
     [self performSelector:@selector(managerListing) withObject:nil afterDelay:.1];
 }
 
-- (IBAction)DoneAction:(UIBarButtonItem *)sender {
+- (IBAction)doneAction:(UIBarButtonItem *)sender {
     [self hidePickerWithAnimation];
     
     if (managerListArray.count != 0) {
@@ -564,6 +564,21 @@
     }
 }
 
+- (IBAction)addRepresentativeAction:(UIButton *)sender {
+    [self hidePickerWithAnimation];
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
+    addManagerView.navTitle = @"Add Representative";
+    addManagerView.emailId = @"";
+    addManagerView.name = @"";
+    addManagerView.managerId = @"";
+    addManagerView.category = @"";
+    [self.navigationController pushViewController:addManagerView animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - MFMailComposeViewController delegate
 - (void)mailComposeController:(MFMailComposeViewController*)controller
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error
@@ -589,19 +604,6 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (IBAction)addRepresentativeAction:(UIButton *)sender {
-    [self hidePickerWithAnimation];
-    
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddManagerViewController *addManagerView =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    addManagerView.navTitle = @"Add Representative";
-    addManagerView.emailId = @"";
-    addManagerView.name = @"";
-    addManagerView.managerId = @"";
-    addManagerView.category = @"";
-    [self.navigationController pushViewController:addManagerView animated:YES];
 }
 #pragma mark - end
 

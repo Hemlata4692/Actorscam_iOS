@@ -376,7 +376,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         _timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
         myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                    target:self
-                                                 selector:@selector(targetMethod)
+                                                 selector:@selector(startRecordTimer)
                                                  userInfo:nil
                                                   repeats:YES];
     }
@@ -451,7 +451,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 #pragma mark - end
 
 #pragma mark - Set timer
--(void)targetMethod{
+-(void)startRecordTimer{
     continousSecond++;
     hour = (continousSecond / 3600)%24;
     minute = (continousSecond /60) % 60;
