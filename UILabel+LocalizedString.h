@@ -16,6 +16,10 @@
 - (UIButton*)changeTextLanguage:(NSString*)text;
 @end
 
+@interface UIBarButtonItem (LocalizedString)
+- (UIBarButtonItem*)changeTextLanguage:(NSString*)text;
+@end
+
 @interface UITextField (LocalizedString)
 - (UITextField*)changeTextLanguage:(NSString*)text;
 @end

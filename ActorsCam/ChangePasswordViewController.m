@@ -88,7 +88,7 @@
     [confirmPassword changeTextLanguage:@"Confirm password"];
     [changePassword changeTextLanguage:@"New password"];
     [submitBtn changeTextLanguage:@"SUBMIT"];
-    [navTitle changeTextLanguage:@"Change password"];
+    navTitle = [navTitle changeTextLanguage:@"Change password"];
 }
 
 -(void)addTextFieldPadding
@@ -122,7 +122,8 @@
     [[WebService sharedManager] changePassword:currentPassword.text newPassword:changePassword.text success:^(id responseObject) {
         
         [myDelegate StopIndicator];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Success" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        NSString* msg = [responseObject objectForKey:@"message"];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[@"Success" changeTextLanguage:@"Success"] message:[msg changeTextLanguage:@"Your password is changed successfully."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
        
         [alert show];
          alert.tag=1;
@@ -152,41 +153,41 @@
 {
     UIAlertView *alert;
     if ([currentPassword isEmpty] || (currentPassword.text.length == 0) || [currentPassword.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Current password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:@"Current password cannot be blank." delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (currentPassword.text.length < 8)
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Your current password must be atleast 8 characters long." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:@"Your current password must be atleast 8 characters long." delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if ([changePassword isEmpty] || (changePassword.text.length == 0) || [changePassword.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"New password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:@"New password cannot be blank." delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (changePassword.text.length < 8)
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Your new password must be atleast 8 characters long." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:@"Your new password must be atleast 8 characters long." delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if ([confirmPassword isEmpty] || (confirmPassword.text.length == 0) || [confirmPassword.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Confirm password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:@"Confirm password cannot be blank." delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (confirmPassword.text.length < 8)
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Your confirm password must be atleast 8 characters long." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Your confirm password must be atleast 8 characters long." changeTextLanguage:@"Your confirm password must be atleast 8 characters long."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (!([changePassword.text isEqualToString:confirmPassword.text]))
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Passwords do not match." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Passwords do not match." changeTextLanguage:@"Passwords do not match."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }

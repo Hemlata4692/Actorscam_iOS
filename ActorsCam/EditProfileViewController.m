@@ -68,6 +68,7 @@
     }
     [self addTextFieldPadding];
     
+    [self setLocalizedString];
     // Do any additional setup after loading the view.
     [myDelegate ShowIndicator];
     [self performSelector:@selector(getprofile) withObject:nil afterDelay:.5];
@@ -84,11 +85,12 @@
 -(void)setLocalizedString{
     
     [name changeTextLanguage:@"Name"];
-    [takePhoto changeTextLanguage:takePhoto];
-    [choosePhoto changeTextLanguage:choosePhoto];
-    [cancel changeTextLanguage:cancel];
+    [emailId changeTextLanguage:@"Email address"];
+    takePhoto = [takePhoto changeTextLanguage:takePhoto];
+    choosePhoto = [choosePhoto changeTextLanguage:choosePhoto];
+    cancel = [cancel changeTextLanguage:cancel];
     [save changeTextLanguage:@"SUBMIT"];
-    [navTitle changeTextLanguage:@"Edit Profile"];
+    navTitle = [navTitle changeTextLanguage:@"Edit Profile"];
     
 }
 
@@ -141,8 +143,9 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"image"] forKey:@"profileImageUrl"];
         [[NSUserDefaults standardUserDefaults] setObject:name.text forKey:@"actorName"];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        NSString* msg = [dict objectForKey:@"message"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Success" changeTextLanguage:@"Success"] message:[msg changeTextLanguage:@"Your profile is updated successfully."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
+        alert.tag = 2;
         [alert show];
         
     } failure:^(NSError *error) {
@@ -180,10 +183,12 @@
 #pragma mark - UIAlertView delegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if (alertView.tag == 2) {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DashboardViewController *dashboardView =[storyboard instantiateViewControllerWithIdentifier:@"DashboardView"];
     
     [self.navigationController pushViewController:dashboardView animated:YES];
+    }
 }
 #pragma mark - end
 
@@ -201,51 +206,54 @@
 #pragma mark - Actionsheet delegate
 //Action sheet for setting image from camera or gallery
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        [imagePickerController setAllowsEditing:YES];
-        if (buttonIndex==1) {
-            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        }
-        else{
-            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
-        imagePickerController.delegate = (id)self;
-        
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-    }
-    
-    else  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        UIImagePickerController *pickerImg = [[UIImagePickerController alloc] init];
-        if (buttonIndex==1) {
-            pickerImg.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            pickerImg.delegate = (id)self;
-            pickerImg.navigationBar.tintColor = [UIColor whiteColor];
-            pickerImg.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-            popover = [[UIPopoverController alloc] initWithContentViewController:pickerImg];
-            popover.delegate = self;
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                // Place image picker on the screen
-                [self.popover presentPopoverFromRect:CGRectMake(50,-430, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
-            }];
+    if (buttonIndex != 2) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             
-        }
-        else {
-            if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Device has no camera." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.navigationBar.tintColor = [UIColor whiteColor];
+            [imagePickerController setAllowsEditing:YES];
+            if (buttonIndex==1) {
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             }
             else{
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            }
+            imagePickerController.delegate = (id)self;
+            
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+            [self presentViewController:imagePickerController animated:YES completion:nil];
+            
+        }
+        
+        else  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+            UIImagePickerController *pickerImg = [[UIImagePickerController alloc] init];
+            if (buttonIndex==1) {
+                pickerImg.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                pickerImg.delegate = (id)self;
+                pickerImg.navigationBar.tintColor = [UIColor whiteColor];
+                pickerImg.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+                popover = [[UIPopoverController alloc] initWithContentViewController:pickerImg];
+                popover.delegate = self;
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     // Place image picker on the screen
-                    pickerImg.delegate = self;
-                    pickerImg.sourceType=UIImagePickerControllerSourceTypeCamera;
-                    [self presentViewController:pickerImg animated:YES completion:NULL];
+                    [self.popover presentPopoverFromRect:CGRectMake(50,-430, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
                 }];
-
+                
+            }
+            else {
+                if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Error" changeTextLanguage:@"Error"] message:[@"Device has no camera." changeTextLanguage:@"Device has no camera."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil];
+                    [alert show];
+                }
+                else{
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        // Place image picker on the screen
+                        pickerImg.delegate = self;
+                        pickerImg.sourceType=UIImagePickerControllerSourceTypeCamera;
+                        [self presentViewController:pickerImg animated:YES completion:NULL];
+                    }];
+                    
+                }
             }
         }
     }
@@ -263,14 +271,14 @@
     if ([profileImageData isEqualToData:placeholderImageData])
     {
         
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please upload an image." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Please upload an image." changeTextLanguage:@"Please upload an image."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
 
     else if ([name isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Name cannot be blank." changeTextLanguage:@"Name cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }

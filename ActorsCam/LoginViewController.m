@@ -95,13 +95,13 @@
     backgroundImage.image = [UIImage imageNamed:[tempImg imageForDeviceWithName:@"bg"]];
     [self addTextFieldPadding];
     [self addCornerRadius];
-    NSLog(@"test log!!!");
+//    NSLog(@"test log!!!");
     forgotPasswordView.hidden=YES;
     
     //Adding textfield to array
     textFieldArray = @[userEmail,password];
-    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
-    [self.keyboardControls setDelegate:self];
+//    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
+//    [self.keyboardControls setDelegate:self];
     
 }
 
@@ -141,14 +141,18 @@
 }
 
 -(void)setLocalizedString{
+    
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
+    [self.keyboardControls setDelegate:self];
+
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"en"]) {
         [languageLabel setTitle:@"Eng" forState:UIControlStateNormal];
     }
+    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"es"]) {
+        [languageLabel setTitle:@"Spa" forState:UIControlStateNormal];
+    }
     else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"fr"]) {
         [languageLabel setTitle:@"Fra" forState:UIControlStateNormal];
-    }
-    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"zn"]) {
-        [languageLabel setTitle:@"Deu" forState:UIControlStateNormal];
     }
     
     [loginBtn changeTextLanguage:@"Login"];
@@ -255,7 +259,7 @@
         [myDelegate StopIndicator];
         forgotPasswordEmail.text = @"";
         UIAlertView *alert;
-        alert = [[UIAlertView alloc]initWithTitle:@"Success" message:[responseObject objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+         alert = [[UIAlertView alloc]initWithTitle:[@"Success" changeTextLanguage:@"Success"] message:[@"New password has been sent to your email address." changeTextLanguage:@"New password has been sent to your email address."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         
         forgotPasswordView.hidden=YES;
@@ -273,7 +277,7 @@
     UIAlertView *alert;
     if ([userEmail isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Email address cannot be blank." changeTextLanguage:@"Email address cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -283,14 +287,14 @@
         {
             if ([password isEmpty])
             {
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Password cannot be blank." changeTextLanguage:@"Password cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
                 [alert show];
                 return NO;
             }
             else if (password.text.length < 8)
             {
                 
-                alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Your password must be atleast 8 characters long." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Your password must be atleast 8 characters long." changeTextLanguage:@"Your password must be atleast 8 characters long."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
                 [alert show];
                 return NO;
                 
@@ -302,7 +306,7 @@
         }
         else
         {
-            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Invalid email address." changeTextLanguage:@"Invalid email address."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
             [alert show];
             return NO;
         }
@@ -316,7 +320,7 @@
     UIAlertView *alert;
     if ([forgotPasswordEmail isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Email address cannot be blank." changeTextLanguage:@"Email address cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
@@ -328,7 +332,7 @@
         }
         else
         {
-            alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Invalid email address." changeTextLanguage:@"Invalid email address."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
             [alert show];
             return NO;
         }

@@ -16,6 +16,7 @@
 //#define BASE_URL                              @"http://ranosys.net/client/actorscam/beta/api/"
 
 @interface WebService : NSObject
+@property(nonatomic,retain) NSString *usedWebservice;
 
 @property(nonatomic,retain)AFHTTPRequestOperationManager *manager;
 + (id)sharedManager;

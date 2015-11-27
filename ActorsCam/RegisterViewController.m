@@ -77,6 +77,7 @@
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
     
+    [self setLocalizedString];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -111,12 +112,12 @@
     [name changeTextLanguage:@"Name"];
     [email changeTextLanguage:@"Email address"];
     [password changeTextLanguage:@"Password"];
-    [confirmPassword changeTextLanguage:@"Confirm Password"];
-    [takePhoto changeTextLanguage:takePhoto];
-    [choosePhoto changeTextLanguage:choosePhoto];
-    [cancel changeTextLanguage:cancel];
+    [confirmPassword changeTextLanguage:@"Confirm password"];
+    takePhoto = [takePhoto changeTextLanguage:takePhoto];
+    choosePhoto = [choosePhoto changeTextLanguage:choosePhoto];
+    cancel = [cancel changeTextLanguage:cancel];
     [registerBtn changeTextLanguage:@"SIGN UP"];
-    [navTitle changeTextLanguage:@"Sign Up"];
+    navTitle = [navTitle changeTextLanguage:@"Sign Up"];
 }
 #pragma mark - end
 
@@ -141,7 +142,8 @@
         
         [myDelegate StopIndicator];
         NSDictionary *dict = (NSDictionary *)responseObject;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        NSString *msg = [dict objectForKey:@"message"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Success" changeTextLanguage:@"Success"] message:[msg changeTextLanguage:@"Thank you for registering on Actor CAM!"] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         alert.tag = 1;
         [alert show];
         
@@ -192,50 +194,53 @@
 #pragma mark - Actionsheet
 //Action sheet for setting image from camera or gallery
 -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        [imagePickerController setAllowsEditing:YES];
-        if (buttonIndex==1) {
-            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        }
-        else{
-            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
-        imagePickerController.delegate = (id)self;
-        
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-    }
-    
-    else  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        UIImagePickerController *pickerImg = [[UIImagePickerController alloc] init];
-        if (buttonIndex==1) {
-            pickerImg.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            pickerImg.delegate = (id)self;
-            pickerImg.navigationBar.tintColor = [UIColor whiteColor];
-            pickerImg.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-            popover = [[UIPopoverController alloc] initWithContentViewController:pickerImg];
-            popover.delegate = self;
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                // Place image picker on the screen
-                [self.popover presentPopoverFromRect:CGRectMake(50,-430, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
-            }];
+    if (buttonIndex != 2) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             
-        }
-        else {
-            if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Device has no camera." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.navigationBar.tintColor = [UIColor whiteColor];
+            [imagePickerController setAllowsEditing:YES];
+            if (buttonIndex==1) {
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             }
             else{
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            }
+            imagePickerController.delegate = (id)self;
+            
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+            [self presentViewController:imagePickerController animated:YES completion:nil];
+            
+        }
+        
+        else  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+            UIImagePickerController *pickerImg = [[UIImagePickerController alloc] init];
+            if (buttonIndex==1) {
+                pickerImg.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                pickerImg.delegate = (id)self;
+                pickerImg.navigationBar.tintColor = [UIColor whiteColor];
+                pickerImg.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+                popover = [[UIPopoverController alloc] initWithContentViewController:pickerImg];
+                popover.delegate = self;
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     // Place image picker on the screen
-                    pickerImg.delegate = self;
-                    pickerImg.sourceType=UIImagePickerControllerSourceTypeCamera;
-                    [self presentViewController:pickerImg animated:YES completion:NULL];
+                    [self.popover presentPopoverFromRect:CGRectMake(50,-430, 668, 668) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO]; [self.popover setPopoverContentSize:CGSizeMake(668,668)];
                 }];
+                
+            }
+            else {
+                if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])  {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Error" changeTextLanguage:@"Error"] message:[@"Device has no camera." changeTextLanguage:@"Device has no camera."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil];
+                    [alert show];
+                }
+                else{
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        // Place image picker on the screen
+                        pickerImg.delegate = self;
+                        pickerImg.sourceType=UIImagePickerControllerSourceTypeCamera;
+                        [self presentViewController:pickerImg animated:YES completion:NULL];
+                    }];
+                }
             }
         }
     }
@@ -254,49 +259,49 @@
     if ([profileImageData isEqualToData:placeholderImageData])
     {
         
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please upload an image." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Please upload an image." changeTextLanguage:@"Please upload an image."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if ([name isEmpty] || (name.text.length == 0) || [name.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Name cannot be blank." changeTextLanguage:@"Name cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if ([email isEmpty] || (email.text.length == 0) || [email.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Email address cannot be blank." changeTextLanguage:@"Email address cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (![email isValidEmail])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Invalid email address." changeTextLanguage:@"Invalid email address."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     
     }
     else if ([password isEmpty] || (password.text.length == 0) || [password.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Password cannot be blank." changeTextLanguage:@"Password cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (password.text.length < 8)
     {
         
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Your password must be atleast 8 characters long." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Your password must be atleast 8 characters long." changeTextLanguage:@"Your password must be atleast 8 characters long."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
         
     }
     else if ([confirmPassword isEmpty] || (confirmPassword.text.length == 0) || [confirmPassword.text isEqualToString:@""]){
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Confirm password cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Confirm password cannot be blank." changeTextLanguage:@"Confirm password cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (![password.text isEqualToString:confirmPassword.text])
     {
         
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Passwords do not match." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Passwords do not match." changeTextLanguage:@"Passwords do not match."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
         

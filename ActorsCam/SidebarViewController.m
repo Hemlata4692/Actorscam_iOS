@@ -23,10 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    tableItem = @[@"Home", @"Edit Profile", @"Representative", @"Change Password", @"Logout"];
-    
-    menuItems = @[[@"Home" changeTextLanguage:@"Home"], [@"Edit Profile" changeTextLanguage:@"Edit Profile"], [@"Representative" changeTextLanguage:@"Representative"], [@"Change Password" changeTextLanguage:@"Change Password"], [@"Logout" changeTextLanguage:@"Logout"]];
-    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, self.view.frame.size.width, 20)];
@@ -37,10 +33,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-//    if([[UIScreen mainScreen] bounds].size.height>490)
-//    {
-        self.tableView.scrollEnabled=NO;
-//    }
+    tableItem = @[@"Home", @"Edit Profile", @"Representative", @"Change Password", @"Logout"];
+    
+    menuItems = @[[@"Home" changeTextLanguage:@"Home"], [@"Edit Profile" changeTextLanguage:@"Edit Profile"], [@"Representative" changeTextLanguage:@"Representative"], [@"Change Password" changeTextLanguage:@"Change Password"], [@"Logout" changeTextLanguage:@"Logout"]];
+    
+    self.tableView.scrollEnabled=NO;
 
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
     [self.tableView reloadData];
@@ -101,9 +98,12 @@
     }
     else{
         icon.frame = CGRectMake(15, 15, 34, 34);
-        cellLabel.frame = CGRectMake(66, 19, tableView.frame.size.width - 66 - 17, 26);
+        cellLabel.frame = CGRectMake(66, 8, tableView.frame.size.width - 66 - 17, 48);
+        cellLabel.numberOfLines = 2;
         [cellLabel.font fontWithSize:17];
     }
+    
+    cellLabel.text = [menuItems objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -217,15 +217,9 @@
     actorName.numberOfLines = 1;
     actorName.textColor=[UIColor whiteColor];
     actorName.font = [UIFont fontWithName:@"OpenSans-Semibold" size:nameFont];
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"] isEqualToString:@""]) {
-        
-        [actorName changeTextLanguage:@"User"];
-    }
-    else
-    {
-        [actorName changeTextLanguage:[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"]];
-    }
-    
+//    [actorName changeTextLanguage:[[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"]];
+    actorName.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"actorName"];
+
     [headerView addSubview:headerBg];
     [headerView addSubview:welcomeLabel];
     [headerView addSubview:actorName];

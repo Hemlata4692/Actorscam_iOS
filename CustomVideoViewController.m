@@ -80,7 +80,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [captureOutlet setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
     [captureOutlet setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateSelected];
     
-    [navTitle changeTextLanguage:navTitle];
+    navTitle = [navTitle changeTextLanguage:navTitle];
     
     imageArray = [NSMutableArray new];
     imageSize = 0;
@@ -517,10 +517,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         if (backgroundRecordingID != UIBackgroundTaskInvalid)
             [[UIApplication sharedApplication] endBackgroundTask:backgroundRecordingID];
     if (sizeExceed == 1) {
-        [self.view makeToast:@"Your device storage is full."];
+        [self.view makeToast:[@"Your device storage is full." changeTextLanguage:@"Your device storage is full."]];
     }
     else if (sizeExceed == 2){
-        [self.view makeToast:@"File size cannot exceed 20 MB."];
+        [self.view makeToast:[@"File size cannot exceed 20 MB." changeTextLanguage:@"File size cannot exceed 20 MB."]];
     }
 //    }];
     if (disappearView) {
@@ -624,8 +624,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         {
             //Not granted access to mediaType
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"Alert"
-                                            message:@"Your app doesn't have permission to use Camera, please change privacy settings"
+                [[[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"]
+                                            message:[@"Your app doesn't have permission to use Camera, please change privacy settings." changeTextLanguage:@"Your app doesn't have permission to use Camera, please change privacy settings."]
                                            delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil] show];

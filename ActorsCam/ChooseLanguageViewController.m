@@ -58,10 +58,11 @@
     _done.layer.borderWidth = 1;
     _done.layer.borderColor = [UIColor lightGrayColor].CGColor;
 
-    languageArray = @[@"ENGLISH", @"FRANCAIS", @"DEUTSCH"];
+    languageArray = @[@"ENGLISH", @"ESPAÑOL", @"FRANÇAIS"];
 //     languageArray = @[@"ENGLISH"];
     [_chooseLanguageTableView reloadData];
     
+    [self setLocalizedString];
     // Do any additional setup after loading the view.
 }
 
@@ -70,6 +71,13 @@
     
     // Dispose of any resources that can be recreated.
 }
+
+-(void)setLocalizedString{
+    [_chooseLanguagelabel changeTextLanguage:@"CHOOSE LANGUAGE"];
+    [_cancel changeTextLanguage:@"CANCEL"];
+    [_done changeTextLanguage:@"DONE"];
+}
+
 #pragma mark - end
 
 #pragma mark - Table view datasource/delegates
@@ -129,11 +137,11 @@
     if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"ENGLISH"]) {
         [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];
     }
-    else if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"FRANCAIS"]){
-        [[NSUserDefaults standardUserDefaults] setObject:@"fr" forKey:@"Language"];
+    else if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"ESPAÑOL"]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"es" forKey:@"Language"];
     }
-    else if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"DEUTSCH"]){
-        [[NSUserDefaults standardUserDefaults] setObject:@"zn" forKey:@"Language"];
+    else if ([[languageArray objectAtIndex:selectedIndex] isEqualToString:@"FRANÇAIS"]){
+        [[NSUserDefaults standardUserDefaults] setObject:@"fr" forKey:@"Language"];
     }
     
     [self willMoveToParentViewController:nil];

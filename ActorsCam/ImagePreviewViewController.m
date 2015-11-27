@@ -135,7 +135,8 @@
     // Adding the swipe gesture on image view
     [imagePreviewView addGestureRecognizer:swipeLeft];
     [imagePreviewView addGestureRecognizer:swipeRight];
-
+    
+    [self setLocalizedString];
     // Do any additional setup after loading the view.
 }
 
@@ -218,7 +219,8 @@
     [notesLabel changeTextLanguage:@"Notes"];
     [sendImageButton changeTextLanguage:@"SUBMIT"];
     
-    [navTitle changeTextLanguage:@"Preview"];
+    [toolBarDone changeTextLanguage:@"Done"];
+    navTitle = [navTitle changeTextLanguage:@"Preview"];
 }
 #pragma mark - end
 
@@ -435,16 +437,19 @@
             [pickerArray removeAllObjects];
             int managerNameIndex = 0;
             for (int i=0; i < managerListArray.count; i++) {
-                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
+                if ([selectCategory.text isEqualToString:[[NSString stringWithFormat:@"%@",[[managerListArray objectAtIndex:i] objectForKey:@"category"]] changeTextLanguage:[NSString stringWithFormat:@"%@",[[managerListArray objectAtIndex:i] objectForKey:@"category"]]]]) {
+                    
+
                     if (managerNameIndex == 0) {
                         managerNameIndex++;
                         selectedData = [[managerListArray objectAtIndex:i] copy];
                         managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
                     }
                     
-                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
+//                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
                 }
-                
+                [pickerArray addObject:[managerListArray objectAtIndex:i]];
+
             }
             
             NSString *categoryString = [categoryList objectAtIndex:index];
@@ -489,14 +494,14 @@
     if ([selectCategory isEmpty])
     {
         [myDelegate StopIndicator];
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Please choose a category." changeTextLanguage:@"Please choose a category."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         
     }
     else if ([managerName isEmpty])
     {
         [myDelegate StopIndicator];
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Name cannot be blank." changeTextLanguage:@"Name cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         
     }
@@ -507,7 +512,7 @@
             {
                 // Email Subject
                 
-                NSString *emailTitle = @"Actor CAM - New Images from model";
+                NSString *emailTitle = [@"Actor CAM - New Images from model" changeTextLanguage:@"Actor CAM - New Images from model"];
                 
                 NSArray *toRecipents = [NSArray arrayWithObject:[selectedData objectForKey:@"managerEmail"]];
                 
@@ -547,13 +552,13 @@
                 [myDelegate StopIndicator];
                 UIAlertView *alertView = [[UIAlertView alloc]
                                           
-                                          initWithTitle:nil
+                                          initWithTitle:[@"Alert" changeTextLanguage:@"Alert"]
                                           
-                                          message:@"Email account is not configured in your device."
+                                          message:[@"Email account is not configured in your device." changeTextLanguage:@"Email account is not configured in your device."]
                                           
                                           delegate:self
                                           
-                                          cancelButtonTitle:@"OK"
+                                          cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"]
                                           
                                           otherButtonTitles:nil];
                 
@@ -764,22 +769,25 @@
         managerListArray = [responseObject objectForKey:@"managerList"];
        
         if(managerListArray.count != 0){
-            selectCategory.text = [categoryList objectAtIndex:0];
+//            selectCategory.text = [categoryList objectAtIndex:0];
+            selectCategory.text = [[NSString stringWithFormat:@"%@",[categoryList objectAtIndex:0]] changeTextLanguage:[NSString stringWithFormat:@"%@",[categoryList objectAtIndex:0]]];
+            
             noManagerView.hidden = YES;
             selectManagerView.hidden = NO;
             
             int managerNameIndex = 0;
             for (int i=0; i < managerListArray.count; i++) {
-                if ([selectCategory.text isEqualToString:[[managerListArray objectAtIndex:i] objectForKey:@"category"]]) {
+                 if ([selectCategory.text isEqualToString:[[NSString stringWithFormat:@"%@",[[managerListArray objectAtIndex:i] objectForKey:@"category"]] changeTextLanguage:[NSString stringWithFormat:@"%@",[[managerListArray objectAtIndex:i] objectForKey:@"category"]]]]) {
+                    
                     if (managerNameIndex == 0) {
                         managerNameIndex++;
                         selectedData = [[managerListArray objectAtIndex:i] copy];
                         managerName.text = [[managerListArray objectAtIndex:i] objectForKey:@"managerName"];
                     }
                     
-                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
+//                    [pickerArray addObject:[managerListArray objectAtIndex:i]];
                 }
-                
+                [pickerArray addObject:[managerListArray objectAtIndex:i]];
             }
             
             [managerListPickerView reloadAllComponents];

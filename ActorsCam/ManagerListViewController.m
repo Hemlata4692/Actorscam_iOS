@@ -56,6 +56,7 @@
     
     }
     navTitle = @"Representative";
+    navTitle = [navTitle changeTextLanguage:navTitle];
     managerListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     //Remove swipe gesture for sidebar
@@ -68,8 +69,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     self.title = navTitle;
+    [noManagerAddedLbl changeTextLanguage:@"You've no representative added yet!"];
+    [addManagerBtn changeTextLanguage:@"ADD REPRESENTATIVE"];
     
-    addOutlet.hidden = NO;
+    addOutlet.hidden = YES;
     indexpathRow = -1;
     // Do any additional setup after loading the view.
     managerListTableView.hidden = YES;
@@ -91,7 +94,7 @@
 - (IBAction)addManagerButtonAction:(id)sender
 {
     AddManagerViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-    controller.navTitle = @"Add Representatives";
+    controller.navTitle = @"Add Representative";
     controller.emailId = @"";
     controller.name = @"";
     controller.managerId = @"";
@@ -150,29 +153,29 @@
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Edit" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[@"Edit" changeTextLanguage:@"Edit"] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         
         NSDictionary *data = [managerListArray objectAtIndex:indexPath.row];
         
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         AddManagerViewController *addManagerView1 =[storyboard instantiateViewControllerWithIdentifier:@"AddManagerViewController"];
-        addManagerView1.navTitle = @"Edit Representatives";
+        addManagerView1.navTitle = @"Edit Representative";
         addManagerView1.emailId = [data objectForKey:@"managerEmail"];
         addManagerView1.name = [data objectForKey:@"managerName"];
         addManagerView1.managerId = [data objectForKey:@"managerId"];
-        addManagerView1.category = [data objectForKey:@"category"];
+        addManagerView1.category = [[NSString stringWithFormat:@"%@",[data objectForKey:@"category"]] changeTextLanguage:[NSString stringWithFormat:@"%@",[data objectForKey:@"category"]]];
         [self.navigationController pushViewController:addManagerView1 animated:YES];
         
     }];
     
     editAction.backgroundColor = [UIColor lightGrayColor];
     
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[@"Delete" changeTextLanguage:@"Delete"]  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         
         
         indexpathRow = (int)indexPath.row;
-         NSLog(@"delete action");
-        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to delete this representative?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+//         NSLog(@"delete action");
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Are you sure you want to delete this representative?" changeTextLanguage:@"Are you sure you want to delete this representative?"] delegate:self cancelButtonTitle:[@"Cancel" changeTextLanguage:@"Cancel"] otherButtonTitles:[@"OK" changeTextLanguage:@"OK"], nil];
         [alert show];
         
     }];

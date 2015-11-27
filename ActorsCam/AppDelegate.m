@@ -22,7 +22,7 @@
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
     hud.dimBackground=YES;
-    hud.labelText=@"Loading...";
+    hud.labelText=[@"Loading..." changeTextLanguage:@"Loading..."];
 }
 
 //Method for stop indicator
@@ -34,6 +34,10 @@
 
 #pragma mark - Appdelegate methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"zh-Hans", @"en", @"fr", nil] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     // Override point for customization after application launch.
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@""] || ([[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] == NULL)){
         [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"Language"];

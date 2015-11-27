@@ -23,6 +23,7 @@
 
 @implementation WebService
 @synthesize manager;
+@synthesize usedWebservice;
 
 + (id)sharedManager
 {
@@ -38,6 +39,7 @@
     if (self = [super init])
     {
         manager = [[AFHTTPRequestOperationManager manager] initWithBaseURL:[NSURL URLWithString:BASE_URL]];
+        usedWebservice = @"";
     }
     return self;
 }
@@ -67,12 +69,26 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          [myDelegate StopIndicator];
         failure(error);
+        usedWebservice = @"";
         if ([error.localizedDescription isEqualToString:@"The request timed out."]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"The request timed out." changeTextLanguage:@"The request timed out."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
             [alert show];
         }
+        else if ([error.localizedDescription isEqualToString:@"The Internet connection appears to be offline."]){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"The Internet connection appears to be offline." changeTextLanguage:@"The Internet connection appears to be offline."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
+            [alert show];
+            
+        }
+        else if ([error.localizedDescription isEqualToString:@"The network connection was lost."]){
+           
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"The network connection was lost." changeTextLanguage:@"The network connection was lost."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
+            [alert show];
+        
+        }
         else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:error.localizedDescription delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
             [alert show];
         }
         
@@ -112,12 +128,25 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [myDelegate StopIndicator];
         failure(error);
+        usedWebservice = @"";
         if ([error.localizedDescription isEqualToString:@"The request timed out."]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"The request timed out." changeTextLanguage:@"The request timed out."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
             [alert show];
         }
+        else if ([error.localizedDescription isEqualToString:@"The Internet connection appears to be offline."]){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"The Internet connection appears to be offline." changeTextLanguage:@"The Internet connection appears to be offline."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
+            [alert show];
+            
+        }
+        else if ([error.localizedDescription isEqualToString:@"The network connection was lost."]){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"The network connection was lost." changeTextLanguage:@"The network connection was lost."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
+            [alert show];
+            
+        }
         else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:error.localizedDescription delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
             [alert show];
         }
     }];
@@ -127,12 +156,14 @@
 
 - (BOOL)isStatusOK:(id)responseObject {
     NSNumber *number = responseObject[@"isSuccess"];
-    
+    NSString *msg;
     switch (number.integerValue)
     {
         case 0:
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            usedWebservice = @"";
+            msg = responseObject[@"message"];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[msg changeTextLanguage:msg] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles: nil];
             [alert show];
             return NO;
         }
@@ -143,7 +174,8 @@
             
         case 2:
         {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            msg = responseObject[@"message"];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Your account has been deactivated by Actor CAM." changeTextLanguage:@"Your account has been deactivated by Actor CAM."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles: nil];
             alert.tag=2;
             [alert show];
 
@@ -151,33 +183,39 @@
             return NO;
             break;
         default: {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:responseObject[@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            usedWebservice = @"";
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:responseObject[@"message"] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles: nil];
             [alert show];
             
         }
             return NO;
             break;
     }
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    
     if (alertView.tag==2 && buttonIndex==0)
     {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        [myDelegate.window setRootViewController:objReveal];
-        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-        [myDelegate.window makeKeyAndVisible];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults removeObjectForKey:@"UserId"];
-        [defaults removeObjectForKey:@"actorName"];
-        [defaults removeObjectForKey:@"EmailId"];
-        [defaults synchronize];
+        if (!([usedWebservice isEqualToString:kUrlLogin] || [usedWebservice isEqualToString:kUrlRegister] || [usedWebservice isEqualToString:kUrlForgotPassword])) {
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            LoginViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            myDelegate.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            [myDelegate.window setRootViewController:objReveal];
+            [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+            [myDelegate.window makeKeyAndVisible];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults removeObjectForKey:@"UserId"];
+            [defaults removeObjectForKey:@"actorName"];
+            [defaults removeObjectForKey:@"EmailId"];
+            [defaults synchronize];
+        }
         
     }
-
+    usedWebservice = @"";
 }
 #pragma mark - end
 
@@ -186,7 +224,7 @@
 - (void)userLogin:(NSString *)email Password:(NSString *)password success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
     NSDictionary *requestDict = @{@"email":email,@"password":password};
-    
+    usedWebservice = kUrlLogin;
     [self post:kUrlLogin parameters:requestDict success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -211,7 +249,7 @@
 -(void)registerUser:(NSString *)mailId password:(NSString *)password name:(NSString*)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
     NSDictionary *requestDict = @{@"email":mailId,@"password":password,@"username":name};
-    
+     usedWebservice = kUrlRegister;
     [self postImage:kUrlRegister parameters:requestDict image:image success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -238,7 +276,7 @@
 -(void)forgotPassword:(NSString *)mailId success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
     NSDictionary *requestDict = @{@"email":mailId};
-    
+    usedWebservice = kUrlForgotPassword;
     [self post:kUrlForgotPassword parameters:requestDict success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -263,7 +301,7 @@
 -(void)changePassword:(NSString *)oldPassword newPassword:(NSString *)newPassword success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
     NSDictionary *requestDict = @{ @"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"oldPassword":oldPassword, @"newPassword":newPassword};
-    
+    usedWebservice = kUrlChangePassword;
     [self post:kUrlChangePassword parameters:requestDict success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -290,7 +328,7 @@
 - (void)addManager:(NSString *)managerName managerEmail:(NSString *)managerEmail category:(NSString *)category  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
     NSDictionary *requestDict = @{@"managerName":managerName,@"managerEmail":managerEmail,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"category":category};
-    
+    usedWebservice = kUrlAddManager;
     [self post:kUrlAddManager parameters:requestDict success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -315,7 +353,7 @@
 - (void)managerListing:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
     NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"category":@""};
-    
+    usedWebservice = kUrlManagerListing;
     [self post:kUrlManagerListing parameters:requestDict success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -341,7 +379,7 @@
     
     
     NSDictionary *requestDict = @{@"managerName":name,@"managerEmail":managerEmail,@"managerId":managerId,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"], @"category":category};
-    
+    usedWebservice = kUrlUpdateManager;
     [self post:kUrlUpdateManager parameters:requestDict success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -366,7 +404,7 @@
 - (void)deleteManager:(NSString *)managerId managerEmail:(NSString *)managerEmail success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
     NSDictionary *requestDict = @{@"managerId":managerId,@"managerEmail":managerEmail ,@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
-    
+    usedWebservice = kUrlDeleteManager;
     [self post:kUrlDeleteManager parameters:requestDict success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -393,7 +431,7 @@
 - (void)getprofile:(void (^)(id))success failure:(void (^)(NSError *))failure {
     
     NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"]};
-    
+    usedWebservice = kUrlGetprofile;
     [self post:kUrlGetprofile parameters:requestDict success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
@@ -418,7 +456,7 @@
 -(void)updateprofile:(NSString *)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
     NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"],@"username":name};
-    
+    usedWebservice = kUrlUpdateprofile;
     [self postImage:kUrlUpdateprofile parameters:requestDict image:image success:^(id responseObject)
      {
          responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];

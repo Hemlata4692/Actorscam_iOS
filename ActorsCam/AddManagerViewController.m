@@ -72,6 +72,8 @@
     //Keyboard toolbar action to display toolbar with keyboard to move next,previous
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:textFieldArray]];
     [self.keyboardControls setDelegate:self];
+    
+    [self setLocalizedString];
     // Do any additional setup after loading the view.
 }
 
@@ -98,8 +100,9 @@
     [managerCategory changeTextLanguage:@"Category"];
     [addEditManager changeTextLanguage:@"SAVE"];
     [toolbarDone.title changeTextLanguage:toolbarDone.title];
-    [navTitle changeTextLanguage:navTitle];
+    navTitle = [navTitle changeTextLanguage:navTitle];
     [category changeTextLanguage:category];
+    [toolbarDone changeTextLanguage:@"Done"];
 }
 
 -(void)addTextFieldPadding
@@ -259,12 +262,26 @@
 
 -(void)callAddEditManager
 {
+    NSString *categoryText;
+    if ([managerCategory.text isEqualToString:@"Agent"] || [managerCategory.text isEqualToString:@"Agente"] || [managerCategory.text isEqualToString:@"agent"]) {
+        categoryText = @"Agent";
+    }
+    else if ([managerCategory.text isEqualToString:@"Manager"] || [managerCategory.text isEqualToString:@"Gerente"] || [managerCategory.text isEqualToString:@"manager"]) {
+        categoryText = @"Manager";
+    }
+    else if ([managerCategory.text isEqualToString:@"Self"] || [managerCategory.text isEqualToString:@"Si mismo"] || [managerCategory.text isEqualToString:@"Soi-même"]) {
+        categoryText = @"Self";
+    }
+    else if ([managerCategory.text isEqualToString:@"Other"] || [managerCategory.text isEqualToString:@"Otro"] || [managerCategory.text isEqualToString:@"Autre"]) {
+        categoryText = @"Other";
+    }
     if ([emailId isEqualToString:@""] || emailId.length == 0) {
         //Add manager
-        [[WebService sharedManager] addManager:userName.text managerEmail:userEmail.text category:(NSString *)managerCategory.text success:^(id responseObject) {
+        [[WebService sharedManager] addManager:userName.text managerEmail:userEmail.text category:categoryText success:^(id responseObject) {
             [myDelegate StopIndicator];
             NSDictionary *dict = (NSDictionary *)responseObject;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            NSString* msg = [dict objectForKey:@"message"];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Success" changeTextLanguage:@"Success"] message:[msg changeTextLanguage:@"Representative added successfully."] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             alert.tag = 1;
             [alert show];
 
@@ -275,13 +292,13 @@
     }
     else{
         //edit manager
-         [[WebService sharedManager] updateManager:userName.text managerEmail:userEmail.text managerId:managerId category:(NSString *)managerCategory.text success:^(id responseObject) {
+         [[WebService sharedManager] updateManager:userName.text managerEmail:userEmail.text managerId:managerId category:categoryText success:^(id responseObject) {
             [myDelegate StopIndicator];
              NSDictionary *dict = (NSDictionary *)responseObject;
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[dict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+             NSString* msg = [dict objectForKey:@"message"];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[@"Success" changeTextLanguage:@"Success"] message:[msg changeTextLanguage:@"Representative updated successfully."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
               alert.tag = 1;
              [alert show];
-
             
         } failure:^(NSError *error) {
             
@@ -308,25 +325,25 @@
     UIAlertView *alert;
     if ([managerCategory isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please choose a category." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Please choose a category." changeTextLanguage:@"Please choose a category."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     if ([userName isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Name cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Name cannot be blank." changeTextLanguage:@"Name cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if ([userEmail isEmpty])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Email address cannot be blank." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Email address cannot be blank." changeTextLanguage:@"Email address cannot be blank."] delegate:self cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     else if (![userEmail isValidEmail])
     {
-        alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Invalid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert = [[UIAlertView alloc]initWithTitle:[@"Alert" changeTextLanguage:@"Alert"] message:[@"Invalid email address." changeTextLanguage:@"Invalid email address."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }

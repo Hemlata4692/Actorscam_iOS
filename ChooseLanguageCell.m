@@ -32,8 +32,8 @@
             radioImage.image = [UIImage imageNamed:@"radio"];
         }
     }
-    else if ([[languageArray objectAtIndex:indexPath.row] isEqualToString:@"FRANCAIS"]){
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"fr"]) {
+    else if ([[languageArray objectAtIndex:indexPath.row] isEqualToString:@"ESPAÑOL"]){
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"es"]) {
             radioImage.image = [UIImage imageNamed:@"radioSelected"];
             selectedIndex = (int)indexPath.row;
         }
@@ -41,8 +41,8 @@
             radioImage.image = [UIImage imageNamed:@"radio"];
         }
     }
-    else if ([[languageArray objectAtIndex:indexPath.row] isEqualToString:@"DEUTSCH"]){
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"zn"]) {
+    else if ([[languageArray objectAtIndex:indexPath.row] isEqualToString:@"FRANÇAIS"]){
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] isEqualToString:@"fr"]) {
             radioImage.image = [UIImage imageNamed:@"radioSelected"];
             selectedIndex = (int)indexPath.row;
         }

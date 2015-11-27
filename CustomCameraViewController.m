@@ -74,7 +74,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [super viewDidLoad];
     navTitle = @"Take Photos";
     
-    [navTitle changeTextLanguage:navTitle];
+    navTitle = [navTitle changeTextLanguage:navTitle];
 
     self.captureButton.selected = NO;
     shouldCapture = true;
@@ -376,7 +376,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     if ((imageSize >= 20*1024*1024) || !shouldCapture) {
         //set toast
-       [self.view makeToast:@"File size cannot exceed 20 MB."];
+       [self.view makeToast:[@"File size cannot exceed 20 MB." changeTextLanguage:@"File size cannot exceed 20 MB."]];
     }
     else{
         self.captureButton.selected = YES;
@@ -402,7 +402,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 if (tempSize >= 20*1024*1024) {
                     //set toast
                     shouldCapture = false;
-                   [self.view makeToast:@"File size cannot exceed 20 MB."];
+                   [self.view makeToast:[@"File size cannot exceed 20 MB." changeTextLanguage:@"File size cannot exceed 20 MB."]];
                      self.captureButton.enabled = NO;
                 }
                 else{
@@ -556,10 +556,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         {
             //Not granted access to mediaType
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"Alert"
-                                            message:@"Your app doesn't have permission to use camera, please change privacy settings"
+                [[[UIAlertView alloc] initWithTitle:[@"Alert" changeTextLanguage:@"Alert"]
+                                            message:[@"Your app doesn't have permission to use camera, please change privacy settings." changeTextLanguage:@"Your app doesn't have permission to use camera, please change privacy settings."]
                                            delegate:self
-                                  cancelButtonTitle:@"OK"
+                                  cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"]
                                   otherButtonTitles:nil] show];
                 [self setDeviceAuthorized:NO];
             });

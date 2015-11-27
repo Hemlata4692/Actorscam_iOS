@@ -1,0 +1,414 @@
+
+/* Class = "UIButton"; normalTitle = "ADD REPRESENTATIVE"; ObjectID = "04r-5q-kGK"; */
+"04r-5q-kGK.normalTitle" = "ADD REPRESENTATIVE";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "0BV-oc-E1i"; */
+"0BV-oc-E1i.placeholder" = "Email address";
+
+/* Class = "UIButton"; normalTitle = "ADD REPRESENTATIVE"; ObjectID = "1cY-xL-b2X"; */
+"1cY-xL-b2X.normalTitle" = "ADD REPRESENTATIVE";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "2Ez-dy-a9M"; */
+"2Ez-dy-a9M.placeholder" = "Name";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "2wh-Q1-LbI"; */
+"2wh-Q1-LbI.normalTitle" = "SUBMIT";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "2wk-kL-8gP"; */
+"2wk-kL-8gP.title" = "Done";
+
+/* Class = "UILabel"; text = "CHOOSE LANGUAGE"; ObjectID = "3UI-Vy-FFZ"; */
+"3UI-Vy-FFZ.text" = "CHOOSE LANGUAGE";
+
+/* Class = "UIButton"; normalTitle = "SIGN UP"; ObjectID = "3l7-I3-foU"; */
+"3l7-I3-foU.normalTitle" = "SIGN UP";
+
+/* Class = "UILabel"; text = "Forgot Password"; ObjectID = "3vO-8j-YTm"; */
+"3vO-8j-YTm.text" = "Forgot Password";
+
+/* Class = "UIButton"; normalTitle = "LOGIN"; ObjectID = "42K-7L-922"; */
+"42K-7L-922.normalTitle" = "LOGIN";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "4HO-qg-zmQ"; */
+"4HO-qg-zmQ.normalTitle" = "SUBMIT";
+
+/* Class = "UIButton"; normalTitle = "Forgot Password?"; ObjectID = "4ha-7h-uiT"; */
+"4ha-7h-uiT.normalTitle" = "Forgot Password?";
+
+/* Class = "UIButton"; normalTitle = "Eng"; ObjectID = "5Bu-bG-gLQ"; */
+"5Bu-bG-gLQ.normalTitle" = "Eng";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "5PF-hz-kuy"; */
+"5PF-hz-kuy.placeholder" = "Email address";
+
+/* Class = "UILabel"; text = "We will send you an email with a new password."; ObjectID = "5hg-6W-zPL"; */
+"5hg-6W-zPL.text" = "We will send you an email with a new password.";
+
+/* Class = "UILabel"; text = "markd@gmail.com"; ObjectID = "63h-Gx-iMS"; */
+"63h-Gx-iMS.text" = "markd@gmail.com";
+
+/* Class = "UILabel"; text = "You don't have any representative added yet!"; ObjectID = "6IR-uV-FUC"; */
+"6IR-uV-FUC.text" = "You don't have any representative added yet!";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "6Kb-dO-uMG"; */
+"6Kb-dO-uMG.normalTitle" = "CANCEL";
+
+/* Class = "UIButton"; normalTitle = "SAVE"; ObjectID = "6TU-KO-jvK"; */
+"6TU-KO-jvK.normalTitle" = "SAVE";
+
+/* Class = "UILabel"; text = "Sign Up"; ObjectID = "6iS-gj-cTe"; */
+"6iS-gj-cTe.text" = "Sign Up";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "6ua-TG-m3f"; */
+"6ua-TG-m3f.placeholder" = "Password";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "7a9-Py-1pH"; */
+"7a9-Py-1pH.title" = "Done";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "7ez-UU-RZp"; */
+"7ez-UU-RZp.title" = "Done";
+
+/* Class = "UIButton"; normalTitle = "ADD REPRESENTATIVE"; ObjectID = "8A2-lc-BcA"; */
+"8A2-lc-BcA.normalTitle" = "ADD REPRESENTATIVE";
+
+/* Class = "UITextField"; placeholder = "Current password"; ObjectID = "8Kf-tH-1HV"; */
+"8Kf-tH-1HV.placeholder" = "Current password";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "8zQ-bb-2rY"; */
+"8zQ-bb-2rY.normalTitle" = "SUBMIT";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "9QQ-JB-ZWP"; */
+"9QQ-JB-ZWP.text" = "00:00:00";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "9bX-od-0eR"; */
+"9bX-od-0eR.normalTitle" = "SUBMIT";
+
+/* Class = "UILabel"; text = "ADD REPRESENTATIVE"; ObjectID = "9cH-V5-NUj"; */
+"9cH-V5-NUj.text" = "ADD REPRESENTATIVE";
+
+/* Class = "UIButton"; normalTitle = "LOGIN"; ObjectID = "9fT-Da-UPk"; */
+"9fT-Da-UPk.normalTitle" = "LOGIN";
+
+/* Class = "UILabel"; text = "RECORD AUDIO"; ObjectID = "9p0-Ud-H13"; */
+"9p0-Ud-H13.text" = "RECORD AUDIO";
+
+/* Class = "UILabel"; text = "You don't have any representative added yet!"; ObjectID = "9vR-9W-wue"; */
+"9vR-9W-wue.text" = "You don't have any representative added yet!";
+
+/* Class = "UILabel"; text = "Notes"; ObjectID = "AR3-R6-BqO"; */
+"AR3-R6-BqO.text" = "Notes";
+
+/* Class = "UILabel"; text = "ENGLISH"; ObjectID = "BPd-66-2Fi"; */
+"BPd-66-2Fi.text" = "ENGLISH";
+
+/* Class = "UITextField"; placeholder = "Confirm password"; ObjectID = "BRl-Gk-MOw"; */
+"BRl-Gk-MOw.placeholder" = "Confirm password";
+
+/* Class = "UILabel"; text = "Manger"; ObjectID = "Bht-Ug-1Zu"; */
+"Bht-Ug-1Zu.text" = "Manger";
+
+/* Class = "UITextField"; placeholder = "New password"; ObjectID = "CU4-uV-1ms"; */
+"CU4-uV-1ms.placeholder" = "New password";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "CdL-YV-u2S"; */
+"CdL-YV-u2S.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "ENGLISH"; ObjectID = "D1V-vd-Rq3"; */
+"D1V-vd-Rq3.text" = "ENGLISH";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "EKr-vS-GdR"; */
+"EKr-vS-GdR.placeholder" = "Email address";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "FEJ-Pm-ZsM"; */
+"FEJ-Pm-ZsM.placeholder" = "Email address";
+
+/* Class = "UILabel"; text = "Select Representative"; ObjectID = "FsW-ix-rQh"; */
+"FsW-ix-rQh.text" = "Select Representative";
+
+/* Class = "UILabel"; text = "Notes"; ObjectID = "Gpr-JP-6dp"; */
+"Gpr-JP-6dp.text" = "Notes";
+
+/* Class = "UIButton"; normalTitle = "DONE"; ObjectID = "H65-ZX-3Mn"; */
+"H65-ZX-3Mn.normalTitle" = "DONE";
+
+/* Class = "UILabel"; text = "TAKE PHOTOS"; ObjectID = "H73-kD-qVP"; */
+"H73-kD-qVP.text" = "TAKE PHOTOS";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "HDr-PZ-09u"; */
+"HDr-PZ-09u.placeholder" = "Password";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "HJg-Z8-hzR"; */
+"HJg-Z8-hzR.placeholder" = "Name";
+
+/* Class = "UILabel"; text = "ADD REPRESENTATIVE"; ObjectID = "Hop-p3-A8N"; */
+"Hop-p3-A8N.text" = "ADD REPRESENTATIVE";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "IDq-PS-iGw"; */
+"IDq-PS-iGw.text" = "0";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "JoE-hk-ovi"; */
+"JoE-hk-ovi.placeholder" = "Email address";
+
+/* Class = "UILabel"; text = "You've no representative added yet!"; ObjectID = "Jrq-xz-Kc6"; */
+"Jrq-xz-Kc6.text" = "You've no representative added yet!";
+
+/* Class = "UILabel"; text = "Select Representative"; ObjectID = "K2q-l8-I0K"; */
+"K2q-l8-I0K.text" = "Select Representative";
+
+/* Class = "UILabel"; text = "You don't have any representative added yet!"; ObjectID = "K9z-Fj-r70"; */
+"K9z-Fj-r70.text" = "You don't have any representative added yet!";
+
+/* Class = "UILabel"; text = "Notes"; ObjectID = "Ke4-5T-DXV"; */
+"Ke4-5T-DXV.text" = "Notes";
+
+/* Class = "UILabel"; text = "Change Password"; ObjectID = "LSk-yb-biB"; */
+"LSk-yb-biB.text" = "Change Password";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "N3B-rK-LDs"; */
+"N3B-rK-LDs.placeholder" = "Email address";
+
+/* Class = "UILabel"; text = "Mark D."; ObjectID = "O99-cB-hMO"; */
+"O99-cB-hMO.text" = "Mark D.";
+
+/* Class = "UILabel"; text = "Select Representative"; ObjectID = "OFX-gW-JJI"; */
+"OFX-gW-JJI.text" = "Select Representative";
+
+/* Class = "UITextField"; placeholder = "Confirm password"; ObjectID = "OnH-b2-6YQ"; */
+"OnH-b2-6YQ.placeholder" = "Confirm password";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "Q74-JA-34F"; */
+"Q74-JA-34F.normalTitle" = "SUBMIT";
+
+/* Class = "UITextField"; placeholder = "Category"; ObjectID = "QCU-Sf-NC9"; */
+"QCU-Sf-NC9.placeholder" = "Category";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "QR8-Kn-3lW"; */
+"QR8-Kn-3lW.placeholder" = "Email address";
+
+/* Class = "UILabel"; text = "Sign Up"; ObjectID = "QVQ-Lf-l0i"; */
+"QVQ-Lf-l0i.text" = "Sign Up";
+
+/* Class = "UIButton"; normalTitle = "Eng"; ObjectID = "RDa-Fv-NwZ"; */
+"RDa-Fv-NwZ.normalTitle" = "Eng";
+
+/* Class = "UIButton"; normalTitle = "ADD REPRESENTATIVE"; ObjectID = "RmT-0E-Nda"; */
+"RmT-0E-Nda.normalTitle" = "ADD REPRESENTATIVE";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "Rrh-ub-8Le"; */
+"Rrh-ub-8Le.title" = "Done";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "SCv-qX-9cc"; */
+"SCv-qX-9cc.text" = "00:00:00";
+
+/* Class = "UITextField"; placeholder = "Category"; ObjectID = "SWy-4g-pw1"; */
+"SWy-4g-pw1.placeholder" = "Category";
+
+/* Class = "UIButton"; normalTitle = "DONE"; ObjectID = "SZU-Wy-ecV"; */
+"SZU-Wy-ecV.normalTitle" = "DONE";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "T4d-EU-o6y"; */
+"T4d-EU-o6y.placeholder" = "Password";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "URo-Yi-27P"; */
+"URo-Yi-27P.placeholder" = "Name";
+
+/* Class = "UILabel"; text = "Notes"; ObjectID = "Ul4-ZQ-Idq"; */
+"Ul4-ZQ-Idq.text" = "Notes";
+
+/* Class = "UILabel"; text = "Representative"; ObjectID = "VAR-z8-ht8"; */
+"VAR-z8-ht8.text" = "Representative";
+
+/* Class = "UIButton"; normalTitle = "DONE"; ObjectID = "Vcd-GO-u41"; */
+"Vcd-GO-u41.normalTitle" = "DONE";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "Whs-zl-LUQ"; */
+"Whs-zl-LUQ.placeholder" = "Name";
+
+/* Class = "UILabel"; text = "Select Representative"; ObjectID = "XUt-6b-XZW"; */
+"XUt-6b-XZW.text" = "Select Representative";
+
+/* Class = "UILabel"; text = "TAKE PHOTOS"; ObjectID = "Y4e-FJ-B88"; */
+"Y4e-FJ-B88.text" = "TAKE PHOTOS";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "YO9-7l-8sK"; */
+"YO9-7l-8sK.placeholder" = "Name";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "YQf-0X-MGH"; */
+"YQf-0X-MGH.normalTitle" = "CANCEL";
+
+/* Class = "UILabel"; text = "Manger"; ObjectID = "Z8k-Xq-bTY"; */
+"Z8k-Xq-bTY.text" = "Manger";
+
+/* Class = "UITextField"; placeholder = "Category"; ObjectID = "a7C-Df-ROL"; */
+"a7C-Df-ROL.placeholder" = "Category";
+
+/* Class = "UIButton"; normalTitle = "Forgot Password?"; ObjectID = "aXq-NK-a0c"; */
+"aXq-NK-a0c.normalTitle" = "Forgot Password?";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "bD3-iJ-sTH"; */
+"bD3-iJ-sTH.placeholder" = "Name";
+
+/* Class = "UILabel"; text = "Logout"; ObjectID = "bs6-Cy-jAA"; */
+"bs6-Cy-jAA.text" = "Logout";
+
+/* Class = "UIButton"; normalTitle = "Eng"; ObjectID = "cGb-7u-O8y"; */
+"cGb-7u-O8y.normalTitle" = "Eng";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "caQ-MA-gkd"; */
+"caQ-MA-gkd.placeholder" = "Name";
+
+/* Class = "UILabel"; text = "You don't have any representative added yet!"; ObjectID = "cpO-x6-Iqv"; */
+"cpO-x6-Iqv.text" = "You don't have any representative added yet!";
+
+/* Class = "UILabel"; text = "Edit Profile"; ObjectID = "crl-CJ-Bvg"; */
+"crl-CJ-Bvg.text" = "Edit Profile";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "d8V-0c-T41"; */
+"d8V-0c-T41.normalTitle" = "SUBMIT";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "dJi-fB-qbD"; */
+"dJi-fB-qbD.placeholder" = "Name";
+
+/* Class = "UILabel"; text = "You don't have any representative added yet!"; ObjectID = "eQ0-N0-7wJ"; */
+"eQ0-N0-7wJ.text" = "You don't have any representative added yet!";
+
+/* Class = "UITextField"; placeholder = "Category"; ObjectID = "ewa-aV-Ufl"; */
+"ewa-aV-Ufl.placeholder" = "Category";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "ffU-Vf-Kw8"; */
+"ffU-Vf-Kw8.normalTitle" = "SUBMIT";
+
+/* Class = "UIButton"; normalTitle = "DONE"; ObjectID = "fg5-Ci-EPF"; */
+"fg5-Ci-EPF.normalTitle" = "DONE";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "gCr-Ao-Krq"; */
+"gCr-Ao-Krq.placeholder" = "Email address";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "gHF-Hy-EdO"; */
+"gHF-Hy-EdO.normalTitle" = "SUBMIT";
+
+/* Class = "UITextField"; placeholder = "Category"; ObjectID = "gIg-wL-8KJ"; */
+"gIg-wL-8KJ.placeholder" = "Category";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "gV8-pm-hz0"; */
+"gV8-pm-hz0.placeholder" = "Name";
+
+/* Class = "UITextField"; placeholder = "Current password"; ObjectID = "gqz-So-RcE"; */
+"gqz-So-RcE.placeholder" = "Current password";
+
+/* Class = "UITextField"; placeholder = "Category"; ObjectID = "gs3-Pd-fQ5"; */
+"gs3-Pd-fQ5.placeholder" = "Category";
+
+/* Class = "UILabel"; text = "We will send you an email with a new password."; ObjectID = "hPR-31-eYJ"; */
+"hPR-31-eYJ.text" = "We will send you an email with a new password.";
+
+/* Class = "UILabel"; text = "Forgot Password"; ObjectID = "hoa-Kw-MF2"; */
+"hoa-Kw-MF2.text" = "Forgot Password";
+
+/* Class = "UILabel"; text = "Notes"; ObjectID = "iEd-ph-Tfj"; */
+"iEd-ph-Tfj.text" = "Notes";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "iNJ-aO-EqN"; */
+"iNJ-aO-EqN.normalTitle" = "SUBMIT";
+
+/* Class = "UILabel"; text = "Mark D."; ObjectID = "iPO-cL-w2S"; */
+"iPO-cL-w2S.text" = "Mark D.";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "icd-By-SDf"; */
+"icd-By-SDf.placeholder" = "Email address";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "ijw-uD-0es"; */
+"ijw-uD-0es.placeholder" = "Name";
+
+/* Class = "UITextField"; placeholder = "Category"; ObjectID = "j7c-eo-6ze"; */
+"j7c-eo-6ze.placeholder" = "Category";
+
+/* Class = "UIButton"; normalTitle = "ADD REPRESENTATIVE"; ObjectID = "jJr-0N-6VH"; */
+"jJr-0N-6VH.normalTitle" = "ADD REPRESENTATIVE";
+
+/* Class = "UITextField"; placeholder = "New password"; ObjectID = "kmc-Zr-ibv"; */
+"kmc-Zr-ibv.placeholder" = "New password";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "lC8-sq-iSf"; */
+"lC8-sq-iSf.normalTitle" = "SUBMIT";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "mVC-en-Qys"; */
+"mVC-en-Qys.normalTitle" = "SUBMIT";
+
+/* Class = "UITextField"; placeholder = "Confirm password"; ObjectID = "nIl-zw-Glr"; */
+"nIl-zw-Glr.placeholder" = "Confirm password";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "nUc-11-AdB"; */
+"nUc-11-AdB.placeholder" = "Email address";
+
+/* Class = "UIButton"; normalTitle = "ADD REPRESENTATIVE"; ObjectID = "oAZ-ic-Cxp"; */
+"oAZ-ic-Cxp.normalTitle" = "ADD REPRESENTATIVE";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "oXn-Cc-CAZ"; */
+"oXn-Cc-CAZ.text" = "00:00:00";
+
+/* Class = "UIButton"; normalTitle = "SAVE"; ObjectID = "pa4-Ca-Uyj"; */
+"pa4-Ca-Uyj.normalTitle" = "SAVE";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "qcQ-Dw-a9M"; */
+"qcQ-Dw-a9M.normalTitle" = "SUBMIT";
+
+/* Class = "UITextField"; placeholder = "Confirm password"; ObjectID = "rfv-6L-540"; */
+"rfv-6L-540.placeholder" = "Confirm password";
+
+/* Class = "UILabel"; text = "markd@gmail.com"; ObjectID = "sBp-Jt-5NO"; */
+"sBp-Jt-5NO.text" = "markd@gmail.com";
+
+/* Class = "UILabel"; text = "Home"; ObjectID = "sbV-kn-2Ds"; */
+"sbV-kn-2Ds.text" = "Home";
+
+/* Class = "UILabel"; text = "You've no representative added yet!"; ObjectID = "t6U-kh-Vv2"; */
+"t6U-kh-Vv2.text" = "You've no representative added yet!";
+
+/* Class = "UIButton"; normalTitle = "ADD REPRESENTATIVE"; ObjectID = "tXc-dt-T6t"; */
+"tXc-dt-T6t.normalTitle" = "ADD REPRESENTATIVE";
+
+/* Class = "UILabel"; text = "Select Representative"; ObjectID = "u3C-TT-ohh"; */
+"u3C-TT-ohh.text" = "Select Representative";
+
+/* Class = "UIButton"; normalTitle = "SIGN UP"; ObjectID = "uUZ-jA-f92"; */
+"uUZ-jA-f92.normalTitle" = "SIGN UP";
+
+/* Class = "UITextField"; placeholder = "Category"; ObjectID = "uZs-Q8-eul"; */
+"uZs-Q8-eul.placeholder" = "Category";
+
+/* Class = "UILabel"; text = "CHOOSE LANGUAGE"; ObjectID = "wVh-4Z-ujO"; */
+"wVh-4Z-ujO.text" = "CHOOSE LANGUAGE";
+
+/* Class = "UILabel"; text = "New here?"; ObjectID = "wj6-Js-JVA"; */
+"wj6-Js-JVA.text" = "New here?";
+
+/* Class = "UILabel"; text = "RECORD VIDEO"; ObjectID = "wvh-Iy-Ntq"; */
+"wvh-Iy-Ntq.text" = "RECORD VIDEO";
+
+/* Class = "UILabel"; text = "Select Representative"; ObjectID = "wyD-Xj-xFB"; */
+"wyD-Xj-xFB.text" = "Select Representative";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "xoF-Y8-54X"; */
+"xoF-Y8-54X.placeholder" = "Name";
+
+/* Class = "UIButton"; normalTitle = "ADD REPRESENTATIVE"; ObjectID = "xqC-GZ-ycd"; */
+"xqC-GZ-ycd.normalTitle" = "ADD REPRESENTATIVE";
+
+/* Class = "UILabel"; text = "Notes"; ObjectID = "zAA-Dj-gN5"; */
+"zAA-Dj-gN5.text" = "Notes";
+
+/* Class = "UILabel"; text = "You don't have any representative added yet!"; ObjectID = "zAw-d9-2ij"; */
+"zAw-d9-2ij.text" = "You don't have any representative added yet!";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "zb3-Jo-JG1"; */
+"zb3-Jo-JG1.placeholder" = "Name";
+
+/* Class = "UILabel"; text = "RECORD AUDIO"; ObjectID = "zsw-yO-hO5"; */
+"zsw-yO-hO5.text" = "RECORD AUDIO";
+
+/* Class = "UILabel"; text = "RECORD VIDEO"; ObjectID = "zuN-53-c4N"; */
+"zuN-53-c4N.text" = "RECORD VIDEO";
+
+/* Class = "UILabel"; text = "New here?"; ObjectID = "zy7-ux-mvu"; */
+"zy7-ux-mvu.text" = "New here?";

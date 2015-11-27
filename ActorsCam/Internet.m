@@ -20,7 +20,8 @@
      NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
      if(remoteHostStatus == NotReachable) 
     {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"Please check your internet connection." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:[@"Connection Error" changeTextLanguage:@"Connection Error"] message:[@"Please check your internet connection." changeTextLanguage:@"Please check your internet connection."] delegate:nil cancelButtonTitle:[@"OK" changeTextLanguage:@"OK"] otherButtonTitles:nil, nil];
        [alert show];
     
         return YES;
