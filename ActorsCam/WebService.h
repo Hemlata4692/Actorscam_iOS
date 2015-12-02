@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 
+
+//Launch link
+#define BASE_URL                              @"http://actors-cam.com/api/"
+
 //clients link
-#define BASE_URL                              @"http://ranosys.net/client/actorscam/api"
+//#define BASE_URL                              @"http://ranosys.net/client/actorscam/api"
 
 //testing link
 //#define BASE_URL                              @"http://ranosys.net/client/actorscam/beta/api/"

@@ -4229,6 +4229,16 @@
                                     <outletCollection property="gestureRecognizers" destination="34e-uN-AKc" appends="YES" id="y2A-Mq-hfv"/>
                                 </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light intensity : Poor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2df-Bu-zPN">
+                                <rect key="frame" x="5" y="25" width="148" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="mXi-z2-VgF"/>
+                                    <constraint firstAttribute="width" constant="148" id="zzh-Pu-q87"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62U-vj-eXy">
                                 <rect key="frame" x="127" y="346" width="67" height="67"/>
                                 <animations/>
@@ -4300,9 +4310,11 @@
                             <constraint firstItem="lx3-o1-lzb" firstAttribute="height" secondItem="2Va-bW-bUX" secondAttribute="height" id="QfJ-eq-HKW"/>
                             <constraint firstItem="lx3-o1-lzb" firstAttribute="width" secondItem="2Va-bW-bUX" secondAttribute="width" id="VFo-x0-D7u"/>
                             <constraint firstItem="dg8-uM-Lbv" firstAttribute="top" secondItem="14k-Mc-0VJ" secondAttribute="bottom" constant="78" id="XSL-Hi-N3L"/>
+                            <constraint firstItem="2df-Bu-zPN" firstAttribute="leading" secondItem="A8r-1a-8OX" secondAttribute="leading" constant="5" id="cce-Wv-mhp"/>
                             <constraint firstItem="2Va-bW-bUX" firstAttribute="leading" secondItem="A8r-1a-8OX" secondAttribute="leading" constant="16" id="dbO-BJ-D61"/>
                             <constraint firstItem="lx3-o1-lzb" firstAttribute="centerX" secondItem="2Va-bW-bUX" secondAttribute="centerX" id="eHB-Kf-bCX"/>
                             <constraint firstAttribute="trailing" secondItem="14k-Mc-0VJ" secondAttribute="trailing" id="hXz-ih-BNo"/>
+                            <constraint firstItem="2df-Bu-zPN" firstAttribute="top" secondItem="Fn4-Rh-eoI" secondAttribute="bottom" constant="25" id="jOm-f0-ej2"/>
                             <constraint firstItem="14k-Mc-0VJ" firstAttribute="leading" secondItem="A8r-1a-8OX" secondAttribute="leading" id="rrn-o2-Jw3"/>
                             <constraint firstItem="dg8-uM-Lbv" firstAttribute="top" secondItem="fg5-Ci-EPF" secondAttribute="bottom" constant="20" id="sdy-ad-ooP"/>
                             <constraint firstItem="62U-vj-eXy" firstAttribute="centerX" secondItem="A8r-1a-8OX" secondAttribute="centerX" id="thL-ju-fvj"/>
@@ -4319,6 +4331,7 @@
                         <outlet property="doneOutlet" destination="fg5-Ci-EPF" id="uu1-sK-ea3"/>
                         <outlet property="imageCount" destination="IDq-PS-iGw" id="Eba-Ub-kuW"/>
                         <outlet property="imagePreview" destination="lx3-o1-lzb" id="J9B-UP-Bws"/>
+                        <outlet property="lightIntensityLabel" destination="2df-Bu-zPN" id="aQO-ee-nfO"/>
                         <outlet property="previewView" destination="14k-Mc-0VJ" id="mBJ-zj-uBe"/>
                     </connections>
                 </viewController>
